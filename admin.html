@@ -1819,7 +1819,7 @@
     </div>
 
     <script>
-        const isLocalFile = window.location.protocol === 'file:';
+        const isLocalFile = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
         let dbData = null;
 
         // Default local fallback data structure for offline previewing

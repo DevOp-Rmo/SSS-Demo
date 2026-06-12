@@ -289,7 +289,7 @@
         });
 
         function loadNotices(section, cls, category) {
-            const isLocal = window.location.protocol === 'file:';
+            const isLocal = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
             if (isLocal) {
                 const stored = localStorage.getItem('school_db_data');
                 if (stored) {

@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. Fetch and render dynamic database content
-    const isLocalFile = window.location.protocol === 'file:';
+    const isLocalFile = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
     if (isLocalFile) {
         // Load from localStorage or use fallback default local data
         const stored = localStorage.getItem('school_db_data');
