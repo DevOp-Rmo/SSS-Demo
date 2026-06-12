@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Bulletin Notice</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=31">
+    <style>
+        /* Blog Detail Area Styles */
+        .blog-wrapper {
+            background-color: #f4f8f7;
+            min-height: 100vh;
+        }
+
+        .blog-section {
+            padding: 4rem 0 6rem 0;
+        }
+
+        .blog-card {
+            background-color: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+            border: 1px solid rgba(26, 26, 75, 0.06);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .blog-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+
+        .blog-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+
+        .blog-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .blog-cover {
+            width: 100%;
+            height: 440px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--primary-blue);
+            display: none; /* Shown dynamically if image is available */
+        }
+
+        .blog-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Default modern fallback banner if no cover image */
+        .blog-cover-fallback {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2e2e6b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-cover-fallback::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(169, 207, 185, 0.12) 10%, transparent 20%);
+            background-size: 30px 30px;
+            top: -50%;
+            left: -50%;
+            transform: rotate(15deg);
+        }
+
+        .blog-cover-fallback-icon {
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.08);
+            position: absolute;
+        }
+
+        .blog-body {
+            padding: 4rem 5rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-body {
+                padding: 2.5rem 1.5rem;
+            }
+            .blog-cover {
+                height: 260px;
+            }
+            .blog-cover-fallback {
+                height: 180px;
+            }
+        }
+
+        .blog-info-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .blog-info-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .blog-detail-title {
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
+            color: var(--primary-blue);
+            line-height: 1.25;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .blog-detail-divider {
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+            margin-bottom: 3rem;
+        }
+
+        .blog-detail-content {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #374151;
+        }
+
+        .blog-detail-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-detail-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .blog-detail-content h3 {
+            font-family: var(--font-serif);
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 700;
+        }
+
+        .blog-detail-content ul, .blog-detail-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-detail-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-detail-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .blog-action-footer {
+            margin-top: 4rem;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid var(--primary-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .blog-share-btns {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .blog-share-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: #f3f7f6;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .blog-share-icon:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: scale(1.1) translateY(-2px);
+        }
+
+        /* Error state */
+        .blog-error {
+            display: none;
+            text-align: center;
+            padding: 6rem 2rem;
+            background-color: var(--white);
+            border-radius: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+            border: 1px solid rgba(26, 26, 75, 0.06);
+        }
+
+        .blog-error h2 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .blog-error p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='index.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container">
+                <div class="logo-area" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">History</a></li>
+                            <li><a href="index.html">President's Message</a></li>
+                            <li><a href="index.html">Secretary General's Message</a></li>
+                            <li><a href="index.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="index.html">Board of Trustees</a></li>
+                            <li><a href="index.html">School Management Committee</a></li>
+                            <li><a href="index.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Infrastructure</a></li>
+                            <li><a href="index.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach & Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="index.html">School Timing</a></li>
+                            <li><a href="index.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Procedure</a></li>
+                            <li><a href="index.html">Fee Structure</a></li>
+                            <li><a href="index.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Detail Section Wrapper -->
+    <div class="blog-wrapper">
+        <section class="blog-section container">
+            
+            <!-- Breadcrumbs -->
+            <div class="blog-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <a href="index.html">Bulletin Board</a>
+                <i class="ph ph-caret-right"></i>
+                <span id="breadcrumb-title">Notice Details</span>
+            </div>
+
+            <!-- Blog Notice Card -->
+            <div id="blog-content-panel" class="blog-card">
+                
+                <!-- Notice Header Media -->
+                <div id="blog-cover-container" class="blog-cover">
+                    <img id="blog-cover-img" src="" alt="Notice Cover">
+                </div>
+                <div id="blog-cover-placeholder" class="blog-cover-fallback">
+                    <i class="ph ph-student blog-cover-fallback-icon"></i>
+                    <i class="ph ph-newspaper" style="font-size: 3rem; opacity: 0.9; position: relative; z-index: 2;"></i>
+                </div>
+
+                <!-- Notice Core Details -->
+                <div class="blog-body">
+                    <div class="blog-info-meta" id="blog-meta-date">
+                        <span><i class="ph-bold ph-calendar-blank"></i> BULLETIN NOTICE</span>
+                    </div>
+                    
+                    <h2 class="blog-detail-title" id="blog-title-text">Loading Notice...</h2>
+                    
+                    <div class="blog-detail-divider"></div>
+                    
+                    <div class="blog-detail-content" id="blog-body-content">
+                        <!-- Post content loaded dynamically -->
+                    </div>
+
+                    <!-- Footer Action Buttons & Share Links -->
+                    <div class="blog-action-footer">
+                        <button onclick="window.location.href='index.html'" class="btn-back">
+                            <i class="ph-bold ph-arrow-left"></i> Back to Homepage
+                        </button>
+                        
+                        <div class="blog-share-btns">
+                            <span>Share Notice:</span>
+                            <a href="#" class="blog-share-icon"><i class="ph-bold ph-facebook-logo"></i></a>
+                            <a href="#" class="blog-share-icon"><i class="ph-bold ph-twitter-logo"></i></a>
+                            <a href="#" class="blog-share-icon"><i class="ph-bold ph-whatsapp-logo"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Notice Panel (Fallback if invalid ID) -->
+            <div id="blog-error-panel" class="blog-error">
+                <i class="ph-bold ph-warning-circle" style="font-size: 3.5rem; color: var(--accent-orange); margin-bottom: 1rem; display: inline-block;"></i>
+                <h2>Notice Not Found</h2>
+                <p>The notice you are trying to view does not exist, has been removed, or is temporarily unavailable.</p>
+                <button onclick="window.location.href='index.html'" class="btn-back" style="margin-top: 1rem;">
+                    <i class="ph-bold ph-arrow-left"></i> Return to Homepage
+                </button>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Stay Connected Banner -->
+    <section class="stay-connected">
+        <div class="sc-content container">
+            <div class="sc-text">
+                <h2>STAY CONNECTED</h2>
+                <p>OFFICIAL PARENT & STUDENT DIGITAL COMPANION</p>
+            </div>
+            <div class="sc-buttons">
+                <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.greencampus.shikshayatan" target="_blank" style="text-decoration: none;">
+                    <i class="ph-fill ph-google-play-logo"></i>
+                    <div class="store-text">
+                        <span>GET IT ON</span>
+                        <strong>Google Play</strong>
+                    </div>
+                </a>
+                <a class="store-btn" href="https://apps.apple.com/us/app/shri-shikshayatan-campus/id6757140556" target="_blank" style="text-decoration: none;">
+                    <i class="ph-fill ph-apple-logo"></i>
+                    <div class="store-text">
+                        <span>DOWNLOAD ON THE</span>
+                        <strong>App Store</strong>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=6"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            
+            if (!postId) {
+                showError();
+                return;
+            }
+
+            const isLocalFile = window.location.protocol === 'file:';
+            if (isLocalFile) {
+                const stored = localStorage.getItem('school_db_data');
+                if (stored) {
+                    try {
+                        const dbData = JSON.parse(stored);
+                        if (dbData && dbData.bulletin) {
+                            const post = dbData.bulletin.find(p => String(p.id) === String(postId));
+                            if (post) {
+                                renderBlogPost(post);
+                                return;
+                            }
+                        }
+                    } catch(e) {}
+                }
+                // Fallback demo post if matching ID 1
+                if (String(postId) === '1') {
+                    renderBlogPost({
+                        "id": "1",
+                        "title": "STUDENT PERSPECTIVES [DEMO]",
+                        "content": "<p>Welcome to the Shri Shikshayatan School portal. This is a local demo post for Student Perspectives. Changes made here will persist in your local browser storage! You can write HTML content in the editor to style this space.</p>",
+                        "image_path": "",
+                        "created_at": new Date().toISOString()
+                    });
+                    return;
+                }
+                showError();
+                return;
+            }
+
+            fetch(`api.php?blog_id=${postId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error('Not found');
+                    return res.json();
+                })
+                .then(post => {
+                    renderBlogPost(post);
+                })
+                .catch(() => {
+                    showError();
+                });
+        });
+
+        function renderBlogPost(post) {
+            document.getElementById('blog-title-text').textContent = post.title;
+            document.getElementById('breadcrumb-title').textContent = post.title;
+            
+            // Format publication date
+            const date = new Date(post.created_at);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('blog-meta-date').innerHTML = `<span><i class="ph-bold ph-calendar-blank"></i> Published ${formattedDate}</span> • <span><i class="ph-bold ph-tag"></i> School Notice</span>`;
+            
+            // Load content body
+            document.getElementById('blog-body-content').innerHTML = post.content;
+
+            // Load cover image
+            const coverContainer = document.getElementById('blog-cover-container');
+            const coverImg = document.getElementById('blog-cover-img');
+            const fallbackCover = document.getElementById('blog-cover-placeholder');
+
+            if (post.image_path) {
+                coverImg.src = post.image_path;
+                coverContainer.style.display = 'block';
+                fallbackCover.style.display = 'none';
+            } else {
+                coverContainer.style.display = 'none';
+                fallbackCover.style.display = 'flex';
+            }
+        }
+
+        function showError() {
+            document.getElementById('blog-content-panel').style.display = 'none';
+            document.getElementById('blog-error-panel').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

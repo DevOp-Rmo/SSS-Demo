@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions – Shri Shikshayatan School</title>
+    <meta name="description" content="Terms and Conditions of Use for the official website of Shri Shikshayatan School, Kolkata.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles-v5.css?v=31">
+    <style>
+        /* ── Legal Page Hero ── */
+        .legal-hero {
+            background: linear-gradient(135deg, #16164A 0%, #1e1e6a 60%, #0d0d30 100%);
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .legal-hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 320px; height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(242,156,31,0.12) 0%, transparent 70%);
+        }
+        .legal-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: 10%;
+            width: 240px; height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(242,156,31,0.08) 0%, transparent 70%);
+        }
+        .legal-hero-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .legal-icon-wrap {
+            width: 72px; height: 72px;
+            border-radius: 18px;
+            background: rgba(242,156,31,0.15);
+            border: 1px solid rgba(242,156,31,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: #f29c1f;
+            flex-shrink: 0;
+        }
+        .legal-hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 0.5rem;
+        }
+        .legal-hero-meta {
+            display: flex; gap: 1.5rem; flex-wrap: wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .legal-hero-meta span {
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .legal-hero-meta i { color: #f29c1f; }
+
+        /* ── Layout ── */
+        .legal-layout {
+            display: block;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 0 6rem;
+        }
+
+        /* ── Article Body ── */
+        .legal-article {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 25px rgba(22,22,74,0.06);
+            border: 1px solid rgba(22,22,74,0.06);
+            padding: 3rem 3.5rem;
+        }
+        .legal-section {
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .legal-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .legal-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .legal-section-num {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #16164A, #1e1e6a);
+            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .legal-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #16164A;
+            margin: 0;
+        }
+        .legal-section p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #374151;
+            line-height: 1.8;
+            margin: 0 0 0.85rem;
+        }
+        .legal-section p:last-child { margin-bottom: 0; }
+        .legal-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.75rem 0;
+        }
+        .legal-section ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.4rem 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.93rem;
+            color: #374151;
+            line-height: 1.7;
+        }
+        .legal-section ul li::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #f29c1f;
+            flex-shrink: 0;
+            margin-top: 0.55em;
+        }
+        .legal-highlight-box {
+            background: linear-gradient(135deg, rgba(22,22,74,0.04), rgba(242,156,31,0.06));
+            border: 1px solid rgba(242,156,31,0.2);
+            border-left: 4px solid #f29c1f;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+        }
+        .legal-highlight-box p {
+            margin: 0;
+            font-size: 0.92rem;
+            color: #374151;
+        }
+        strong { color: #16164A; font-weight: 700; }
+
+        /* ── Print button ── */
+        .legal-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.25rem 1.75rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e2e8f0;
+        }
+        .legal-actions p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+        }
+        .legal-actions-btns { display: flex; gap: 0.75rem; }
+        .btn-legal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.2rem;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .btn-legal-outline {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            color: #374151;
+        }
+        .btn-legal-outline:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        .btn-legal-primary {
+            background: #16164A;
+            color: #ffffff;
+        }
+        .btn-legal-primary:hover {
+            background: #1e1e6a;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .legal-article { padding: 2rem 1.5rem; }
+            .legal-hero { padding: 3.5rem 0 3rem; }
+            .legal-hero-text h1 { font-size: 1.6rem; }
+            .legal-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links" id="main-nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">History</a></li>
+                            <li><a href="index.html">President's Message</a></li>
+                            <li><a href="index.html">Secretary General's Message</a></li>
+                            <li><a href="index.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="index.html">Board of Trustees</a></li>
+                            <li><a href="index.html">School Management Committee</a></li>
+                            <li><a href="index.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Infrastructure</a></li>
+                            <li><a href="index.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach & Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="index.html">School Timing</a></li>
+                            <li><a href="index.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Procedure</a></li>
+                            <li><a href="index.html">Fee Structure</a></li>
+                            <li><a href="index.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="legal-hero">
+        <div class="container">
+            <div class="legal-hero-inner">
+                <div class="legal-icon-wrap">
+                    <i class="ph ph-scroll"></i>
+                </div>
+                <div class="legal-hero-text">
+                    <h1>Terms and Conditions</h1>
+                    <div class="legal-hero-meta">
+                        <span><i class="ph ph-buildings"></i> Shri Shikshayatan School, Kolkata</span>
+                        <span><i class="ph ph-calendar-check"></i> Effective: January 2024</span>
+                        <span><i class="ph ph-globe"></i> Website Terms of Use</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Body -->
+    <main class="container">
+        <div class="legal-layout">
+
+            <!-- Main Article -->
+            <article class="legal-article">
+
+                <!-- Actions Bar -->
+                <div class="legal-actions">
+                    <p><i class="ph ph-info" style="color:#f29c1f;"></i> &nbsp;By using this website, you agree to these Terms in full.</p>
+                    <div class="legal-actions-btns">
+                        <button class="btn-legal btn-legal-outline" onclick="window.print()"><i class="ph ph-printer"></i> Print</button>
+                        <a href="privacy-policy.html" class="btn-legal btn-legal-primary"><i class="ph ph-shield-check"></i> Privacy Policy</a>
+                    </div>
+                </div>
+
+                <div class="legal-highlight-box">
+                    <p><strong>Terms and Conditions of Use &mdash; Shri Shikshayatan School Website</strong><br>
+                    Please read these terms carefully before using our website. These Terms govern your use of the official website of Shri Shikshayatan School.</p>
+                </div>
+
+                <!-- Section 1 -->
+                <div class="legal-section" id="sec-intro">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">1</div>
+                        <h2>Introduction</h2>
+                    </div>
+                    <p>1.1. These Terms and Conditions govern your use of the official website of Shri Shikshayatan School (“the School”). By accessing or using our website, you accept these Terms in full. If you disagree with any part of these Terms, you must not use our website.</p>
+                    <p>1.2. If you register, submit any information, or use any service through our website, you will be deemed to have agreed to these Terms.</p>
+                    <p>1.3. Our website uses cookies. By using the website or agreeing to these Terms, you consent to our use of cookies in accordance with our Privacy and Cookies Policy.</p>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="legal-section" id="sec-licence">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">2</div>
+                        <h2>Licence to Use the Website</h2>
+                    </div>
+                    <p>2.1. Subject to these Terms, you may:</p>
+                    <ul>
+                        <li>View pages on the website through a web browser;</li>
+                        <li>Download pages for caching;</li>
+                        <li>Print pages;</li>
+                        <li>Stream available audio or video content;</li>
+                        <li>Use the website services as provided.</li>
+                    </ul>
+                    <p>2.2. Except as permitted above, you must not download, copy, or store any content from the website.</p>
+                    <p>2.3. The website is for personal, educational, and informational use only.</p>
+                    <p>2.4. You must not modify, alter, or edit any part of the website’s content.</p>
+                    <p>2.5. Unless you own or control the relevant rights, you must not:</p>
+                    <ul>
+                        <li>Republish website material;</li>
+                        <li>Sell, rent, or sub-license website content;</li>
+                        <li>Exploit website content commercially;</li>
+                        <li>Redistribute website content.</li>
+                    </ul>
+                    <p>2.6. The School reserves the right to restrict access to certain areas or the entire website.</p>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="legal-section" id="sec-acceptable">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">3</div>
+                        <h2>Acceptable Use</h2>
+                    </div>
+                    <p>3.1. You must not use the website:</p>
+                    <ul>
+                        <li>In any way that causes damage or affects performance;</li>
+                        <li>For illegal, fraudulent, or harmful purposes;</li>
+                        <li>To store, transmit, or distribute malicious software;</li>
+                        <li>Using automated systems except for search engine indexing;</li>
+                        <li>In violation of our robots.txt directives;</li>
+                        <li>For direct marketing purposes.</li>
+                    </ul>
+                    <p>3.2. You must not use data obtained from the website to contact individuals or organizations expect for the third parties approved by the management.</p>
+                    <p>3.3. All information you provide must be accurate, complete, and not misleading.</p>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="legal-section" id="sec-accounts">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">4</div>
+                        <h2>Registration and Accounts</h2>
+                    </div>
+                    <p>4.1. Users may register by completing the applicable forms available on the website.</p>
+                    <p>4.2. You must not permit another person to use your account.</p>
+                    <p>4.3. You must immediately notify the School of unauthorised use of your account.</p>
+                    <p>4.4. You must not use another person’s account without permission.</p>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="legal-section" id="sec-login">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">5</div>
+                        <h2>User Login Details</h2>
+                    </div>
+                    <p>5.1. If login credentials are provided or chosen, you must ensure they are accurate and not misleading.</p>
+                    <p>5.2. You must keep your password confidential and notify us if it is disclosed.</p>
+                    <p>5.3. You are responsible for all activities on your account arising from your failure to maintain confidentiality.</p>
+                </div>
+
+                <!-- Section 6 -->
+                <div class="legal-section" id="sec-cancel">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">6</div>
+                        <h2>Cancellation and Suspension</h2>
+                    </div>
+                    <p>6.1. The School may suspend, cancel, or edit user accounts at its discretion without prior notice.</p>
+                </div>
+
+                <!-- Section 7 -->
+                <div class="legal-section" id="sec-licence-content">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">7</div>
+                        <h2>User Content: Licence</h2>
+                    </div>
+                    <p>7.1. “User Content” includes text, images, videos, documents, or any material submitted to the website.</p>
+                    <p>7.2. By submitting content, you grant the School a worldwide, irrevocable, non-exclusive, royalty-free licence to use, store, reproduce, publish, and distribute such content.</p>
+                    <p>7.3. You waive your moral rights to the maximum extent permitted by law.</p>
+                    <p>7.4. You may edit your content using available website tools.</p>
+                    <p>7.5. The School may remove or edit your content if you breach these Terms.</p>
+                </div>
+
+                <!-- Section 8 -->
+                <div class="legal-section" id="sec-rules-content">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">8</div>
+                        <h2>User Content: Rules</h2>
+                    </div>
+                    <p>8.1. You warrant that your content complies with the law and these Terms.</p>
+                    <p>8.2. Content must not be illegal, infringe rights, or give rise to legal liability.</p>
+                    <p>8.3. Content must not be:</p>
+                    <ul>
+                        <li>Libellous, false, or malicious;</li>
+                        <li>Obscene or indecent;</li>
+                        <li>In violation of intellectual property rights;</li>
+                        <li>In breach of confidentiality or privacy;</li>
+                        <li>Negligent, harmful, or dangerous;</li>
+                        <li>Inciting criminal activity;</li>
+                        <li>Racist, hateful, or discriminatory;</li>
+                        <li>Violent, explicit, or pornographic;</li>
+                        <li>Misleading or fraudulent;</li>
+                        <li>Offensive or harassing;</li>
+                        <li>Spam.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 9 -->
+                <div class="legal-section" id="sec-warranties">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">9</div>
+                        <h2>Limited Warranties</h2>
+                    </div>
+                    <p>9.1. The School does not warrant:</p>
+                    <ul>
+                        <li>Completeness or accuracy of website information;</li>
+                        <li>That the content is up to date;</li>
+                        <li>That the website or its services will always be available.</li>
+                    </ul>
+                    <p>9.2. The School may modify or discontinue website services without notice or liability.</p>
+                    <p>9.3. All warranties and representations are excluded to the maximum extent permitted under law.</p>
+                </div>
+
+                <!-- Section 10 -->
+                <div class="legal-section" id="sec-breach">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">10</div>
+                        <h2>Breach of Terms</h2>
+                    </div>
+                    <p>10.1. If you breach these Terms, we may:</p>
+                    <ul>
+                        <li>Issue warnings;</li>
+                        <li>Suspend access;</li>
+                        <li>Permanently block access;</li>
+                        <li>Block your IP address;</li>
+                        <li>Contact your internet service provider;</li>
+                        <li>Initiate legal action;</li>
+                        <li>Delete your account.</li>
+                    </ul>
+                    <p>10.2. You must not attempt to bypass access restrictions.</p>
+                </div>
+
+                <!-- Section 11 -->
+                <div class="legal-section" id="sec-variation">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">11</div>
+                        <h2>Variation of Terms</h2>
+                    </div>
+                    <p>11.1. The School may update or revise these Terms at any time.</p>
+                    <p>11.2. Revised Terms apply from the date of publication on the website.</p>
+                    <p>11.3. If you do not agree to revised Terms, you must stop using the website.</p>
+                </div>
+
+                <!-- Section 12 -->
+                <div class="legal-section" id="sec-assignment">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">12</div>
+                        <h2>Assignment</h2>
+                    </div>
+                    <p>12.1. The School may transfer or subcontract its rights or obligations under these Terms.</p>
+                    <p>12.2. Users may not transfer their rights without prior written consent.</p>
+                </div>
+
+                <!-- Section 13 -->
+                <div class="legal-section" id="sec-severability">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">13</div>
+                        <h2>Severability</h2>
+                    </div>
+                    <p>13.1. If any provision is deemed unlawful or unenforceable, the remaining provisions shall continue in effect.</p>
+                </div>
+
+                <!-- Section 14 -->
+                <div class="legal-section" id="sec-thirdparty">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">14</div>
+                        <h2>Third-Party Rights</h2>
+                    </div>
+                    <p>14.1. This agreement is solely between the user and the School. No third party has rights to enforce these Terms.</p>
+                </div>
+
+                <!-- Section 15 -->
+                <div class="legal-section" id="sec-entire">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">15</div>
+                        <h2>Entire Agreement</h2>
+                    </div>
+                    <p>15.1. These Terms, together with the Privacy and Cookies Policy, constitute the entire agreement regarding your use of the website.</p>
+                </div>
+
+                <!-- Section 16 -->
+                <div class="legal-section" id="sec-law">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">16</div>
+                        <h2>Governing Law and Jurisdiction</h2>
+                    </div>
+                    <p>16.1. These Terms are governed by Indian law. Any disputes shall be subject to the jurisdiction of courts in India.</p>
+                </div>
+
+                <!-- Section 17 -->
+                <div class="legal-section" id="sec-statutory">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">17</div>
+                        <h2>Statutory and Regulatory Information</h2>
+                    </div>
+                    <p>17.1. The School is affiliated to the Central Board of Secondary Education (CBSE).</p>
+                    <p>17.2. The School is registered under applicable laws in West Bengal.</p>
+                </div>
+
+                <!-- Section 18 -->
+                <div class="legal-section" id="sec-contact">
+                    <div class="legal-section-header">
+                        <div class="legal-section-num">18</div>
+                        <h2>Contact Information</h2>
+                    </div>
+                    <p>18.1. This website is owned and operated by Shri Shikshayatan School, Kolkata.</p>
+                    <p>18.2. You may contact us:</p>
+                    <div class="legal-highlight-box">
+                        <p>
+                            <strong>Shri Shikshayatan School</strong><br>
+                            11, Lord Sinha Road &amp; 8, Lord Sinha Road,<br>
+                            Kolkata &ndash; 700 071, West Bengal, India<br><br>
+                            <i class="ph ph-envelope" style="color:#f29c1f;"></i> &nbsp;<strong>Email:</strong> info@shrishikshayatanschool.com<br>
+                            <i class="ph ph-phone" style="color:#f29c1f;"></i> &nbsp;<strong>Phone:</strong> +91 33 22821450, +91 33 22826350
+                        </p>
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=6"></script>
+    <script>
+        // Mobile nav toggle
+        const toggle = document.getElementById('mobile-nav-toggle');
+        const navLinks = document.getElementById('main-nav-links');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+
+    </script>
+</body>
+</html>

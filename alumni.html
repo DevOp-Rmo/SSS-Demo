@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni - Shri Shikshayatan School</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=31">
+
+    <style>
+        /* Custom Premium Styles for Alumni Page */
+        .alumni-hero {
+            background: linear-gradient(rgba(22, 22, 74, 0.85), rgba(22, 22, 74, 0.95)), url('assets/hero_bg.png') no-repeat center center/cover;
+            color: var(--white, #ffffff);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-orange, #F57C00);
+        }
+
+        .alumni-hero h2 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .alumni-hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .alumni-content {
+            padding: 5rem 2rem;
+            background: radial-gradient(circle at 50% 0%, rgba(245, 124, 0, 0.04) 0%, rgba(22, 22, 74, 0.01) 70%), #f8fafc;
+        }
+
+        .alumni-grid {
+            display: block;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: var(--white, #ffffff);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(22, 22, 74, 0.05);
+            border: 1px solid rgba(22, 22, 74, 0.04);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-orange, #F57C00);
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(22, 22, 74, 0.08);
+        }
+
+        .event-badge {
+            background-color: rgba(245, 124, 0, 0.1);
+            color: var(--accent-orange, #F57C00);
+            padding: 0.35rem 0.85rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .event-card h3 {
+            font-family: var(--font-serif);
+            color: var(--primary-blue, #16164A);
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .event-desc {
+            color: #334155;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Glassmorphic Form styling */
+        .registration-card {
+            background: var(--white, #ffffff);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(22, 22, 74, 0.05);
+            border: 1px solid rgba(22, 22, 74, 0.04);
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .registration-card h3 {
+            font-family: var(--font-serif);
+            color: var(--primary-blue, #16164A);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .registration-card p {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alumni-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .alumni-form label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-blue, #16164A);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .alumni-form .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            outline: none;
+            background: #f8fafc;
+        }
+
+        .alumni-form .form-control:focus {
+            border-color: var(--accent-orange, #F57C00);
+            background: var(--white, #ffffff);
+            box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.1);
+        }
+
+        .btn-alumni {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--primary-blue, #16164A);
+            color: var(--white, #ffffff);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+        }
+
+        .btn-alumni:hover {
+            background-color: var(--accent-orange, #F57C00);
+            transform: translateY(-1px);
+        }
+
+        .btn-alumni-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: transparent;
+            color: var(--primary-blue, #16164A);
+            border: 2px solid var(--primary-blue, #16164A);
+            padding: 0.8rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+        }
+
+        .btn-alumni-outline:hover {
+            border-color: var(--accent-orange, #F57C00);
+            color: var(--accent-orange, #F57C00);
+        }
+
+        /* Timeline Memory List styling */
+        .memory-timeline {
+            margin-top: 3rem;
+            border-left: 2px dashed #cbd5e1;
+            padding-left: 2rem;
+            margin-left: 1rem;
+        }
+
+        .memory-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .memory-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-2rem - 6px);
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--accent-orange, #F57C00);
+            border: 2px solid var(--white, #ffffff);
+            box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.2);
+        }
+
+        .memory-year {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--accent-orange, #F57C00);
+            margin-bottom: 0.25rem;
+        }
+
+        .memory-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-blue, #16164A);
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-desc {
+            color: #475569;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Modal custom design */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(22, 22, 74, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .alumni-modal {
+            background: var(--white, #ffffff);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 90%;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(22, 22, 74, 0.25);
+            position: relative;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .alumni-modal {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-blue, #16164A);
+        }
+
+        .success-animation {
+            text-align: center;
+        }
+
+        .success-animation i {
+            font-size: 4rem;
+            color: #22c55e;
+            margin-bottom: 1rem;
+            animation: popCheck 0.4s ease-out;
+        }
+
+        @keyframes popCheck {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Yearly Tabbed Event Archive Styles */
+        .archive-tabs {
+            display: inline-flex;
+            background: #f1f5f9;
+            padding: 0.4rem;
+            border-radius: 50px;
+            margin: 0 auto 3rem;
+            border: 1px solid #e2e8f0;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        .archive-tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 1rem;
+            color: #4b5563;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .archive-tab-btn:hover {
+            color: var(--primary-blue, #16164A);
+            background: rgba(22, 22, 74, 0.03);
+        }
+
+        .archive-tab-btn.active {
+            color: #ffffff;
+            background: var(--primary-blue, #16164A);
+            box-shadow: 0 4px 15px rgba(22, 22, 74, 0.2);
+        }
+
+        /* Alumnae Stats Ribbon Styling */
+        .alumni-stats-ribbon {
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+            padding: 0 1.5rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 15px 45px rgba(22, 22, 74, 0.08);
+            border: 1px solid rgba(245, 124, 0, 0.15);
+        }
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 0.5rem 1.5rem;
+            border-right: 1px solid #f1f5f9;
+        }
+        .stat-card:last-child {
+            border-right: none;
+        }
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: rgba(245, 124, 0, 0.08);
+            color: var(--accent-orange, #F57C00);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-icon {
+            background: var(--accent-orange, #F57C00);
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.05);
+        }
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-blue, #16164A);
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Glassmorphism Hero Container */
+        .hero-glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 3.5rem 2.5rem;
+            border-radius: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            animation: slideUpHero 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-line {
+            width: 80px;
+            height: 3px;
+            background: var(--accent-orange, #F57C00);
+            margin: 1rem auto 1.5rem;
+            border-radius: 2px;
+        }
+        @keyframes slideUpHero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .year-panel {
+            display: none;
+            animation: fadeInTab 0.4s ease;
+        }
+
+        .year-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 2025 Tab Content Styles — Magazine Layout */
+        .alumni-2025-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            margin-top: 1.5rem;
+        }
+        /* Magazine row: image left, text right (or reversed) */
+        .alumni-magazine-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(22, 22, 74, 0.05);
+            border: 1px solid rgba(22, 22, 74, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .alumni-magazine-row:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 45px rgba(22, 22, 74, 0.10);
+            border-color: rgba(245, 124, 0, 0.2);
+        }
+        .alumni-magazine-row.reverse {
+            direction: rtl;
+        }
+        .alumni-magazine-row.reverse > * {
+            direction: ltr;
+        }
+        /* Full-width image rows (images 2 & 3 shown at max size) */
+        .alumni-img-full {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(22, 22, 74, 0.08);
+            background: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .alumni-img-full img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        .alumni-img-full:hover img {
+            transform: scale(1.01);
+        }
+        .img-caption {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary-blue, #16164A);
+            margin: 1.25rem 0 0;
+            text-align: center;
+        }
+        /* Image panel within magazine split rows */
+        .mag-img-panel {
+            overflow: hidden;
+            height: 100%;
+            min-height: 320px;
+            background: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mag-img-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .alumni-magazine-row:hover .mag-img-panel img {
+            transform: scale(1.02);
+        }
+        .mag-text-panel {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .mag-step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-orange, #F57C00);
+            background: rgba(245, 124, 0, 0.08);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            width: fit-content;
+        }
+        .mag-title {
+            font-family: var(--font-serif);
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--primary-blue, #16164A);
+            line-height: 1.25;
+            margin: 0;
+        }
+        .mag-desc {
+            font-size: 0.95rem;
+            color: #4b5563;
+            line-height: 1.7;
+            margin: 0;
+        }
+        .alumni-2025-img {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+        .alumni-2025-img:hover {
+            transform: scale(1.02);
+        }
+        @media (max-width: 768px) {
+            .alumni-magazine-row,
+            .alumni-magazine-row.reverse {
+                grid-template-columns: 1fr;
+                direction: ltr;
+            }
+            .mag-img-panel {
+                min-height: 220px;
+            }
+            .mag-text-panel {
+                padding: 1.75rem;
+            }
+        }
+        
+        /* Premium Header Styling */
+        .alumni-premium-header {
+            text-align: center;
+            margin: 2.5rem 0 3.5rem;
+        }
+        .alumni-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(245, 124, 0, 0.1);
+            color: var(--accent-orange, #F57C00);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .alumni-premium-header h2 {
+            font-family: var(--font-serif);
+            color: var(--primary-blue, #16164A);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .alumni-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Premium Event Cards Styling */
+        .alumni-card-premium {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(22, 22, 74, 0.04);
+            border: 1px solid rgba(22, 22, 74, 0.05);
+            padding: 2.5rem;
+            margin-bottom: 0; /* Let grid gap handle spacing */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .alumni-card-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(22, 22, 74, 0.08);
+            border-color: rgba(245, 124, 0, 0.3);
+        }
+        .card-header-premium {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .step-number {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-orange, #F57C00);
+            opacity: 0.8;
+            background: rgba(245, 124, 0, 0.05);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed rgba(245, 124, 0, 0.3);
+        }
+        .card-title-premium {
+            font-family: var(--font-serif);
+            color: var(--primary-blue, #16164A);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-title-premium i {
+            color: var(--accent-orange, #F57C00);
+            font-size: 1.4rem;
+        }
+        .card-body-premium {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            height: 100%;
+            position: relative;
+        }
+        .card-desc-premium {
+            font-size: 1.05rem;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1.75rem;
+        }
+        .img-wrapper-premium {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: center;
+            background: #f8fafc;
+            margin-top: auto; /* Push to bottom of equal-height card */
+        }
+        
+        /* CTA Card Premium (Google Form step) */
+        .cta-card-premium {
+            background: linear-gradient(135deg, #16164A 0%, #0d0d30 100%);
+            border: 1px solid rgba(245, 124, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(13, 13, 48, 0.3);
+        }
+        .cta-card-premium .step-number {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .cta-card-premium:hover {
+            border-color: var(--accent-orange, #F57C00);
+            box-shadow: 0 25px 60px rgba(13, 13, 48, 0.45);
+        }
+
+        /* Pulsing Glow for Google Form Button */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(245, 124, 0, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(245, 124, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 124, 0, 0); }
+        }
+        
+        /* Ghost/outline button for CTA - slides in from bottom on scroll */
+        .btn-google-form {
+            display: inline-block;
+            background: transparent;
+            color: #ffffff !important;
+            padding: 0.85rem 2.2rem;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 2px solid var(--accent-orange, #F57C00);
+            cursor: pointer;
+            margin: 1rem auto;
+            white-space: nowrap;
+            transition: all 0.35s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .btn-google-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .btn-google-form:hover {
+            background: var(--accent-orange, #F57C00);
+            color: #ffffff !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(245, 124, 0, 0.45);
+        }
+
+
+        /* 2024 Tab Content Styles */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .gallery-title {
+            font-family: var(--font-serif);
+            color: var(--primary-blue, #16164A);
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .gallery-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-orange, #F57C00);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: var(--accent-orange, #F57C00);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* New Gallery Zoom Overlay */
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(22, 22, 74, 0.75);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .gallery-overlay i {
+            color: #ffffff;
+            font-size: 1.8rem;
+            transform: scale(0.7);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-item:hover .gallery-overlay i {
+            transform: scale(1);
+            color: var(--accent-orange, #F57C00);
+        }
+
+        /* Lightbox Overlay Styles */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            animation: fadeInLightbox 0.3s ease;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: zoomInLightbox 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2.5rem;
+            color: #ffffff;
+            font-size: 3rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s;
+            line-height: 1;
+            z-index: 10002;
+        }
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .lightbox-prev, .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 2.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: all 0.2s;
+            user-select: none;
+            z-index: 10001;
+        }
+        .lightbox-prev:hover, .lightbox-next:hover {
+            opacity: 1;
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.25);
+        }
+        .lightbox-prev { left: 2rem; }
+        .lightbox-next { right: 2rem; }
+        #lightbox-caption {
+            position: absolute;
+            bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Flyer Overlay Styles */
+        .flyer-overlay {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .flyer-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .flyer-content {
+            position: relative;
+            max-width: 520px;
+            width: 90%;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .flyer-overlay.active .flyer-content {
+            transform: translateY(0);
+        }
+        .flyer-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: block;
+        }
+        .flyer-close {
+            position: absolute;
+            top: -1.25rem;
+            right: -1.25rem;
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            color: #0f172a;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+            z-index: 100000;
+        }
+        .flyer-close:hover {
+            background: #f1f5f9;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInLightbox {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes zoomInLightbox {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+
+
+        @media (max-width: 768px) {
+            .lightbox-prev, .lightbox-next {
+                width: 45px;
+                height: 45px;
+                font-size: 1.8rem;
+            }
+            .lightbox-prev { left: 1rem; }
+            .lightbox-next { right: 1rem; }
+            .lightbox-close {
+                top: 1.5rem;
+                right: 1.5rem;
+                font-size: 2.5rem;
+            }
+            .flyer-close {
+                top: 10px;
+                right: 10px;
+                background: rgba(15, 23, 42, 0.85);
+                color: #ffffff;
+            }
+            .alumni-stats-ribbon {
+                margin-top: 1.5rem;
+                padding: 0 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            .stat-card {
+                border-right: none;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 1rem;
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .stat-card:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .alumni-hero h2 {
+                font-size: 2rem;
+            }
+            .hero-glass-card {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li class="active"><a href="index.html#">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#history">History</a></li>
+                            <li><a href="index.html#management">President's Message</a></li>
+                            <li><a href="index.html#management">Secretary General's Message</a></li>
+                            <li><a href="index.html#management">Principal's Message</a></li>
+                            <li><a href="index.html#management">Head Mistress's Message</a></li>
+                            <li><a href="index.html#management">Board of Trustees</a></li>
+                            <li><a href="index.html#management">School Management Committee</a></li>
+                            <li><a href="index.html#media">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#facilities">Infrastructure</a></li>
+                            <li><a href="index.html#facilities">Career Counselling</a></li>
+                            <li><a href="index.html#facilities">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#activities">Intra School Activities</a></li>
+                            <li><a href="index.html#activities">Inter School Activities</a></li>
+                            <li><a href="index.html#activities">School Social Responsibility</a></li>
+                            <li><a href="index.html#activities">Outreach & Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#academics">Faculty</a></li>
+                            <li><a href="index.html#academics">The Four Pillars</a></li>
+                            <li><a href="index.html#academics">School Timing</a></li>
+                            <li><a href="index.html#academics">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#admission">Procedure</a></li>
+                            <li><a href="index.html#admission">Fee Structure</a></li>
+                            <li><a href="index.html#admission">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contacts" class="scroll-link">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Alumni Hero Header -->
+    <section class="alumni-hero">
+        <div class="container">
+            <div class="hero-glass-card">
+                <h2>ALUMNAE ASSOCIATION</h2>
+                <div class="hero-line"></div>
+                <p>Welcome back, alumnae of Shri Shikshayatan School! Reconnect with classmates, relive your fondest school memories, and participate in our upcoming heritage milestones and annual reunions.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Main Content Grid -->
+    <section class="alumni-content">
+        <div class="alumni-grid container">
+            
+            <!-- Center Column: Year Archive Tabs -->
+            <div class="alumni-left">
+                
+                <div style="text-align: center;">
+                    <div class="archive-tabs">
+                        <button class="archive-tab-btn active" data-year="2025" onclick="switchYearTab('2025')"><i class="ph ph-calendar"></i> 2025</button>
+                        <button class="archive-tab-btn" data-year="2024" onclick="switchYearTab('2024')"><i class="ph ph-calendar-check"></i> 2024</button>
+                    </div>
+                </div>                <!-- Year Panel: 2025 -->
+                <div class="year-panel active" id="panel-2025">
+                    <!-- Event Overview Header -->
+                    <div class="alumni-premium-header">
+                        <span class="alumni-badge"><i class="ph ph-sparkle"></i> FEATURED EVENT</span>
+                        <h2>ALUMNAE REUNION &amp; HOMECOMING 2025</h2>
+                        <p class="alumni-subtitle">Celebrate the legacy of Shri Shikshayatan School with sister alumnae across generations. Follow the steps below to secure your attendance and join the celebration.</p>
+                    </div>
+
+                    <div class="alumni-2025-content">
+
+                        <!-- Image 1: Registration Guidelines (magazine split — legible poster) -->
+                        <div class="alumni-magazine-row">
+                            <div class="mag-img-panel">
+                                <img src="assets/Alumni/25/01Registrationalumni2025.jpg" alt="Homecoming Registration Guidelines 2025">
+                            </div>
+                            <div class="mag-text-panel">
+                                <h3 class="mag-title">Registration Guidelines</h3>
+                            </div>
+                        </div>
+
+                        <!-- Image 2: Reunion Details — full width for readability -->
+                        <div class="alumni-img-full">
+                            <img src="assets/Alumni/25/02SSYREUNIONalumni2025.jpg" alt="Shri Shikshayatan Reunion Details 2025">
+                        </div>
+                        <p class="img-caption">Event Schedule &amp; Details</p>
+
+                        <!-- Button: Google Form CTA -->
+                        <div class="alumni-card-premium cta-card-premium" style="text-align: center; padding: 2rem;">
+                            <div class="card-body-premium" style="text-align: center; color: #ffffff; align-items: center; justify-content: center; flex-grow: 0;">
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-sq5wIaycy35DqtUp5STWqGuujpef60XcWW8uqxRv2AlDWg/viewform" target="_blank" class="btn-google-form">
+                                    Kindly Click to fill the Google Form after making the payment
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Image 3: Sponsorship — full width for readability -->
+                        <div class="alumni-img-full">
+                            <img src="assets/Alumni/25/03sponsorshipalumni2025.jpg" alt="Homecoming Sponsorship Opportunities 2025">
+                        </div>
+                        <p class="img-caption">Sponsorship Opportunities</p>
+
+                    </div>
+                </div>
+
+                <!-- Year Panel: 2024 -->
+                <div class="year-panel" id="panel-2024">
+                    <!-- Event Overview Header -->
+                    <div class="alumni-premium-header">
+                        <span class="alumni-badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i class="ph ph-check-circle"></i> REUNION HIGHLIGHTS</span>
+                        <h2 style="white-space: nowrap; font-size: clamp(1.2rem, 2.5vw, 2.2rem);">SHIKSHAYATAN SYMPHONY : HARMONISING MEMORIES</h2>
+                        <p class="alumni-subtitle">Relive the beautiful music, nostalgia, and laughter of the annual reunion festival of 2024. Watch the recap and walk through our memory lanes.</p>
+                    </div>
+
+                    <!-- Video Spotlight Card -->
+                    <div class="alumni-card-premium">
+                        <div class="card-header-premium" style="border-bottom: none; margin-bottom: 0;">
+                            <h3 class="card-title-premium"><i class="ph-bold ph-video-camera"></i> WATCH EVENT RECAP</h3>
+                        </div>
+                        <div class="card-body-premium">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/jQqokFJtxvQ" title="Shikshayatan Symphony 2024 Highlights" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Grid Card -->
+                    <div class="alumni-card-premium">
+                        <div class="card-header-premium">
+                            <h3 class="card-title-premium"><i class="ph-bold ph-images"></i> PHOTO GALLERY</h3>
+                        </div>
+                        <div class="card-body-premium" style="padding-top: 1rem;">
+                            <div class="gallery-grid" id="gallery-2024-grid">
+                                <!-- Dynamic images loaded via JS (1 to 80) -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Details Modals (Modal Overlay) -->
+    <div class="modal-overlay" id="alumni-modal-overlay">
+        <div class="alumni-modal" id="details-modal-content">
+            <button class="modal-close" onclick="closeModal()"><i class="ph ph-x"></i></button>
+            <div id="modal-body-content">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal Overlay -->
+    <div class="modal-overlay" id="success-modal-overlay">
+        <div class="alumni-modal" style="max-width: 450px;">
+            <button class="modal-close" onclick="closeSuccessModal()"><i class="ph ph-x"></i></button>
+            <div class="success-animation">
+                <i class="ph ph-check-circle"></i>
+                <h3 style="font-family: var(--font-serif); color: var(--primary-blue, #16164A); margin-bottom: 0.5rem;">Registration Successful!</h3>
+                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem;">Thank you for registering. You have been added to the Shri Shikshayatan Alumnae Association directory! We will keep you updated on all upcoming homecomings. 😊</p>
+                <button class="btn-alumni" onclick="closeSuccessModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-overlay">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <button class="lightbox-prev" onclick="prevLightboxImage()"><i class="ph ph-caret-left"></i></button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Alumni Gallery Image">
+        </div>
+        <button class="lightbox-next" onclick="nextLightboxImage()"><i class="ph ph-caret-right"></i></button>
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=6"></script>
+    <script>
+        // Tab switcher logic
+        function switchYearTab(year) {
+            document.querySelectorAll('.archive-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.year-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            const clickedBtn = document.querySelector(`.archive-tab-btn[data-year="${year}"]`);
+            if (clickedBtn) clickedBtn.classList.add('active');
+            
+            const targetPanel = document.getElementById(`panel-${year}`);
+            if (targetPanel) targetPanel.classList.add('active');
+        }
+
+        // Gallery Data & Dynamic Grid Generation for 2024
+        const totalImages = 80;
+        const galleryGrid = document.getElementById('gallery-2024-grid');
+        const galleryImages = [];
+
+        if (galleryGrid) {
+            for (let i = 1; i <= totalImages; i++) {
+                const imgUrl = `assets/Alumni/24/20240321_alumni-${i}.jpg`;
+                galleryImages.push(imgUrl);
+
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.setAttribute('onclick', `openLightbox(${i - 1})`);
+                
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.alt = `Shikshayatan Symphony 2024 - Photo ${i}`;
+                img.loading = 'lazy';
+
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery-overlay';
+                overlay.innerHTML = '<i class="ph-bold ph-magnifying-glass-plus"></i>';
+
+                item.appendChild(img);
+                item.appendChild(overlay);
+                galleryGrid.appendChild(item);
+            }
+        }
+
+        // Fullscreen Lightbox Controller
+        let currentImgIndex = 0;
+        const lightbox = document.getElementById('lightbox-modal');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+
+        function openLightbox(index) {
+            if (!lightbox || !lightboxImg) return;
+            currentImgIndex = index;
+            lightboxImg.src = galleryImages[currentImgIndex];
+            if (lightboxCaption) {
+                lightboxCaption.textContent = `Photo ${currentImgIndex + 1} of ${galleryImages.length}`;
+            }
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scrolling
+        }
+
+        function closeLightbox() {
+            if (!lightbox) return;
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Restore background scrolling
+        }
+
+        function prevLightboxImage() {
+            currentImgIndex = (currentImgIndex - 1 + galleryImages.length) % galleryImages.length;
+            if (lightboxImg) lightboxImg.src = galleryImages[currentImgIndex];
+            if (lightboxCaption) {
+                lightboxCaption.textContent = `Photo ${currentImgIndex + 1} of ${galleryImages.length}`;
+            }
+        }
+
+        function nextLightboxImage() {
+            currentImgIndex = (currentImgIndex + 1) % galleryImages.length;
+            if (lightboxImg) lightboxImg.src = galleryImages[currentImgIndex];
+            if (lightboxCaption) {
+                lightboxCaption.textContent = `Photo ${currentImgIndex + 1} of ${galleryImages.length}`;
+            }
+        }
+
+        // Lightbox Keyboard and Background click handlers
+        if (lightbox) {
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    prevLightboxImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextLightboxImage();
+                }
+            });
+        }
+
+        // Scroll-in animation for the CTA button
+        const ctaBtn = document.querySelector('.btn-google-form');
+        if (ctaBtn) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        ctaBtn.classList.add('visible');
+                        observer.unobserve(ctaBtn);
+                    }
+                });
+            }, { threshold: 0.3 });
+            observer.observe(ctaBtn);
+        }
+    </script>
+</body>
+</html>
