@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=31">
+    <link rel="stylesheet" href="styles-v5.css?v=34">
     <style>
         /* Blog Detail Area Styles */
         .blog-wrapper {
@@ -599,7 +599,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=7"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -610,7 +610,7 @@
                 return;
             }
 
-            const isLocalFile = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
+            const isLocalFile = window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('github.dev') || window.location.search.includes('demo=true');
             if (isLocalFile) {
                 const stored = localStorage.getItem('school_db_data');
                 if (stored) {
