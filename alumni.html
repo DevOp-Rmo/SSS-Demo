@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=34">
+    <link rel="stylesheet" href="styles-v5.css?v=37">
 
     <style>
         /* Custom Premium Styles for Alumni Page */
@@ -535,6 +535,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .alumni-img-full img {
             width: 100%;
@@ -543,8 +545,12 @@
             object-fit: contain;
             transition: transform 0.5s ease;
         }
+        .alumni-img-full:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 45px rgba(22, 22, 74, 0.12);
+        }
         .alumni-img-full:hover img {
-            transform: scale(1.01);
+            transform: scale(1.02);
         }
         .img-caption {
             font-family: var(--font-serif);
@@ -563,6 +569,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mag-img-panel:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 45px rgba(22, 22, 74, 0.12);
         }
         .mag-img-panel img {
             width: 100%;
@@ -1345,19 +1357,19 @@
 
                         <!-- Image 1: Registration Guidelines (magazine split — legible poster) -->
                         <div class="alumni-magazine-row">
-                            <div class="mag-img-panel">
+                            <div class="mag-img-panel" onclick="viewFlyerImage('assets/Alumni/25/01Registrationalumni2025.jpg', 'Registration Guidelines 2025')" style="cursor: pointer;">
                                 <img src="assets/Alumni/25/01Registrationalumni2025.jpg" alt="Homecoming Registration Guidelines 2025">
                             </div>
                             <div class="mag-text-panel">
-                                <h3 class="mag-title">Registration Guidelines</h3>
+                                <h3 class="mag-title" style="cursor: pointer;" onclick="viewFlyerImage('assets/Alumni/25/01Registrationalumni2025.jpg', 'Registration Guidelines 2025')">Registration Guidelines <span style="font-size: 0.8rem; font-weight: normal; color: var(--accent-orange, #F57C00); display: block; margin-top: 6px;"><i class="ph ph-magnifying-glass-plus"></i> Tap to zoom</span></h3>
                             </div>
                         </div>
 
                         <!-- Image 2: Reunion Details — full width for readability -->
-                        <div class="alumni-img-full">
+                        <div class="alumni-img-full" onclick="viewFlyerImage('assets/Alumni/25/02SSYREUNIONalumni2025.jpg', 'Event Schedule & Details 2025')" style="cursor: pointer;">
                             <img src="assets/Alumni/25/02SSYREUNIONalumni2025.jpg" alt="Shri Shikshayatan Reunion Details 2025">
                         </div>
-                        <p class="img-caption">Event Schedule &amp; Details</p>
+                        <p class="img-caption" style="cursor: pointer;" onclick="viewFlyerImage('assets/Alumni/25/02SSYREUNIONalumni2025.jpg', 'Event Schedule & Details 2025')">Event Schedule &amp; Details <span style="font-size: 0.85rem; font-weight: normal; color: var(--accent-orange, #F57C00); display: block; margin-top: 6px;"><i class="ph ph-magnifying-glass-plus"></i> Tap to zoom</span></p>
 
                         <!-- Button: Google Form CTA -->
                         <div class="alumni-card-premium cta-card-premium" style="text-align: center; padding: 2rem;">
@@ -1369,10 +1381,10 @@
                         </div>
 
                         <!-- Image 3: Sponsorship — full width for readability -->
-                        <div class="alumni-img-full">
+                        <div class="alumni-img-full" onclick="viewFlyerImage('assets/Alumni/25/03sponsorshipalumni2025.jpg', 'Sponsorship Opportunities 2025')" style="cursor: pointer;">
                             <img src="assets/Alumni/25/03sponsorshipalumni2025.jpg" alt="Homecoming Sponsorship Opportunities 2025">
                         </div>
-                        <p class="img-caption">Sponsorship Opportunities</p>
+                        <p class="img-caption" style="cursor: pointer;" onclick="viewFlyerImage('assets/Alumni/25/03sponsorshipalumni2025.jpg', 'Sponsorship Opportunities 2025')">Sponsorship Opportunities <span style="font-size: 0.85rem; font-weight: normal; color: var(--accent-orange, #F57C00); display: block; margin-top: 6px;"><i class="ph ph-magnifying-glass-plus"></i> Tap to zoom</span></p>
 
                     </div>
                 </div>
@@ -1610,6 +1622,29 @@
             if (!lightbox) return;
             lightbox.classList.remove('active');
             document.body.style.overflow = ''; // Restore background scrolling
+            
+            // Restore prev/next navigation buttons
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+            if (prevBtn) prevBtn.style.display = '';
+            if (nextBtn) nextBtn.style.display = '';
+        }
+
+        // Single image fullscreen viewer for flyers
+        function viewFlyerImage(src, captionText) {
+            if (!lightbox || !lightboxImg) return;
+            lightboxImg.src = src;
+            if (lightboxCaption) {
+                lightboxCaption.textContent = captionText;
+            }
+            // Hide navigation buttons for single image view
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scrolling
         }
 
         function prevLightboxImage() {

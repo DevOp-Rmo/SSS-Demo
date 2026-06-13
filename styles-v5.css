@@ -363,6 +363,7 @@ h1, h2, h3, h4, h5, h6 {
     white-space: nowrap;
     padding: 0;
     margin: 0;
+    flex: 1;
 }
 
 .mobile-nav-toggle {
@@ -2979,7 +2980,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Large Desktop (1920px+) ─────────────────────────────── */
 @media (min-width: 1920px) {
-    .container { max-width: 1500px; }
+    .container,
+    .main-header .container,
+    .nav-container {
+        max-width: 1300px !important;
+    }
     .hero-title { font-size: 5rem; }
     .section-title { font-size: 3rem; }
     .footer-grid { grid-template-columns: 1.8fr 1fr 1.4fr 1fr; }
@@ -3429,6 +3434,21 @@ img, video, iframe {
     .container, .main-header .container {
         padding-left: 1.25rem !important;
         padding-right: 1.25rem !important;
+    }
+}
+
+/* Wide Screen Header Customization (15-24 inch desktop screens) */
+@media (min-width: 1025px) {
+    .top-bar .top-bar-content.container,
+    .main-header .header-content.container {
+        max-width: 100% !important;
+        padding-left: 2.5rem !important;
+        padding-right: 2.5rem !important;
+    }
+    .main-nav .nav-container {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 2.5rem !important;
     }
 }
 
