@@ -2806,6 +2806,7 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
     font-size: 0.95rem;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .chatbot-send-btn:hover {
@@ -3217,7 +3218,7 @@ h1, h2, h3, h4, h5, h6 {
 
     /* Bulletin Board mobile optimizations */
     .bulletin-item {
-        padding: 0.85rem 0.45rem !important;
+        padding: 0.85rem 0.45rem 0.85rem 1.75rem !important;
     }
     .bulletin-text {
         font-size: 10.5px !important;
