@@ -2010,6 +2010,60 @@ function initChatbot() {
     function processQuery(query) {
         const cleanQuery = query.toLowerCase().trim();
         
+        // 1. Check for Greetings
+        const greetings = ['hi', 'hello', 'hey', 'namaste', 'good morning', 'good afternoon', 'good evening', 'greetings'];
+        const isGreeting = greetings.some(g => cleanQuery === g || cleanQuery.startsWith(g + ' ') || cleanQuery.endsWith(' ' + g) || cleanQuery.includes(' ' + g + ' '));
+        
+        if (isGreeting) {
+            const userNameVal = sessionStorage.getItem('chat_user_name') || userName;
+            const greetingReplies = [
+                userNameVal && userNameVal !== 'Guest' 
+                    ? `Hello ${userNameVal}! 😊 How can I assist you with Shri Shikshayatan School today?`
+                    : "Hello! 😊 How can I assist you with Shri Shikshayatan School today?",
+                userNameVal && userNameVal !== 'Guest'
+                    ? `Namaste ${userNameVal}! 🙏 What can I help you find regarding our school today?`
+                    : "Namaste! 🙏 What can I help you find regarding our school today?",
+                userNameVal && userNameVal !== 'Guest'
+                    ? `Hi ${userNameVal}! I'm here to help you with admissions, fees, notices, or timings. What's on your mind?`
+                    : "Hi! I'm here to help you with admissions, fees, notices, or timings. What's on your mind?"
+            ];
+            const randomGreeting = greetingReplies[Math.floor(Math.random() * greetingReplies.length)];
+            appendBotReply(randomGreeting);
+            return;
+        }
+
+        // 2. Check for Off-Topic queries
+        const offTopicKeywords = [
+            'joke', 'recipe', 'cook', 'bake', 'cake', 'food', 'dinner', 'lunch', 'pasta', 'pizza', 'chocolate',
+            'weather', 'news', 'president', 'prime minister', 'world cup', 'bitcoin', 'crypto', 'stock', 'finance',
+            'poem', 'song', 'story', 'coding', 'translate', 'sing', 'dance', 'game', 'play'
+        ];
+        const offTopicPhrases = [
+            'how to make', 'how do i make', 'write a', 'tell me a', 'who is the president', 'who is the prime minister',
+            'are you single', 'do you love me', 'how old are you'
+        ];
+        const schoolTerms = [
+            'school', 'admission', 'fee', 'notice', 'timing', 'class', 'syllabus', 'curriculum', 'uniform', 
+            'transport', 'bus', 'principal', 'teacher', 'student', 'exam', 'test', 'result', 'alumni', 
+            'sports', 'co-curricular', 'extracurricular', 'facility', 'facilities', 'contact', 'office', 'phone', 'email'
+        ];
+
+        const isOffTopic = offTopicKeywords.some(kw => cleanQuery.includes(kw)) || 
+                            offTopicPhrases.some(phrase => cleanQuery.includes(phrase));
+        const hasSchoolTerm = schoolTerms.some(term => cleanQuery.includes(term));
+
+        if (isOffTopic && !hasSchoolTerm) {
+            const offTopicReplies = [
+                "I apologize, but my training is focused on assisting with queries about Shri Shikshayatan School. I don't have information on that topic, but feel free to ask about our school!",
+                "I'm here to help with admissions, fees, notices, and other school-related topics. I won't be able to help with that query, but let me know if you have school-related questions!",
+                "That seems to be outside my scope as the school's help desk assistant. I'd be happy to guide you on admissions, curriculum, timings, or notices instead!",
+                "I can only provide information regarding Shri Shikshayatan School's programs and details. Please let me know if you have any questions about the school!"
+            ];
+            const randomOffTopic = offTopicReplies[Math.floor(Math.random() * offTopicReplies.length)];
+            appendBotReply(randomOffTopic);
+            return;
+        }
+
         if (cleanQuery === 'class notices' || cleanQuery === 'notices') {
             appendBotReply("Please select your school section:", () => {
                 showClassSectionButtons();
