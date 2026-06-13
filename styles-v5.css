@@ -891,6 +891,15 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     color: var(--primary-blue);
     letter-spacing: -0.025em;
+    min-width: 0;
+    flex: 1;
+}
+
+.bulletin-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 1 auto;
 }
 
 .bulletin-item:hover .bulletin-text {
@@ -3205,6 +3214,23 @@ h1, h2, h3, h4, h5, h6 {
 
     /* Nav */
     .nav-links a { padding: 0.85rem 1.25rem; font-size: 12px; }
+
+    /* Bulletin Board mobile optimizations */
+    .bulletin-item {
+        padding: 0.85rem 0.45rem !important;
+    }
+    .bulletin-text {
+        font-size: 10.5px !important;
+        gap: 0.25rem !important;
+    }
+    .bulletin-text .new-blink {
+        font-size: 8.5px !important;
+        padding: 0.15rem 0.35rem !important;
+    }
+    .badge {
+        font-size: 10px !important;
+        padding: 0.2rem 0.4rem !important;
+    }
 }
 
 /* ── Very Small (max 360px) ──────────────────────────────── */
@@ -3385,11 +3411,19 @@ img, video, iframe {
     }
 }
 
+@media (max-width: 480px) {
+    /* Reduce container padding on mobile portrait to fit titles without truncation */
+    .container, .main-header .container {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
 @media (max-width: 360px) {
     /* Narrow mobile screens padding compromise to prevent text squishing */
     .container, .main-header .container {
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
     }
 }
 

@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. Fetch and render dynamic database content
-    const isLocalFile = window.location.protocol === 'file:' || window.location.hostname.includes('github.io');
+    const isLocalFile = window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('github.dev') || window.location.search.includes('demo=true');
     if (isLocalFile) {
         // Load from localStorage or use fallback default local data
         const stored = localStorage.getItem('school_db_data');
@@ -1580,7 +1580,7 @@ function renderBulletin(bulletinData) {
         
         item.innerHTML = `
             <div class="bulletin-text">
-                ${escapeHtml(post.title)} 
+                <span class="bulletin-title">${escapeHtml(post.title)}</span>
                 ${blinkBadge}
             </div>
             <span class="badge">BLOG</span>
