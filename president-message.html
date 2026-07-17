@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - President's Message</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=37">
+    
+    <style>
+        /* Scoped styles for President Message page */
+        .president-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+
+        /* Breadcrumb navigation */
+        .president-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .president-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+        .president-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .president-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Title block */
+        .president-title-block {
+            margin-bottom: 3.5rem;
+            text-align: left;
+        }
+        .president-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            position: relative;
+            display: inline-block;
+        }
+        .president-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+
+        /* 2-Column Split Layout */
+        .president-content-grid {
+            display: grid;
+            grid-template-columns: 0.75fr 1.25fr;
+            gap: 4.5rem;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        /* Left Column: Portrait Card */
+        .president-profile-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            position: sticky;
+            top: calc(var(--fixed-header-total) + 30px);
+            transition: var(--transition);
+        }
+        .president-profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(26, 26, 75, 0.08);
+            border-color: rgba(242, 156, 31, 0.2);
+        }
+        .president-img-wrapper {
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background-color: var(--bg-light);
+            position: relative;
+        }
+        .president-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+        .president-profile-card:hover .president-img {
+            transform: scale(1.03);
+        }
+        .president-info-banner {
+            padding: 2rem 1.75rem;
+            text-align: center;
+            border-top: 1px solid rgba(26, 26, 75, 0.05);
+            background: linear-gradient(to bottom, var(--white) 0%, #fafcfa 100%);
+        }
+        .president-name {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+        .president-role {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .president-org {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        /* Right Column: Message Text */
+        .president-message-box {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 4rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+        }
+        .president-message-box p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.85;
+            margin-bottom: 2rem;
+        }
+        .president-message-box p.lead {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            line-height: 1.7;
+            position: relative;
+            margin-bottom: 2.25rem;
+        }
+        .president-message-box p.lead::before {
+            content: '“';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            color: rgba(242, 156, 31, 0.15);
+            line-height: 1;
+        }
+        .president-message-box p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        /* Signature block */
+        .signature-block {
+            margin-top: 3.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .signature-handwritten {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+        .signature-title {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .signature-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        /* 15-24 inch Screens (1400px - 2560px) Optimizations */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+                padding: 0 3rem;
+            }
+            .president-content-grid {
+                gap: 5.5rem;
+            }
+            .president-img-wrapper {
+                height: 440px;
+            }
+        }
+        @media (min-width: 1900px) {
+            .container {
+                max-width: 1650px;
+                padding: 0 4rem;
+            }
+            .president-page-title {
+                font-size: 3.8rem;
+            }
+            .president-name {
+                font-size: 1.6rem;
+            }
+            .president-role, .president-org {
+                font-size: 0.9rem;
+            }
+            .president-message-box {
+                padding: 5rem;
+                border-radius: 28px;
+            }
+            .president-message-box p {
+                font-size: 1.25rem;
+                line-height: 1.95;
+            }
+            .president-message-box p.lead {
+                font-size: 1.5rem;
+                line-height: 1.8;
+            }
+            .signature-handwritten {
+                font-size: 2.6rem;
+            }
+            .signature-title, .signature-subtitle {
+                font-size: 1rem;
+            }
+            .president-img-wrapper {
+                height: 520px;
+            }
+        }
+
+        /* Tablets & Small Laptops */
+        @media (max-width: 1024px) {
+            .president-content-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .president-profile-card {
+                max-width: 500px;
+                margin: 0 auto;
+                position: static;
+            }
+            .president-message-box {
+                padding: 3rem;
+            }
+        }
+
+        /* Mobile Layouts */
+        @media (max-width: 768px) {
+            .president-page-wrapper {
+                padding: 2rem 0 4rem 0;
+            }
+            .president-page-title {
+                font-size: 2.25rem;
+            }
+            .president-message-box {
+                padding: 2.25rem 1.5rem;
+                border-radius: 16px;
+            }
+            .president-message-box p {
+                font-size: 1rem;
+                line-height: 1.75;
+                margin-bottom: 1.5rem;
+            }
+            .president-message-box p.lead {
+                font-size: 1.15rem;
+                line-height: 1.65;
+                margin-bottom: 1.75rem;
+            }
+            .signature-handwritten {
+                font-size: 1.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown active">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li class="active"><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach & Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="president-page-wrapper">
+        <div class="container">
+            
+            <!-- Breadcrumbs -->
+            <div class="president-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>About Us</span>
+                <i class="ph ph-caret-right"></i>
+                <span>President's Message</span>
+            </div>
+
+            <!-- Page Title Block -->
+            <div class="president-title-block">
+                <h1 class="president-page-title">President's Message</h1>
+            </div>
+
+            <!-- Profile Grid -->
+            <div class="president-content-grid">
+                
+                <!-- Left: Portrait Card -->
+                <div class="president-profile-card-wrapper">
+                    <div class="president-profile-card">
+                        <div class="president-img-wrapper">
+                            <img src="assets/president.webp" alt="Mr. S. K. Birla" class="president-img">
+                        </div>
+                        <div class="president-info-banner">
+                            <h2 class="president-name">Mr. S. K. Birla</h2>
+                            <p class="president-role">President</p>
+                            <p class="president-org">Shikshayatan Foundation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Message Content -->
+                <div class="president-message-box">
+                    
+                    <p class="lead">The parent body, Shikshayatan Foundation (formerly named Marwari Balika Vidyalaya), originally established nearly a century ago by my grand-uncle, Sri J.K Birla, is now running 4 prestigious institutions in Kolkata.</p>
+                    
+                    <p>3rd January, 1954 saw the genesis of Shri Shikshayatan School. It is the dream child of its founder body Shikshayatan foundation. It is purely a girls’ school. The school has produced many notable alumni over this long period.</p>
+                    
+                    <p>The mission of Shri Shikshayatan is to provide students with intellectually informed, hands-on instruction in the practice of an array of basic academics with value education.</p>
+                    
+                    <p>I welcome you all to this institution which has established itself as an excellent institution over the years. It will definitely maintain the standards it has achieved. I wish the school all the very best for the future.</p>
+                    
+                    <div class="signature-block">
+                        <span class="signature-handwritten">S.K. Birla</span>
+                        <span class="signature-title">Mr. S. K. Birla</span>
+                        <span class="signature-subtitle">President, Shikshayatan Foundation</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=7"></script>
+</body>
+</html>

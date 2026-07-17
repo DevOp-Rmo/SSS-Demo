@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Our Mission</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=37">
+    
+    <style>
+        .mission-page-wrapper {
+            background: radial-gradient(circle at top left, rgba(168, 208, 200, 0.12), transparent 450px), 
+                        radial-gradient(circle at bottom right, rgba(26, 26, 74, 0.06), transparent 450px),
+                        #fafcfa;
+            padding: 5rem 0 8rem 0;
+            min-height: 80vh;
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Breadcrumb navigation */
+        .mission-breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .mission-breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .mission-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .mission-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Title block */
+        .mission-header-block {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .mission-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .mission-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+
+        .mission-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+            max-width: 600px;
+            margin: 1.5rem auto 0 auto;
+        }
+
+        /* Mission Cards Grid */
+        .mission-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Modern interactive card design */
+        .mission-value-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 2.5rem;
+            box-shadow: 0 15px 45px rgba(26, 26, 75, 0.03);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .mission-value-card:nth-child(1) { animation-delay: 0.1s; }
+        .mission-value-card:nth-child(2) { animation-delay: 0.25s; }
+        .mission-value-card:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mission-value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(26, 26, 75, 0.08);
+            border-color: rgba(168, 208, 200, 0.5);
+        }
+
+        /* Card Icon */
+        .mission-card-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(26, 26, 74, 0.02) 0%, rgba(168, 208, 200, 0.2) 100%);
+            border: 1px solid rgba(168, 208, 200, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .mission-value-card:hover .mission-card-icon-wrapper {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2a2a72 100%);
+            border-color: var(--primary-blue);
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .mission-card-icon-wrapper i {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            transition: color 0.3s ease;
+        }
+
+        .mission-value-card:hover .mission-card-icon-wrapper i {
+            color: #ffffff;
+        }
+
+        .mission-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.25px;
+        }
+
+        .mission-card-text {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Decorative top accent line on cards */
+        .mission-value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-mint));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .mission-value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 1024px) {
+            .mission-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                max-width: 600px;
+                margin: 2rem auto 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown active">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="#">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="#">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Intra School Activities</a></li>
+                            <li><a href="#">Inter School Activities</a></li>
+                            <li><a href="#">School Social Responsibility</a></li>
+                            <li><a href="#">Outreach & Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="#">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="mission-page-wrapper">
+        <div class="mission-container">
+            
+            <!-- Breadcrumbs -->
+            <div class="mission-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>About Us</span>
+                <i class="ph ph-caret-right"></i>
+                <span>Our Mission</span>
+            </div>
+
+            <!-- Title Block -->
+            <div class="mission-header-block">
+                <h2 class="mission-page-title">Our Mission</h2>
+                <p class="mission-subtitle">Nurturing holistic development and personal excellence through a comprehensive three-pillar roadmap.</p>
+            </div>
+
+            <!-- Mission Cards Grid -->
+            <div class="mission-cards-grid">
+                
+                <!-- Card 1 -->
+                <div class="mission-value-card">
+                    <div class="mission-card-icon-wrapper">
+                        <i class="ph ph-book-open"></i>
+                    </div>
+                    <h3 class="mission-card-title">Intellectual Excellence</h3>
+                    <p class="mission-card-text">
+                        Motivate students to evolve as lifelong learners through innovative learning practices, fostering communicative and application skills to achieve intellectual and personal excellence.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="mission-value-card">
+                    <div class="mission-card-icon-wrapper">
+                        <i class="ph ph-globe"></i>
+                    </div>
+                    <h3 class="mission-card-title">Borderless Education</h3>
+                    <p class="mission-card-text">
+                        Inculcate values to be aware of social and environmental challenges through active participation in collaborative projects and international exchanges striving towards borderless education.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="mission-value-card">
+                    <div class="mission-card-icon-wrapper">
+                        <i class="ph ph-users-three"></i>
+                    </div>
+                    <h3 class="mission-card-title">Empathetic Leadership</h3>
+                    <p class="mission-card-text">
+                        Provide a diverse and inclusive culture promoting universal acceptance to become empathetic, adaptable changemakers of the evolving global community.
+                    </p>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=7"></script>
+</body>
+</html>

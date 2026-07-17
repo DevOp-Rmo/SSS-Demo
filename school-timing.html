@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - School Timing</title>
+    <meta name="description" content="View the daily school bell timing schedule and session hours for Secondary & Higher Secondary students at Shri Shikshayatan School, Kolkata.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+
+    <style>
+        /* ── Page Wrapper ── */
+        .st-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+        @media (min-width: 769px) {
+            .st-page-wrapper .container {
+                max-width: 1400px !important;
+                width: 100% !important;
+                padding: 0 2.5rem !important;
+            }
+        }
+        @media (min-width: 1600px) { .st-page-wrapper .container { max-width: 1600px !important; } }
+        @media (max-width: 1024px) and (min-width: 769px) { .st-page-wrapper .container { padding: 0 2rem !important; } }
+
+        /* ── Breadcrumb ── */
+        .st-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .st-breadcrumb a { color: var(--primary-blue); transition: color 0.2s; }
+        .st-breadcrumb a:hover { color: var(--accent-orange); }
+        .st-breadcrumb i { font-size: 0.75rem; }
+
+        /* ── Title Block ── */
+        .st-title-block { margin-bottom: 3rem; }
+        .st-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.4rem;
+            position: relative;
+            display: inline-block;
+        }
+        .st-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 55px; height: 3px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+        .st-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 0.75rem;
+        }
+
+        /* ── Banner ── */
+        .st-banner-container {
+            width: 100%;
+            height: 340px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 60px rgba(26,26,75,0.08);
+            position: relative;
+        }
+        .st-banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+        .st-banner-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(26,26,75,0.8) 0%, rgba(26,26,75,0.4) 60%, transparent 100%);
+            display: flex; align-items: flex-end; padding: 2.5rem 3rem;
+        }
+        .st-banner-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            color: #fff;
+            font-weight: 800;
+            line-height: 1.3;
+            max-width: 100%;
+        }
+
+        /* ── Timing Overview Cards ── */
+        .st-overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        @media (max-width: 900px) {
+            .st-overview-grid { grid-template-columns: 1fr; }
+        }
+
+        .st-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 15px 45px rgba(26,26,75,0.04);
+            border: 1px solid rgba(26,26,75,0.05);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .st-card:hover {
+            box-shadow: 0 25px 65px rgba(26,26,75,0.08);
+            transform: translateY(-2px);
+        }
+        .st-card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(26,26,75,0.06);
+        }
+        .st-badge {
+            align-self: flex-start;
+            background-color: rgba(242,156,31,0.1);
+            color: var(--accent-orange);
+            font-size: 0.73rem;
+            font-weight: 800;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .st-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            margin: 0;
+        }
+
+        /* ── Standard Timings Detail ── */
+        .st-timing-display {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(26,26,75,0.02);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+        }
+        .st-time-icon {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .st-time-details h4 {
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.25rem 0;
+        }
+        .st-time-details p {
+            font-family: var(--font-sans);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin: 0;
+        }
+
+        /* ── Timing Info List ── */
+        .st-info-list {
+            list-style: none;
+            padding: 0; margin: 1.5rem 0 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .st-info-list li {
+            display: flex;
+            gap: 0.75rem;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        .st-info-list li i {
+            color: var(--accent-orange);
+            font-size: 1.1rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+        }
+
+        /* ── Bell Schedule Table ── */
+        .st-table-wrapper {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(26,26,75,0.07);
+            box-shadow: 0 4px 20px rgba(26,26,75,0.04);
+            margin-top: 1rem;
+        }
+        .st-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+        }
+        .st-table thead tr {
+            background: var(--primary-blue);
+            color: #fff;
+        }
+        .st-table thead th {
+            padding: 1.1rem 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.8rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .st-table tbody tr {
+            border-bottom: 1px solid rgba(26,26,75,0.06);
+            transition: background 0.18s ease;
+            cursor: pointer;
+        }
+        .st-table tbody tr:last-child { border-bottom: none; }
+        .st-table tbody tr:hover td { background: rgba(242,156,31,0.05); }
+        .st-table tbody tr.active-row td {
+            background: rgba(242,156,31,0.1) !important;
+        }
+        .st-table tbody tr.active-row td:first-child {
+            border-left: 4px solid var(--accent-orange);
+        }
+        .st-table tbody td {
+            padding: 1rem 1.4rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        .st-table tbody td:first-child {
+            font-weight: 800;
+            color: var(--primary-blue);
+            width: 100px;
+            text-transform: uppercase;
+        }
+        .st-time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(26,26,75,0.06);
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+        .st-break-row td {
+            background: rgba(242,156,31,0.06);
+            font-weight: 700;
+            color: var(--accent-orange) !important;
+        }
+        .st-break-row td:first-child {
+            color: var(--accent-orange) !important;
+        }
+        .st-break-badge {
+            background: rgba(242,156,31,0.12);
+            color: var(--accent-orange);
+            font-weight: 800;
+            font-size: 0.78rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        /* ── Official Document ── */
+        .st-document-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .st-document-item {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(26,26,75,0.08);
+            border: 1px solid rgba(26,26,75,0.06);
+            position: relative;
+            background: #fff;
+        }
+        .st-document-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+        .st-document-item:hover img { transform: scale(1.02); }
+        .st-document-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(26,26,75,0.85));
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 2.5rem 1.5rem 1rem;
+            text-transform: uppercase;
+        }
+
+        /* ── Modern Premium Tabs Styling ── */
+        .tabs-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: -1.5rem 0 3rem 0;
+            width: 100%;
+        }
+        .timing-tabs-container {
+            display: inline-flex;
+            background: rgba(26, 26, 75, 0.04);
+            border: 1px solid rgba(26, 26, 75, 0.08);
+            padding: 6px;
+            border-radius: 50px;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(26, 26, 75, 0.05);
+            gap: 4px;
+        }
+        .timing-tab {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: rgba(26, 26, 75, 0.6);
+            background: transparent;
+            border: none;
+            padding: 0.8rem 2.2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            outline: none;
+        }
+        .timing-tab:hover {
+            color: var(--primary-blue);
+        }
+        .timing-tab.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2a2a6b 100%);
+            box-shadow: 0 4px 15px rgba(26, 26, 75, 0.25);
+        }
+        .timing-tab i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+            vertical-align: middle;
+        }
+
+        /* Tab Content Toggling */
+        .timing-section-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .timing-section-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Responsive Mobile Spacing ── */
+        @media (max-width: 900px) {
+            .st-card { padding: 2rem 1.5rem; }
+            .st-page-title { font-size: 2.2rem; }
+        }
+        @media (max-width: 768px) {
+            .st-breadcrumb, .st-title-block {
+                padding-left: 2.2rem;
+            }
+            .st-banner-container { height: 220px; }
+            .st-banner-overlay { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img"><img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" /></div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach &amp; Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li class="active"><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="media-page-wrapper st-page-wrapper">
+        <div class="container">
+
+            <div class="st-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>Academics</span>
+                <i class="ph ph-caret-right"></i>
+                <span>School Timing</span>
+            </div>
+
+            <div class="st-title-block">
+                <h1 class="st-page-title">School Timing</h1>
+                <p class="st-subtitle">Academic Hours &amp; Bell Schedule</p>
+            </div>
+
+            <div class="st-banner-container">
+                <img src="assets/school_time_1.jpg" alt="School Timing Banner" class="st-banner-image">
+                <div class="st-banner-overlay">
+                    <div class="st-banner-text">Structured Schedules for Focused Learning.</div>
+                </div>
+            </div>
+
+            <!-- Section Selection Tabs -->
+            <div class="tabs-wrapper">
+                <div class="timing-tabs-container">
+                    <button class="timing-tab active" data-section="junior"><i class="ph-bold ph-smiley"></i> Junior Section</button>
+                    <button class="timing-tab" data-section="senior"><i class="ph-bold ph-graduation-cap"></i> Senior Section</button>
+                </div>
+            </div>
+
+            <!-- Senior Section Timing Content -->
+            <div id="senior-timing-content" class="timing-section-content">
+                <!-- Timings Overview Row -->
+                <div class="st-overview-grid">
+                <div class="st-card">
+                    <div class="st-card-header">
+                        <span class="st-badge">Regular Timing</span>
+                        <h2 class="st-card-title">Secondary &amp; Higher Secondary</h2>
+                    </div>
+                    <p style="font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.5rem;">
+                        The daily class hours for students of Classes VI to XII follow a structured bell schedule designed to maximize concentration, academic delivery, and co-curricular integration.
+                    </p>
+                    <div class="st-timing-display">
+                        <div class="st-time-icon"><i class="ph-bold ph-clock"></i></div>
+                        <div class="st-time-details">
+                            <h4>Session Hours</h4>
+                            <p>08:30 AM — 02:55 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="st-card">
+                    <div class="st-card-header">
+                        <span class="st-badge">Office Hours</span>
+                        <h2 class="st-card-title">School Admin Office</h2>
+                    </div>
+                    <ul class="st-info-list">
+                        <li>
+                            <i class="ph-bold ph-calendar-blank"></i>
+                            <span><strong>Working Days:</strong><br>Monday to Friday</span>
+                        </li>
+                        <li>
+                            <i class="ph-bold ph-clock"></i>
+                            <span><strong>Hours:</strong><br>09:00 AM — 04:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bell Schedule Table -->
+            <div class="st-card" style="margin-bottom: 3.5rem;">
+                <div class="st-card-header">
+                    <span class="st-badge">Schedule</span>
+                    <h2 class="st-card-title">Daily Bell Timings (Monday — Friday)</h2>
+                </div>
+                <p style="font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.75rem;">
+                    Below is the official timeline for periods and assemblies in the Senior Section.
+                </p>
+
+                <div class="st-table-wrapper">
+                    <table class="st-table" id="timingTable">
+                        <thead>
+                            <tr>
+                                <th>Bell Type</th>
+                                <th>Start Time</th>
+                                <th>Period / Activity Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1st Bell</td>
+                                <td><span class="st-time-badge">08:25 AM</span></td>
+                                <td>First Bell for Assembly</td>
+                            </tr>
+                            <tr>
+                                <td>2nd Bell</td>
+                                <td><span class="st-time-badge">08:30 AM</span></td>
+                                <td>Assembly</td>
+                            </tr>
+                            <tr>
+                                <td>3rd Bell</td>
+                                <td><span class="st-time-badge">08:45 AM</span></td>
+                                <td>1st Period</td>
+                            </tr>
+                            <tr>
+                                <td>4th Bell</td>
+                                <td><span class="st-time-badge">09:25 AM</span></td>
+                                <td>2nd Period</td>
+                            </tr>
+                            <tr>
+                                <td>5th Bell</td>
+                                <td><span class="st-time-badge">10:05 AM</span></td>
+                                <td>3rd Period</td>
+                            </tr>
+                            <!-- Lunch Break 1 -->
+                            <tr class="st-break-row">
+                                <td>6th Bell</td>
+                                <td><span class="st-time-badge">10:45 AM</span></td>
+                                <td>4th Period &nbsp;|&nbsp; <span class="st-break-badge">Lunch Break (Classes VI to VIII)</span></td>
+                            </tr>
+                            <!-- Lunch Break 2 -->
+                            <tr class="st-break-row">
+                                <td>7th Bell</td>
+                                <td><span class="st-time-badge">11:25 AM</span></td>
+                                <td>5th Period &nbsp;|&nbsp; <span class="st-break-badge">Lunch Break (Classes IX to XII)</span></td>
+                            </tr>
+                            <tr>
+                                <td>8th Bell</td>
+                                <td><span class="st-time-badge">12:05 PM</span></td>
+                                <td>6th Period</td>
+                            </tr>
+                            <tr>
+                                <td>9th Bell</td>
+                                <td><span class="st-time-badge">12:45 PM</span></td>
+                                <td>7th Period</td>
+                            </tr>
+                            <tr>
+                                <td>10th Bell</td>
+                                <td><span class="st-time-badge">01:25 PM</span></td>
+                                <td>8th Period</td>
+                            </tr>
+                            <tr>
+                                <td>11th Bell</td>
+                                <td><span class="st-time-badge">02:05 PM</span></td>
+                                <td>9th Period &nbsp;|&nbsp; <span style="font-weight: 700; color: var(--primary-blue);">Dispersal of Classes XI &amp; XII</span></td>
+                            </tr>
+                            <tr>
+                                <td>12th Bell</td>
+                                <td><span class="st-time-badge">02:55 PM</span></td>
+                                <td>Dispersal of Classes VI — X</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Official Document Section -->
+            <div class="st-card">
+                <div class="st-card-header">
+                    <span class="st-badge">Official Document</span>
+                    <h2 class="st-card-title">School Timing Notice</h2>
+                </div>
+                <div class="st-document-wrapper">
+                    <div class="st-document-item">
+                        <img src="assets/school_time.jpg" alt="Official School Bell Timing Circular">
+                        <div class="st-document-caption"><i class="ph ph-file-text"></i> &nbsp;Bell Timing circular — Signed by Principal</div>
+                    </div>
+                </div>
+            </div>
+            </div><!-- /#senior-timing-content -->
+
+            <!-- Junior Section Timing Content -->
+            <div id="junior-timing-content" class="timing-section-content active">
+                <!-- Timings Overview Row -->
+                <div class="st-overview-grid">
+                    <div class="st-card">
+                        <div class="st-card-header">
+                            <span class="st-badge">Regular Timing</span>
+                            <h2 class="st-card-title">Pre-Primary &amp; Junior Section</h2>
+                        </div>
+                        <p style="font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 1.5rem;">
+                            Daily session timings for LKG, UKG, SKG, and Junior Classes I to V.
+                        </p>
+                        
+                        <div class="st-table-wrapper">
+                            <table class="st-table" id="juniorTimingTable">
+                                <thead>
+                                    <tr>
+                                        <th>Class</th>
+                                        <th>Timing</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Class Nursery</td>
+                                        <td><span class="st-time-badge">10:00 A.M. to 11:30 A.M.</span></td>
+                                        <td>1 hour 30 mins</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Classes LKG &amp; UKG</td>
+                                        <td><span class="st-time-badge">08:50 A.M. to 12:00 NOON</span></td>
+                                        <td>3 hours 10 mins</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class SKG</td>
+                                        <td><span class="st-time-badge">08:50 A.M. to 01:05 P.M.</span></td>
+                                        <td>4 hours 15 mins</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class I</td>
+                                        <td><span class="st-time-badge">08:50 A.M. to 01:35 P.M.</span></td>
+                                        <td>4 hours 45 mins</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class II</td>
+                                        <td><span class="st-time-badge">07:50 A.M. to 01:05 P.M.</span></td>
+                                        <td>5 hours 15 mins</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Classes III to V</td>
+                                        <td><span class="st-time-badge">07:50 A.M. to 01:20 P.M.</span></td>
+                                        <td>5 hours 30 mins</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="st-card">
+                        <div class="st-card-header">
+                            <span class="st-badge">Arrival</span>
+                            <h2 class="st-card-title">Gate Timings</h2>
+                        </div>
+                        <p style="font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 1.25rem;">
+                            Gate opening and closing timings for student arrival:
+                        </p>
+                        <div class="st-table-wrapper">
+                            <table class="st-table" style="font-size:0.85rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Class</th>
+                                        <th>Gate Open</th>
+                                        <th>Gate Close</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nursery</td>
+                                        <td><span class="st-time-badge">09:50 A.M.</span></td>
+                                        <td><span class="st-time-badge" style="background:rgba(217,83,79,0.1); color:#d9534f;">10:05 A.M.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>LKG to I</td>
+                                        <td><span class="st-time-badge">08:30 A.M.</span></td>
+                                        <td><span class="st-time-badge" style="background:rgba(217,83,79,0.1); color:#d9534f;">08:55 A.M.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>II to V</td>
+                                        <td><span class="st-time-badge">07:30 A.M.</span></td>
+                                        <td><span class="st-time-badge" style="background:rgba(217,83,79,0.1); color:#d9534f;">07:55 A.M.</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Official Document Section for Junior Timing -->
+                <div class="st-card" style="margin-top: 3rem;">
+                    <div class="st-card-header">
+                        <span class="st-badge">Official Document</span>
+                        <h2 class="st-card-title">Junior School Timing Notice</h2>
+                    </div>
+                    <div class="st-document-wrapper">
+                        <div class="st-document-item">
+                            <img src="assets/school_time_jnr.jpg" alt="Official Junior School Bell Timing Circular">
+                            <div class="st-document-caption"><i class="ph ph-file-text"></i> &nbsp;Junior Bell Timing circular — Session 2026-2027</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /#junior-timing-content -->
+
+        </div><!-- /container -->
+    </div><!-- /st-page-wrapper -->
+
+    <!-- Footer -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small"><i class="ph-fill ph-student"></i></div>
+                        <div class="school-title"><h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3></div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Timing Table row highlighting
+        document.querySelectorAll('#timingTable tbody tr, #juniorTimingTable tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                const tableId = this.closest('table').id;
+                document.querySelectorAll(`#${tableId} tbody tr`).forEach(r => r.classList.remove('active-row'));
+                this.classList.add('active-row');
+            });
+        });
+
+        // Tab switching logic
+        const tabs = document.querySelectorAll('.timing-tab');
+        const contents = document.querySelectorAll('.timing-section-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                const targetContent = document.getElementById(`${tab.dataset.section}-timing-content`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <script src="script.js?v=7"></script>
+</body>
+</html>

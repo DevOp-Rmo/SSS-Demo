@@ -40,7 +40,7 @@
             <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
             <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
         </div>
-        <button class="vertical-btn" onclick="window.location.href='index.html'">
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
             <i class="ph ph-file-text"></i>
             <span>TRANSFER CERTIFICATE</span>
         </button>
@@ -86,21 +86,21 @@
                     <li class="dropdown">
                         <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.html">History</a></li>
-                            <li><a href="index.html">President's Message</a></li>
-                            <li><a href="index.html">Secretary General's Message</a></li>
-                            <li><a href="index.html">Principal's Message</a></li>
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
                             <li><a href="index.html">Head Mistress's Message</a></li>
-                            <li><a href="index.html">Board of Trustees</a></li>
-                            <li><a href="index.html">School Management Committee</a></li>
-                            <li><a href="index.html">Media Coverage</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.html">Infrastructure</a></li>
-                            <li><a href="index.html">Career Counselling</a></li>
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
                             <li><a href="index.html">Workshops</a></li>
                         </ul>
                     </li>
@@ -116,18 +116,18 @@
                     <li class="dropdown">
                         <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.html">Faculty</a></li>
+                            <li><a href="faculty.html">Faculty</a></li>
                             <li><a href="index.html">The Four Pillars</a></li>
-                            <li><a href="index.html">School Timing</a></li>
-                            <li><a href="index.html">School Calendar</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.html">Procedure</a></li>
-                            <li><a href="index.html">Fee Structure</a></li>
-                            <li><a href="index.html">Fee Policy & Schedule</a></li>
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -310,8 +310,7 @@
                         const data = JSON.parse(stored);
                         if (data.section_notices) {
                             const defaults = getDefaultLocalNotices();
-                            const needsUpdate = data.section_notices.length < defaults.length ||
-                                                (defaults[0] && defaults[0].file_path && (!data.section_notices[0] || !data.section_notices[0].file_path));
+                            const needsUpdate = !data.section_notices.some(n => n.id === 'wp_notice_27') || data.section_notices.length !== defaults.length;
                             if (needsUpdate) {
                                 data.section_notices = defaults;
                                 localStorage.setItem('school_db_data', JSON.stringify(data));
@@ -363,10 +362,24 @@
             if (notice.category === 'holiday') categoryLabel = 'Holiday Notice';
             if (notice.category === 'admission') categoryLabel = 'Admission Notice';
             if (notice.category === 'exam') categoryLabel = 'Exam Notice';
+            if (notice.category === 'general') categoryLabel = 'General Notice';
+
+            let displayClass = notice.class;
+            if (Array.isArray(notice.class)) {
+                if (notice.class.length >= 12) {
+                    displayClass = 'Classes Nursery - XII';
+                } else if (notice.class.includes('Class I') && notice.class.includes('Class V')) {
+                    displayClass = 'Classes Nursery - V';
+                } else if (notice.class.includes('Class VI') && notice.class.includes('Class XII')) {
+                    displayClass = 'Classes VI - XII';
+                } else {
+                    displayClass = notice.class.join(', ');
+                }
+            }
 
             const metaInfo = document.getElementById('notice-meta-info');
             if (metaInfo) {
-                metaInfo.innerHTML = `<span><i class="ph-bold ph-calendar-blank"></i> Published ${formattedDate}</span> • <span><i class="ph-bold ph-tag"></i> ${notice.class} (${categoryLabel})</span>`;
+                metaInfo.innerHTML = `<span><i class="ph-bold ph-calendar-blank"></i> Published ${formattedDate}</span> • <span><i class="ph-bold ph-tag"></i> ${displayClass} (${categoryLabel})</span>`;
             }
 
             const titleText = document.getElementById('notice-title-text');
@@ -378,7 +391,9 @@
             if (bodyContent) {
                 let html = notice.content;
                 if (notice.file_path) {
-                    const isPdf = notice.file_path.toLowerCase().endsWith('.pdf') || notice.file_path.startsWith('data:application/pdf');
+                    const files = Array.isArray(notice.file_path) ? notice.file_path : [notice.file_path];
+                    const firstFile = files[0] || '';
+                    const isPdf = firstFile.toLowerCase().endsWith('.pdf') || firstFile.startsWith('data:application/pdf');
                     if (isPdf) {
                         html += `
                             <div class="notice-attachment-wrapper" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px dashed #e5e7eb;">
@@ -386,26 +401,31 @@
                                     <i class="ph ph-file-pdf" style="font-size: 1.35rem; color: #ef4444"></i> Attached PDF Document
                                 </h4>
                                 <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background-color: #f9fafb;">
-                                    <iframe src="${notice.file_path}" width="100%" height="700px" style="border: none; display: block;"></iframe>
+                                    <iframe src="${firstFile}" width="100%" height="700px" style="border: none; display: block;"></iframe>
                                 </div>
                                 <div style="margin-top: 1rem; text-align: right;">
-                                    <a href="${notice.file_path}" target="_blank" style="font-size: 0.85rem; color: #F57C00; font-weight: 800; text-decoration: none; font-family: 'Inter', sans-serif;">
+                                    <a href="${firstFile}" target="_blank" style="font-size: 0.85rem; color: #F57C00; font-weight: 800; text-decoration: none; font-family: 'Inter', sans-serif;">
                                         Open PDF in new tab <i class="ph ph-arrow-square-out"></i>
                                     </a>
                                 </div>
                             </div>
                         `;
                     } else {
-                        // Image attachment
+                        // Image attachment(s)
                         html += `
                             <div class="notice-attachment-wrapper" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px dashed #e5e7eb;">
                                 <h4 style="font-size: 1rem; color: #16164A; font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif;">
-                                    <i class="ph ph-image"></i> Attached Image
+                                    <i class="ph ph-image"></i> Attached Document${files.length > 1 ? 's (' + files.length + ' pages)' : ''}
                                 </h4>
-                                <div style="text-align: center; background-color: #f9fafb; border-radius: 12px; padding: 1rem; border: 1px solid #f3f4f6;">
-                                    <a href="${notice.file_path}" target="_blank" title="Click to view full image">
-                                        <img src="${notice.file_path}" alt="Notice Attachment" style="max-width: 100%; max-height: 500px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.2s;">
-                                    </a>
+                                <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; background-color: #f9fafb; border-radius: 12px; padding: 2rem; border: 1px solid #f3f4f6;">
+                                    ${files.map((file, fileIndex) => `
+                                        <div style="text-align: center; width: 100%;">
+                                            ${files.length > 1 ? `<div style="font-size: 0.85rem; font-weight: 700; color: var(--text-light); margin-bottom: 0.5rem;">Page ${fileIndex + 1}</div>` : ''}
+                                            <a href="${file}" target="_blank" title="Click to view full image">
+                                                <img src="${file}" alt="Notice Attachment Page ${fileIndex + 1}" style="max-width: 100%; max-height: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.2s;">
+                                            </a>
+                                        </div>
+                                    `).join('')}
                                 </div>
                             </div>
                         `;
@@ -423,1204 +443,303 @@
         function getDefaultLocalNotices() {
             return [
                 {
-                    "id": "sn_1",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class I - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iagogIDw8CiAgICAvVHlwZSAvQ2F0YWxvZwogICAgL1BhZ2VzIDIgMCBSCgogID4+CmVuZG9iagoyIDAgb2JqCiAgPDwKICAgIC9UeXBlIC9QYWdlcwogICAgL0tpZHMgWzMgMCBSXQogICAgL0NvdW50IDEKICA+PgplbmRvYmoKMyAwIG9iagogIDw8CiAgICAvVHlwZSAvUGFnZQogICAgL1BhcmVudCAyIDAgUgogICAgL01lZGlhQm94IFswIDAgNTk1IDg0Ml0KICAgIC9SZXNvdXJjZXMgPDwKICAgICAgL0ZvbnQgPDwKICAgICAgICAvRjEgNCAwIFIKICAgICAgPj4KICAgID4+CiAgICAvQ29udGVudHMgNSAwIFIKICA+PgplbmRvYmoKNCAwIG9iagogIDw8CiAgICAvVHlwZSAvRm9udAogICAgL1N1YnR5cGUgL1R5cGUxCiAgICAvQmFzZUZvbnQgL0hlbHZldGljYQogID4+CmVuZG9iago1IDAgb2JqCiAgPDwKICAgIC9MZW5ndGggNTEKICA+PgpzdHJlYW0KQlQKICAvRjEgMjQgVGYKICA3MCA3MDAgVGQKICAoU2hyaSBTaGlrc2hheWF0YW4gU2Nob29sIE5vdGljZSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA3NCAwMDAwMCBuIAowMDAwMDAwMTMxIDAwMDAwIG4gCjAwMDAwMDAyNjMgMDAwMDAgbiAKMDAwMDAwMDMzNiAwMDAwMCBuIAp0cmFpbGVyCiAgPDwKICAgIC9TaXplIDYKICAgIC9Sb290IDEgMCBSCgogID4+CnN0YXJ0eHJlZgogIDQzOApfX0VPRgo="
-                },
-                {
-                    "id": "sn_2",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class I - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_3",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class I - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_4",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class I - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_5",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class I - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_6",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class I - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_7",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class I - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_8",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class I - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_9",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class I - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_10",
-                    "section": "junior",
-                    "class": "Class I",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class I - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_11",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class II - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_12",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class II - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_13",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class II - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_14",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class II - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_15",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class II - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_16",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class II - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_17",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class II - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_18",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class II - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_19",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class II - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_20",
-                    "section": "junior",
-                    "class": "Class II",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class II - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_21",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class III - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_22",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class III - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_23",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class III - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_24",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class III - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_25",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class III - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_26",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class III - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_27",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class III - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_28",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class III - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_29",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class III - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_30",
-                    "section": "junior",
-                    "class": "Class III",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class III - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_31",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class IV - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_32",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class IV - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_33",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class IV - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_34",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class IV - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_35",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class IV - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_36",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class IV - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_37",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class IV - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_38",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class IV - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_39",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class IV - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_40",
-                    "section": "junior",
-                    "class": "Class IV",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class IV - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_41",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class V - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_42",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class V - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_43",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class V - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_44",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class V - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_45",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class V - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_46",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class V - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_47",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class V - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_48",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class V - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_49",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class V - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_50",
-                    "section": "junior",
-                    "class": "Class V",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class V - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_51",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class VI - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": "data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iagogIDw8CiAgICAvVHlwZSAvQ2F0YWxvZwogICAgL1BhZ2VzIDIgMCBSCgogID4+CmVuZG9iagoyIDAgb2JqCiAgPDwKICAgIC9UeXBlIC9QYWdlcwogICAgL0tpZHMgWzMgMCBSXQogICAgL0NvdW50IDEKICA+PgplbmRvYmoKMyAwIG9iagogIDw8CiAgICAvVHlwZSAvUGFnZQogICAgL1BhcmVudCAyIDAgUgogICAgL01lZGlhQm94IFswIDAgNTk1IDg0Ml0KICAgIC9SZXNvdXJjZXMgPDwKICAgICAgL0ZvbnQgPDwKICAgICAgICAvRjEgNCAwIFIKICAgICAgPj4KICAgID4+CiAgICAvQ29udGVudHMgNSAwIFIKICA+PgplbmRvYmoKNCAwIG9iagogIDw8CiAgICAvVHlwZSAvRm9udAogICAgL1N1YnR5cGUgL1R5cGUxCiAgICAvQmFzZUZvbnQgL0hlbHZldGljYQogID4+CmVuZG9iago1IDAgb2JqCiAgPDwKICAgIC9MZW5ndGggNTEKICA+PgpzdHJlYW0KQlQKICAvRjEgMjQgVGYKICA3MCA3MDAgVGQKICAoU2hyaSBTaGlrc2hheWF0YW4gU2Nob29sIE5vdGljZSkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA3NCAwMDAwMCBuIAowMDAwMDAwMTMxIDAwMDAwIG4gCjAwMDAwMDAyNjMgMDAwMDAgbiAKMDAwMDAwMDMzNiAwMDAwMCBuIAp0cmFpbGVyCiAgPDwKICAgIC9TaXplIDYKICAgIC9Sb290IDEgMCBSCgogID4+CnN0YXJ0eHJlZgogIDQzOApfX0VPRgo="
-                },
-                {
-                    "id": "sn_52",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class VI - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_53",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class VI - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_54",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class VI - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_55",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class VI - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_56",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class VI - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_57",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class VI - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_58",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class VI - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_59",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class VI - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_60",
-                    "section": "senior",
-                    "class": "Class VI",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class VI - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_61",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class VII - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_62",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class VII - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_63",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class VII - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_64",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class VII - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_65",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class VII - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_66",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class VII - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_67",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class VII - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_68",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class VII - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_69",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class VII - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_70",
-                    "section": "senior",
-                    "class": "Class VII",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class VII - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_71",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class VIII - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_72",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class VIII - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_73",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class VIII - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_74",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class VIII - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_75",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class VIII - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_76",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class VIII - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_77",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class VIII - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_78",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class VIII - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_79",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class VIII - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_80",
-                    "section": "senior",
-                    "class": "Class VIII",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class VIII - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_81",
+                    "id": "wp_notice_27",
                     "section": "senior",
                     "class": "Class IX",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class IX - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
+                    "category": "general",
+                    "date": "2026-07-16",
+                    "title": "Notice for the students of Class IX regarding mentoring session",
+                    "content": "<p>Please view the attached notice regarding the mentoring session for Class IX students.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-16 - Notice for the students of  Class IX regarding mentoring session/20260716-Notice-for-Classes-IX-Mentoring-Session_001.jpg"
                 },
                 {
-                    "id": "sn_82",
+                    "id": "wp_notice_26",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
+                    "category": "general",
+                    "date": "2026-07-15",
+                    "title": "NOTICE FOR CLASSES NURSERY TO V RE: Early Dispersal SESSION 2026 - 2027",
+                    "content": "<p>Please view the attached notice regarding early dispersal for Classes Nursery to V.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - NOTICE FOR CLASSES NURSERY TO V RE Early Dispersal SESSION 2026 – 2027/20260715-rath-yatra-2026-early_001.jpg"
+                },
+                {
+                    "id": "wp_notice_25",
                     "section": "senior",
-                    "class": "Class IX",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class IX - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
+                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-07-15",
+                    "title": "Notice for Students of Classes VI to XII Re: Early Dispersal",
+                    "content": "<p>Please view the attached notice regarding early dispersal for Classes VI to XII.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - Notice for Students of Classes VI to XII Re Early Dispersal/20260715-Early-Dispersal-on-16th-July-2026_001.jpg"
                 },
                 {
-                    "id": "sn_83",
+                    "id": "wp_notice_24",
                     "section": "senior",
-                    "class": "Class IX",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class IX - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
+                    "class": ["Class VI", "Class VII", "Class VIII"],
+                    "category": "exam",
+                    "date": "2026-07-15",
+                    "title": "DATE SHEET FOR PRACTICE ASSESSMENT CLASSES VI, VII, VIII SESSION 2026-27",
+                    "content": "<p>Please view the attached practice assessment date sheet for Classes VI, VII, and VIII.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - DATE SHEET FOR PRACTICE ASSESSMENT CLASSES VI, VII, VIII SESSION 2026-27/20260715-PRACTICE-ASSESSMENT-CLASSES-VI-VII-VIII-26-27.jpg"
                 },
                 {
-                    "id": "sn_84",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class IX - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_85",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class IX - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_86",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class IX - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_87",
+                    "id": "wp_notice_23",
                     "section": "senior",
                     "class": "Class IX",
                     "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class IX - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
+                    "date": "2026-07-15",
+                    "title": "DATE SHEET FOR PRACTICE TEST CLASS IX SESSION 2026-2027",
+                    "content": "<p>Please view the attached practice test date sheet for Class IX.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - DATE SHEET FOR PRACTICE TEST CLASS IX SESSION 2026-2027/20260715PR-TEST-IX-26-27_001.jpg"
                 },
                 {
-                    "id": "sn_88",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class IX - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_89",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class IX - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_90",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class IX - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_91",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class X - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_92",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class X - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_93",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class X - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_94",
-                    "section": "senior",
-                    "class": "Class X",
+                    "id": "wp_notice_22",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
                     "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class X - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
+                    "date": "2026-07-14",
+                    "title": "INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V",
+                    "content": "<p>Please view the attached interview notices for Session 2027-2028 Classes Nursery to V.</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-07-14 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/x20260714-INTERVIEW-NOTICE-_001.jpg.pagespeed.ic.tc-OksGQ9f.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-14 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/x20260714-INTERVIEW-NOTICE-_002.jpg.pagespeed.ic.y5lMPUqUeb.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-14 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260714-INTERVIEW-NOTICE-_003.jpg"
+                    ]
                 },
                 {
-                    "id": "sn_95",
+                    "id": "wp_notice_21",
                     "section": "senior",
-                    "class": "Class X",
+                    "class": ["Class X", "Class XII"],
+                    "category": "general",
+                    "date": "2026-07-14",
+                    "title": "NOTICE FOR PARENTS AND STUDENTS OF CALSSES X AND XII - SESSION 2026-2027",
+                    "content": "<p>Please view the attached notice for Classes X and XII parents and students.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-14 - NOTICE FOR PARENTS AND STUDENTS OF CALSSES X AND XII – SESSION 2026–2027/20260714Notice-for-Classes-X-and-XII-2026-27_001.jpg"
+                },
+                {
+                    "id": "wp_notice_20",
+                    "section": "senior",
+                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-07-13",
+                    "title": "Notice for the students of Classes VI to XII regarding reporting time for Annual Day and Prize Distribution Ceremony",
+                    "content": "<p>Please view the attached notice regarding Annual Day reporting times.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-13 - Notice for the students of Classes VI to XII regarding reporting time for Annual Day an/20260713-Notice-for-students-of-Classes-VI-to-XII_001.jpg"
+                },
+                {
+                    "id": "wp_notice_19",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
                     "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class X - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
+                    "date": "2026-07-11",
+                    "title": "ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028",
+                    "content": "<p>Please view the attached admission selection list and fee notice.</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_002.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_003.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_004.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-fee-notice-for-admission-2027-28_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST-8th-July_001.jpg"
+                    ]
                 },
                 {
-                    "id": "sn_96",
+                    "id": "wp_notice_18",
                     "section": "senior",
-                    "class": "Class X",
+                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-07-09",
+                    "title": "Notices for the students of Classes VI to XII regarding Annual Day and Prize Distribution Ceremony 2025-2026",
+                    "content": "<p>Please view the attached notice regarding the Annual Day and Prize Distribution Ceremony.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-09 - Notices for the students of Classes VI to XII regarding Annual Day and Prize Distributi/20260709Annual-Day-and-Prize-Distribution_001.jpg"
+                },
+                {
+                    "id": "wp_notice_17",
+                    "section": "senior",
+                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-07-09",
+                    "title": "Notices for the students of Classes VI to XII regarding early dispersal",
+                    "content": "<p>Please view the attached notice regarding early dispersal.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-07-09 - Notices for the students of Classes VI to XII regarding early dispersal/20260709Early-Dispersal_001.jpg"
+                },
+                {
+                    "id": "wp_notice_16",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
                     "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class X - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
+                    "date": "2026-07-04",
+                    "title": "INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V",
+                    "content": "<p>Please view the attached interview schedule notice for classes Nursery to V.</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_002.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_003.jpg",
+                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_004.jpg"
+                    ]
                 },
                 {
-                    "id": "sn_97",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class X - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_98",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class X - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_99",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class X - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_100",
-                    "section": "senior",
-                    "class": "Class X",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class X - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_101",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class XI - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_102",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class XI - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_103",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class XI - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_104",
-                    "section": "senior",
-                    "class": "Class XI",
+                    "id": "wp_notice_15",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
                     "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class XI - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
+                    "date": "2026-06-29",
+                    "title": "INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V",
+                    "content": "<p>Please view the attached interview notice for details.</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-06-29 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260629INTERVIEW-NOTICE-LIST27-28_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-06-29 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260629INTERVIEW-NOTICE-LIST27-28_002.jpg",
+                        "assets/Post/wp_exports_2026/2026-06-29 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260629INTERVIEW-NOTICE-LIST27-28_003.jpg"
+                    ]
                 },
                 {
-                    "id": "sn_105",
-                    "section": "senior",
-                    "class": "Class XI",
+                    "id": "wp_notice_14",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-06-22",
+                    "title": "Shri Shikshayatan School participated in the International Yoga Day at Red Road on 21st June, 2026",
+                    "content": "<p>Our students participated with great enthusiasm in the International Yoga Day celebrations at Red Road.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-06-22 - Shri Shikshayatan School participated in the International Yoga Day at Red Road on 21st/20260622International-Yoga-Day-at-Red-Road.jpeg"
+                },
+                {
+                    "id": "wp_notice_13",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-06-22",
+                    "title": "Shri Shikshayatan School receives National Award for Excellence in Student Well-being and Emotional Health",
+                    "content": "<p>We are proud to announce that our school has received the prestigious National Award for Excellence in Student Well-being and Emotional Health.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-06-22 - Shri Shikshayatan School receives National Award for Excellence in Student Well-being a/20260622Shri-Shikshayatan-School.jpeg"
+                },
+                {
+                    "id": "wp_notice_12",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-06-20",
+                    "title": "Notice for the students of Classes Nursery to XII regarding Metro Concession Form",
+                    "content": "<p>Please view the attached notice regarding distribution and submission of Metro Concession Forms.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-06-20 - Notice for the students of Classes Nursery to XII regarding Metro Concession Form/20260620_Notice-for-the-students-of-Classes-Nursery-to-XII_001.jpg"
+                },
+                {
+                    "id": "wp_notice_11",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-06-15",
+                    "title": "Notice of ‘School Bag Policy’",
+                    "content": "<p>Please view the attached notice regarding the official School Bag Weight Guidelines and Policy.</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-06-15 - Notice of ‘School Bag Policy’/20260615-Shri-Shikshayatan-School-School-Bag-Policy_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-06-15 - Notice of ‘School Bag Policy’/20260615-Shri-Shikshayatan-School-School-Bag-Policy_002.jpg"
+                    ]
+                },
+                {
+                    "id": "wp_notice_10",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
                     "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class XI - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
+                    "date": "2026-06-15",
+                    "title": "ADMISSION NOTICE FOR SESSION (2027 – 2028) FOR CLASSES NURSERY TO V",
+                    "content": "<p>Admission portal is open for classes Nursery to V for the academic session 2027-2028.</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-06-15 - ADMISSION NOTICE FOR SESSION (2027 – 2028) FOR CLASSES NURSERY TO V/20260615-Admission-Notice-Nursery-to-V_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-06-15 - ADMISSION NOTICE FOR SESSION (2027 – 2028) FOR CLASSES NURSERY TO V/20260615-Admission-Notice-Nursery-to-V_002.jpg"
+                    ]
                 },
                 {
-                    "id": "sn_106",
+                    "id": "wp_notice_9",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-06-15",
+                    "title": "Congratulations",
+                    "content": "<p>Congratulations to all our students on their exceptional performance in board and session assessments.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-06-15 - Congratulations/15062026-Congratulations1.jpg"
+                },
+                {
+                    "id": "wp_notice_8",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-05-25",
+                    "title": "Congratulations",
+                    "content": "<p>Congratulations to our students for their outstanding accomplishments in co-curricular championships.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-05-25 - Congratulations/25052026-Congratulations-1.jpg"
+                },
+                {
+                    "id": "wp_notice_7",
+                    "section": "senior",
+                    "class": "Class XII",
+                    "category": "general",
+                    "date": "2026-05-14",
+                    "title": "Appreciation For Batch Senior School Certificate Examination (Main)-2026",
+                    "content": "<p>We appreciate the hard work and success of our Class XII batch in the CBSE Board Examinations.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-05-14 - Appreciation For Batch Senior School Certificate Examination (Main)-2026/16072026-Congratulations-Class-XII-2025-2026-final-web.jpg"
+                },
+                {
+                    "id": "wp_notice_6",
+                    "section": "senior",
+                    "class": "Class XII",
+                    "category": "general",
+                    "date": "2026-04-16",
+                    "title": "Note of Appreciation for Batch 2026 SSE",
+                    "content": "<p>Congratulations and best wishes to the SSE Batch of 2026 on their graduation and achievements.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-04-16 - Note of Appreciation for Batch 2026 SSE/16042026-Congratulations-Class-X-2025-2026D.jpg.pagespeed.ce.WI6SqZLR5k.jpg"
+                },
+                {
+                    "id": "wp_notice_5",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
+                    "category": "general",
+                    "date": "2026-04-06",
+                    "title": "NOTICE FOR CLASSES NURSERY- V (JUNIOR SECTION) FOR THE SESSION 2026- 2027",
+                    "content": "<p>Please find attached the timetable and timing instructions for the new academic session 2026-2027.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-04-06 - NOTICE  FOR CLASSES NURSERY- V (JUNIOR SECTION) FOR THE SESSION 2026- 2027/20260406_SCHOOL-TIMING-NOTICE_001.jpg"
+                },
+                {
+                    "id": "wp_notice_4",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-04-06",
+                    "title": "Notice for Parents and Students regarding Launch of School Mobile Application",
+                    "content": "<p>We are delighted to announce the launch of our new official School Mobile Application for parents and students.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-04-06 - Notice for Parents and Students regarding Launch of School Mobile Application/20260406Notice-for-Parents-and-Students-regarding-Launch-of-School-Mobile-App_001.jpg"
+                },
+                {
+                    "id": "wp_notice_3",
+                    "section": "junior",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
+                    "category": "general",
+                    "date": "2026-03-23",
+                    "title": "ACADEMIC SESSION 2026-2027 NOTICE FOR NEW ADMISSIONS CLASSES NURSERY TO V FULL SET OF BOOKS - EXERCISE BOOKS, STATIONERY & SCHOOL BAG WILL BE AVAILABLE",
+                    "content": "<p>Please view details regarding distribution of books, uniforms, and stationary for new admissions.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-03-23 - ACADEMIC SESSION 2026 – 2027 NOTICE FOR NEW ADMISSIONS CLASSES NURSERY TO V FULL SET OF/20260323Book-distribution-for-New-Admissions_001.jpg"
+                },
+                {
+                    "id": "wp_notice_2",
                     "section": "senior",
                     "class": "Class XI",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class XI - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
+                    "category": "general",
+                    "date": "2026-03-23",
+                    "title": "Notice for Students of Class XI Academic Session 2026-2027 For School Uniform, Books, Exercise Copies, Shoes and School Bag",
+                    "content": "<p>Distribution schedule of school uniforms, shoes, books, and bags for Class XI students (Session 2026-2027).</p>",
+                    "file_path": [
+                        "assets/Post/wp_exports_2026/2026-03-23 - Notice for Students of Class XI Academic Session 2026-2027 For School Uniform, Books, E/20260323Notice-for-the-students-of-Class-XI-session-2026-2027_001.jpg",
+                        "assets/Post/wp_exports_2026/2026-03-23 - Notice for Students of Class XI Academic Session 2026-2027 For School Uniform, Books, E/20260323Notice-for-Books_001.jpg"
+                    ]
                 },
                 {
-                    "id": "sn_107",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class XI - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_108",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class XI - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_109",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class XI - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_110",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class XI - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_111",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "holiday",
-                    "date": "2026-06-06",
-                    "title": "Class XII - Summer Vacation Holidays",
-                    "content": "<p>Dear Parents, this is to inform you that summer vacation holidays will commence shortly. Please ensure students complete their holiday homework assignments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_112",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "holiday",
-                    "date": "2026-06-05",
-                    "title": "Class XII - Durga Puja & Festive Break",
-                    "content": "<p>The school will remain closed on account of Durga Puja and Dussehra celebrations. Regular classes will resume after the break.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_113",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "holiday",
-                    "date": "2026-06-04",
-                    "title": "Class XII - Winter Holidays Announcement",
-                    "content": "<p>School will be closed for winter holidays. We wish all our students and their families a warm and happy holiday season.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_114",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "admission",
-                    "date": "2026-05-28",
-                    "title": "Class XII - Admission Guidelines for Next Session",
-                    "content": "<p>The registration link and detailed checklist for next term admissions are now available. Kindly submit the documents before the deadline.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_115",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "admission",
-                    "date": "2026-05-20",
-                    "title": "Class XII - Interaction Schedule & Shortlisted List",
-                    "content": "<p>Shortlisted student interaction lists have been updated. Please check the timings slot and arrive 15 minutes early.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_116",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "admission",
-                    "date": "2026-05-15",
-                    "title": "Class XII - Document Verification Deadline Notice",
-                    "content": "<p>Final call for pending document submissions for new admission enrollments. Documents must be verified by the admin office.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_117",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "exam",
-                    "date": "2026-05-02",
-                    "title": "Class XII - First Term Examination Timetable",
-                    "content": "<p>The schedule and syllabus details for the upcoming First Term assessment have been released. Examinations commence next week.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_118",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "exam",
-                    "date": "2026-04-25",
-                    "title": "Class XII - Unit Test Datesheet Release",
-                    "content": "<p>Please find the unit test schedule attached. Attendance is mandatory for all scheduled assessments.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_119",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "exam",
-                    "date": "2026-04-18",
-                    "title": "Class XII - Mock Tests & Revision Schedule",
-                    "content": "<p>Special mock test classes and revision sessions are scheduled to help students prepare for their final board exams.</p>",
-                    "file_path": ""
-                },
-                {
-                    "id": "sn_120",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "exam",
-                    "date": "2026-04-10",
-                    "title": "Class XII - Report Card Parent-Teacher Meeting",
-                    "content": "<p>The PTM for reviewing exam performance and distributing report cards is scheduled. Parents must attend along with their ward.</p>",
-                    "file_path": ""
+                    "id": "wp_notice_1",
+                    "section": "both",
+                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
+                    "category": "general",
+                    "date": "2026-02-03",
+                    "title": "The 'Gratitude and Updates from an Alumna of Shri Shikshayatan School'",
+                    "content": "<p>A warm letter of appreciation and updates received from a distinguished alumna of our school.</p>",
+                    "file_path": "assets/Post/wp_exports_2026/2026-02-03 - The ‘Gratitude and Updates from an Alumna of Shri Shikshayatan School’/20260203Gratitude-an-Alumna-of-Shri-Shikshayatan-School_001.jpg"
                 }
             ];
         }

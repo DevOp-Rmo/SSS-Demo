@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Transfer Certificates</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+    
+    <style>
+        /* Modern styles for Transfer Certificates Directory */
+        .tc-hero-section {
+            background: linear-gradient(135deg, #1a1a4a 0%, #2a2a72 100%);
+            color: #fff;
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tc-hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(245, 124, 0, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .tc-hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .tc-hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .tc-container {
+            max-width: 1200px;
+            margin: -2rem auto 5rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Search and Filter Panel */
+        .search-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(26, 26, 74, 0.06);
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .search-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 1.25rem;
+            color: #8888b0;
+            font-size: 1.25rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.1rem 1.1rem 1.1rem 3.2rem;
+            border: 2px solid rgba(26, 26, 74, 0.08);
+            border-radius: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #1a1a4a;
+            background-color: #fcfcfe;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #f57c00;
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.15);
+        }
+
+        .filter-select {
+            padding: 1.1rem 2.5rem 1.1rem 1.25rem;
+            border: 2px solid rgba(26, 26, 74, 0.08);
+            border-radius: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #1a1a4a;
+            background-color: #fcfcfe;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231a1a4a' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.25rem center;
+            background-size: 1.2rem;
+        }
+
+        .filter-select:focus {
+            border-color: #f57c00;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.15);
+        }
+
+        /* Results Directory Table */
+        .directory-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(26, 26, 74, 0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .tc-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .tc-table th {
+            background-color: #1a1a4a;
+            color: #fff;
+            padding: 1.25rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tc-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(26, 26, 74, 0.06);
+            font-family: 'Inter', sans-serif;
+            color: #333366;
+            font-size: 0.95rem;
+        }
+
+        .tc-table tr:hover td {
+            background-color: #f8f9ff;
+        }
+
+        .student-name {
+            font-weight: 700;
+            color: #1a1a4a;
+        }
+
+        .student-class {
+            background-color: #f0f2ff;
+            color: #2a2a72;
+            padding: 0.35rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .student-uin {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #666688;
+        }
+
+        /* Responsive Mobile Layout */
+        .mobile-cards-container {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .tc-table {
+                display: none;
+            }
+            .mobile-cards-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+                padding: 1.5rem;
+            }
+            .mobile-card {
+                background: #fcfcfe;
+                border: 1px solid rgba(26, 26, 74, 0.08);
+                border-radius: 18px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            }
+            .mobile-card-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.75rem;
+            }
+            .mobile-card-label {
+                font-family: 'Inter', sans-serif;
+                font-weight: 600;
+                font-size: 0.85rem;
+                color: #8888b0;
+            }
+            .mobile-card-value {
+                font-family: 'Inter', sans-serif;
+                font-size: 0.95rem;
+                color: #1a1a4a;
+                font-weight: 500;
+            }
+            .mobile-card-value.student-name {
+                font-weight: 800;
+            }
+            .mobile-card-actions {
+                display: flex;
+                gap: 0.75rem;
+                margin-top: 1.25rem;
+                border-top: 1px solid rgba(26, 26, 74, 0.06);
+                padding-top: 1rem;
+            }
+        }
+
+        /* Action Buttons */
+        .btn-action-group {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-tc {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.1rem;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none !important;
+        }
+
+        .btn-tc-view {
+            background-color: #f57c00;
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(245, 124, 0, 0.25);
+        }
+
+        .btn-tc-view:hover {
+            background-color: #e65100;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(245, 124, 0, 0.35);
+        }
+
+        .btn-tc-download {
+            background-color: #1a1a4a;
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(26, 26, 74, 0.2);
+        }
+
+        .btn-tc-download:hover {
+            background-color: #2a2a72;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 26, 74, 0.3);
+        }
+
+        /* Pagination Styling */
+        .tc-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .btn-page {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 2px solid rgba(26, 26, 74, 0.08);
+            background: #fff;
+            color: #1a1a4a;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+
+        .btn-page:hover:not(:disabled) {
+            border-color: #f57c00;
+            color: #f57c00;
+        }
+
+        .btn-page.active {
+            background-color: #f57c00;
+            border-color: #f57c00;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(245, 124, 0, 0.25);
+        }
+
+        .btn-page:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background-color: #f3f4f6;
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #666688;
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            color: #b0b0d0;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            color: #1a1a4a;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* Custom Fullscreen PDF Viewer Modal */
+        .pdf-viewer-modal {
+            display: none;
+            position: fixed;
+            z-index: 15000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(12px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pdf-viewer-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .pdf-viewer-container {
+            width: 90%;
+            height: 88%;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .pdf-viewer-modal.active .pdf-viewer-container {
+            transform: scale(1);
+        }
+
+        .pdf-viewer-header {
+            background-color: #1a1a4a;
+            color: #fff;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pdf-viewer-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pdf-viewer-title i {
+            color: #f57c00;
+        }
+
+        .pdf-viewer-close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .pdf-viewer-close-btn:hover {
+            background-color: #f57c00;
+            transform: rotate(90deg);
+        }
+
+        .pdf-iframe-body {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #525659;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach & Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Title -->
+    <div class="tc-hero-section">
+        <h2 class="tc-hero-title">Transfer Certificates</h2>
+        <p class="tc-hero-subtitle">Official Directory of issued Transfer Certificates. Parents can search and preview certificates directly below.</p>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="tc-container">
+        
+        <!-- Search and Filter Panel -->
+        <div class="search-panel">
+            <div class="search-input-wrapper">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" class="search-input" id="search-box" placeholder="Search by Student Name...">
+            </div>
+            <select class="filter-select" id="class-filter">
+                <option value="">All Classes</option>
+                <option value="LKG">Class LKG</option>
+                <option value="UKG">Class UKG</option>
+                <option value="SKG">Class SKG</option>
+                <option value="Class II">Class II</option>
+                <option value="Class III">Class III</option>
+                <option value="Class IV">Class IV</option>
+                <option value="Class V">Class V</option>
+                <option value="Class VI">Class VI</option>
+                <option value="Class VII">Class VII</option>
+                <option value="Class VIII">Class VIII</option>
+                <option value="Class IX">Class IX</option>
+                <option value="Class X">Class X</option>
+                <option value="Class XI">Class XI</option>
+            </select>
+        </div>
+
+        <!-- Directory Table / Cards -->
+        <div class="directory-card">
+            
+            <!-- Desktop Table view -->
+            <table class="tc-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">Sl. No</th>
+                        <th style="width: 35%;">Student Name</th>
+                        <th style="width: 20%;">Class</th>
+                        <th style="width: 15%;">TC Date</th>
+                        <th style="width: 20%; text-align: center;">TC Document</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+
+            <!-- Mobile Stack Card view -->
+            <div class="mobile-cards-container" id="mobile-cards-container">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <i class="ph ph-users-three"></i>
+                <h3>No Candidates Found</h3>
+                <p>Try adjusting your search terms or class filters.</p>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="tc-pagination" id="pagination-controls">
+            <!-- Pagination buttons loaded dynamically -->
+        </div>
+
+    </div>
+
+    <!-- PDF Viewer Overlay Modal -->
+    <div class="pdf-viewer-modal" id="pdf-modal">
+        <div class="pdf-viewer-container">
+            <div class="pdf-viewer-header">
+                <div class="pdf-viewer-title">
+                    <i class="ph-bold ph-file-pdf"></i>
+                    <span id="pdf-modal-title">Student Name - Transfer Certificate</span>
+                </div>
+                <button class="pdf-viewer-close-btn" id="close-pdf-btn">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <iframe class="pdf-iframe-body" id="pdf-frame" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p style="margin: 0 0 0.5rem 0; font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">VISITOR COUNTER</p>
+                        <div class="visitor-digits-box">
+                            <span class="visitor-digit">1</span><span class="visitor-digit">,</span><span class="visitor-digit">4</span><span class="visitor-digit">2</span><span class="visitor-digit">6</span><span class="visitor-digit">,</span><span class="visitor-digit">1</span><span class="visitor-digit">9</span><span class="visitor-digit">8</span>
+                        </div>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 1px; text-transform: uppercase;">Shri Shikshayatan School</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Database of all 105 local files
+        const rawFiles = [
+            "0002-CLASS-VI-ZAINAB-JAWED.pdf",
+            "0002_Zainab-Jawed_20200298.pdf",
+            "0003_Divi-Mehta_20180247.pdf",
+            "0004_ARSHPREET-KAUR_20180051.pdf",
+            "0005-CLASS-IX-RENAISSANCE-CHAKRABORTY.pdf",
+            "0006-CLASS-IX-ANUSHKA-MONDA.pdf",
+            "0007_ARADHYA-GUPTA_20200320.pdf",
+            "0008-CLASS-VIII-SANSKRITI-GUPTA.pdf",
+            "0009-CLASS-IX-SRIJA-MONDAl.pdf",
+            "0010-CLASS-X-AASHRITA-SINGH.pdf",
+            "0011-CLASS-X-TANISHA-GHOSH.pdf",
+            "0012-CLASS-X-OMESHAA-CHAKRABORTI.pdf",
+            "0013-CLASS-X-ZINIA-SAHA.pdf",
+            "0014-CLASS-X-STUTI-KARMAKAR.pdf",
+            "0015_-CLASS-X-DAYITA-CHAKRABORTY.pdf",
+            "0016-CLASS-X-PRAGYA-BASU.pdf",
+            "0017-CLASS-X-SHRI-SHAW.pdf",
+            "0018-CLASS-V-SHIVANGI-SHAW.pdf",
+            "0019-CLASS-X-SAMRIDDHI-SINHA-RAY.pdf",
+            "0020-CLASS-X-DIPIKA-DAS.pdf",
+            "0021-CLASS-X-RITTIKA-KHAN.pdf",
+            "0022-CLASS-X-ZAINA-ERUM-RAHMAN.pdf",
+            "0023-CLASS-X-SURENA-HALDAR.pdf",
+            "0024-CLASS-X-NAMRATA-SAHA.pdf",
+            "0025-CLASS-X-ROSHNI-BHUIYA.pdf",
+            "0026-CLASS-X-VANSHIKA-SANJAY.pdf",
+            "0027-CLASS-X-ABHIPSHA-BANERJEE.pdf",
+            "0028-CLASS-X-ARUSHI-BANERJEE.pdf",
+            "0029-CLASS-X-SAMPOORNA-SARKAR.pdf",
+            "0030-CLASS-SKG-AARIA-DASGUPTA.pdf",
+            "0031-CLASS-X-HARSHIKA-JAISWAL.pdf",
+            "0032-CLASS-X-ANUSHKA-MOHANTA.pdf",
+            "0033-CLASS-X-RAJLAKSHMI-BISWAS.pdf",
+            "0034-CLASS-X-SADIAH-HANAN.pdf",
+            "0040-CLASS-X-BIPASHA-PANJA.pdf",
+            "0041-CLASS-X-MALAK-PAREKH.pdf",
+            "0042-CLASS-X-KAVYA-SHYAM-KAMAL.pdf",
+            "0043-CLASS-VII-SHRIYADITA-DAS.pdf",
+            "0044-CLASS-X-MOUPIYA-GHATAK.pdf",
+            "0045-CLASS-II-ANWESHA-ROY.pdf",
+            "0046-CLASS-X-SAMAIRA-NAYAB.pdf",
+            "0047-CLASS-XI-GROUP-III-GARIMA-CHOWDHURY.pdf",
+            "0048-CLASS-X-SREEJITA-DAS.pdf",
+            "0049-CLASS-VI-DEBATRI-SARKAR.pdf",
+            "0050-CLASS-X-ABDHIJA-BHATTACHARYYA.pdf",
+            "0051-CLASS-II-AUREL-ROY.pdf",
+            "0054-CLASS-UKG-UPADHRITI-DAS.pdf",
+            "0055-CLASS-X-KANAK-VERMA.pdf",
+            "0056-CLASS-III-YOSHITA-DAS.pdf",
+            "0057-CLASS-X-UPASANA-HALDAR.pdf",
+            "0059-CLASS-IV-ADVIKA-PANDA.pdf",
+            "0060-CLASS-X-MRIGAKSHEE-CHATTERJEE.pdf",
+            "0061-CLASS-LKG-RAMEESHA-RAWEEL.pdf",
+            "0061-CLASS-X-MUSKAAN-MUNDHRA.pdf",
+            "0062-CLASS-X-SAYANTANI-MISHRA.pdf",
+            "0063-CLASS-X-ARATRIKA-HAZRA.pdf",
+            "0064-CLASS-X-TANNISHTHA-KOLEY.pdf",
+            "0065-CLASS-X-VAISHNAVI-OJHA.pdf",
+            "0066-CLASS-X-SREYA-MUKHERJEE.pdf",
+            "0067-CLASS-X-SRESTHIA-GHOSH.pdf",
+            "0126-CLASS-II-AZMA-JAVED.pdf",
+            "0127CLASS-SKG-JIYASA-RAHA.pdf",
+            "0128CLASS-IV-AARADHITA-MUNSHI.pdf",
+            "0129-CLASS-X-FARAZIA-NAUSHAD.pdf",
+            "0130_Adrisha-Dev-Mondal_20230289.pdf",
+            "0131_Aliza-Mirza_20200006.pdf",
+            "0132_Sangvi-Saha_20200085.pdf",
+            "0133_Mohor-Debnath_20240227.pdf",
+            "0135_Paloma-Mondal_20240084.pdf",
+            "0136_Ezzah-Mohammad-Khan_20240060.pdf",
+            "0137_Toushini-Chatterjee_20240184.pdf",
+            "0138_Anishaa-Das_20200015.pdf",
+            "0139_Supreetha-Chakraborty_20240152.pdf",
+            "0140_Oishani-Sengupta_20230185.pdf",
+            "0141_Shivakshi-Chatterjee_20250038.pdf",
+            "0142_Rayanna-Nag_20220101.pdf",
+            "0144_Adrita-Kundu_20250234.pdf",
+            "0145_Kavya-Gupta_20200095.pdf",
+            "0146_Angelisa-Mitra_20250176.pdf",
+            "0147_Inaaya-Ali_20210053.pdf",
+            "0148_Debanshi-Adhikari_20240158.pdf",
+            "0149_Suhana-Gond_20145734.pdf",
+            "0150_Rahemeen-Rashid_20145427.pdf",
+            "0151-CLASS-VII-ADITI-SHARMA.pdf",
+            "0152_SRIJA-GANGULY_20200058.pdf",
+            "0153_Navya-Bansal_20200168.pdf",
+            "0154_Neerja-Bhattacharya_20145708.pdf",
+            "0155_Subhashita-Chaudhuri_20180049.pdf",
+            "0156_Arjehi-Guha-Thakurata_20230200.pdf",
+            "0157_Jaisvi-Sharma_20190051.pdf",
+            "0158_Riyansika-Ghosh_20180145.pdf",
+            "0159_Srestha-Das_20150131.pdf",
+            "0160_Debpriya-Hait_20180207.pdf",
+            "0161_Shiza-Mirza_20180162.pdf",
+            "0162_Debadrita-Dev-Barman_20144225.pdf",
+            "0163_Divyanka-Shaw_20144229.pdf",
+            "0164_Avni-Jhunjhunwala_20230195.pdf",
+            "0165_Rithika-Mallik_20210336.pdf",
+            "0166_Debangana-Chatterjee_20250343.pdf",
+            "0167_Aarohi-Jain_20220216.pdf",
+            "0168_Saanvi-Saraogi_20190179.pdf",
+            "0169_Yashvi-Jaiswal_20220150.pdf",
+            "0170_Niharika-Das_20240010.pdf",
+            "0171_Kritika-Saw_20190100.pdf",
+            "0172-CLASS-LKG-AADVIKA-SINGH.pdf"
+        ];
+
+        // Map overrides for files where class/reg is not explicitly written in name
+        const classOverrides = {
+            "0003": "Class VI",
+            "0004": "Class VII",
+            "0007": "Class VII",
+            "0130": "Class I",
+            "0131": "Class IV",
+            "0132": "Class IV",
+            "0133": "Class III",
+            "0135": "Class UKG",
+            "0136": "Class UKG",
+            "0137": "Class UKG",
+            "0138": "Class IV",
+            "0139": "Class V",
+            "0140": "Class I",
+            "0141": "Class LKG",
+            "0142": "Class III",
+            "0144": "Class LKG",
+            "0145": "Class IV",
+            "0146": "Class LKG",
+            "0147": "Class III",
+            "0148": "Class SKG",
+            "0149": "Class IX",
+            "0150": "Class X",
+            "0152": "Class IV",
+            "0153": "Class V",
+            "0154": "Class IX",
+            "0155": "Class VII",
+            "0156": "Class SKG",
+            "0157": "Class VI",
+            "0158": "Class VI",
+            "0159": "Class VIII",
+            "0160": "Class VI",
+            "0161": "Class VI",
+            "0162": "Class XI",
+            "0163": "Class XI",
+            "0164": "Class VII",
+            "0165": "Class VII",
+            "0166": "Class XI",
+            "0167": "Class III",
+            "0168": "Class V",
+            "0169": "Class I",
+            "0170": "Class UKG",
+            "0171": "Class V"
+        };
+
+        // TC Dates mapped to index prefixes (from WordPress live site post publication metadata)
+        const tcDates = {
+            "0002": "April 8, 2026",
+            "0003": "April 8, 2026",
+            "0004": "April 20, 2026",
+            "0005": "April 21, 2026",
+            "0006": "April 20, 2026",
+            "0007": "April 20, 2026",
+            "0008": "April 25, 2026",
+            "0009": "April 24, 2026",
+            "0010": "May 5, 2026",
+            "0011": "May 5, 2026",
+            "0012": "May 5, 2026",
+            "0013": "May 5, 2026",
+            "0014": "May 5, 2026",
+            "0015": "May 5, 2026",
+            "0016": "May 5, 2026",
+            "0017": "May 5, 2026",
+            "0018": "May 5, 2026",
+            "0019": "May 5, 2026",
+            "0020": "May 8, 2026",
+            "0021": "May 8, 2026",
+            "0022": "May 8, 2026",
+            "0023": "May 8, 2026",
+            "0024": "May 8, 2026",
+            "0025": "May 9, 2026",
+            "0026": "May 9, 2026",
+            "0027": "May 9, 2026",
+            "0028": "May 9, 2026",
+            "0029": "May 9, 2026",
+            "0030": "May 9, 2026",
+            "0031": "May 12, 2026",
+            "0032": "May 13, 2026",
+            "0033": "May 13, 2026",
+            "0034": "May 13, 2026",
+            "0040": "June 3, 2026",
+            "0041": "June 3, 2026",
+            "0042": "June 3, 2026",
+            "0043": "June 19, 2026",
+            "0044": "June 19, 2026",
+            "0045": "June 19, 2026",
+            "0046": "June 19, 2026",
+            "0047": "June 19, 2026",
+            "0048": "June 19, 2026",
+            "0049": "June 19, 2026",
+            "0050": "June 19, 2026",
+            "0051": "June 19, 2026",
+            "0054": "June 29, 2026",
+            "0055": "July 1, 2026",
+            "0056": "July 4, 2026",
+            "0057": "July 4, 2026",
+            "0059": "July 4, 2026",
+            "0060": "July 4, 2026",
+            "0061": "July 4, 2026",
+            "0062": "July 4, 2026",
+            "0063": "July 4, 2026",
+            "0064": "July 4, 2026",
+            "0065": "July 4, 2026",
+            "0066": "July 4, 2026",
+            "0067": "July 4, 2026",
+            "0126": "December 15, 2025",
+            "0127": "December 19, 2025",
+            "0128": "December 19, 2025",
+            "0129": "January 9, 2026",
+            "0130": "March 23, 2026",
+            "0131": "March 24, 2026",
+            "0132": "March 24, 2026",
+            "0133": "March 24, 2026",
+            "0135": "March 24, 2026",
+            "0136": "March 24, 2026",
+            "0137": "March 24, 2026",
+            "0138": "March 24, 2026",
+            "0139": "March 24, 2026",
+            "0140": "March 24, 2026",
+            "0141": "March 24, 2026",
+            "0142": "March 24, 2026",
+            "0144": "March 24, 2026",
+            "0145": "March 24, 2026",
+            "0146": "March 24, 2026",
+            "0147": "March 24, 2026",
+            "0148": "March 24, 2026",
+            "0149": "March 25, 2026",
+            "0150": "March 25, 2026",
+            "0151": "March 28, 2026",
+            "0152": "March 28, 2026",
+            "0153": "April 1, 2026",
+            "0154": "April 4, 2026",
+            "0155": "April 1, 2026",
+            "0156": "April 1, 2026",
+            "0157": "April 1, 2026",
+            "0158": "April 4, 2026",
+            "0159": "April 1, 2026",
+            "0160": "April 1, 2026",
+            "0161": "April 1, 2026",
+            "0162": "April 1, 2026",
+            "0163": "April 8, 2026",
+            "0164": "April 8, 2026",
+            "0165": "April 8, 2026",
+            "0166": "April 8, 2026",
+            "0167": "April 8, 2026",
+            "0168": "April 8, 2026",
+            "0169": "April 8, 2026",
+            "0170": "April 8, 2026",
+            "0171": "April 8, 2026",
+            "0172": "April 25, 2026"
+        };
+
+        const candidatesList = [];
+        const grouped = {};
+
+        // Parse local filenames into clean structured objects
+        rawFiles.forEach(file => {
+            const indexMatch = file.match(/^(\d+)/);
+            if (!indexMatch) return;
+            const index = indexMatch[1];
+            
+            let studentClass = "";
+            let name = "";
+            
+            const baseName = file.substring(0, file.length - 4);
+            
+            if (baseName.includes('_')) {
+                const parts = baseName.split('_');
+                name = parts[1].replace(/-/g, ' ').trim();
+            } else {
+                let remainder = baseName.replace(/^\d+[-_]*/, '');
+                
+                const classMatch = remainder.match(/CLASS[-_]([A-Z0-9\s]+?)(?=-[A-Z]|$)/i);
+                if (classMatch) {
+                    studentClass = "Class " + classMatch[1].replace(/[-_]/g, ' ').trim();
+                    remainder = remainder.replace(classMatch[0], '');
+                } else if (remainder.match(/CLASS/i)) {
+                    const classMatch2 = remainder.match(/CLASS[-_]*([A-Z0-9]+)/i);
+                    if (classMatch2) {
+                        studentClass = "Class " + classMatch2[1].trim();
+                        remainder = remainder.replace(/CLASS[-_]*[A-Z0-9]+/i, '');
+                    }
+                }
+                name = remainder.replace(/[-_]+/g, ' ').trim();
+            }
+            
+            // Clean up class/group prefixes that got left in student name
+            name = name.replace(/^(Group\s+[IVX\s]+|Class\s+[IVX\s]+)/i, '').trim();
+            name = name.replace(/^[-_]+/, '').trim();
+            
+            name = name.toLowerCase().split(' ').map(word => {
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join(' ');
+            
+            if (classOverrides[index]) {
+                studentClass = classOverrides[index];
+            }
+            if (!studentClass) {
+                studentClass = "N/A";
+            }
+            
+            // Special Override for Dayita Chakraborty
+            if (name.includes("Dayita Chakraborty")) {
+                name = "Dayita Chakraborty";
+                studentClass = "Class X";
+            }
+            
+            const date = tcDates[index] || "N/A";
+            
+            // Use index + clean name as the unique key to avoid collision of different students sharing the same index (e.g., #0061 Rameesha/Muskaan)
+            const groupingKey = index + "_" + name.toLowerCase().replace(/[^a-z]/g, '');
+            
+            if (!grouped[groupingKey]) {
+                grouped[groupingKey] = {
+                    index: index,
+                    name: name,
+                    class: studentClass,
+                    date: date,
+                    files: [file]
+                };
+            } else {
+                if (grouped[groupingKey].class === "N/A" && studentClass !== "N/A") {
+                    grouped[groupingKey].class = studentClass;
+                }
+                if (grouped[groupingKey].name.length < name.length || grouped[groupingKey].name === "Unknown") {
+                    grouped[groupingKey].name = name;
+                }
+                if (!grouped[groupingKey].files.includes(file)) {
+                    grouped[groupingKey].files.push(file);
+                }
+            }
+        });
+
+        // Convert grouped objects to array
+        const candidates = Object.values(grouped);
+        
+        // Sort candidates reverse-chronologically by TC Date (latest first)
+        candidates.sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            if (dateA.getTime() !== dateB.getTime()) {
+                return dateB.getTime() - dateA.getTime();
+            }
+            return parseInt(b.index) - parseInt(a.index);
+        });
+
+        // Load admin-added TC entries from localStorage and PREPEND them (they are newest)
+        const adminTcEntries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
+        const adminCandidates = adminTcEntries.map(entry => ({
+            index: 'admin',
+            name: entry.name,
+            class: entry.studentClass,
+            date: entry.displayDate,
+            dateRaw: entry.dateRaw,
+            files: [],
+            fileDataUri: entry.fileDataUri || '',
+            isAdminEntry: true,
+            adminId: entry.id
+        }));
+
+        // Merge: admin entries first (newest), then existing file-based entries
+        const allCandidates = [...adminCandidates, ...candidates];
+
+        // Assign sequential serial numbers (#0001, #0002, etc.) based on sorted chronological order
+        allCandidates.forEach((student, i) => {
+            const srlNum = (i + 1).toString().padStart(4, '0');
+            student.displaySrl = `#${srlNum}`;
+        });
+
+        // Pagination and Filtering State
+        let currentPage = 1;
+        const recordsPerPage = 15;
+        let filteredCandidates = [...allCandidates];
+
+        // DOM elements
+        const tableBody = document.getElementById('table-body');
+        const mobileContainer = document.getElementById('mobile-cards-container');
+        const paginationControls = document.getElementById('pagination-controls');
+        const emptyState = document.getElementById('empty-state');
+        const searchBox = document.getElementById('search-box');
+        const classFilter = document.getElementById('class-filter');
+        
+        // PDF Modal elements
+        const pdfModal = document.getElementById('pdf-modal');
+        const pdfModalTitle = document.getElementById('pdf-modal-title');
+        const pdfFrame = document.getElementById('pdf-frame');
+        const closePdfBtn = document.getElementById('close-pdf-btn');
+
+        // Apply filters & search query
+        function applyFilters() {
+            const query = searchBox.value.toLowerCase().trim();
+            const selectedClass = classFilter.value.toLowerCase();
+            
+            filteredCandidates = allCandidates.filter(candidate => {
+                const matchesSearch = candidate.name.toLowerCase().includes(query) || 
+                                     (candidate.index && candidate.index.includes(query)) ||
+                                     candidate.displaySrl.toLowerCase().includes(query);
+                
+                const matchesClass = !selectedClass || candidate.class.toLowerCase().includes(selectedClass);
+                
+                return matchesSearch && matchesClass;
+            });
+            
+            currentPage = 1;
+            renderDirectory();
+        }
+
+        // Render Directory list
+        function renderDirectory() {
+            tableBody.innerHTML = '';
+            mobileContainer.innerHTML = '';
+            
+            if (filteredCandidates.length === 0) {
+                emptyState.style.display = 'block';
+                paginationControls.innerHTML = '';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            const startIndex = (currentPage - 1) * recordsPerPage;
+            const endIndex = Math.min(startIndex + recordsPerPage, filteredCandidates.length);
+            const pageData = filteredCandidates.slice(startIndex, endIndex);
+            
+            pageData.forEach(student => {
+                // Admin entry uses a base64 data URI; regular entries use a file path
+                const isAdmin = student.isAdminEntry || false;
+                const primaryFile = student.files && student.files[0];
+                const pdfPath = isAdmin ? (student.fileDataUri || '') : `assets/TC/downloaded_pdfs/${primaryFile}`;
+                const hasDoc = !!pdfPath;
+
+                // Build action buttons HTML
+                // For admin entries: no onclick in HTML (data URIs are too long); we use addEventListener below
+                const viewBtn = hasDoc
+                    ? (isAdmin
+                        ? `<button class="btn-tc btn-tc-view">
+                               <i class="ph-bold ph-eye"></i> View
+                           </button>`
+                        : `<button class="btn-tc btn-tc-view" onclick="openPdfModal('${student.name.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', '${pdfPath}')">
+                               <i class="ph-bold ph-eye"></i> View
+                           </button>`)
+                    : '';
+                const dlBtn = hasDoc
+                    ? `<a class="btn-tc btn-tc-download" href="${pdfPath}" download="${student.name.replace(/ /g,'-')}-TC.pdf">
+                           <i class="ph-bold ph-download-simple"></i> Download
+                       </a>`
+                    : `<span style="font-size:0.8rem;color:#94a3b8;">No Document</span>`;
+
+                // --- Desktop row ---
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="student-uin">${student.displaySrl}</td>
+                    <td class="student-name">${student.name}</td>
+                    <td><span class="student-class">${student.class}</span></td>
+                    <td class="student-uin">${student.date}</td>
+                    <td style="text-align: center;">
+                        <div class="btn-action-group" style="justify-content: center;">
+                            ${viewBtn}
+                            ${dlBtn}
+                        </div>
+                    </td>
+                `;
+                // Wire up admin view button to open modal with data URI
+                if (isAdmin && hasDoc) {
+                    const viewBtnEl = tr.querySelector('.btn-tc-view');
+                    if (viewBtnEl) {
+                        viewBtnEl.addEventListener('click', () => openPdfModal(student.name, pdfPath));
+                    }
+                }
+                tableBody.appendChild(tr);
+
+                // --- Mobile card ---
+                const card = document.createElement('div');
+                card.className = 'mobile-card';
+                card.innerHTML = `
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Sl. No</span>
+                        <span class="mobile-card-value font-mono">${student.displaySrl}</span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Student Name</span>
+                        <span class="mobile-card-value student-name">${student.name}</span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">Class</span>
+                        <span class="mobile-card-value"><span class="student-class">${student.class}</span></span>
+                    </div>
+                    <div class="mobile-card-row">
+                        <span class="mobile-card-label">TC Date</span>
+                        <span class="mobile-card-value font-mono">${student.date}</span>
+                    </div>
+                    <div class="mobile-card-actions">
+                        ${viewBtn}
+                        ${dlBtn}
+                    </div>
+                `;
+                if (isAdmin && hasDoc) {
+                    const cardViewBtn = card.querySelector('.btn-tc-view');
+                    if (cardViewBtn) cardViewBtn.addEventListener('click', () => openPdfModal(student.name, pdfPath));
+                }
+                mobileContainer.appendChild(card);
+            });
+            
+            renderPagination();
+        }
+
+        // Render Pagination Controls
+        function renderPagination() {
+            paginationControls.innerHTML = '';
+            const totalPages = Math.ceil(filteredCandidates.length / recordsPerPage);
+            
+            if (totalPages <= 1) return;
+
+            // Prev Button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'btn-page';
+            prevBtn.innerHTML = '<i class="ph-bold ph-caret-left"></i>';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderDirectory();
+                    window.scrollTo({ top: document.querySelector('.tc-hero-section').offsetHeight - 80, behavior: 'smooth' });
+                }
+            };
+            paginationControls.appendChild(prevBtn);
+
+            // Page numbers
+            const maxPageButtons = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+            let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+            
+            if (endPage - startPage + 1 < maxPageButtons) {
+                startPage = Math.max(1, endPage - maxPageButtons + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `btn-page ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    renderDirectory();
+                    window.scrollTo({ top: document.querySelector('.tc-hero-section').offsetHeight - 80, behavior: 'smooth' });
+                };
+                paginationControls.appendChild(pageBtn);
+            }
+
+            // Next Button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'btn-page';
+            nextBtn.innerHTML = '<i class="ph-bold ph-caret-right"></i>';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderDirectory();
+                    window.scrollTo({ top: document.querySelector('.tc-hero-section').offsetHeight - 80, behavior: 'smooth' });
+                }
+            };
+            paginationControls.appendChild(nextBtn);
+        }
+
+        // PDF Preview Modal operations
+        function openPdfModal(name, pdfPath) {
+            pdfModalTitle.textContent = `${name} - Transfer Certificate`;
+            pdfFrame.src = pdfPath;
+            pdfModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePdfModal() {
+            pdfModal.classList.remove('active');
+            pdfFrame.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        searchBox.addEventListener('input', applyFilters);
+        classFilter.addEventListener('change', applyFilters);
+        closePdfBtn.addEventListener('click', closePdfModal);
+        
+        // Close modal when clicking backdrop
+        pdfModal.addEventListener('click', (e) => {
+            if (e.target === pdfModal) {
+                closePdfModal();
+            }
+        });
+
+        // Close on Escape key press
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && pdfModal.classList.contains('active')) {
+                closePdfModal();
+            }
+        });
+
+        // Toggle mobile navigation menu
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (mobileToggle && navLinks) {
+            mobileToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('ph-list');
+                    icon.classList.toggle('ph-x');
+                }
+            });
+        }
+
+        // Initialize display
+        renderDirectory();
+    </script>
+</body>
+</html>

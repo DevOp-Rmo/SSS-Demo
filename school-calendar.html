@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - School Calendar</title>
+    <meta name="description" content="View the academic terms, vacation schedules, and official holiday list for the session 2026-2027 at Shri Shikshayatan School, Kolkata.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+
+    <style>
+        /* ── Page Wrapper ── */
+        .sc-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+        @media (min-width: 769px) {
+            .sc-page-wrapper .container {
+                max-width: 1400px !important;
+                width: 100% !important;
+                padding: 0 2.5rem !important;
+            }
+        }
+        @media (min-width: 1600px) { .sc-page-wrapper .container { max-width: 1600px !important; } }
+        @media (max-width: 1024px) and (min-width: 769px) { .sc-page-wrapper .container { padding: 0 2rem !important; } }
+
+        /* ── Breadcrumb ── */
+        .sc-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .sc-breadcrumb a { color: var(--primary-blue); transition: color 0.2s; }
+        .sc-breadcrumb a:hover { color: var(--accent-orange); }
+        .sc-breadcrumb i { font-size: 0.75rem; }
+
+        /* ── Title Block ── */
+        .sc-title-block { margin-bottom: 3rem; }
+        .sc-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.4rem;
+            position: relative;
+            display: inline-block;
+        }
+        .sc-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 55px; height: 3px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+        .sc-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 0.75rem;
+        }
+
+        /* ── Banner ── */
+        .sc-banner-container {
+            width: 100%;
+            height: 340px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            box-shadow: 0 20px 60px rgba(26,26,75,0.08);
+            position: relative;
+        }
+        .sc-banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .sc-banner-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(26,26,75,0.85) 0%, rgba(26,26,75,0.3) 60%, transparent 100%);
+            display: flex; align-items: flex-end; padding: 2.5rem 3rem;
+        }
+        .sc-banner-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            color: #fff;
+            font-weight: 800;
+            line-height: 1.3;
+            max-width: 100%;
+        }
+
+        /* ── Cards Grid ── */
+        .sc-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        @media (max-width: 900px) {
+            .sc-cards-grid { grid-template-columns: 1fr; }
+        }
+
+        .sc-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 15px 45px rgba(26,26,75,0.04);
+            border: 1px solid rgba(26,26,75,0.05);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .sc-card:hover {
+            box-shadow: 0 25px 65px rgba(26,26,75,0.08);
+            transform: translateY(-2px);
+        }
+        .sc-card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(26,26,75,0.06);
+        }
+        .sc-badge {
+            align-self: flex-start;
+            background-color: rgba(242,156,31,0.1);
+            color: var(--accent-orange);
+            font-size: 0.73rem;
+            font-weight: 800;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .sc-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            margin: 0;
+        }
+
+        /* ── Term Display Info ── */
+        .sc-term-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+        .sc-term-info i {
+            color: var(--accent-orange);
+            font-size: 1.2rem;
+            margin-top: 0.15rem;
+            flex-shrink: 0;
+        }
+        .sc-term-info div h4 {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.2rem 0;
+        }
+        .sc-term-info div p {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* ── Academic Year Info Block ── */
+        .sc-academic-year-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2d2d9b 100%);
+            border-radius: 20px;
+            padding: 2.5rem 3rem;
+            color: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3.5rem;
+        }
+        .sc-ay-label {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        .sc-ay-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .sc-ay-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            max-width: 600px;
+        }
+
+        /* ── Official Document ── */
+        .sc-document-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .sc-document-item {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(26,26,75,0.08);
+            border: 1px solid rgba(26,26,75,0.06);
+            position: relative;
+            background: #fff;
+        }
+        .sc-document-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+        .sc-document-item:hover img { transform: scale(1.02); }
+        .sc-document-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(26,26,75,0.85));
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 2.5rem 1.5rem 1rem;
+            text-transform: uppercase;
+        }
+
+        /* ── Responsive Mobile Spacing ── */
+        @media (max-width: 900px) {
+            .sc-card { padding: 2rem 1.5rem; }
+            .sc-page-title { font-size: 2.2rem; }
+            .sc-academic-year-card { padding: 2rem; flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 768px) {
+            .sc-breadcrumb, .sc-title-block {
+                padding-left: 2.2rem;
+            }
+            .sc-banner-container { height: 220px; }
+            .sc-banner-overlay { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img"><img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" /></div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach &amp; Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li class="active"><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="media-page-wrapper sc-page-wrapper">
+        <div class="container">
+
+            <div class="st-breadcrumb sc-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>Academics</span>
+                <i class="ph ph-caret-right"></i>
+                <span>School Calendar</span>
+            </div>
+
+            <div class="st-title-block sc-title-block">
+                <h1 class="st-page-title sc-page-title">School Calendar</h1>
+                <p class="st-subtitle sc-subtitle">Academic Term &amp; Holiday List</p>
+            </div>
+
+            <div class="sc-banner-container">
+                <img src="assets/school_cal.jpg" alt="School Calendar Illustration Banner" class="sc-banner-image">
+                <div class="sc-banner-overlay">
+                    <div class="sc-banner-text">Planning Ahead for Academic Excellence.</div>
+                </div>
+            </div>
+
+            <!-- Academic Year Overview -->
+            <div class="sc-academic-year-card">
+                <div>
+                    <div class="sc-ay-label">Academic Session</div>
+                    <div class="sc-ay-title">Session 2026 - 2027</div>
+                    <div class="sc-ay-subtitle">
+                        The school year at Shri Shikshayatan School begins in <strong>April</strong> and concludes in <strong>March</strong> of the subsequent year. Holiday lists and schedules are structured to provide optimal instruction days alongside periodic breaks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vacation Overview Cards -->
+            <div class="sc-cards-grid">
+                <!-- Summer Vacation -->
+                <div class="sc-card">
+                    <div class="sc-card-header">
+                        <span class="sc-badge">Term Break</span>
+                        <h3 class="sc-card-title">Summer Vacation</h3>
+                    </div>
+                    <div class="sc-term-info">
+                        <i class="ph-bold ph-calendar-blank"></i>
+                        <div>
+                            <h4>Timeline</h4>
+                            <p>May — June</p>
+                        </div>
+                    </div>
+                    <div class="sc-term-info">
+                        <i class="ph-bold ph-hourglass-high"></i>
+                        <div>
+                            <h4>Duration</h4>
+                            <p>Approximately 4 weeks (29 Days)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Puja Vacation -->
+                <div class="sc-card">
+                    <div class="sc-card-header">
+                        <span class="sc-badge">Festival Break</span>
+                        <h3 class="sc-card-title">Puja Vacation</h3>
+                    </div>
+                    <div class="sc-term-info">
+                        <i class="ph-bold ph-calendar-blank"></i>
+                        <div>
+                            <h4>Timeline</h4>
+                            <p>October — November</p>
+                        </div>
+                    </div>
+                    <div class="sc-term-info">
+                        <i class="ph-bold ph-hourglass-high"></i>
+                        <div>
+                            <h4>Duration</h4>
+                            <p>Approximately 4 weeks (28 Days)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Winter Vacation -->
+                <div class="sc-card">
+                    <div class="sc-card-header">
+                        <span class="sc-badge">Winter Break</span>
+                        <h3 class="sc-card-title">Winter Vacation</h3>
+                    </div>
+                    <div class="sc-term-info">
+                        <i class="ph-bold ph-calendar-blank"></i>
+                        <div>
+                            <h4>Timeline</h4>
+                            <p>December — January</p>
+                        </div>
+                    </div>
+                    <div class="sc-term-info">
+                        <i class="ph-bold ph-hourglass-high"></i>
+                        <div>
+                            <h4>Duration</h4>
+                            <p>Approximately 1 week (11 Days)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Holiday List Official Document -->
+            <div class="st-card">
+                <div class="st-card-header">
+                    <span class="st-badge">Official Document</span>
+                    <h2 class="st-card-title">Official Holiday List (2026 - 2027)</h2>
+                </div>
+                <p style="font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 2rem;">
+                    Please find the official list of holidays and scheduled vacations below, signed by the Principal Sangeeta Tandon.
+                </p>
+                <div class="sc-document-wrapper">
+                    <div class="sc-document-item">
+                        <img src="assets/school_calender.webp" alt="Official Holiday List Document">
+                        <div class="sc-document-caption"><i class="ph ph-file-text"></i> &nbsp;Holiday list circular — Signed by Principal</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /container -->
+    </div><!-- /sc-page-wrapper -->
+
+    <!-- Footer -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small"><i class="ph-fill ph-student"></i></div>
+                        <div class="school-title"><h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3></div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=7"></script>
+</body>
+</html>

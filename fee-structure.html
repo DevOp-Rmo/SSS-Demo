@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Fee Structure</title>
+    <meta name="description" content="View the quarterly school fee and subject lab fee structure for Classes VI to XII (Session 2026-2027) at Shri Shikshayatan School, Kolkata.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+    
+    <style>
+        /* Scoped styles for Fee Structure page */
+        .fee-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+
+        /* Override global container width cap so fee page uses full available width on desktop/tablet */
+        @media (min-width: 769px) {
+            .fee-page-wrapper .container {
+                max-width: 1400px !important;
+                width: 100% !important;
+                padding: 0 2.5rem !important;
+            }
+        }
+        @media (min-width: 1600px) {
+            .fee-page-wrapper .container { max-width: 1600px !important; }
+        }
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .fee-page-wrapper .container { padding: 0 2rem !important; }
+        }
+
+        /* Breadcrumb navigation */
+        .fee-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .fee-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+        .fee-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .fee-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Title block */
+        .fee-title-block {
+            margin-bottom: 3.5rem;
+            text-align: left;
+        }
+        .fee-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .fee-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        .fee-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Banner styling */
+        .fee-banner-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .fee-banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .fee-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(26, 26, 75, 0.1) 0%, rgba(26, 26, 75, 0.8) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 3.5rem;
+        }
+        .fee-banner-text {
+            color: var(--white);
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
+            font-weight: 800;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.4);
+            line-height: 1.2;
+            max-width: 100%;
+        }
+
+        /* Section Headings */
+        .fee-section-header {
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .fee-section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+        .fee-section-line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: rgba(26, 26, 75, 0.1);
+        }
+
+        /* Premium Table Styles */
+        .fee-table-container {
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .fee-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--font-sans);
+            text-align: left;
+            min-width: 800px;
+        }
+        .fee-table th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 1.25rem 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 3px solid rgba(26, 26, 75, 0.1);
+        }
+        .fee-table td {
+            padding: 1.25rem 1.5rem;
+            font-size: 0.95rem;
+            color: #5a5f7d;
+            border-bottom: 1px solid rgba(26, 26, 75, 0.05);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .fee-table tr:last-child td {
+            border-bottom: none;
+        }
+        .fee-table tbody tr:hover td {
+            background-color: rgba(242, 156, 31, 0.03);
+            color: var(--primary-blue);
+        }
+        .fee-table .fee-total-row td {
+            background-color: rgba(26, 26, 75, 0.02);
+            color: var(--primary-blue);
+            font-weight: 800;
+            font-size: 1.05rem;
+            border-top: 2px solid rgba(26, 26, 75, 0.08);
+        }
+        .fee-table .fee-yellow-row td {
+            background-color: #fdf2d0;
+            color: var(--primary-blue);
+            font-weight: 750;
+            text-transform: uppercase;
+            font-size: 0.88rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(26, 26, 75, 0.08);
+            white-space: nowrap;
+        }
+        .fee-table .fee-yellow-row:hover td {
+            background-color: #fcf0c8 !important;
+            color: var(--primary-blue) !important;
+        }
+        
+        /* Modern Card Wrappers */
+        .fee-table-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 45px rgba(26, 26, 75, 0.03);
+            border: 1px solid rgba(26, 26, 75, 0.04);
+            margin-bottom: 3.5rem;
+            transition: all 0.3s ease;
+        }
+        .fee-table-card:hover {
+            box-shadow: 0 25px 60px rgba(26, 26, 75, 0.06);
+            transform: translateY(-2px);
+        }
+        .fee-table-card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(26, 26, 75, 0.06);
+            padding-bottom: 1.5rem;
+        }
+        .fee-card-badge {
+            align-self: flex-start;
+            background-color: rgba(242, 156, 31, 0.08);
+            color: var(--accent-orange);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .fee-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            margin: 0;
+        }
+
+
+
+        /* Interactive Rows and Highlight States */
+        .fee-table tbody tr:not(.fee-yellow-row) {
+            cursor: pointer;
+        }
+        .fee-table tbody tr:not(.fee-yellow-row):hover td {
+            background-color: rgba(242, 156, 31, 0.03);
+            color: var(--primary-blue);
+        }
+        .fee-table tbody tr:not(.fee-yellow-row):hover td:first-child {
+            background-color: #fdf8f0 !important;
+        }
+        .fee-table tbody tr.active-row td {
+            background-color: rgba(242, 156, 31, 0.08) !important;
+            color: var(--primary-blue) !important;
+        }
+        .fee-table tbody tr.active-row td:first-child {
+            background-color: #fef5e6 !important;
+            color: var(--primary-blue) !important;
+            border-left: 4px solid var(--accent-orange);
+        }
+        
+        /* Mobile scroll instructions */
+        .fee-table-tip {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            justify-content: flex-end;
+        }
+
+        /* Sidebar Info Widget */
+        .fee-info-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        .fee-guidelines {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+        }
+        .fee-guide-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+        .fee-guide-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .fee-guide-list li {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: #5a5f7d;
+            line-height: 1.6;
+            font-weight: 500;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        .fee-guide-list li i {
+            color: var(--accent-orange);
+            font-size: 1.25rem;
+            margin-top: 0.15rem;
+        }
+
+        .fee-card-widget {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #11114e 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-shadow: 0 15px 35px rgba(26, 26, 75, 0.1);
+        }
+        .fee-widget-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.75rem;
+        }
+        .fee-widget-text {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        .fee-portal-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            background-color: var(--white);
+            padding: 0.9rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        .fee-portal-link:hover {
+            background-color: var(--accent-orange);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(242, 156, 31, 0.3);
+        }
+
+        /* Responsive styling */
+        @media (max-width: 1024px) {
+            .fee-page-wrapper {
+                padding: 2rem 0 4rem 0;
+            }
+            .fee-page-title {
+                font-size: 2.5rem;
+            }
+            .fee-banner-container {
+                height: 280px;
+                margin-bottom: 3rem;
+            }
+            .fee-banner-overlay {
+                padding: 2.5rem;
+            }
+            .fee-banner-text {
+                font-size: 2rem;
+            }
+            .fee-info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* ── Modern Premium Tabs Styling ── */
+        .tabs-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: -1.5rem 0 3rem 0;
+            width: 100%;
+        }
+        .fee-tabs-container {
+            display: inline-flex;
+            background: rgba(26, 26, 75, 0.04);
+            border: 1px solid rgba(26, 26, 75, 0.08);
+            padding: 6px;
+            border-radius: 50px;
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(26, 26, 75, 0.05);
+            gap: 4px;
+        }
+        .fee-tab {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: rgba(26, 26, 75, 0.6);
+            background: transparent;
+            border: none;
+            padding: 0.8rem 2.2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            outline: none;
+        }
+        .fee-tab:hover {
+            color: var(--primary-blue);
+        }
+        .fee-tab.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #2a2a6b 100%);
+            box-shadow: 0 4px 15px rgba(26, 26, 75, 0.25);
+        }
+        .fee-tab i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+            vertical-align: middle;
+        }
+
+        /* Tab Content Toggling */
+        .fee-section-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .fee-section-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .fee-breadcrumb, .fee-title-block {
+                padding-left: 2.2rem;
+            }
+            .fee-page-title {
+                font-size: 2.2rem;
+            }
+            .fee-banner-container {
+                height: 200px;
+                border-radius: 12px;
+                margin-bottom: 2.5rem;
+            }
+            .fee-banner-overlay {
+                padding: 1.5rem;
+            }
+            .fee-banner-text {
+                font-size: 1.5rem;
+            }
+            .fee-table-tip {
+                display: flex;
+            }
+            .fee-guidelines {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach &amp; Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li class="active"><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="media-page-wrapper fee-page-wrapper">
+        <div class="container">
+            
+            <!-- Breadcrumbs -->
+            <div class="fee-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>Admission</span>
+                <i class="ph ph-caret-right"></i>
+                <span>Fee Structure</span>
+            </div>
+
+            <!-- Page Title Block -->
+            <div class="fee-title-block">
+                <h1 class="fee-page-title">Fee Structure</h1>
+                <p class="fee-subtitle">Academic Session 2026-2027</p>
+            </div>
+
+            <!-- Banner -->
+            <div class="fee-banner-container">
+                <img src="assets/FEE.jpg" alt="School Fees Banner" class="fee-banner-image">
+                <div class="fee-banner-overlay">
+                    <div class="fee-banner-text">Transparent and Simple Fee Structure</div>
+                </div>
+            </div>
+
+            <!-- Section Selection Tabs -->
+            <div class="tabs-wrapper">
+                <div class="fee-tabs-container">
+                    <button class="fee-tab active" data-section="junior"><i class="ph-bold ph-coins"></i> Junior Section</button>
+                    <button class="fee-tab" data-section="senior"><i class="ph-bold ph-credit-card"></i> Senior Section</button>
+                </div>
+            </div>
+
+            <!-- Senior Section Fee Content -->
+            <div id="senior-fee-content" class="fee-section-content">
+            <!-- Section 1: School Fee -->
+            <div class="fee-table-card">
+                <div class="fee-table-card-header">
+                    <span class="fee-card-badge">Compliance</span>
+                    <h3 class="fee-card-title">School Fee (Quarterly Basis)</h3>
+                </div>
+
+                <!-- Mobile Swipe Help Tip -->
+                <div class="fee-table-tip">
+                    <i class="ph ph-hand-swipe-left"></i>
+                    <span>Swipe left or right to view full table details</span>
+                </div>
+
+                <div class="fee-table-wrapper">
+                    <table class="fee-table">
+                        <thead>
+                            <tr>
+                                <th>ADMISSION FEE (ONE TIME FOR OUTSIDER)</th>
+                                <th>₹ 94000</th>
+                                <th>₹ 84000</th>
+                                <th>₹ 84000</th>
+                                <th>₹ 70000</th>
+                                <th>₹ 70000</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fee-yellow-row">
+                                <td>FEE HEAD</td>
+                                <td>VI-VIII</td>
+                                <td>IX</td>
+                                <td>X</td>
+                                <td>XI GR-I/GR-II/GR-III<br>(WITHOUT PRACTICAL)</td>
+                                <td>XII GR-I/GR-II/GR-III<br>(WITHOUT PRACTICAL)</td>
+                            </tr>
+                            <tr class="fee-yellow-row">
+                                <td>SCHOOL FEE</td>
+                                <td>QTR 1, 2, 3 &amp; 4</td>
+                                <td>QTR 1, 2, 3 &amp; 4</td>
+                                <td>QTR 1, 2, 3 &amp; 4</td>
+                                <td>QTR 1, 2, 3 &amp; 4</td>
+                                <td>QTR 1, 2, 3 &amp; 4</td>
+                            </tr>
+                            <tr class="fee-yellow-row">
+                                <td>AMOUNT</td>
+                                <td>PER QUARTER</td>
+                                <td>PER QUARTER</td>
+                                <td>PER QUARTER</td>
+                                <td>PER QUARTER</td>
+                                <td>PER QUARTER</td>
+                            </tr>
+                            <tr>
+                                <td>TUITION FEE</td>
+                                <td>17400</td>
+                                <td>17400</td>
+                                <td>17400</td>
+                                <td>19050</td>
+                                <td>19050</td>
+                            </tr>
+                            <tr>
+                                <td>ACTIVITY &amp; (ICT) FEE</td>
+                                <td>6750</td>
+                                <td>6000</td>
+                                <td>6000</td>
+                                <td>2400</td>
+                                <td>2400</td>
+                            </tr>
+                            <tr>
+                                <td>ASSESSMENT FEE</td>
+                                <td>3675</td>
+                                <td>4125</td>
+                                <td>4125</td>
+                                <td>4125</td>
+                                <td>4125</td>
+                            </tr>
+                            <tr>
+                                <td>OTHER FEE (REIM. FOR DIARY, MAGZN, ETC)</td>
+                                <td>250</td>
+                                <td>250</td>
+                                <td>250</td>
+                                <td>250</td>
+                                <td>250</td>
+                            </tr>
+                            <tr>
+                                <td>REGISTRATION FEE (FOR CL IX &amp; XI)</td>
+                                <td>-</td>
+                                <td>350</td>
+                                <td>-</td>
+                                <td>350</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>BOARD EXAM FEE (FOR CL X &amp; XII)</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>575</td>
+                                <td>-</td>
+                                <td>900</td>
+                            </tr>
+                            <tr class="fee-total-row">
+                                <td>TOTAL FEE (RS.)</td>
+                                <td>28075</td>
+                                <td>28125</td>
+                                <td>28350</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 2: Lab Fee -->
+            <div class="fee-table-card">
+                <div class="fee-table-card-header">
+                    <span class="fee-card-badge">Electives</span>
+                    <h3 class="fee-card-title">Laboratory Fee Structure (Session 2026-2027)</h3>
+                </div>
+
+                <!-- Mobile Swipe Help Tip -->
+                <div class="fee-table-tip">
+                    <i class="ph ph-hand-swipe-left"></i>
+                    <span>Swipe left or right to view full table details</span>
+                </div>
+
+                <div class="fee-table-wrapper">
+                    <table class="fee-table">
+                        <thead>
+                            <tr>
+                                <th>LAB FEE (TO BE PAID ACCORDING TO THE SUBJECT COMBINATION)</th>
+                                <th>FOR CLASS XI</th>
+                                <th>FOR CLASS XII</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fee-yellow-row">
+                                <td>SUBJECT COMBINATION</td>
+                                <td>QUARTER 1, 2, 3 &amp; 4</td>
+                                <td>QUARTER 1, 2, 3 &amp; 4</td>
+                            </tr>
+                            <tr class="fee-yellow-row">
+                                <td>AMOUNT</td>
+                                <td>PER QUARTER</td>
+                                <td>PER QUARTER</td>
+                            </tr>
+                            <tr>
+                                <td>COMPUTER SCIENCE</td>
+                                <td>2375</td>
+                                <td>2375</td>
+                            </tr>
+                            <tr>
+                                <td>ARTIFICIAL INTELLIGENCE</td>
+                                <td>2375</td>
+                                <td>2375</td>
+                            </tr>
+                            <tr>
+                                <td>WEB APPLICATION</td>
+                                <td>2375</td>
+                                <td>2375</td>
+                            </tr>
+                            <tr>
+                                <td>PHYSICAL EDUCATION</td>
+                                <td>550</td>
+                                <td>550</td>
+                            </tr>
+                            <tr>
+                                <td>FOOD NUTRITION &amp; DIETETICS</td>
+                                <td>1375</td>
+                                <td>1375</td>
+                            </tr>
+                            <tr>
+                                <td>HOME SCIENCE</td>
+                                <td>1375</td>
+                                <td>1375</td>
+                            </tr>
+                            <tr>
+                                <td>BIOLOGY</td>
+                                <td>1250</td>
+                                <td>1250</td>
+                            </tr>
+                            <tr>
+                                <td>PHYSICS</td>
+                                <td>1375</td>
+                                <td>1375</td>
+                            </tr>
+                            <tr>
+                                <td>CHEMISTRY</td>
+                                <td>1375</td>
+                                <td>1375</td>
+                            </tr>
+                            <tr>
+                                <td>GEOGRAPHY</td>
+                                <td>1125</td>
+                                <td>1125</td>
+                            </tr>
+                            <tr>
+                                <td>PSYCHOLOGY</td>
+                                <td>550</td>
+                                <td>550</td>
+                            </tr>
+                            <tr>
+                                <td>PAINTING</td>
+                                <td>1125</td>
+                                <td>1125</td>
+                            </tr>
+                            <tr>
+                                <td>HINDUSTANI MUSIC VOCAL</td>
+                                <td>1125</td>
+                                <td>1125</td>
+                            </tr>
+                            <tr>
+                                <td>MASS MEDIA STUDIES</td>
+                                <td>1125</td>
+                                <td>1125</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div><!-- /#senior-fee-content -->
+
+            <!-- Junior Section Fee Content -->
+            <div id="junior-fee-content" class="fee-section-content active">
+                <!-- Session 2026-2027 -->
+                <div class="fee-table-card">
+                    <div class="fee-table-card-header">
+                        <span class="fee-card-badge">Compliance</span>
+                        <h3 class="fee-card-title">School Fee (Quarterly Basis) — Session 2026-2027</h3>
+                    </div>
+
+                    <!-- Mobile Swipe Help Tip -->
+                    <div class="fee-table-tip">
+                        <i class="ph ph-hand-swipe-left"></i>
+                        <span>Swipe left or right to view full table details</span>
+                    </div>
+
+                    <div class="fee-table-wrapper">
+                        <table class="fee-table">
+                            <thead>
+                                <tr>
+                                    <th>ADMISSION FEE (ONE TIME)</th>
+                                    <th>₹ 98000</th>
+                                    <th>₹ 98000</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fee-yellow-row">
+                                    <td>FEE HEAD</td>
+                                    <td>NURSERY, LKG, UKG &amp; SKG</td>
+                                    <td>I - V</td>
+                                </tr>
+                                <tr class="fee-yellow-row">
+                                    <td>SCHOOL FEE</td>
+                                    <td>QUARTER 1, 2, 3 &amp; 4</td>
+                                    <td>QUARTER 1, 2, 3 &amp; 4</td>
+                                </tr>
+                                <tr class="fee-yellow-row">
+                                    <td>AMOUNT</td>
+                                    <td>PER QUARTER</td>
+                                    <td>PER QUARTER</td>
+                                </tr>
+                                <tr>
+                                    <td>TUITION FEE</td>
+                                    <td>17250</td>
+                                    <td>17400</td>
+                                </tr>
+                                <tr>
+                                    <td>ACTIVITY &amp; (ICT) FEE</td>
+                                    <td>5850</td>
+                                    <td>5850</td>
+                                </tr>
+                                <tr>
+                                    <td>ASSESSMENT FEE</td>
+                                    <td>2325</td>
+                                    <td>2775</td>
+                                </tr>
+                                <tr>
+                                    <td>OTHER FEE (REIM. FOR DIARY, MAGZN, ETC)</td>
+                                    <td>250</td>
+                                    <td>250</td>
+                                </tr>
+                                <tr class="fee-total-row">
+                                    <td>TOTAL FEE (RS.)</td>
+                                    <td>25675</td>
+                                    <td>26275</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Session 2027-2028 -->
+                <div class="fee-table-card" style="margin-top: 3rem;">
+                    <div class="fee-table-card-header">
+                        <span class="fee-card-badge">Session 2027-2028</span>
+                        <h3 class="fee-card-title">School Fee (Quarterly Basis) — Session 2027-2028</h3>
+                    </div>
+
+                    <!-- Mobile Swipe Help Tip -->
+                    <div class="fee-table-tip">
+                        <i class="ph ph-hand-swipe-left"></i>
+                        <span>Swipe left or right to view full table details</span>
+                    </div>
+
+                    <div class="fee-table-wrapper">
+                        <table class="fee-table">
+                            <thead>
+                                <tr>
+                                    <th>ADMISSION FEE (ONE TIME)</th>
+                                    <th>₹ 110000</th>
+                                    <th>₹ 110000</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fee-yellow-row">
+                                    <td>FEE HEAD</td>
+                                    <td>NURSERY, LKG, UKG &amp; SKG</td>
+                                    <td>I - V</td>
+                                </tr>
+                                <tr class="fee-yellow-row">
+                                    <td>SCHOOL FEE</td>
+                                    <td>QUARTER 1, 2, 3 &amp; 4</td>
+                                    <td>QUARTER 1, 2, 3 &amp; 4</td>
+                                </tr>
+                                <tr class="fee-yellow-row">
+                                    <td>AMOUNT</td>
+                                    <td>PER QUARTER</td>
+                                    <td>PER QUARTER</td>
+                                </tr>
+                                <tr>
+                                    <td>TUITION FEE</td>
+                                    <td>19050</td>
+                                    <td>19350</td>
+                                </tr>
+                                <tr>
+                                    <td>ACTIVITY &amp; (ICT) FEE</td>
+                                    <td>6300</td>
+                                    <td>6300</td>
+                                </tr>
+                                <tr>
+                                    <td>ASSESSMENT FEE</td>
+                                    <td>2550</td>
+                                    <td>2925</td>
+                                </tr>
+                                <tr>
+                                    <td>OTHER FEE (REIM. FOR DIARY, MAGZN, ETC)</td>
+                                    <td>300</td>
+                                    <td>300</td>
+                                </tr>
+                                <tr class="fee-total-row">
+                                    <td>TOTAL FEE (RS.)</td>
+                                    <td>28200</td>
+                                    <td>28875</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- /#junior-fee-content -->
+
+            <!-- Guidelines & Sidebar Grid -->
+            <div class="fee-info-grid">
+                
+                <div class="fee-guidelines">
+                    <h3 class="fee-guide-title">Fee Payment Instructions</h3>
+                    <ul class="fee-guide-list">
+                        <li>
+                            <i class="ph ph-calendar-blank"></i>
+                            <div>
+                                <strong>Quarterly Schedules:</strong> School fees must be cleared on a quarterly basis.
+                                <span style="display:block; font-size:0.9rem; color:#7e8299; margin-top:0.25rem;">
+                                    • Quarter 1: April - June<br>
+                                    • Quarter 2: July - September<br>
+                                    • Quarter 3: October - December<br>
+                                    • Quarter 4: January - March
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ph ph-credit-card"></i>
+                            <div>
+                                <strong>ERP Online Payments:</strong> All fees are payable strictly online via Net Banking, Credit Cards, Debit Cards, or UPI using the parent login portal.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ph ph-warning-circle"></i>
+                            <div>
+                                <strong>Late Payments:</strong> Fees must be cleared within the designated due dates of the first month of every quarter. Late fees will be levied thereafter as per school policies.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="fee-card-widget">
+                    <h3 class="fee-widget-title">Quick ERP Access</h3>
+                    <p class="fee-widget-text">
+                        Parents can access the ERP Portal to pay fees, check payment receipts, or download the annual fee statement.
+                    </p>
+                    <a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank" class="fee-portal-link">
+                        Go to ERP Portal <i class="ph ph-arrow-square-out"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Row highlighting on click for fee tables (excluding yellow headers)
+        document.querySelectorAll('.fee-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                if (this.classList.contains('fee-yellow-row')) return;
+                
+                // Clear active-row class from all rows in the same tbody
+                const tbody = this.closest('tbody');
+                tbody.querySelectorAll('tr').forEach(r => r.classList.remove('active-row'));
+                
+                // Highlight the clicked row
+                this.classList.add('active-row');
+            });
+        });
+
+        // Tab switching logic
+        const tabs = document.querySelectorAll('.fee-tab');
+        const contents = document.querySelectorAll('.fee-section-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                const targetContent = document.getElementById(`${tab.dataset.section}-fee-content`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <script src="script.js?v=7"></script>
+</body>
+</html>

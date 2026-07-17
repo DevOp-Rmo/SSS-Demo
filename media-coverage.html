@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Media Coverage</title>
+    <meta name="description" content="Explore the media coverage of Shri Shikshayatan School across leading newspapers and publications, from 2019 to present.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=37">
+    
+    <style>
+        /* Scoped styles for Media Coverage page */
+        .media-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+
+        /* Breadcrumb navigation */
+        .media-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .media-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+        .media-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .media-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Title block */
+        .media-title-block {
+            margin-bottom: 3.5rem;
+            text-align: left;
+        }
+        .media-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .media-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        .media-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Banner styling */
+        .media-banner-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .media-banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .media-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(26, 26, 75, 0.1) 0%, rgba(26, 26, 75, 0.6) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem;
+        }
+        .media-banner-text {
+            color: var(--white);
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Year selection tabs - Reverse Chronological */
+        .year-tabs-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid rgba(26, 26, 75, 0.08);
+            padding-bottom: 1rem;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        .year-tabs-container::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        .year-tab-btn {
+            background: none;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .year-tab-btn:hover {
+            color: var(--primary-blue);
+        }
+        .year-tab-btn.active {
+            color: var(--primary-blue);
+        }
+        .year-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-orange);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Gallery Grid Layout */
+        .gallery-year-section {
+            display: none;
+        }
+        .gallery-year-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .gallery-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(26, 26, 75, 0.08);
+            border-color: rgba(242, 156, 31, 0.3);
+        }
+
+        .gallery-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background-color: #f0f0f5;
+        }
+        .gallery-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-card:hover .gallery-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .gallery-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 75, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-card:hover .gallery-card-overlay {
+            opacity: 1;
+        }
+        .gallery-zoom-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .gallery-card:hover .gallery-zoom-icon {
+            transform: scale(1);
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+        .gallery-card-title {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 2.8rem;
+        }
+        .gallery-card-date {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--accent-orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Lightbox modal styling */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background-color: rgba(10, 10, 30, 0.96);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+            z-index: 10002;
+        }
+        .lightbox-close-btn:hover {
+            color: var(--accent-orange);
+            transform: scale(1.1);
+        }
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10001;
+        }
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .lightbox-caption {
+            color: var(--white);
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1.5rem;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+        .lightbox-nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .lightbox-nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .lightbox-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--accent-orange);
+            transform: scale(1.05);
+        }
+        .lightbox-counter {
+            color: rgba(255, 255, 255, 0.6);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .media-page-wrapper {
+                padding: 2rem 0 4rem 0;
+            }
+            .media-page-title {
+                font-size: 2.5rem;
+            }
+            .media-banner-container {
+                height: 280px;
+            }
+            .media-banner-overlay {
+                padding: 2rem;
+            }
+            .media-banner-text {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .media-page-title {
+                font-size: 2.2rem;
+            }
+            .media-banner-container {
+                height: 200px;
+                border-radius: 12px;
+                margin-bottom: 2.5rem;
+            }
+            .media-banner-overlay {
+                padding: 1.5rem;
+            }
+            .media-banner-text {
+                font-size: 1.4rem;
+            }
+            .year-tabs-container {
+                gap: 0.5rem;
+                margin-bottom: 2rem;
+            }
+            .year-tab-btn {
+                font-size: 1rem;
+                padding: 0.4rem 1rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .gallery-img-wrapper {
+                height: 200px;
+            }
+            .lightbox-caption {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .lightbox-close-btn {
+                top: 1rem;
+                right: 1rem;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown active">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li class="active"><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach &amp; Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="media-page-wrapper">
+        <div class="container">
+            
+            <!-- Breadcrumbs -->
+            <div class="media-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>About Us</span>
+                <i class="ph ph-caret-right"></i>
+                <span>Media Coverage</span>
+            </div>
+
+            <!-- Page Title Block -->
+            <div class="media-title-block">
+                <h1 class="media-page-title">Media Coverage</h1>
+                <p class="media-subtitle">Shri Shikshayatan in the News</p>
+            </div>
+
+            <!-- Banner -->
+            <div class="media-banner-container">
+                <img src="assets/media-coverage/media_cov.jpg" alt="Media Coverage Banner" class="media-banner-image">
+                <div class="media-banner-overlay">
+                    <div class="media-banner-text">Press Clippings &amp; Publications</div>
+                </div>
+            </div>
+
+            <!-- Year Tabs Selector - Ordered Reverse Chronologically -->
+            <div class="year-tabs-container" id="yearTabsBar">
+                <button class="year-tab-btn active" data-year="26-27">2026 - 2027</button>
+                <button class="year-tab-btn" data-year="25-26">2025 - 2026</button>
+                <button class="year-tab-btn" data-year="24-25">2024 - 2025</button>
+                <button class="year-tab-btn" data-year="23-24">2023 - 2024</button>
+                <button class="year-tab-btn" data-year="22-23">2022 - 2023</button>
+                <button class="year-tab-btn" data-year="21-22">2021 - 2022</button>
+                <button class="year-tab-btn" data-year="19-20">2019 - 2020</button>
+            </div>
+
+            <!-- Gallery Sections by Year -->
+            <div id="gallery-root">
+                <!-- Grids will be populated dynamically on-demand for maximum performance -->
+                <div id="year-26-27" class="gallery-year-section active">
+                    <div class="gallery-grid" id="grid-26-27"></div>
+                </div>
+                <div id="year-25-26" class="gallery-year-section">
+                    <div class="gallery-grid" id="grid-25-26"></div>
+                </div>
+                <div id="year-24-25" class="gallery-year-section">
+                    <div class="gallery-grid" id="grid-24-25"></div>
+                </div>
+                <div id="year-23-24" class="gallery-year-section">
+                    <div class="gallery-grid" id="grid-23-24"></div>
+                </div>
+                <div id="year-22-23" class="gallery-year-section">
+                    <div class="gallery-grid" id="grid-22-23"></div>
+                </div>
+                <div id="year-21-22" class="gallery-year-section">
+                    <div class="gallery-grid" id="grid-21-22"></div>
+                </div>
+                <div id="year-19-20" class="gallery-year-section">
+                    <div class="gallery-grid" id="grid-19-20"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox(event)">
+        <button class="lightbox-close-btn" onclick="closeLightboxDirect()">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" class="lightbox-image" src="" alt="Zoomed Newspaper Clipping">
+            <p id="lightboxCaption" class="lightbox-caption"></p>
+            
+            <!-- Navigation controls inside the lightbox -->
+            <div class="lightbox-nav-controls">
+                <button class="lightbox-nav-btn" onclick="navigateLightbox(-1)" aria-label="Previous image">
+                    <i class="ph-bold ph-caret-left"></i>
+                </button>
+                <span class="lightbox-counter" id="lightboxCounter">1 / 1</span>
+                <button class="lightbox-nav-btn" onclick="navigateLightbox(1)" aria-label="Next image">
+                    <i class="ph-bold ph-caret-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Tab Switching, Dynamic Loading and Lightbox Script -->
+    <script>
+        // Complete Image Data for All Folders
+        const mediaData = {
+            '26-27': [
+                'x20260619Debate-todays-edition-of-NIE_001.jpg.pagespeed.ic.TSpZZ8cQ7D.jpg'
+            ],
+            '25-26': [
+                '01022025-72-Years-of-Establishment.jpg',
+                '01022025Christmas-celebration-1.jpg',
+                '01022025GURU-NANAK-JAYANTI.jpg',
+                '1000335290.jpg',
+                '1000335292.jpg',
+                '1000335298.jpg',
+                '1000335302.jpg',
+                '10202025Van-mahotsav.jpg',
+                '110272025v2.jpg',
+                '11072025.jpg',
+                '20250201INDIAN-NAVY-DAY-1.jpg',
+                '20250201Independence-Day-2024.jpg',
+                '20250201Special-assembly-on-Journalism.jpg',
+                '20250201dainik-vishwamitra.jpg',
+                '20250505Earth-Day-celebration.jpg',
+                '20250625Rabindra-Jayanti1.jpg',
+                '20250729Annual-day-and-Prize-Distribution-2025.jpg',
+                '20251107-Educational-excursion-to-Rajasthan.jpg',
+                '20251127Shikshayatan-GE_Page_1.jpg',
+                '20251127Shikshayatan-GE_Page_2.jpg',
+                '20251127Shikshayatan-GE_Page_3.jpg',
+                '20251127Shikshayatan-GE_Page_5.jpg',
+                '20251127Shikshayatan-GE_Page_6.jpg',
+                '20251209-STEAM-EXHIBITION.jpg',
+                '25092025WoW-in-main-Telegraph-paper.jpg',
+                '29072025Investiture-ceremony-published-in-Sanmarg.jpg',
+                'Childrens-Day-2025.jpg',
+                'Guru-Nanak-Birthday-celebration-.jpg',
+                'IMG-20251113-WA0007.jpg',
+                'Literacy-Day-Celebration-_001.jpg',
+                'STEAM-EXHIBITION-2025.jpg',
+                'Teachers-Day-Celebration-2025-in-NIE_001.jpg',
+                'Teachers-day-celebration-by-students.jpg',
+                'x20251031-Special-Assembly-in-Durga-Puja.jpg.pagespeed.ic.Sotv4nFRzQ.jpg',
+                'x20251127Shikshayatan-GE_Page_4.jpg.pagespeed.ic.beuW5UbFKc.jpg',
+                'x20260221Christmas-celebration-2025_001.jpg.pagespeed.ic.dM61MyxOva.webp'
+            ],
+            '24-25': [
+                '01022025-72-Years-of-Establishment.jpg',
+                '01022025Christmas-celebration-1.jpg',
+                '01022025GURU-NANAK-JAYANTI.jpg',
+                '04102024_Teachers-day-celebration.jpg',
+                '10202025Van-mahotsav.jpg',
+                '11072025.jpg',
+                '18082024-Baglessdays_001.jpg',
+                '20240320_Rabindra-jayanti_001.jpg',
+                '20240410_Alumni-meet-at-Shri-Shikshayatan-School.jpg',
+                '20240503_Orientation-of-Class-IX.jpg',
+                '20240622_Jubilare-interschool-fest-published-on-NIE_001.jpg',
+                '20240622_Jubilare-published-in-Young-Metro_001.jpg',
+                '20240701_Beat-the-Heat_001.jpg',
+                '20240701_XI-orientation_001.jpg',
+                '20240705_International-Yoga-Day-and-International-Music-Day.jpg',
+                '20240719-Metro_Calcutta_City_001.jpg',
+                '20240720Annual-Day_001.jpg',
+                '20240720Investiture-ceremony.jpg',
+                '20240818-BAGLESS-DAYS-HINDI.jpg',
+                '20240818Plastic-bag-free-day_001.jpg',
+                '20241004Hindi-Diwas-celebration.jpg',
+                '20241122Annual-prize-distribution-ceremony-2023-2024.jpg',
+                '20241122_Sharod-utsav.jpg',
+                '20241122_sss.jpg',
+                '20241127Sharodotsav.jpg',
+                '20241209-media.jpg',
+                '20241217Childrens-Day-celebration-768x2610.jpg',
+                '20250201INDIAN-NAVY-DAY-1.jpg',
+                '20250201Independence-Day-2024.jpg',
+                '20250201Special-assembly-on-Journalism.jpg',
+                '20250201dainik-vishwamitra.jpg',
+                '20250505Earth-Day-celebration.jpg',
+                'FOUNDATION-DAY-OF-SF.jpg'
+            ],
+            '23-24': [
+                '06072023-news-paper.jpeg',
+                '07022024_Adobe-Scan-07-Feb-2024.jpg',
+                '07072023_Adventure-Camp-by-Girl-Guides.jpg',
+                '08022024_Republic-Day-Celebration.jpg',
+                '17012024_Creative-Art-work-in-the-world-of-Technology.jpg',
+                '19-Dec-2023.jpg',
+                '20221031TimesServey.jpg',
+                '20221101Article-on-100-years-05092022.jpg',
+                '20221210-1.jpeg',
+                '20221215.jpeg',
+                '20230222-Image.jpeg',
+                '20230330Guides-Camp-Under-the-Sky.jpg',
+                '20230412Bagless-Days.jpg',
+                '20230615PRABHAT-KHABAR-DATED-15TH-JUNE-2023.jpg',
+                '20230622.jpeg',
+                '20230627.jpeg',
+                '20230703_prioritizing.jpeg',
+                '20230728_Inter-House-Quiz-Competition.jpg',
+                '20230803_Vanmahotsav.jpg',
+                '20230804_Author-Meet.jpg',
+                '20230809_-Investiture-Ceremony-full.jpeg',
+                '20230818_media.jpg',
+                '20230830_outreach-program.jpg',
+                '20230926.jpg',
+                '20230927_Principal-interview-on-NEP.jpg',
+                '20230929_Annual-day.jpg',
+                '20231017_Rakshabandhan-Celebration.jpg',
+                '20231208_engages-in-community-service.jpg',
+                '202400201_celebration-of-birth-anniversary-of-Guru-Govind-Singh.jpg',
+                '20240115_Class-XII-Farewell.jpg',
+                '20240116_Tribute-to-Guru-Nanak.jpg',
+                '20240125_Yuva-Diwas-celebration.jpg',
+                '20240129_Yoga-and-drill.jpg',
+                '20240201_The-Telegraph-YOUNG-METRO-scaled.jpg',
+                '20240212_Adventure-Camp-by-Guide.jpg',
+                '20240213_Foundation-Day.jpg',
+                '20240222National-Youth-Day.jpg',
+                '20240227_Sarawati-Puja-2024.jpg',
+                '20240229_Anti-Addiction-Campaign-by-Bobby-Chakraborty.jpg',
+                '20240229_National-Youth-Day-in-NIE.jpg',
+                '20240307_NIE-7March-KOL-Pg3.jpg',
+                '20240312_Anti-addiction.jpg',
+                '20240314_Womens-day-celebration.jpg',
+                '20240315_Science-Day.jpg',
+                '20240320_Bagless-Days.jpg',
+                'Adobe-Scan-03-Oct-2023-1.jpg',
+                'Adobe-Scan-03-Oct-2023-2.jpg',
+                'Adobe-Scan-03-Oct-2023-3.jpg',
+                'Adobe-Scan-03-Oct-2023-4.jpg',
+                'Adobe-Scan-03-Oct-2023-5.jpg',
+                'Adobe-Scan-08-Sep-2023-2.jpg',
+                'Adobe-Scan-11-Oct-2023-1.jpg',
+                'Adobe-Scan-20-Sep-2023-12.jpg',
+                'Annual-Prize-distribution.jpg',
+                'IMG-20240102-WA0006.jpg',
+                'IMG_20221118_095355.jpg',
+                'ORIENTATION-PROGRAMME.jpg',
+                'Photography-contest.jpg',
+                'Prabhat-Khabar-Bagless-day.jpg',
+                'STEAM-Exhibition.jpg',
+                'Sharodatsav.jpg',
+                'The-Telegraph-Young-Metro-12.01.2023.jpg',
+                'WhatsApp-Image-2023-07-13-at-11.11.32-AM.jpeg',
+                'World-Earth-day.jpg',
+                'World-Music-day-and-International-Yoga-day.jpg',
+                'art-exhibition-cum-sale.jpg',
+                's-Christmas-Celebration-with-ardour.jpg',
+                's-img055.jpg',
+                's-img056.jpg',
+                'x20221103N1.jpeg.pagespeed.ic.gfR6SfQbx6.jpg',
+                'x20230810_Author-Meet.jpg.pagespeed.ic.1pr5BJf1UR.webp',
+                'x20240213_National-Tourism-Day.jpg.pagespeed.ic.bV5rI-Fi5s.jpg'
+            ],
+            '22-23': [
+                '20221031TimesServey.jpg',
+                '20221101Article-on-100-years-05092022.jpg',
+                '20221210-1.jpeg',
+                '20221215.jpeg',
+                '20230222-Image.jpeg',
+                '20230330Guides-Camp-Under-the-Sky.jpg',
+                '20230412Bagless-Days.jpg',
+                '20230615PRABHAT-KHABAR-DATED-15TH-JUNE-2023.jpg',
+                '20230622.jpeg',
+                'Annual-Prize-distribution.jpg',
+                'IMG_20221118_095355.jpg',
+                'Prabhat-Khabar-Bagless-day.jpg',
+                'The-Telegraph-Young-Metro-12.01.2023.jpg',
+                's-Christmas-Celebration-with-ardour.jpg',
+                's-img055.jpg',
+                's-img056.jpg',
+                'x20221103N1.jpeg.pagespeed.ic.gfR6SfQbx6.jpg'
+            ],
+            '21-22': [
+                '020211206-75TH-INDEPENDENCE-DAY.jpg',
+                '020211206AIL-PROJECT.jpg',
+                '020211206Annual-Prize-Distribution.jpg',
+                '020211206BE-YOUR-OWN-SUNSHINE.jpg',
+                '020211206BEYOND-BORDERS.jpg',
+                '020211206CELEBRATION-OF-FREEDOM.jpg',
+                '020211206CHILDRENS-DAY.jpg',
+                '020211206HEALTHY-HABITS-IN-CHILDREN.jpg',
+                '020211206HINDI-DIWAS.jpg',
+                '020211206INTER-HOUSE-DEBATE.jpg',
+                '020211206INTERHOUSE-DANCE-COMPETITION.jpg',
+                '020211206INTERNATIONAL-DAY-OF-PEACE.jpg',
+                '020211206INVESTITURE-CEREMONY.jpg',
+                '020211206Interhouse-Quiz-Competition.jpg',
+                '020211206TEACHERS-DAY-CELEBRATION.jpg',
+                '020211206dewali-celebration-1.jpg',
+                '20220225_PARAKRAM-DIWAS.jpg',
+                'Times-NIE-Web-Ed-AUGUST-20-2021-KOL_Page_2.jpg'
+            ],
+            '19-20': [
+                '20190517IMG_20190517_111132.jpg'
+            ]
+        };
+
+        // Active year tab tracking
+        let activeYear = '26-27';
+        let renderedYears = {}; // Track which years have already been built in the DOM
+
+        // Clean filename function to make a beautiful human readable caption
+        function cleanTitle(filename) {
+            let name = filename.split('/').pop();
+            name = name.replace(/\.[a-zA-Z0-9]+$/, ''); // Remove extension
+            name = name.replace(/\.pagespeed\.ic\.[a-zA-Z0-9_-]+$/, ''); // Remove pagespeed suffix
+            name = name.replace(/^[xv]?\d{8,10}[_-]?/, ''); // Remove leading date code (e.g. 20240320_ or x20260619)
+            name = name.replace(/[_-]/g, ' '); // Replace hyphens and underscores with spaces
+            name = name.replace(/\s+/g, ' ').trim(); // Single spaces
+
+            // Fallback for simple numeric filenames
+            if (!name || /^\d+$/.test(name)) {
+                return "Media Coverage Gallery";
+            }
+
+            // Capitalize words beautifully, keeping acronyms uppercase
+            return name.split(' ').map(word => {
+                if (!word) return '';
+                const lower = word.toLowerCase();
+                const uppercaseAcronyms = ['nep', 'steam', 'nie', 'cbse', 'ail', 'sss', 'ge', 'xi', 'xii', 'ix', 'ii'];
+                if (uppercaseAcronyms.includes(lower)) {
+                    return word.toUpperCase();
+                }
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }).join(' ');
+        }
+
+        // Generate date text based on filename prefix or year folder
+        function estimateDate(filename, yearFolder) {
+            const match = filename.match(/^(\d{2})(\d{2})(\d{4})/); // DDMMYYYY format
+            if (match) {
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const monthIndex = parseInt(match[2]) - 1;
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    return `${months[monthIndex]} ${match[3]}`;
+                }
+            }
+            const matchYMD = filename.match(/^(\d{4})(\d{2})(\d{2})/); // YYYYMMDD format
+            if (matchYMD) {
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const monthIndex = parseInt(matchYMD[2]) - 1;
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    return `${months[monthIndex]} ${matchYMD[1]}`;
+                }
+            }
+            
+            // Fallback to year folder name
+            const startYear = "20" + yearFolder.split('-')[0];
+            return `Session ${startYear}`;
+        }
+
+        // Build grid of cards for a specific year
+        function buildYearGrid(year) {
+            if (renderedYears[year]) return; // Avoid rebuilding if already in DOM
+
+            const images = mediaData[year] || [];
+            const grid = document.getElementById(`grid-${year}`);
+            if (!grid) return;
+
+            grid.innerHTML = ''; // Clear fallback
+
+            images.forEach((imgName, index) => {
+                const fullSrc = `assets/media-coverage/${year}/${imgName}`;
+                const title = cleanTitle(imgName);
+                const dateText = estimateDate(imgName, year);
+
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+                card.onclick = () => openLightbox(index);
+                card.innerHTML = `
+                    <div class="gallery-img-wrapper">
+                        <img src="${fullSrc}" alt="${title}" loading="lazy">
+                        <div class="gallery-card-overlay">
+                            <div class="gallery-zoom-icon">
+                                <i class="ph-bold ph-magnifying-glass-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <h3 class="gallery-card-title">${title}</h3>
+                        <span class="gallery-card-date">${dateText}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            renderedYears[year] = true;
+        }
+
+        // Active year switching handler
+        function switchYear(year) {
+            activeYear = year;
+            
+            // Remove active classes on tab buttons
+            const tabButtons = document.querySelectorAll('.year-tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Set clicked button active
+            const clickedBtn = document.querySelector(`.year-tab-btn[data-year="${year}"]`);
+            if (clickedBtn) clickedBtn.classList.add('active');
+
+            // Hide all gallery sections
+            const sections = document.querySelectorAll('.gallery-year-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Build grid for selected year (lazy loading)
+            buildYearGrid(year);
+
+            // Show selected gallery section
+            const selectedSection = document.getElementById(`year-${year}`);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+        }
+
+        // Lightbox tracking state
+        let currentImgIndex = 0;
+
+        function openLightbox(index) {
+            const images = mediaData[activeYear] || [];
+            if (images.length === 0) return;
+
+            currentImgIndex = index;
+            updateLightboxContent();
+
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Disable page scroll
+        }
+
+        function updateLightboxContent() {
+            const images = mediaData[activeYear] || [];
+            const imgName = images[currentImgIndex];
+            const fullSrc = `assets/media-coverage/${activeYear}/${imgName}`;
+            const title = cleanTitle(imgName);
+
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+
+            lightboxImage.src = fullSrc;
+            lightboxCaption.textContent = title;
+            lightboxCounter.textContent = `${currentImgIndex + 1} / ${images.length}`;
+        }
+
+        function navigateLightbox(direction) {
+            const images = mediaData[activeYear] || [];
+            if (images.length <= 1) return;
+
+            currentImgIndex = (currentImgIndex + direction + images.length) % images.length;
+            updateLightboxContent();
+        }
+
+        function closeLightbox(event) {
+            const modal = document.getElementById('lightboxModal');
+            // Close only if clicking the background modal container
+            if (event.target === modal) {
+                closeLightboxDirect();
+            }
+        }
+
+        function closeLightboxDirect() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Enable scroll
+        }
+
+        // Event listener for tab bar clicks
+        document.getElementById('yearTabsBar').addEventListener('click', function(event) {
+            const tabBtn = event.target.closest('.year-tab-btn');
+            if (tabBtn) {
+                const year = tabBtn.getAttribute('data-year');
+                switchYear(year);
+            }
+        });
+
+        // Initialize page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load latest year 26-27 first on load
+            switchYear('26-27');
+        });
+
+        // Handle keys (Escape for exit, arrows for lightbox nav)
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('lightboxModal');
+            if (!modal.classList.contains('active')) return;
+
+            if (event.key === 'Escape') {
+                closeLightboxDirect();
+            } else if (event.key === 'ArrowLeft') {
+                navigateLightbox(-1);
+            } else if (event.key === 'ArrowRight') {
+                navigateLightbox(1);
+            }
+        });
+    </script>
+    <script src="script.js?v=7"></script>
+</body>
+</html>

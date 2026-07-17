@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Admission Procedure</title>
+    <meta name="description" content="Read the admission procedure for Middle School, Secondary Sections, and Senior Secondary Section (Class XI) at Shri Shikshayatan School, Kolkata.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+    
+    <style>
+        /* Scoped styles for Procedure page */
+        .proc-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+
+        /* Breadcrumb navigation */
+        .proc-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .proc-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+        .proc-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .proc-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Title block */
+        .proc-title-block {
+            margin-bottom: 3.5rem;
+            text-align: left;
+        }
+        .proc-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .proc-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        .proc-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Banner styling */
+        .proc-banner-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        .proc-banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .proc-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(26, 26, 75, 0.1) 0%, rgba(26, 26, 75, 0.8) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 3.5rem;
+        }
+        .proc-banner-text {
+            color: var(--white);
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
+            font-weight: 800;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.4);
+            line-height: 1.2;
+            max-width: 100%;
+        }
+
+        /* Tabs for Sections */
+        .proc-tab-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid rgba(26, 26, 75, 0.08);
+            padding-bottom: 1rem;
+        }
+        .proc-tab-btn {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .proc-tab-btn.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(26, 26, 75, 0.15);
+        }
+        .proc-tab-btn:hover:not(.active) {
+            background-color: rgba(26, 26, 75, 0.04);
+            color: var(--accent-orange);
+        }
+
+        /* Section Panels */
+        .proc-panel {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .proc-panel.active {
+            display: block;
+        }
+
+        /* Info card */
+        .proc-intro-card {
+            background-color: var(--white);
+            border-left: 5px solid var(--accent-orange);
+            padding: 2rem;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+            margin-bottom: 3.5rem;
+        }
+        .proc-intro-title {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        .proc-intro-text {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            color: #5a5f7d;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        /* Vertical Timeline */
+        .proc-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-left: 1.5rem;
+            border-left: 3px solid rgba(26, 26, 75, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+        }
+        .proc-timeline-item {
+            position: relative;
+        }
+        .proc-timeline-badge {
+            position: absolute;
+            left: -4.75rem;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 3px solid var(--primary-blue);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 900;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .proc-timeline-item:hover .proc-timeline-badge {
+            background-color: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+        .proc-timeline-card {
+            background-color: var(--white);
+            border-radius: 18px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border: 1px solid rgba(26, 26, 75, 0.04);
+            transition: all 0.3s ease;
+        }
+        .proc-timeline-item:hover .proc-timeline-card {
+            transform: translateX(8px);
+            box-shadow: 0 15px 35px rgba(26, 26, 75, 0.06);
+            border-color: rgba(242, 156, 31, 0.2);
+        }
+        .proc-timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .proc-timeline-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background-color: rgba(26, 26, 75, 0.04);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .proc-timeline-item:hover .proc-timeline-icon {
+            background-color: var(--accent-orange);
+            color: var(--white);
+        }
+        .proc-timeline-title {
+            font-family: var(--font-sans);
+            font-size: 1.35rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+        .proc-timeline-desc {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: #5a5f7d;
+            line-height: 1.65;
+            font-weight: 500;
+        }
+
+        /* Action box */
+        .proc-action-box {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #11114e 100%);
+            border-radius: 20px;
+            padding: 3.5rem;
+            color: var(--white);
+            text-align: center;
+            margin-top: 5rem;
+            box-shadow: 0 15px 40px rgba(26, 26, 75, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .proc-action-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+        .proc-action-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        .proc-action-text {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+        }
+        .proc-apply-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            background-color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .proc-apply-btn:hover {
+            background-color: var(--accent-orange);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(242, 156, 31, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive styling */
+        @media (max-width: 1024px) {
+            .proc-page-wrapper {
+                padding: 2rem 0 4rem 0;
+            }
+            .proc-page-title {
+                font-size: 2.5rem;
+            }
+            .proc-banner-container {
+                height: 280px;
+                margin-bottom: 3rem;
+            }
+            .proc-banner-overlay {
+                padding: 2.5rem;
+            }
+            .proc-banner-text {
+                font-size: 2rem;
+            }
+            .proc-timeline {
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .proc-page-title {
+                font-size: 2.2rem;
+            }
+            .proc-banner-container {
+                height: 200px;
+                border-radius: 12px;
+                margin-bottom: 2.5rem;
+            }
+            .proc-banner-overlay {
+                padding: 1.5rem;
+            }
+            .proc-banner-text {
+                font-size: 1.5rem;
+            }
+            .proc-tab-container {
+                flex-direction: column;
+                gap: 0.5rem;
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .proc-tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+            .proc-timeline {
+                padding-left: 0;
+                margin-left: 0.5rem;
+                border-left: none;
+                gap: 2rem;
+            }
+            .proc-timeline-badge {
+                position: static;
+                margin-bottom: 1rem;
+            }
+            .proc-timeline-card {
+                padding: 1.5rem;
+            }
+            .proc-action-box {
+                padding: 2.5rem 1.5rem;
+                margin-top: 3.5rem;
+            }
+            .proc-action-title {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="index.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="infrastructure.html">Infrastructure</a></li>
+                            <li><a href="career-counselling.html">Career Counselling</a></li>
+                            <li><a href="index.html">Workshops</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Intra School Activities</a></li>
+                            <li><a href="index.html">Inter School Activities</a></li>
+                            <li><a href="index.html">School Social Responsibility</a></li>
+                            <li><a href="index.html">Outreach &amp; Excursion</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="index.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="media-page-wrapper proc-page-wrapper">
+        <div class="container">
+            
+            <!-- Breadcrumbs -->
+            <div class="proc-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>Admission</span>
+                <i class="ph ph-caret-right"></i>
+                <span>Procedure</span>
+            </div>
+
+            <!-- Page Title Block -->
+            <div class="proc-title-block">
+                <h1 class="proc-page-title">Admission Procedure</h1>
+                <p class="proc-subtitle">Join Shri Shikshayatan School Family</p>
+            </div>
+
+            <!-- Banner -->
+            <div class="proc-banner-container">
+                <img src="assets/PROCEDURE.jpg" alt="Admission Procedure Banner" class="proc-banner-image">
+                <div class="proc-banner-overlay">
+                    <div class="proc-banner-text">Building a Path to Success and Growth</div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation for Sections -->
+            <div class="proc-tab-container">
+                <button class="proc-tab-btn active" onclick="switchPanel('middle-sec')">Middle School &amp; Secondary (Classes VI - IX)</button>
+                <button class="proc-tab-btn" onclick="switchPanel('senior-sec')">Senior Secondary (Class XI)</button>
+            </div>
+
+            <!-- Panel 1: Middle & Secondary -->
+            <div id="middle-sec" class="proc-panel active">
+                
+                <!-- Intro Card -->
+                <div class="proc-intro-card">
+                    <h3 class="proc-intro-title">Admission Policy (Classes VI - IX)</h3>
+                    <p class="proc-intro-text">
+                        All admissions are strictly merit-based and subject to the availability of vacancies in each respective class. Shri Shikshayatan School follows a transparent and streamlined admission workflow.
+                    </p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="proc-timeline">
+                    
+                    <!-- Step 1 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">01</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-globe"></i></div>
+                                <h4 class="proc-timeline-title">Online Application Submission</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                All applications must be submitted online through the school website. Parents must accurately fill in the candidate's personal, academic, and guardian details.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">02</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-files"></i></div>
+                                <h4 class="proc-timeline-title">Shortlisting &amp; Admit Cards</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Submitted applications are evaluated. Eligible candidates are shortlisted for admission tests, and notice boards are updated with dates.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">03</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-read-cv-logo"></i></div>
+                                <h4 class="proc-timeline-title">Admission Tests</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Shortlisted candidates appear for admission tests. These evaluate core capabilities in languages, mathematics, and science appropriate to the target class level.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">04</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-list-numbers"></i></div>
+                                <h4 class="proc-timeline-title">Result Publication</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                A list of selected candidates is compiled based on exam performance and published on the School Notice Board and official website.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">05</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-users-three"></i></div>
+                                <h4 class="proc-timeline-title">Guardian &amp; Student Interview</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Selected candidates and their parents/legal guardians must attend an interview. Please bring all original documentation and academic reports.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">06</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-check-circle"></i></div>
+                                <h4 class="proc-timeline-title">Admission Completion</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Upon successful verification of documents and clearance of admission fees, enrollment is finalized, and school material schedules are issued.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Panel 2: Senior Secondary -->
+            <div id="senior-sec" class="proc-panel">
+                
+                <!-- Intro Card -->
+                <div class="proc-intro-card">
+                    <h3 class="proc-intro-title">Provisional Admission Policy (Class XI)</h3>
+                    <p class="proc-intro-text">
+                        Class XI admission forms are hosted on our online portal. Admissions are provisional, finalized post publication of Class X Board results.
+                    </p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="proc-timeline">
+                    
+                    <!-- Step 1 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">01</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-laptop"></i></div>
+                                <h4 class="proc-timeline-title">Form Download &amp; Application</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Access forms via the online admission portal. Select preferred streams (Science, Commerce, or Humanities) and elective subjects.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">02</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-users"></i></div>
+                                <h4 class="proc-timeline-title">Admission Test &amp; Interview</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Shortlisted external candidates must appear for an admission test. Internal students are admitted provisionally based on their school pre-board evaluation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">03</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-megaphone"></i></div>
+                                <h4 class="proc-timeline-title">Selection List &amp; Document Review</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Results are uploaded online. Selected students and their parents attend an interview for elective evaluation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="proc-timeline-item">
+                        <div class="proc-timeline-badge">04</div>
+                        <div class="proc-timeline-card">
+                            <div class="proc-timeline-header">
+                                <div class="proc-timeline-icon"><i class="ph-bold ph-sparkles"></i></div>
+                                <h4 class="proc-timeline-title">Final Admission Confirmation</h4>
+                            </div>
+                            <p class="proc-timeline-desc">
+                                Provisional selections are formally confirmed after submitting official Class X Board Marksheets, Migration Certificates, and Character certificates.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Action Box -->
+            <div class="proc-action-box">
+                <h2 class="proc-action-title">Ready to Apply for Admission?</h2>
+                <p class="proc-action-text">
+                    Applications for the Academic Session 2026-2027 are processed exclusively through our online ERP portal. Get started today!
+                </p>
+                <a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank" class="proc-apply-btn">
+                    Access ERP Admission Portal <i class="ph ph-arrow-square-out"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching function
+        function switchPanel(panelId) {
+            // Remove active class from all buttons and panels
+            document.querySelectorAll('.proc-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.proc-panel').forEach(panel => panel.classList.remove('active'));
+            
+            // Add active class to selected elements
+            event.currentTarget.classList.add('active');
+            document.getElementById(panelId).classList.add('active');
+        }
+    </script>
+    <script src="script.js?v=7"></script>
+</body>
+</html>

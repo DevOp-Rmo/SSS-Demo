@@ -1720,6 +1720,14 @@ function initChatbot() {
     let chatSessionId = sessionStorage.getItem('chat_session_id') || 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
     sessionStorage.setItem('chat_session_id', chatSessionId);
 
+    // Conversational flow state manager
+    let chatState = {
+        flow: null,
+        step: 0,
+        section: null,
+        data: {}
+    };
+
     let chatHistory = [];
     try {
         const savedHistory = sessionStorage.getItem('chat_history');
@@ -1809,6 +1817,7 @@ function initChatbot() {
                 nameConvinceShown = false;
                 chatHistory = [];
                 messagesLog.innerHTML = '';
+                chatState = { flow: null, step: 0, section: null, data: {} }; // Clear flow state
                 
                 chatSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
                 sessionStorage.setItem('chat_session_id', chatSessionId);
@@ -2007,9 +2016,52 @@ function initChatbot() {
         messagesLog.scrollTop = messagesLog.scrollHeight;
     }
 
+    function disableAllChatButtons() {
+        const buttons = messagesLog.querySelectorAll('.chat-btn');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            if (!btn.classList.contains('selected') && !btn.classList.contains('faded')) {
+                btn.classList.add('faded');
+            }
+        });
+    }
+
     function processQuery(query) {
         const cleanQuery = query.toLowerCase().trim();
         
+        // Disable all previous buttons in the chat log
+        disableAllChatButtons();
+
+        // Check for general reset/menu command at any time
+        if (cleanQuery === 'reset' || cleanQuery === 'exit' || cleanQuery === 'main menu' || cleanQuery === 'menu') {
+            chatState = { flow: null, step: 0, section: null, data: {} };
+            appendBotReply("Conversation reset. How can I help you today?", () => {
+                showQuickActionButtons();
+            });
+            return;
+        }
+        
+        // 0. Intercept for active conversational flows
+        if (chatState.flow) {
+            
+            if (chatState.flow === 'fees') {
+                handleFeesFlow(cleanQuery, query);
+            } else if (chatState.flow === 'admission') {
+                handleAdmissionFlow(cleanQuery, query);
+            } else if (chatState.flow === 'timing') {
+                handleTimingFlow(cleanQuery, query);
+            } else if (chatState.flow === 'infrastructure') {
+                handleInfrastructureFlow(cleanQuery, query);
+            } else if (chatState.flow === 'feePolicy') {
+                handleFeePolicyFlow(cleanQuery, query);
+            } else if (chatState.flow === 'holiday') {
+                handleHolidayFlow(cleanQuery, query);
+            } else if (chatState.flow === 'course') {
+                handleCourseFlow(cleanQuery, query);
+            }
+            return;
+        }
+
         // 1. Check for Greetings
         const greetings = ['hi', 'hello', 'hey', 'namaste', 'good morning', 'good afternoon', 'good evening', 'greetings'];
         const isGreeting = greetings.some(g => cleanQuery === g || cleanQuery.startsWith(g + ' ') || cleanQuery.endsWith(' ' + g) || cleanQuery.includes(' ' + g + ' '));
@@ -2028,7 +2080,9 @@ function initChatbot() {
                     : "Hi! I'm here to help you with admissions, fees, notices, or timings. What's on your mind?"
             ];
             const randomGreeting = greetingReplies[Math.floor(Math.random() * greetingReplies.length)];
-            appendBotReply(randomGreeting);
+            appendBotReply(randomGreeting, () => {
+                showQuickActionButtons();
+            });
             return;
         }
 
@@ -2064,14 +2118,55 @@ function initChatbot() {
             return;
         }
 
+        // 3. Conversational Flow Entry Points
+        if (cleanQuery.includes('policy') || cleanQuery.includes('refund') || cleanQuery.includes('late fee') || cleanQuery.includes('payment mode') || cleanQuery.includes('card charge') || cleanQuery.includes('fine')) {
+            startFeePolicyFlow();
+            return;
+        }
+
+        if (cleanQuery.includes('fee') || cleanQuery.includes('tuition') || cleanQuery.includes('payment') || cleanQuery.includes('pay') || cleanQuery.includes('bill')) {
+            startFeesFlow();
+            return;
+        }
+
+        if (cleanQuery.includes('admission') || cleanQuery.includes('apply') || cleanQuery.includes('registration') || cleanQuery.includes('register')) {
+            startAdmissionFlow();
+            return;
+        }
+
+        if (cleanQuery.includes('timing') || cleanQuery.includes('timings') || cleanQuery.includes('hours') || cleanQuery.includes('time') || cleanQuery.includes('timetable')) {
+            startTimingFlow();
+            return;
+        }
+
+        if (cleanQuery.includes('holiday') || cleanQuery.includes('holidays') || cleanQuery.includes('calendar') || cleanQuery.includes('vacation') || cleanQuery.includes('summer break') || cleanQuery.includes('puja vacation') || cleanQuery.includes('winter break')) {
+            if (cleanQuery.includes('tomorrow') || cleanQuery.includes('today') || parseDateFromQuery(cleanQuery)) {
+                handleDirectHolidayQuery(cleanQuery, query);
+                return;
+            }
+            startHolidayFlow();
+            return;
+        }
+
+        if (cleanQuery.includes('course') || cleanQuery.includes('courses') || cleanQuery.includes('subjects') || cleanQuery.includes('curriculum')) {
+            startCourseFlow();
+            return;
+        }
+
+        if (cleanQuery.includes('infrastructure') || cleanQuery.includes('labs') || cleanQuery.includes('facilities') || cleanQuery.includes('facility') || cleanQuery.includes('library') || cleanQuery.includes('swimming')) {
+            startInfrastructureFlow();
+            return;
+        }
+
         if (cleanQuery === 'class notices' || cleanQuery === 'notices') {
+            chatState = { flow: null, step: 0, section: null, data: {} };
             appendBotReply("Please select your school section:", () => {
                 showClassSectionButtons();
             });
             return;
         }
 
-        // Get chatbot trained QA data
+        // 4. Default: check fallback database matches
         getChatbotData(dataList => {
             const reply = matchChatResponse(query, dataList);
             if (reply) {
@@ -2081,10 +2176,573 @@ function initChatbot() {
                     appendBotReply(reply.response);
                 }
             } else {
-                // Fallback: Contact Us
                 appendBotReply("I want to make sure you get the right information, but I don't have the details for that in my current records. Please feel free to reach out to our dedicated support team or contact our school office directly. We are always happy to assist you!", null, false, null, true);
             }
         });
+    }
+
+    // ====================================================
+    // Chatbot Conversational Flow Management Functions
+    // ====================================================
+
+    function showFlowButtons(options) {
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'chat-btn-container';
+        
+        options.forEach(opt => {
+            const button = document.createElement('button');
+            button.className = 'chat-btn';
+            button.innerHTML = `<span>${opt.toUpperCase()}</span> <i class="ph ph-caret-right"></i>`;
+            button.addEventListener('click', () => {
+                const allButtons = btnContainer.querySelectorAll('.chat-btn');
+                allButtons.forEach(b => {
+                    b.disabled = true;
+                    if (b === button) {
+                        b.classList.add('selected');
+                    } else {
+                        b.classList.add('faded');
+                    }
+                });
+
+                appendMessage('user', opt);
+                saveChatMessage('user', opt);
+                processQuery(opt);
+            });
+            btnContainer.appendChild(button);
+        });
+
+        messagesLog.appendChild(btnContainer);
+        messagesLog.scrollTop = messagesLog.scrollHeight;
+    }
+
+    function appendLinkButton(text, url) {
+        appendBotReply(text, null, true, url);
+        chatState = { flow: null, step: 0, section: null, data: {} }; // Reset flow state
+    }
+
+    // --- Fees Flow ---
+    function startFeesFlow() {
+        chatState.flow = 'fees';
+        chatState.step = 1;
+        chatState.section = null;
+        
+        appendBotReply("I can guide you through our Fee Structure! 😊 Are you inquiring about the Junior Section (Nursery to Class V) or the Senior Section (Class VI to Class XII)?", () => {
+            showFlowButtons(["Junior Section", "Senior Section", "Main Menu"]);
+        });
+    }
+
+    function handleFeesFlow(cleanQuery, query) {
+        if (cleanQuery.includes('junior')) {
+            chatState.section = 'junior';
+            chatState.step = 2;
+            appendBotReply("For the Junior Section (Nursery to V), the fees consist of Tuition Fees, Activity & ICT Fees, and Assessment Fees. There is also a one-time Admission Fee of ₹98,000.\n\nWhat would you like to know next?", () => {
+                showFlowButtons(["Quarterly Fee Amounts", "Payment Deadlines", "Senior Section Fees", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('senior')) {
+            chatState.section = 'senior';
+            chatState.step = 2;
+            appendBotReply("For the Senior Section (Class VI to XII), the fees consist of Tuition Fees, Activity & ICT Fees, Assessment Fees, and subject-specific Laboratory Fees for Class XI & XII electives.\n\nWhat would you like to know next?", () => {
+                showFlowButtons(["Quarterly Fee Amounts", "Elective Lab Fees", "Payment Deadlines", "Junior Section Fees", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('amounts') || cleanQuery.includes('amount') || cleanQuery.includes('how much') || cleanQuery.includes('quarterly fee')) {
+            if (chatState.section === 'junior') {
+                appendBotReply("For the 2026-2027 Session, the total quarterly fees are:\n• Nursery, LKG, UKG, SKG: ₹25,675 per quarter (Tuition: ₹17,250)\n• Classes I to V: ₹26,275 per quarter (Tuition: ₹17,400)\n\nWould you like to know the quarterly payment deadlines?", () => {
+                    showFlowButtons(["Payment Deadlines", "Main Menu"]);
+                });
+            } else {
+                appendBotReply("For the 2026-2027 Session, the total quarterly fees (without practicals) are:\n• Class VI to VIII: ₹28,075 per quarter\n• Class IX: ₹28,125 per quarter (excl. ₹350 registration)\n• Class X: ₹28,350 per quarter (excl. ₹575 board exam fee)\n• Class XI & XII: Tuition is ₹19,050 per quarter (plus core fees & elective lab fees).\n\nWould you like to check the elective lab fees or payment deadlines?", () => {
+                    showFlowButtons(["Elective Lab Fees", "Payment Deadlines", "Main Menu"]);
+                });
+            }
+        } else if (cleanQuery.includes('lab') || cleanQuery.includes('elective')) {
+            appendBotReply("Lab fees for elective subjects in Class XI & XII (per quarter):\n• Computer Science / AI / Web App: ₹2,375\n• Physics / Chemistry / Biology / Home Sci: ₹1,250 to ₹1,375\n• Hindustani Music / Painting / Mass Media: ₹1,125\n• Physical Education / Psychology: ₹550\n\nWould you like to know the payment deadlines?", () => {
+                showFlowButtons(["Payment Deadlines", "Quarterly Fee Amounts", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('deadline') || cleanQuery.includes('deadlines') || cleanQuery.includes('when') || cleanQuery.includes('schedule') || cleanQuery.includes('schedules')) {
+            appendBotReply("School fees are cleared on a quarterly basis within the first month of each quarter:\n• Quarter 1 (Apr - Jun): Due by April 15\n• Quarter 2 (Jul - Sep): Due by July 15\n• Quarter 3 (Oct - Dec): Due by October 15\n• Quarter 4 (Jan - Mar): Due by January 15\n\nAll fees are paid online through the parent portal.", () => {
+                appendLinkButton("For more information and to view the official fee booklet, please visit our Fee Structure page:", "fee-structure.html");
+            });
+        } else {
+            appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
+                if (chatState.step === 1) {
+                    showFlowButtons(["Junior Section", "Senior Section", "Main Menu"]);
+                } else if (chatState.section === 'junior') {
+                    showFlowButtons(["Quarterly Fee Amounts", "Payment Deadlines", "Senior Section Fees", "Main Menu"]);
+                } else {
+                    showFlowButtons(["Quarterly Fee Amounts", "Elective Lab Fees", "Payment Deadlines", "Junior Section Fees", "Main Menu"]);
+                }
+            });
+        }
+    }
+
+    // --- Fee Policy & Refund Flow ---
+    function startFeePolicyFlow() {
+        chatState.flow = 'feePolicy';
+        chatState.step = 1;
+        
+        appendBotReply("I can help you understand our Fee Policies and Refund Rules! 📋 What information are you looking for?", () => {
+            showFlowButtons(["Payment Modes", "Refund Policy", "Late Payment Fine", "Main Menu"]);
+        });
+    }
+
+    function handleFeePolicyFlow(cleanQuery, query) {
+        if (cleanQuery.includes('mode') || cleanQuery.includes('modes') || cleanQuery.includes('how to pay')) {
+            appendBotReply("All fees are payable strictly online via Debit Card, Credit Card, or Net Banking on our portal with NIL transaction charges. RTGS / NEFT / IMPS bank transfers, draft, or cash payments are strictly NOT accepted.", () => {
+                showFlowButtons(["Refund Policy", "Late Payment Fine", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('refund') || cleanQuery.includes('refunds')) {
+            appendBotReply("Our Refund Rules are:\n1. Admission Fee is strictly non-refundable under any circumstances.\n2. General quarterly fees are non-refundable unless parent transfer or health withdrawal is requested in writing 30 days in advance (processed pro-rata).\n3. Duplicate online payments are fully refunded.", () => {
+                showFlowButtons(["Payment Modes", "Late Payment Fine", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('late') || cleanQuery.includes('fine') || cleanQuery.includes('fines')) {
+            appendBotReply("If quarterly fees are not paid within the scheduled date, late fines or re-admission charges apply. Continued non-payment will result in the student's name being struck off from the register.", () => {
+                showFlowButtons(["Payment Modes", "Refund Policy", "Main Menu"]);
+            });
+        } else {
+            appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
+                showFlowButtons(["Payment Modes", "Refund Policy", "Late Payment Fine", "Main Menu"]);
+            });
+        }
+        
+        if (cleanQuery.includes('mode') || cleanQuery.includes('refund') || cleanQuery.includes('late') || cleanQuery.includes('fine')) {
+            setTimeout(() => {
+                appendLinkButton("For more policy guidelines and details, visit our Fee Policy page:", "fee-policy.html");
+            }, 800);
+        }
+    }
+
+    // --- Admission Flow ---
+    function startAdmissionFlow() {
+        chatState.flow = 'admission';
+        chatState.step = 1;
+        chatState.section = null;
+        
+        appendBotReply("I would love to help you with the Admission Procedure! 😊 Which section are you interested in?", () => {
+            showFlowButtons(["Junior Section", "Senior Section", "Main Menu"]);
+        });
+    }
+
+    function handleAdmissionFlow(cleanQuery, query) {
+        if (cleanQuery.includes('junior')) {
+            chatState.section = 'junior';
+            chatState.step = 2;
+            appendBotReply("For the Junior Section (Nursery to Class V), admission is based on age eligibility and document submission. For Nursery, the child must be 3+ years old. Registration is done fully online.\n\nWhat would you like to know next?", () => {
+                showFlowButtons(["Required Documents", "Registration Process", "Fee Structure", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('senior')) {
+            chatState.section = 'senior';
+            chatState.step = 2;
+            appendBotReply("For the Senior Section (Class VI to XII), admissions depend on seat availability and academic merit. For Class XI, admissions open immediately after Class X Board results for Science, Commerce, and Humanities.\n\nWhat would you like to know next?", () => {
+                showFlowButtons(["Required Documents", "Registration Process", "Subject Streams", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('document') || cleanQuery.includes('documents')) {
+            appendBotReply("You will need to submit:\n1. Attested copy of Birth Certificate (Municipal Corporation)\n2. Proof of Address (Passport/Aadhaar/Utility Bill)\n3. Recent passport size photograph of the child and parents\n4. Report card of the previous class (if applicable)\n5. Transfer Certificate (TC) from the previous school.", () => {
+                showFlowButtons(["Registration Process", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('process') || cleanQuery.includes('procedure') || cleanQuery.includes('how to apply') || cleanQuery.includes('apply') || cleanQuery.includes('registration')) {
+            appendBotReply("Our online registration process is simple:\n1. Fill the registration form on our school portal.\n2. Upload scanned copies of the required documents.\n3. Pay the registration processing fee online.\n4. You will receive an email confirmation with further interaction dates.", () => {
+                appendLinkButton("For more information and to start the online application, click below:", "procedure.html");
+            });
+        } else if (cleanQuery.includes('subject') || cleanQuery.includes('stream') || cleanQuery.includes('streams') || cleanQuery.includes('courses')) {
+            appendBotReply("We offer three streams in Class XI & XII:\n• Science: Physics, Chemistry, Mathematics, Biology, Computer Science, Economics\n• Commerce: Accountancy, Business Studies, Economics, Mathematics, Entrepreneurship\n• Humanities: Political Science, History, Geography, Sociology, Psychology, English\n\nEnglish is compulsory for all streams.", () => {
+                showFlowButtons(["Required Documents", "Registration Process", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('fee') || cleanQuery.includes('fees')) {
+            startFeesFlow();
+        } else {
+            appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
+                if (chatState.step === 1) {
+                    showFlowButtons(["Junior Section", "Senior Section", "Main Menu"]);
+                } else if (chatState.section === 'junior') {
+                    showFlowButtons(["Required Documents", "Registration Process", "Fee Structure", "Main Menu"]);
+                } else {
+                    showFlowButtons(["Required Documents", "Registration Process", "Subject Streams", "Main Menu"]);
+                }
+            });
+        }
+    }
+
+    // --- Timings Flow ---
+    function startTimingFlow() {
+        chatState.flow = 'timing';
+        chatState.step = 1;
+        chatState.section = null;
+        
+        appendBotReply("I can guide you through our school timings! ⏰ Are you inquiring about the Primary Section (Nursery to Class V) or the Secondary Section (Class VI to Class XII)?", () => {
+            showFlowButtons(["Primary (Nursery - V)", "Secondary (VI - XII)", "Main Menu"]);
+        });
+    }
+
+    function handleTimingFlow(cleanQuery, query) {
+        if (chatState.step === 1) {
+            if (cleanQuery.includes('primary')) {
+                chatState.section = 'primary';
+                chatState.step = 2;
+                appendBotReply("Please select your class to check timings:", () => {
+                    showFlowButtons(["Nursery", "LKG & UKG", "SKG", "Class I", "Class II", "Class III - V", "Main Menu"]);
+                });
+            } else if (cleanQuery.includes('secondary')) {
+                chatState.section = 'secondary';
+                chatState.step = 2;
+                appendBotReply("Please select your class level to check timings:", () => {
+                    showFlowButtons(["Class VI - X", "Class XI - XII", "Main Menu"]);
+                });
+            } else {
+                appendBotReply("Please select one of the sections below:", () => {
+                    showFlowButtons(["Primary (Nursery - V)", "Secondary (VI - XII)", "Main Menu"]);
+                });
+            }
+            return;
+        }
+        
+        if (chatState.step === 2) {
+            let classTiming = "";
+            let matched = false;
+            
+            if (cleanQuery.includes('nursery')) {
+                classTiming = "Class Nursery: 10:00 A.M. to 11:30 A.M.";
+                matched = true;
+            } else if (cleanQuery.includes('lkg') || cleanQuery.includes('ukg')) {
+                classTiming = "Classes LKG & UKG: 08:50 A.M. to 12:00 NOON";
+                matched = true;
+            } else if (cleanQuery.includes('skg')) {
+                classTiming = "Class SKG: 08:50 A.M. to 01:05 P.M.";
+                matched = true;
+            } else if (cleanQuery.includes('class i') && !cleanQuery.includes('class ii') && !cleanQuery.includes('iii') && !cleanQuery.includes('xi')) {
+                classTiming = "Class I: 08:50 A.M. to 01:35 P.M.";
+                matched = true;
+            } else if (cleanQuery.includes('class ii') && !cleanQuery.includes('xii')) {
+                classTiming = "Class II: 07:50 A.M. to 01:05 P.M.";
+                matched = true;
+            } else if (cleanQuery.includes('iii') || cleanQuery.includes('class iii') || cleanQuery.includes('iv') || cleanQuery.includes('v')) {
+                classTiming = "Classes III to V: 07:50 A.M. to 01:20 P.M.";
+                matched = true;
+            } else if (cleanQuery.includes('vi') || cleanQuery.includes('x') || cleanQuery.includes('6') || cleanQuery.includes('10')) {
+                classTiming = "Classes VI to X: 08:30 A.M. to 02:55 P.M.";
+                matched = true;
+            } else if (cleanQuery.includes('xi') || cleanQuery.includes('xii') || cleanQuery.includes('11') || cleanQuery.includes('12')) {
+                classTiming = "Classes XI & XII: 08:30 A.M. to 02:05 P.M.";
+                matched = true;
+            }
+            
+            if (matched) {
+                chatState.step = 3;
+                appendBotReply(`For ${cleanQuery.toUpperCase()}, the school timing is **${classTiming.split(': ').slice(1).join(': ')}**.\n\nWould you also like to know about our Gate Arrival timings?`, () => {
+                    showFlowButtons(["Yes, show Gate Timings", "No, back to Section", "Main Menu"]);
+                });
+            } else {
+                appendBotReply("I didn't quite catch that. Please select a valid class from the list:", () => {
+                    if (chatState.section === 'primary') {
+                        showFlowButtons(["Nursery", "LKG & UKG", "SKG", "Class I", "Class II", "Class III - V", "Main Menu"]);
+                    } else {
+                        showFlowButtons(["Class VI - X", "Class XI - XII", "Main Menu"]);
+                    }
+                });
+            }
+            return;
+        }
+        
+        if (chatState.step === 3) {
+            if (cleanQuery.includes('yes') || cleanQuery.includes('gate')) {
+                appendBotReply("Here are the Gate Entry Timings for student arrivals:\n• **Nursery**: Gate opens at 09:50 A.M. and closes at 10:05 A.M.\n• **LKG to Class I**: Gate opens at 08:30 A.M. and closes at 08:55 A.M.\n• **Class II to V**: Gate opens at 07:30 A.M. and closes at 07:55 A.M.\n• **Secondary (VI to XII)**: Gate opens at 08:00 A.M. and closes at 08:25 A.M.", () => {
+                    appendLinkButton("For full details and guidelines, visit our School Timing page:", "school-timing.html");
+                });
+            } else if (cleanQuery.includes('no') || cleanQuery.includes('back')) {
+                chatState.step = 2;
+                appendBotReply("Back to section. Please select your class:", () => {
+                    if (chatState.section === 'primary') {
+                        showFlowButtons(["Nursery", "LKG & UKG", "SKG", "Class I", "Class II", "Class III - V", "Main Menu"]);
+                    } else {
+                        showFlowButtons(["Class VI - X", "Class XI - XII", "Main Menu"]);
+                    }
+                });
+            } else {
+                appendBotReply("Please select one of the options below:", () => {
+                    showFlowButtons(["Yes, show Gate Timings", "No, back to Section", "Main Menu"]);
+                });
+            }
+            return;
+        }
+    }
+
+    // --- School Holiday & Calendar Flow ---
+    const schoolHolidaysList = [
+        { date: "2026-04-03", name: "Good Friday" },
+        { date: "2026-04-14", name: "Ambedkar Jayanti" },
+        { date: "2026-04-15", name: "Bengali New Year (Noboborsho)" },
+        { date: "2026-05-01", name: "May Day" },
+        { date: "2026-05-08", name: "Rabindra Jayanti" },
+        { date: "2026-05-25", name: "Budha Purnima" },
+        { date: "2026-06-16", name: "Id-ul-Zuha (Bakrid)" },
+        { date: "2026-07-17", name: "Muharram" },
+        { date: "2026-08-15", name: "Independence Day" },
+        { date: "2026-08-27", name: "Janmashtami" },
+        { date: "2026-09-05", name: "Fateha-Dwaz-Daham" },
+        { date: "2026-10-02", name: "Gandhi Jayanti" },
+        { date: "2026-10-11", name: "Mahalaya" },
+        { date: "2026-10-17", name: "Maha Saptami" },
+        { date: "2026-10-18", name: "Maha Ashtami" },
+        { date: "2026-10-19", name: "Maha Navami" },
+        { date: "2026-10-20", name: "Vijaya Dashami (Dussehra)" },
+        { date: "2026-10-31", name: "Kali Puja / Diwali" },
+        { date: "2026-11-08", name: "Bhatri Dwitiya (Bhai Dooj)" },
+        { date: "2026-11-14", name: "Guru Nanak Birthday" },
+        { date: "2026-12-25", name: "Christmas Day" },
+        { date: "2027-01-01", name: "New Year's Day" },
+        { date: "2027-01-23", name: "Netaji Birthday" },
+        { date: "2027-01-26", name: "Republic Day" },
+        { date: "2027-02-11", name: "Saraswati Puja (Vasant Panchami)" },
+        { date: "2027-03-24", name: "Holi (Doljatra)" }
+    ];
+
+    function checkHolidayForDate(dateObj) {
+        const yr = dateObj.getFullYear();
+        const mo = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dy = String(dateObj.getDate()).padStart(2, '0');
+        const dateStr = `${yr}-${mo}-${dy}`;
+        
+        const exactMatch = schoolHolidaysList.find(h => h.date === dateStr);
+        if (exactMatch) return exactMatch;
+        
+        // Check vacations: May 1 to May 31
+        if (dateObj.getMonth() === 4) {
+            return { name: "Summer Vacation" };
+        }
+        
+        // October 15 to November 15
+        const month = dateObj.getMonth();
+        const dateVal = dateObj.getDate();
+        if ((month === 9 && dateVal >= 15) || (month === 10 && dateVal <= 15)) {
+            return { name: "Puja Vacation" };
+        }
+        
+        // December 24 to January 3
+        if ((month === 11 && dateVal >= 24) || (month === 0 && dateVal <= 3)) {
+            return { name: "Winter Vacation" };
+        }
+        
+        // Sunday
+        if (dateObj.getDay() === 0) {
+            return { name: "Sunday" };
+        }
+        
+        return null;
+    }
+
+    function formatDateFriendly(dateObj) {
+        const day = dateObj.getDate();
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const month = monthNames[dateObj.getMonth()];
+        const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const weekday = weekdayNames[dateObj.getDay()];
+        
+        let suffix = "th";
+        if (day === 1 || day === 21 || day === 31) suffix = "st";
+        else if (day === 2 || day === 22) suffix = "nd";
+        else if (day === 3 || day === 23) suffix = "rd";
+        
+        return `${day}${suffix} ${month}, ${weekday}`;
+    }
+
+    function parseDateFromQuery(query) {
+        const clean = query.toLowerCase().trim();
+        const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        const monthAbbreviations = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        
+        let matchedMonth = -1;
+        let matchedDay = -1;
+        
+        for (let i = 0; i < 12; i++) {
+            if (clean.includes(monthNames[i])) {
+                matchedMonth = i;
+                break;
+            }
+        }
+        if (matchedMonth === -1) {
+            for (let i = 0; i < 12; i++) {
+                if (clean.includes(monthAbbreviations[i])) {
+                    matchedMonth = i;
+                    break;
+                }
+            }
+        }
+        
+        const numbers = clean.match(/\d+/);
+        if (numbers) {
+            matchedDay = parseInt(numbers[0]);
+        }
+        
+        if (matchedMonth !== -1 && matchedDay !== -1 && matchedDay >= 1 && matchedDay <= 31) {
+            const targetDate = new Date();
+            targetDate.setMonth(matchedMonth);
+            targetDate.setDate(matchedDay);
+            const today = new Date();
+            if (targetDate.getMonth() < today.getMonth() || (targetDate.getMonth() === today.getMonth() && targetDate.getDate() < today.getDate())) {
+                targetDate.setFullYear(today.getFullYear() + 1);
+            } else {
+                targetDate.setFullYear(today.getFullYear());
+            }
+            return targetDate;
+        }
+        
+        return null;
+    }
+
+    function handleDirectHolidayQuery(cleanQuery, query) {
+        let targetDate = new Date();
+        
+        if (cleanQuery.includes('tomorrow')) {
+            targetDate.setDate(targetDate.getDate() + 1);
+        }
+        
+        const parsedDate = parseDateFromQuery(cleanQuery);
+        if (parsedDate) {
+            targetDate = parsedDate;
+        }
+        
+        const friendlyDate = formatDateFriendly(targetDate);
+        const holiday = checkHolidayForDate(targetDate);
+        
+        if (holiday) {
+            if (cleanQuery.includes('tomorrow')) {
+                appendBotReply(`Yes, it's a holiday tomorrow. Tomorrow is ${friendlyDate} (${holiday.name}).`);
+            } else {
+                appendBotReply(`Yes, it's a holiday. ${friendlyDate} is ${holiday.name}.`);
+            }
+        } else {
+            if (cleanQuery.includes('tomorrow')) {
+                appendBotReply(`No, there is no holiday tomorrow (${friendlyDate}).`);
+            } else {
+                appendBotReply(`No, there is no holiday on ${friendlyDate}.`);
+            }
+        }
+        
+        setTimeout(() => {
+            appendLinkButton("To download the complete signed Holiday List circular, visit our School Calendar page:", "school-calendar.html");
+        }, 1000);
+    }
+
+    function appendLinkButtonNoReset(text, url) {
+        appendBotReply(text, null, true, url);
+    }
+
+    function startHolidayFlow() {
+        chatState.flow = 'holiday';
+        chatState.step = 1;
+        
+        appendBotReply("We have three major seasonal breaks in our academic calendar. Which vacation would you like to know about?", () => {
+            showFlowButtons(["Summer Vacation", "Puja Vacation", "Winter Break", "Main Menu"]);
+        });
+    }
+
+    function handleHolidayFlow(cleanQuery, query) {
+        if (cleanQuery === 'yes' || cleanQuery === 'yeah' || cleanQuery === 'sure' || cleanQuery === 'ok' || cleanQuery === 'okay') {
+            appendBotReply("Which vacation break would you like to know about?", () => {
+                showFlowButtons(["Summer Vacation", "Puja Vacation", "Winter Break", "Main Menu"]);
+            });
+            return;
+        }
+
+        if (cleanQuery === 'no' || cleanQuery === 'nope' || cleanQuery === 'nothing' || cleanQuery === 'cancel') {
+            chatState = { flow: null, step: 0, section: null, data: {} };
+            appendBotReply("Alright! Let me know if you have any other questions.", () => {
+                showQuickActionButtons();
+            });
+            return;
+        }
+
+        let answer = "";
+        let nextOptions = [];
+        
+        if (cleanQuery.includes('summer')) {
+            answer = "Summer Vacation is our longest term break, scheduled from mid-May to mid-June (approximately 4 weeks / 29 Days) for student relief from the summer heat.";
+            nextOptions = ["Puja Vacation", "Winter Break", "Main Menu"];
+        } else if (cleanQuery.includes('puja')) {
+            answer = "Puja Vacation is our festive autumn break, scheduled in October—November (approximately 4 weeks / 28 Days) in celebration of Durga Puja and Dussehra.";
+            nextOptions = ["Summer Vacation", "Winter Break", "Main Menu"];
+        } else if (cleanQuery.includes('winter') || cleanQuery.includes('christmas') || cleanQuery.includes('break')) {
+            answer = "Winter Break takes place in late December to early January (approximately 1 week / 11 Days) for Christmas and New Year celebrations.";
+            nextOptions = ["Summer Vacation", "Puja Vacation", "Main Menu"];
+        } else {
+            appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
+                showFlowButtons(["Summer Vacation", "Puja Vacation", "Winter Break", "Main Menu"]);
+            });
+            return;
+        }
+
+        appendBotReply(`${answer}\n\nWould you like to know more about our other seasonal breaks?`, () => {
+            showFlowButtons(nextOptions);
+        });
+
+        setTimeout(() => {
+            appendLinkButtonNoReset("To download the complete signed Holiday List circular, visit our School Calendar page:", "school-calendar.html");
+        }, 1000);
+    }
+
+    // --- Course Details Flow ---
+    function startCourseFlow() {
+        chatState.flow = 'course';
+        chatState.step = 1;
+        
+        appendBotReply("Explore our comprehensive academic curriculum under CBSE affiliation! 📚 Which academic level details do you want to see?", () => {
+            showFlowButtons(["Primary (Nursery-V)", "Secondary (VI-X)", "Senior Secondary (XI-XII)", "Main Menu"]);
+        });
+    }
+
+    function handleCourseFlow(cleanQuery, query) {
+        if (cleanQuery.includes('primary') || cleanQuery.includes('nursery')) {
+            appendBotReply("For Nursery to Class V, we follow a child-centric interactive learning program focusing on Language, Math, Environmental Science (EVS), Performing Arts, and Physical Development.", () => {
+                showFlowButtons(["Secondary (VI-X)", "Senior Secondary (XI-XII)", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('secondary') && !cleanQuery.includes('senior')) {
+            appendBotReply("For Classes VI to X, the academic curriculum matches CBSE guidelines and covers English, Second Language (Bengali/Hindi), Mathematics, Science, Social Studies, and Information Technology.", () => {
+                showFlowButtons(["Primary (Nursery-V)", "Senior Secondary (XI-XII)", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('senior') || cleanQuery.includes('xi') || cleanQuery.includes('xii')) {
+            appendBotReply("For Class XI & XII, we offer three specialized subject streams:\n• Science: Physics, Chemistry, Math, Biology, Computer Science, Economics\n• Commerce: Accountancy, Business Studies, Economics, Math, Entrepreneurship\n• Humanities: History, Political Science, Geography, Sociology, Psychology, English", () => {
+                showFlowButtons(["Primary (Nursery-V)", "Secondary (VI-X)", "Main Menu"]);
+            });
+        } else {
+            appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
+                showFlowButtons(["Primary (Nursery-V)", "Secondary (VI-X)", "Senior Secondary (XI-XII)", "Main Menu"]);
+            });
+        }
+
+        if (cleanQuery.includes('primary') || cleanQuery.includes('secondary') || cleanQuery.includes('senior') || cleanQuery.includes('nursery') || cleanQuery.includes('xi') || cleanQuery.includes('xii')) {
+            setTimeout(() => {
+                appendLinkButton("For full syllabus details and Streams combination criteria, visit our Procedure page:", "procedure.html");
+            }, 800);
+        }
+    }
+
+    // --- Infrastructure Flow ---
+    function startInfrastructureFlow() {
+        chatState.flow = 'infrastructure';
+        chatState.step = 1;
+        
+        appendBotReply("Explore our modern campus and infrastructure! 🏫 Which facilities would you like to know about?", () => {
+            showFlowButtons(["Academic Labs & Tech", "Library & Arts", "Sports & Wellness", "Main Menu"]);
+        });
+    }
+
+    function handleInfrastructureFlow(cleanQuery, query) {
+        if (cleanQuery.includes('labs') || cleanQuery.includes('lab') || cleanQuery.includes('tech') || cleanQuery.includes('academic')) {
+            appendBotReply("We offer state-of-the-art academic facilities:\n• 5 specialized Computer Labs\n• Tablet-based teaching in Middle School classrooms\n• Modern Physics, Chemistry, Biology, Mathematics, and Geography labs.", () => {
+                showFlowButtons(["Library & Arts", "Sports & Wellness", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('library') || cleanQuery.includes('arts') || cleanQuery.includes('art')) {
+            appendBotReply("Our library is stocked with over 30,000 books, periodicals, and digital resources. For performing arts, we have the Kalabhavan art center and a large school auditorium for cultural events.", () => {
+                showFlowButtons(["Academic Labs & Tech", "Sports & Wellness", "Main Menu"]);
+            });
+        } else if (cleanQuery.includes('sports') || cleanQuery.includes('wellness') || cleanQuery.includes('sport')) {
+            appendBotReply("Student wellness and sports are key priorities:\n• Fully indoor heated Swimming Pool\n• Basketball courts and athletic training areas\n• Qualified medical personnel and rest rooms for student care.", () => {
+                appendLinkButton("For more campus details, visit our Infrastructure page:", "infrastructure.html");
+            });
+        } else {
+            appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
+                showFlowButtons(["Academic Labs & Tech", "Library & Arts", "Sports & Wellness", "Main Menu"]);
+            });
+        }
     }
 
     function appendBotReply(text, callback, isLink = false, linkUrl = null, showContactBtn = false) {
@@ -2110,6 +2768,7 @@ function initChatbot() {
         const buttons = [
             { text: "ADMISSION ENQUIRY", query: "Admission Enquiry" },
             { text: "FEE STRUCTURE", query: "Fee Structure" },
+            { text: "FEE POLICY & REFUND", query: "Fee Policy & Schedule" },
             { text: "COURSE DETAILS", query: "Course Details" },
             { text: "CLASS NOTICES", query: "Class Notices" }
         ];
@@ -2257,7 +2916,21 @@ function initChatbot() {
             linkBtn.className = 'chat-link-btn';
             linkBtn.href = linkUrl;
             linkBtn.target = '_blank';
-            linkBtn.innerHTML = `<span>Open Link</span> <i class="ph ph-arrow-square-out"></i>`;
+            
+            let btnText = "Open Link";
+            const lowerUrl = linkUrl.toLowerCase();
+            if (lowerUrl.includes("fee-structure.html")) btnText = "FEE STRUCTURE";
+            else if (lowerUrl.includes("fee-policy.html")) btnText = "FEE POLICY & SCHEDULE";
+            else if (lowerUrl.includes("procedure.html")) btnText = "ADMISSION PROCEDURE";
+            else if (lowerUrl.includes("school-timing.html")) btnText = "SCHOOL TIMINGS";
+            else if (lowerUrl.includes("school-calendar.html")) btnText = "SCHOOL CALENDAR";
+            else if (lowerUrl.includes("infrastructure.html")) btnText = "INFRASTRUCTURE";
+            else if (lowerUrl.includes("junior.html")) btnText = "JUNIOR NOTICES";
+            else if (lowerUrl.includes("senior.html")) btnText = "SENIOR NOTICES";
+            else if (lowerUrl.includes("transfer-certificates.html")) btnText = "TRANSFER CERTIFICATES";
+            else if (lowerUrl.includes("history.html")) btnText = "SCHOOL HISTORY";
+            
+            linkBtn.innerHTML = `<span>${btnText}</span> <i class="ph ph-arrow-square-out"></i>`;
             msgDiv.appendChild(document.createElement('br'));
             msgDiv.appendChild(linkBtn);
         }
@@ -2440,24 +3113,69 @@ function getChatbotData(callback) {
     const isLocal = window.location.protocol === 'file:';
     const fallbackData = [
         {
-            query: "Admission Enquiry",
-            keywords: "admission,apply,enquiry,admission procedure,how to apply",
-            response: "https://www.shrishikshayatanschool.com/ssswebsite/senior.html"
+            query: "Admission Procedure",
+            keywords: "admission procedure, admission criteria, how to apply, registration, documents required, age criteria, admission, admissions, register, apply, document, documents, age, criteria",
+            response: "To apply for admission, visit the Admission Procedure page: https://www.shrishikshayatanschool.com/ssswebsite/procedure.html. The process includes online registration, submitting documents (birth certificate, address proof), and meeting age requirements for classes."
         },
         {
             query: "Fee Structure",
-            keywords: "fee,fees,payment,fee policy,structure",
-            response: "The school fees structure varies by section. You can check details under the Admission dropdown, or visit this link: https://www.shrishikshayatanschool.com/ssswebsite/index.html"
+            keywords: "fee structure, fees list, admission fee, tuition fee, fee amount",
+            response: "You can view the detailed fee structure for different classes on our Fee Structure page: https://www.shrishikshayatanschool.com/ssswebsite/fee-structure.html"
         },
         {
-            query: "Course Details",
-            keywords: "courses,subjects,curriculum,cbse,syllabus",
-            response: "We follow the CBSE curriculum, offering Science, Commerce, and Humanities streams in senior classes. Check our Academics section for more information."
+            query: "Fee Policy & Payments",
+            keywords: "fee policy, fee payment, payment deadline, fine, late fee, payment mode",
+            response: "School fees must be paid according to the schedule on our Fee Policy page: https://www.shrishikshayatanschool.com/ssswebsite/fee-policy.html. Late payments attract a fine."
+        },
+        {
+            query: "Courses & Subject Streams",
+            keywords: "courses, subjects, science, commerce, humanities, stream, cbse curriculum, syllabus, languages",
+            response: "We follow the CBSE curriculum and offer Science, Commerce, and Humanities streams in Senior Section (Class XI & XII). In addition to core subjects, we offer foreign languages (German, French, Mandarin) and specialized labs."
         },
         {
             query: "School Timings",
-            keywords: "timing,timings,hours,school hours,schedule",
-            response: "Our school hours are from 8:00 AM to 2:00 PM (Monday to Friday) and 8:00 AM to 12:30 PM (Saturdays)."
+            keywords: "school timings, school hours, class timing, school timing",
+            response: "Our school hours are detailed on our School Timing page: https://www.shrishikshayatanschool.com/ssswebsite/school-timing.html. Junior and Senior sections have separate timetables."
+        },
+        {
+            query: "School Calendar & Holidays",
+            keywords: "school calendar, holiday list, school event dates, academic calendar, vacation",
+            response: "For lists of holidays, exam dates, and annual school events, please check the School Calendar page: https://www.shrishikshayatanschool.com/ssswebsite/school-calendar.html"
+        },
+        {
+            query: "Infrastructure & Campus Facilities",
+            keywords: "infrastructure, classroom, computer lab, library, swimming pool, sports facilities, kalabhavan, auditorium, safety, wellness, labs",
+            response: "We offer state-of-the-art facilities including 5 computer labs, tablet teaching in middle school, specialized Science/Math/Geography labs, and a library with 30,000+ books. Explore more here: https://www.shrishikshayatanschool.com/ssswebsite/infrastructure.html"
+        },
+        {
+            query: "Co-Curricular & Sports Clubs",
+            keywords: "activities, sports, basketball, swimming, karate, rugby, music, dance, clubs, robotics, visual arts, performing arts",
+            response: "We have 24 interactive clubs, including a Robotics club. We also offer professional training in basketball, table tennis, rugby, acrobatics, swimming, karate, classical dance, ballet, and music (guitar, drums, synthesizer, vocals)."
+        },
+        {
+            query: "Transfer Certificate (TC) Enquiry",
+            keywords: "transfer certificate, tc download, candidate list, download tc, tc status, serial number",
+            response: "You can search and view Transfer Certificates (TC) issued by the school on the Transfer Certificates page: https://www.shrishikshayatanschool.com/ssswebsite/transfer-certificates.html"
+        },
+        {
+            query: "Contact & Location Info",
+            keywords: "contact number, phone number, email address, school address, map, fax, Lord Sinha Road, address",
+            response: "Address: 11, Lord Sinha Road, Kolkata 700 071. Phone: +91 33 22821450 / 22828350. Email: info@shrishikshayatanschool.com. Junior Department: +91 33 22820348. Pre-Primary: +91 8100978884."
+        },
+        {
+            query: "Vision and Mission",
+            keywords: "vision, our mission, goal, values, objective, vision and mission, vision statement",
+            response: "Our Vision is to impart value-based education to students so that they are competent to handle global challenges. Our Mission is to foster lifelong learning, social/environmental awareness, and empathetic leadership. Read more on their pages."
+        },
+        {
+            query: "School History & Legacy",
+            keywords: "history, foundation, establishment, trust, year, legacy, history and legacy",
+            response: "Founded as part of the Shikshayatan Trust, Shri Shikshayatan School has been a pioneer in girls' education in Kolkata for decades, striving for academic and personal excellence."
+        },
+        {
+            query: "Notices & Announcements",
+            keywords: "notice, notices, announcement, notification, senior notice, junior notice, notice board",
+            response: "Class-wise notices and holiday/exam schedules are updated regularly. View Junior Notices at: https://www.shrishikshayatanschool.com/ssswebsite/junior.html and Senior Notices at: https://www.shrishikshayatanschool.com/ssswebsite/senior.html"
         }
     ];
 
