@@ -9,17 +9,17 @@
     {
       "id": "1",
       "type": "image",
-      "media_path": "assets/hero_bg.png",
+      "media_path": "uploads/slide_1.webp",
       "duration_ms": 5000
     }
   ],
   "hall_of_fame": {
     "board_results": {
-      "image_path": "assets/board_results.png",
+      "image_path": "uploads/hof_board_results.jpeg",
       "subtitle": "AISSE & AISSCE PERFORMANCE 2025"
     },
     "competitive_exam": {
-      "image_path": "assets/exam_success.png",
+      "image_path": "uploads/hof_competitive_exam.jpeg",
       "subtitle": "JEE, NEET & OLYMPIAD QUALIFIERS"
     }
   },
@@ -1621,25 +1621,70 @@
   ],
   "chatbot_data": [
     {
-      "query": "Admission Enquiry",
-      "keywords": "admission,apply,enquiry,admission procedure,how to apply",
-      "response": "https://www.shrishikshayatanschool.com/ssswebsite/senior.html"
-    },
-    {
       "query": "Fee Structure",
-      "keywords": "fee,fees,payment,fee policy,structure",
-      "response": "The school fees structure varies by section. You can check details under the Admission dropdown, or visit this link: https://www.shrishikshayatanschool.com/ssswebsite/index.html"
+      "keywords": "fee structure, fees list, admission fee, tuition fee, fee amount, fee, fees, tuition",
+      "response": "You can view the detailed fee structure for different classes on our Fee Structure page: https://www.shrishikshayatanschool.com/ssswebsite/fee-structure.html"
     },
     {
-      "query": "Course Details",
-      "keywords": "courses,subjects,curriculum,cbse,syllabus",
-      "response": "We follow the CBSE curriculum, offering Science, Commerce, and Humanities streams in senior classes. Check our Academics section for more information."
+      "query": "Fee Policy & Payments",
+      "keywords": "fee policy, fee payment, payment deadline, fine, late fee, payment mode, payment, pay, bill",
+      "response": "School fees must be paid according to the schedule on our Fee Policy page: https://www.shrishikshayatanschool.com/ssswebsite/fee-policy.html. Late payments attract a fine."
+    },
+    {
+      "query": "Admission Procedure",
+      "keywords": "admission procedure, admission criteria, how to apply, registration, documents required, age criteria, admission, admissions, register, apply, document, documents, age, criteria",
+      "response": "To apply for admission, visit the Admission Procedure page: https://www.shrishikshayatanschool.com/ssswebsite/procedure.html. The process includes online registration, submitting documents (birth certificate, address proof), and meeting age requirements for classes."
     },
     {
       "query": "School Timings",
-      "keywords": "timing,timings,hours,school hours,schedule",
-      "response": "Our school hours are from 8:00 AM to 2:00 PM (Monday to Friday) and 8:00 AM to 12:30 PM (Saturdays)."
+      "keywords": "school timings, school hours, class timing, school timing, timing, timings, hours, hour, time, timetable",
+      "response": "Our school hours are detailed on our School Timing page: https://www.shrishikshayatanschool.com/ssswebsite/school-timing.html. Junior and Senior sections have separate timetables."
+    },
+    {
+      "query": "School Calendar & Holidays",
+      "keywords": "school calendar, holiday list, school event dates, academic calendar, vacation, calendar, holiday, holidays, event, events, vacation, vacations",
+      "response": "For lists of holidays, exam dates, and annual school events, please check the School Calendar page: https://www.shrishikshayatanschool.com/ssswebsite/school-calendar.html"
+    },
+    {
+      "query": "Courses & Subject Streams",
+      "keywords": "courses, subjects, science, commerce, humanities, stream, cbse curriculum, syllabus, languages, course, stream, subject, stream, language, cbse, curriculum, streams",
+      "response": "We follow the CBSE curriculum and offer Science, Commerce, and Humanities streams in Senior Section (Class XI & XII). In addition to core subjects, we offer foreign languages (German, French, Mandarin) and specialized labs."
+    },
+    {
+      "query": "Infrastructure & Campus Facilities",
+      "keywords": "infrastructure, classroom, computer lab, library, swimming pool, sports facilities, kalabhavan, auditorium, safety, wellness, labs, facilities, facility, lab, classroom, library, pool, class room, class rooms, computer",
+      "response": "We offer state-of-the-art facilities including 5 computer labs, tablet teaching in middle school, specialized Science/Math/Geography labs, and a library with 30,000+ books. Explore more here: https://www.shrishikshayatanschool.com/ssswebsite/infrastructure.html"
+    },
+    {
+      "query": "Co-Curricular & Sports Clubs",
+      "keywords": "activities, sports, basketball, swimming, karate, rugby, music, dance, clubs, robotics, visual arts, performing arts, activity, sport, music, dance, club, clubs, extra-curricular, co-curricular",
+      "response": "We have 24 interactive clubs, including a Robotics club. We also offer professional training in basketball, table tennis, rugby, acrobatics, swimming, karate, classical dance, ballet, and music (guitar, drums, synthesizer, vocals)."
+    },
+    {
+      "query": "Transfer Certificate (TC) Enquiry",
+      "keywords": "transfer certificate, tc download, candidate list, download tc, tc status, serial number, transfer certificates, tc",
+      "response": "You can search and view Transfer Certificates (TC) issued by the school on the Transfer Certificates page: https://www.shrishikshayatanschool.com/ssswebsite/transfer-certificates.html"
+    },
+    {
+      "query": "Contact & Location Info",
+      "keywords": "contact number, phone number, email address, school address, map, fax, Lord Sinha Road, address, contact, contact us, address, phone, email, call",
+      "response": "Address: 11, Lord Sinha Road, Kolkata 700 071. Phone: +91 33 22821450 / 22828350. Email: info@shrishikshayatanschool.com. Junior Department: +91 33 22820348. Pre-Primary: +91 8100978884."
+    },
+    {
+      "query": "Vision and Mission",
+      "keywords": "vision, our mission, goal, values, objective, vision and mission, vision statement, mission statement",
+      "response": "Our Vision is to impart value-based education to students so that they are competent to handle global challenges. Our Mission is to foster lifelong learning, social/environmental awareness, and empathetic leadership."
+    },
+    {
+      "query": "School History & Legacy",
+      "keywords": "history, foundation, establishment, trust, year, legacy, history and legacy",
+      "response": "Founded as part of the Shikshayatan Trust, Shri Shikshayatan School has been a pioneer in girls' education in Kolkata for decades, striving for academic and personal excellence."
+    },
+    {
+      "query": "Notices & Announcements",
+      "keywords": "notice, notices, announcement, notification, senior notice, junior notice, notice board",
+      "response": "Class-wise notices and holiday/exam schedules are updated regularly. View Junior Notices at: https://www.shrishikshayatanschool.com/ssswebsite/junior.html and Senior Notices at: https://www.shrishikshayatanschool.com/ssswebsite/senior.html"
     }
   ],
-  "visitor_count": 1426204
+  "visitor_count": 1426205
 }
