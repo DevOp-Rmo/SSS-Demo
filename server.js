@@ -357,34 +357,303 @@ const server = http.createServer((req, res) => {
             return;
         }
 
-        if (action === 'save_notice') {
-            parseRequestBody(req, (fields) => {
+        if (action === 'save_hall_of_fame') {
+            parseRequestBody(req, (fields, files) => {
+                const category = fields.category;
+                const subtitle = fields.subtitle;
+                
+                if (!['board_results', 'competitive_exam'].includes(category)) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Invalid category' }));
+                    return;
+                }
+                
                 const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
-                if (!db.section_notices) db.section_notices = [];
+                if (!db.hall_of_fame) db.hall_of_fame = {};
+                if (!db.hall_of_fame[category]) db.hall_of_fame[category] = { image_path: '', subtitle: '' };
                 
-                const noticeId = fields.notice_id || '';
-                const newNotice = {
-                    id: noticeId ? noticeId : 'sn_' + Date.now(),
-                    section: fields.section || 'junior',
-                    class: fields.class || 'Class I',
-                    category: fields.category || 'holiday',
-                    date: new Date().toISOString().split('T')[0],
-                    title: fields.title || '',
-                    content: fields.content || '',
-                    file_path: '' 
-                };
+                db.hall_of_fame[category].subtitle = subtitle;
                 
-                if (noticeId) {
-                    const idx = db.section_notices.findIndex(n => n.id === noticeId);
-                    if (idx !== -1) db.section_notices[idx] = newNotice;
-                    else db.section_notices.push(newNotice);
-                } else {
-                    db.section_notices.push(newNotice);
+                const imageFile = files.image;
+                if (imageFile && imageFile.filename && imageFile.data && imageFile.data.length > 0) {
+                    const ext = path.extname(imageFile.filename).toLowerCase();
+                    const safeName = 'hof_' + category + ext;
+                    const uploadsDir = path.join(__dirname, 'uploads');
+                    if (!fs.existsSync(uploadsDir)) {
+                        fs.mkdirSync(uploadsDir);
+                    }
+                    fs.writeFileSync(path.join(uploadsDir, safeName), imageFile.data);
+                    db.hall_of_fame[category].image_path = 'uploads/' + safeName;
                 }
                 
                 fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: true, message: 'Notice saved successfully.', data: newNotice }));
+                res.end(JSON.stringify({ success: true, message: 'Hall of fame category updated.', data: db.hall_of_fame[category] }));
+            });
+            return;
+        }
+
+        if (action === 'save_award') {
+            parseRequestBody(req, (fields, files) => {
+                const awardId = fields.award_id;
+                const deleteImage = fields.delete_image === '1';
+                
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.awards) db.awards = [];
+                
+                const foundIndex = db.awards.findIndex(a => String(a.id) === String(awardId));
+                if (foundIndex === -1) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Award ID not found' }));
+                    return;
+                }
+                
+                if (deleteImage) {
+                    db.awards[foundIndex].image_path = '';
+                } else {
+                    const imageFile = files.image;
+                    if (imageFile && imageFile.filename && imageFile.data && imageFile.data.length > 0) {
+                        const ext = path.extname(imageFile.filename).toLowerCase();
+                        const safeName = 'award_' + awardId + ext;
+                        const uploadsDir = path.join(__dirname, 'uploads');
+                        if (!fs.existsSync(uploadsDir)) {
+                            fs.mkdirSync(uploadsDir);
+                        }
+                        fs.writeFileSync(path.join(uploadsDir, safeName), imageFile.data);
+                        db.awards[foundIndex].image_path = 'uploads/' + safeName;
+                    }
+                }
+                
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Award updated successfully.', data: db.awards[foundIndex] }));
+            });
+            return;
+        }
+
+        if (action === 'save_hero_slide') {
+            parseRequestBody(req, (fields, files) => {
+                const slideId = fields.slide_id || '';
+                const type = fields.type || 'image';
+                const durationMs = parseInt(fields.duration_ms || '5000', 10);
+                
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.hero_slider) db.hero_slider = [];
+                
+                let foundIndex = -1;
+                if (slideId) {
+                    foundIndex = db.hero_slider.findIndex(s => String(s.id) === String(slideId));
+                }
+                
+                let mediaPath = '';
+                const mediaFile = files.media;
+                if (mediaFile && mediaFile.filename && mediaFile.data && mediaFile.data.length > 0) {
+                    const ext = path.extname(mediaFile.filename).toLowerCase();
+                    const safeName = 'slide_' + (slideId || Date.now()) + ext;
+                    const uploadsDir = path.join(__dirname, 'uploads');
+                    if (!fs.existsSync(uploadsDir)) {
+                        fs.mkdirSync(uploadsDir);
+                    }
+                    fs.writeFileSync(path.join(uploadsDir, safeName), mediaFile.data);
+                    mediaPath = 'uploads/' + safeName;
+                }
+                
+                let slideUpdated;
+                if (foundIndex !== -1) {
+                    db.hero_slider[foundIndex].type = type;
+                    db.hero_slider[foundIndex].duration_ms = durationMs;
+                    if (mediaPath) {
+                        db.hero_slider[foundIndex].media_path = mediaPath;
+                    }
+                    slideUpdated = db.hero_slider[foundIndex];
+                } else {
+                    if (db.hero_slider.length >= 5) {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Hero slider limit reached (Max 5 slides).' }));
+                        return;
+                    }
+                    slideUpdated = {
+                        id: String(Date.now()),
+                        type: type,
+                        media_path: mediaPath,
+                        duration_ms: durationMs
+                    };
+                    db.hero_slider.push(slideUpdated);
+                }
+                
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Hero slide saved successfully.', data: slideUpdated }));
+            });
+            return;
+        }
+
+        if (action === 'delete_hero_slide') {
+            parseRequestBody(req, (fields) => {
+                const slideId = fields.slide_id || '';
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.hero_slider) db.hero_slider = [];
+                
+                const foundIndex = db.hero_slider.findIndex(s => String(s.id) === String(slideId));
+                if (foundIndex === -1) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Slide ID not found.' }));
+                    return;
+                }
+                
+                db.hero_slider.splice(foundIndex, 1);
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Hero slide deleted successfully.' }));
+            });
+            return;
+        }
+
+        if (action === 'save_blog_post') {
+            parseRequestBody(req, (fields, files) => {
+                const postId = fields.post_id || '';
+                const title = fields.title || '';
+                const content = fields.content || '';
+                
+                if (!title) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Post title is required.' }));
+                    return;
+                }
+                
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.bulletin) db.bulletin = [];
+                
+                let foundIndex = -1;
+                if (postId) {
+                    foundIndex = db.bulletin.findIndex(p => String(p.id) === String(postId));
+                }
+                
+                let imagePath = '';
+                const imageFile = files.image;
+                if (imageFile && imageFile.filename && imageFile.data && imageFile.data.length > 0) {
+                    const ext = path.extname(imageFile.filename).toLowerCase();
+                    const safeName = 'blog_' + (postId || Date.now()) + ext;
+                    const uploadsDir = path.join(__dirname, 'uploads');
+                    if (!fs.existsSync(uploadsDir)) {
+                        fs.mkdirSync(uploadsDir);
+                    }
+                    fs.writeFileSync(path.join(uploadsDir, safeName), imageFile.data);
+                    imagePath = 'uploads/' + safeName;
+                }
+                
+                let postUpdated;
+                if (foundIndex !== -1) {
+                    db.bulletin[foundIndex].title = title;
+                    db.bulletin[foundIndex].content = content;
+                    if (imagePath) {
+                        db.bulletin[foundIndex].image_path = imagePath;
+                    }
+                    postUpdated = db.bulletin[foundIndex];
+                } else {
+                    postUpdated = {
+                        id: String(Date.now()),
+                        title: title,
+                        content: content,
+                        image_path: imagePath,
+                        created_at: new Date().toISOString()
+                    };
+                    db.bulletin.unshift(postUpdated);
+                }
+                
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Blog post saved successfully.', data: postUpdated }));
+            });
+            return;
+        }
+
+        if (action === 'delete_blog_post') {
+            parseRequestBody(req, (fields) => {
+                const postId = fields.post_id || '';
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.bulletin) db.bulletin = [];
+                
+                const foundIndex = db.bulletin.findIndex(p => String(p.id) === String(postId));
+                if (foundIndex === -1) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Post ID not found.' }));
+                    return;
+                }
+                
+                db.bulletin.splice(foundIndex, 1);
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Blog post deleted successfully.' }));
+            });
+            return;
+        }
+
+        if (action === 'save_notice') {
+            parseRequestBody(req, (fields, files) => {
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.section_notices) db.section_notices = [];
+                
+                const noticeId = fields.notice_id || '';
+                
+                let filePath = '';
+                const noticeFile = files.file;
+                if (noticeFile && noticeFile.filename && noticeFile.data && noticeFile.data.length > 0) {
+                    const ext = path.extname(noticeFile.filename).toLowerCase();
+                    const safeName = 'notice_' + (noticeId || Date.now()) + ext;
+                    const uploadsDir = path.join(__dirname, 'uploads');
+                    if (!fs.existsSync(uploadsDir)) {
+                        fs.mkdirSync(uploadsDir);
+                    }
+                    fs.writeFileSync(path.join(uploadsDir, safeName), noticeFile.data);
+                    filePath = 'uploads/' + safeName;
+                }
+                
+                const isEdit = !!noticeId;
+                let finalNotice;
+                
+                if (isEdit) {
+                    const idx = db.section_notices.findIndex(n => String(n.id) === String(noticeId));
+                    if (idx !== -1) {
+                        db.section_notices[idx].title = fields.title || '';
+                        db.section_notices[idx].section = fields.section || 'junior';
+                        db.section_notices[idx].class = fields.class || 'Class I';
+                        db.section_notices[idx].category = fields.category || 'holiday';
+                        db.section_notices[idx].content = fields.content || '';
+                        if (filePath) {
+                            db.section_notices[idx].file_path = filePath;
+                        }
+                        finalNotice = db.section_notices[idx];
+                    } else {
+                        finalNotice = {
+                            id: 'sn_' + Date.now(),
+                            section: fields.section || 'junior',
+                            class: fields.class || 'Class I',
+                            category: fields.category || 'holiday',
+                            date: new Date().toISOString().split('T')[0],
+                            title: fields.title || '',
+                            content: fields.content || '',
+                            file_path: filePath
+                        };
+                        db.section_notices.push(finalNotice);
+                    }
+                } else {
+                    finalNotice = {
+                        id: 'sn_' + Date.now(),
+                        section: fields.section || 'junior',
+                        class: fields.class || 'Class I',
+                        category: fields.category || 'holiday',
+                        date: new Date().toISOString().split('T')[0],
+                        title: fields.title || '',
+                        content: fields.content || '',
+                        file_path: filePath
+                    };
+                    db.section_notices.push(finalNotice);
+                }
+                
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Notice saved successfully.', data: finalNotice }));
             });
             return;
         }
