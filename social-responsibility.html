@@ -67,7 +67,7 @@
         }
         .ssr-hero-content {
             color: var(--white);
-            max-width: 650px;
+            max-width: 850px;
             z-index: 2;
         }
         .ssr-hero-title {
@@ -343,13 +343,15 @@
             bottom: 0;
         }
 
-        /* Large Screen Media Queries (PCs 15-24 inch) */
         @media (min-width: 1440px) {
             .container {
                 max-width: 1300px !important;
             }
             .ssr-hero-banner {
                 height: 440px;
+            }
+            .ssr-hero-content {
+                max-width: 1000px;
             }
             .ssr-grid {
                 gap: 2.5rem;
@@ -545,7 +547,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="index.html">Intra School Activities</a></li>
                             <li><a href="index.html">Inter School Activities</a></li>
-                            <li><a href="social-responsibility.html">School Social Responsibility</a></li>
+                            <li class="active"><a href="social-responsibility.html">School Social Responsibility</a></li>
                             <li><a href="index.html">Outreach & Excursion</a></li>
                         </ul>
                     </li>
