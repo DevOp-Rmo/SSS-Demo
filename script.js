@@ -1505,14 +1505,22 @@ function renderHof(hofData) {
     
     if (boardImg && hofData.board_results) {
         if (hofData.board_results.image_path) {
-            boardImg.src = hofData.board_results.image_path + '?v=' + Date.now();
+            if (hofData.board_results.image_path.startsWith('data:')) {
+                boardImg.src = hofData.board_results.image_path;
+            } else {
+                boardImg.src = hofData.board_results.image_path + '?v=' + Date.now();
+            }
         }
         boardText.textContent = hofData.board_results.subtitle;
     }
     
     if (examImg && hofData.competitive_exam) {
         if (hofData.competitive_exam.image_path) {
-            examImg.src = hofData.competitive_exam.image_path + '?v=' + Date.now();
+            if (hofData.competitive_exam.image_path.startsWith('data:')) {
+                examImg.src = hofData.competitive_exam.image_path;
+            } else {
+                examImg.src = hofData.competitive_exam.image_path + '?v=' + Date.now();
+            }
         }
         examText.textContent = hofData.competitive_exam.subtitle;
     }
