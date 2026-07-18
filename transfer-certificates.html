@@ -1362,22 +1362,9 @@
             }
         });
 
-        // Toggle mobile navigation menu
-        const mobileToggle = document.getElementById('mobile-nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        if (mobileToggle && navLinks) {
-            mobileToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = mobileToggle.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('ph-list');
-                    icon.classList.toggle('ph-x');
-                }
-            });
-        }
-
         // Initialize display
         renderDirectory();
     </script>
+    <script src="script.js?v=7"></script>
 </body>
 </html>

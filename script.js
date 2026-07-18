@@ -2158,9 +2158,9 @@ function initChatbot() {
             return;
         }
 
-        if (cleanQuery === 'class notices' || cleanQuery === 'notices') {
+        if (cleanQuery.includes('notice') || cleanQuery.includes('notices') || cleanQuery.includes('circular') || cleanQuery.includes('announcement') || cleanQuery.includes('bulletin')) {
             chatState = { flow: null, step: 0, section: null, data: {} };
-            appendBotReply("Please select your school section:", () => {
+            appendBotReply("I can help you check our latest class notices and school announcements! 📋 Please select your school section to check notices:", () => {
                 showClassSectionButtons();
             });
             return;
@@ -2232,44 +2232,53 @@ function initChatbot() {
     }
 
     function handleFeesFlow(cleanQuery, query) {
+        if (cleanQuery.includes('policy') || cleanQuery.includes('refund')) {
+            startFeePolicyFlow();
+            return;
+        }
         if (cleanQuery.includes('junior')) {
             chatState.section = 'junior';
             chatState.step = 2;
             appendBotReply("For the Junior Section (Nursery to V), the fees consist of Tuition Fees, Activity & ICT Fees, and Assessment Fees. There is also a one-time Admission Fee of ₹98,000.\n\nWhat would you like to know next?", () => {
-                showFlowButtons(["Quarterly Fee Amounts", "Payment Deadlines", "Senior Section Fees", "Main Menu"]);
+                showFlowButtons(["Quarterly Fee Amounts", "Payment Deadlines", "Fee Policy & Refund", "Senior Section Fees", "Main Menu"]);
             });
         } else if (cleanQuery.includes('senior')) {
             chatState.section = 'senior';
             chatState.step = 2;
             appendBotReply("For the Senior Section (Class VI to XII), the fees consist of Tuition Fees, Activity & ICT Fees, Assessment Fees, and subject-specific Laboratory Fees for Class XI & XII electives.\n\nWhat would you like to know next?", () => {
-                showFlowButtons(["Quarterly Fee Amounts", "Elective Lab Fees", "Payment Deadlines", "Junior Section Fees", "Main Menu"]);
+                showFlowButtons(["Quarterly Fee Amounts", "Elective Lab Fees", "Payment Deadlines", "Fee Policy & Refund", "Junior Section Fees", "Main Menu"]);
             });
         } else if (cleanQuery.includes('amounts') || cleanQuery.includes('amount') || cleanQuery.includes('how much') || cleanQuery.includes('quarterly fee')) {
             if (chatState.section === 'junior') {
-                appendBotReply("For the 2026-2027 Session, the total quarterly fees are:\n• Nursery, LKG, UKG, SKG: ₹25,675 per quarter (Tuition: ₹17,250)\n• Classes I to V: ₹26,275 per quarter (Tuition: ₹17,400)\n\nWould you like to know the quarterly payment deadlines?", () => {
-                    showFlowButtons(["Payment Deadlines", "Main Menu"]);
+                appendBotReply("For the 2026-2027 Session, the total quarterly fees are:\n• Nursery, LKG, UKG, SKG: ₹25,675 per quarter (Tuition: ₹17,250)\n• Classes I to V: ₹26,275 per quarter (Tuition: ₹17,400)\n\nWould you like to check the payment deadlines or fee policy & refund details?", () => {
+                    showFlowButtons(["Payment Deadlines", "Fee Policy & Refund", "Main Menu"]);
                 });
             } else {
-                appendBotReply("For the 2026-2027 Session, the total quarterly fees (without practicals) are:\n• Class VI to VIII: ₹28,075 per quarter\n• Class IX: ₹28,125 per quarter (excl. ₹350 registration)\n• Class X: ₹28,350 per quarter (excl. ₹575 board exam fee)\n• Class XI & XII: Tuition is ₹19,050 per quarter (plus core fees & elective lab fees).\n\nWould you like to check the elective lab fees or payment deadlines?", () => {
-                    showFlowButtons(["Elective Lab Fees", "Payment Deadlines", "Main Menu"]);
+                appendBotReply("For the 2026-2027 Session, the total quarterly fees (without practicals) are:\n• Class VI to VIII: ₹28,075 per quarter\n• Class IX: ₹28,125 per quarter (excl. ₹350 registration)\n• Class X: ₹28,350 per quarter (excl. ₹575 board exam fee)\n• Class XI & XII: Tuition is ₹19,050 per quarter (plus core fees & elective lab fees).\n\nWould you like to check the elective lab fees, payment deadlines, or fee policy & refund details?", () => {
+                    showFlowButtons(["Elective Lab Fees", "Payment Deadlines", "Fee Policy & Refund", "Main Menu"]);
                 });
             }
         } else if (cleanQuery.includes('lab') || cleanQuery.includes('elective')) {
-            appendBotReply("Lab fees for elective subjects in Class XI & XII (per quarter):\n• Computer Science / AI / Web App: ₹2,375\n• Physics / Chemistry / Biology / Home Sci: ₹1,250 to ₹1,375\n• Hindustani Music / Painting / Mass Media: ₹1,125\n• Physical Education / Psychology: ₹550\n\nWould you like to know the payment deadlines?", () => {
-                showFlowButtons(["Payment Deadlines", "Quarterly Fee Amounts", "Main Menu"]);
+            appendBotReply("Lab fees for elective subjects in Class XI & XII (per quarter):\n• Computer Science / AI / Web App: ₹2,375\n• Physics / Chemistry / Biology / Home Sci: ₹1,250 to ₹1,375\n• Hindustani Music / Painting / Mass Media: ₹1,125\n• Physical Education / Psychology: ₹550\n\nWould you like to know the payment deadlines or fee policy & refund details?", () => {
+                showFlowButtons(["Payment Deadlines", "Quarterly Fee Amounts", "Fee Policy & Refund", "Main Menu"]);
             });
         } else if (cleanQuery.includes('deadline') || cleanQuery.includes('deadlines') || cleanQuery.includes('when') || cleanQuery.includes('schedule') || cleanQuery.includes('schedules')) {
             appendBotReply("School fees are cleared on a quarterly basis within the first month of each quarter:\n• Quarter 1 (Apr - Jun): Due by April 15\n• Quarter 2 (Jul - Sep): Due by July 15\n• Quarter 3 (Oct - Dec): Due by October 15\n• Quarter 4 (Jan - Mar): Due by January 15\n\nAll fees are paid online through the parent portal.", () => {
-                appendLinkButton("For more information and to view the official fee booklet, please visit our Fee Structure page:", "fee-structure.html");
+                appendLinkButtonNoReset("For more information and to view the official fee booklet, please visit our Fee Structure page:", "fee-structure.html");
+                setTimeout(() => {
+                    appendBotReply("Would you also like to know about our online Payment Modes or Refund Policy?", () => {
+                        showFlowButtons(["Fee Policy & Refund", "Main Menu"]);
+                    });
+                }, 1000);
             });
         } else {
             appendBotReply("I didn't quite get that. Please select one of the options below:", () => {
                 if (chatState.step === 1) {
                     showFlowButtons(["Junior Section", "Senior Section", "Main Menu"]);
                 } else if (chatState.section === 'junior') {
-                    showFlowButtons(["Quarterly Fee Amounts", "Payment Deadlines", "Senior Section Fees", "Main Menu"]);
+                    showFlowButtons(["Quarterly Fee Amounts", "Payment Deadlines", "Fee Policy & Refund", "Senior Section Fees", "Main Menu"]);
                 } else {
-                    showFlowButtons(["Quarterly Fee Amounts", "Elective Lab Fees", "Payment Deadlines", "Junior Section Fees", "Main Menu"]);
+                    showFlowButtons(["Quarterly Fee Amounts", "Elective Lab Fees", "Payment Deadlines", "Fee Policy & Refund", "Junior Section Fees", "Main Menu"]);
                 }
             });
         }
@@ -2323,6 +2332,10 @@ function initChatbot() {
     }
 
     function handleAdmissionFlow(cleanQuery, query) {
+        if (cleanQuery.includes('policy') || cleanQuery.includes('refund')) {
+            startFeePolicyFlow();
+            return;
+        }
         if (cleanQuery.includes('junior')) {
             chatState.section = 'junior';
             chatState.step = 2;
@@ -2768,9 +2781,7 @@ function initChatbot() {
         const buttons = [
             { text: "ADMISSION ENQUIRY", query: "Admission Enquiry" },
             { text: "FEE STRUCTURE", query: "Fee Structure" },
-            { text: "FEE POLICY & REFUND", query: "Fee Policy & Schedule" },
-            { text: "COURSE DETAILS", query: "Course Details" },
-            { text: "CLASS NOTICES", query: "Class Notices" }
+            { text: "COURSE DETAILS", query: "Course Details" }
         ];
 
         buttons.forEach(btn => {
@@ -3124,7 +3135,7 @@ function getChatbotData(callback) {
         },
         {
             query: "Fee Policy & Payments",
-            keywords: "fee policy, fee payment, payment deadline, fine, late fee, payment mode",
+            keywords: "fee policy, fee payment, payment deadline, fine, late fee, payment mode, refund, refund policy, transaction charge, refund rules, duplicate payment, duplicate refund, card charge, neft, rtgs, online payment, fee deadlines, online payment portal",
             response: "School fees must be paid according to the schedule on our Fee Policy page: https://www.shrishikshayatanschool.com/ssswebsite/fee-policy.html. Late payments attract a fine."
         },
         {
@@ -3174,7 +3185,7 @@ function getChatbotData(callback) {
         },
         {
             query: "Notices & Announcements",
-            keywords: "notice, notices, announcement, notification, senior notice, junior notice, notice board",
+            keywords: "notice, notices, announcement, notification, senior notice, junior notice, notice board, circular, class notice, class notices, todays notice, today's notices, circulars, announcements, notifications, bulletins",
             response: "Class-wise notices and holiday/exam schedules are updated regularly. View Junior Notices at: https://www.shrishikshayatanschool.com/ssswebsite/junior.html and Senior Notices at: https://www.shrishikshayatanschool.com/ssswebsite/senior.html"
         }
     ];
