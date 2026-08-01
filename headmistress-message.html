@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shri Shikshayatan School - Principal's Message</title>
+    <title>Shri Shikshayatan School - Headmistress's Message</title>
     <link rel="icon" type="image/png" href="assets/sss_logo.png">
     
     <!-- Fonts -->
@@ -19,15 +19,15 @@
     <link rel="stylesheet" href="styles-v5.css?v=37">
     
     <style>
-        /* Scoped styles for Principal Message page */
-        .principal-page-wrapper {
+        /* Scoped styles for Headmistress Message page */
+        .hm-page-wrapper {
             background-color: var(--bg-light);
             padding: 3rem 0 6rem 0;
             min-height: 100vh;
         }
 
         /* Breadcrumb navigation */
-        .principal-breadcrumb {
+        .hm-breadcrumb {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -39,24 +39,24 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .principal-breadcrumb a {
+        .hm-breadcrumb a {
             color: var(--primary-blue);
             transition: color 0.2s;
         }
-        .principal-breadcrumb a:hover {
+        .hm-breadcrumb a:hover {
             color: var(--accent-orange);
         }
-        .principal-breadcrumb i {
+        .hm-breadcrumb i {
             font-size: 0.75rem;
             color: var(--text-light);
         }
 
         /* Title block */
-        .principal-title-block {
+        .hm-title-block {
             margin-bottom: 3.5rem;
             text-align: left;
         }
-        .principal-page-title {
+        .hm-page-title {
             font-family: var(--font-serif);
             font-size: 3rem;
             color: var(--primary-blue);
@@ -64,7 +64,7 @@
             position: relative;
             display: inline-block;
         }
-        .principal-page-title::after {
+        .hm-page-title::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -75,7 +75,7 @@
         }
 
         /* 2-Column Split Layout */
-        .principal-content-grid {
+        .hm-content-grid {
             display: grid;
             grid-template-columns: 0.75fr 1.25fr;
             gap: 4.5rem;
@@ -84,7 +84,7 @@
         }
 
         /* Left Column: Portrait Card */
-        .principal-profile-card {
+        .hm-profile-card {
             background-color: var(--white);
             border-radius: 20px;
             overflow: hidden;
@@ -94,42 +94,42 @@
             top: calc(var(--fixed-header-total) + 30px);
             transition: var(--transition);
         }
-        .principal-profile-card:hover {
+        .hm-profile-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 45px rgba(26, 26, 75, 0.08);
             border-color: rgba(242, 156, 31, 0.2);
         }
-        .principal-img-wrapper {
+        .hm-img-wrapper {
             width: 100%;
             height: 380px;
             overflow: hidden;
             background-color: var(--bg-light);
             position: relative;
         }
-        .principal-img {
+        .hm-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center top;
             transition: transform 0.5s ease;
         }
-        .principal-profile-card:hover .principal-img {
+        .hm-profile-card:hover .hm-img {
             transform: scale(1.03);
         }
-        .principal-info-banner {
+        .hm-info-banner {
             padding: 2rem 1.75rem;
             text-align: center;
             border-top: 1px solid rgba(26, 26, 75, 0.05);
             background: linear-gradient(to bottom, var(--white) 0%, #fafcfa 100%);
         }
-        .principal-name {
+        .hm-name {
             font-family: var(--font-serif);
             font-size: 1.4rem;
             color: var(--primary-blue);
             font-weight: 700;
             margin-bottom: 0.35rem;
         }
-        .principal-role {
+        .hm-role {
             font-family: var(--font-sans);
             font-size: 0.8rem;
             color: var(--accent-orange);
@@ -137,7 +137,7 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
-        .principal-org {
+        .hm-org {
             font-family: var(--font-sans);
             font-size: 0.8rem;
             color: var(--text-light);
@@ -146,20 +146,20 @@
         }
 
         /* Right Column: Message Text */
-        .principal-message-box {
+        .hm-message-box {
             background-color: var(--white);
             border-radius: 20px;
             padding: 4rem;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
             border: 1px solid rgba(26, 26, 75, 0.05);
         }
-        .principal-message-box p {
+        .hm-message-box p {
             font-size: 1.1rem;
             color: var(--text-dark);
             line-height: 1.85;
             margin-bottom: 2rem;
         }
-        .principal-message-box p.lead {
+        .hm-message-box p.lead {
             font-size: 1.35rem;
             font-weight: 600;
             color: var(--primary-blue);
@@ -167,7 +167,7 @@
             position: relative;
             margin-bottom: 2.25rem;
         }
-        .principal-message-box p.lead::before {
+        .hm-message-box p.lead::before {
             content: '“';
             position: absolute;
             top: -20px;
@@ -177,7 +177,7 @@
             color: rgba(242, 156, 31, 0.15);
             line-height: 1;
         }
-        .principal-message-box p:last-of-type {
+        .hm-message-box p:last-of-type {
             margin-bottom: 0;
         }
 
@@ -220,10 +220,10 @@
                 max-width: 1400px;
                 padding: 0 3rem;
             }
-            .principal-content-grid {
+            .hm-content-grid {
                 gap: 5.5rem;
             }
-            .principal-img-wrapper {
+            .hm-img-wrapper {
                 height: 440px;
             }
         }
@@ -232,24 +232,24 @@
                 max-width: 1650px;
                 padding: 0 4rem;
             }
-            .principal-page-title {
+            .hm-page-title {
                 font-size: 3.8rem;
             }
-            .principal-name {
+            .hm-name {
                 font-size: 1.6rem;
             }
-            .principal-role, .principal-org {
+            .hm-role, .hm-org {
                 font-size: 0.9rem;
             }
-            .principal-message-box {
+            .hm-message-box {
                 padding: 5rem;
                 border-radius: 28px;
             }
-            .principal-message-box p {
+            .hm-message-box p {
                 font-size: 1.25rem;
                 line-height: 1.95;
             }
-            .principal-message-box p.lead {
+            .hm-message-box p.lead {
                 font-size: 1.5rem;
                 line-height: 1.8;
             }
@@ -259,45 +259,45 @@
             .signature-title, .signature-subtitle {
                 font-size: 1rem;
             }
-            .principal-img-wrapper {
+            .hm-img-wrapper {
                 height: 520px;
             }
         }
 
         /* Tablets & Small Laptops */
         @media (max-width: 1024px) {
-            .principal-content-grid {
+            .hm-content-grid {
                 grid-template-columns: 1fr;
                 gap: 4rem;
             }
-            .principal-profile-card {
+            .hm-profile-card {
                 max-width: 500px;
                 margin: 0 auto;
                 position: static;
             }
-            .principal-message-box {
+            .hm-message-box {
                 padding: 3rem;
             }
         }
 
         /* Mobile Layouts */
         @media (max-width: 768px) {
-            .principal-page-wrapper {
+            .hm-page-wrapper {
                 padding: 2rem 0 4rem 0;
             }
-            .principal-page-title {
+            .hm-page-title {
                 font-size: 2.25rem;
             }
-            .principal-message-box {
+            .hm-message-box {
                 padding: 2.25rem 1.5rem;
                 border-radius: 16px;
             }
-            .principal-message-box p {
+            .hm-message-box p {
                 font-size: 1rem;
                 line-height: 1.75;
                 margin-bottom: 1.5rem;
             }
-            .principal-message-box p.lead {
+            .hm-message-box p.lead {
                 font-size: 1.15rem;
                 line-height: 1.65;
                 margin-bottom: 1.75rem;
@@ -366,8 +366,8 @@
                             <li><a href="history.html">History</a></li>
                             <li><a href="president-message.html">President's Message</a></li>
                             <li><a href="secretary-message.html">Secretary General's Message</a></li>
-                            <li class="active"><a href="principal-message.html">Principal's Message</a></li>
-                            <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li class="active"><a href="headmistress-message.html">Head Mistress's Message</a></li>
                             <li><a href="board-of-trustees.html">Board of Trustees</a></li>
                             <li><a href="school-management.html">School Management Committee</a></li>
                             <li><a href="media-coverage.html">Media Coverage</a></li>
@@ -382,12 +382,12 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#">ACTIVITIES & EVENTS <i class="ph ph-caret-down"></i></a>
+                        <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="index.html">Intra School Activities</a></li>
                             <li><a href="index.html">Inter School Activities</a></li>
                             <li><a href="index.html">School Social Responsibility</a></li>
-                            <li><a href="index.html">Outreach & Excursion</a></li>
+                            <li><a href="index.html">Outreach &amp; Excursion</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -404,7 +404,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="procedure.html">Procedure</a></li>
                             <li><a href="fee-structure.html">Fee Structure</a></li>
-                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -424,53 +424,53 @@
     </div>
 
     <!-- Main Container -->
-    <div class="principal-page-wrapper">
+    <div class="hm-page-wrapper">
         <div class="container">
             
             <!-- Breadcrumbs -->
-            <div class="principal-breadcrumb">
+            <div class="hm-breadcrumb">
                 <a href="index.html">Home</a>
                 <i class="ph ph-caret-right"></i>
                 <span>About Us</span>
                 <i class="ph ph-caret-right"></i>
-                <span>Principal's Message</span>
+                <span>Head Mistress's Message</span>
             </div>
 
             <!-- Page Title Block -->
-            <div class="principal-title-block">
-                <h1 class="principal-page-title">Principal's Message</h1>
+            <div class="hm-title-block">
+                <h1 class="hm-page-title">Head Mistress's Message</h1>
             </div>
 
             <!-- Profile Grid -->
-            <div class="principal-content-grid">
+            <div class="hm-content-grid">
                 
                 <!-- Left: Portrait Card -->
-                <div class="principal-profile-card-wrapper">
-                    <div class="principal-profile-card">
-                        <div class="principal-img-wrapper">
-                            <img src="assets/principal.jpg" alt="Mrs. Sangeeta Tandon" class="principal-img">
+                <div class="hm-profile-card-wrapper">
+                    <div class="hm-profile-card">
+                        <div class="hm-img-wrapper">
+                            <img src="assets/hm2005.jpg" alt="Mrs. Poushali Mukherjee" class="hm-img">
                         </div>
-                        <div class="principal-info-banner">
-                            <h2 class="principal-name">Mrs. Sangeeta Tandon</h2>
-                            <p class="principal-role">Principal</p>
-                            <p class="principal-org">Shri Shikshayatan School</p>
+                        <div class="hm-info-banner">
+                            <h2 class="hm-name">Mrs. Poushali Mukherjee</h2>
+                            <p class="hm-role">Headmistress (Primary Section)</p>
+                            <p class="hm-org">Shri Shikshayatan School</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right: Message Content -->
-                <div class="principal-message-box">
+                <div class="hm-message-box">
                     
-                    <p class="lead">Shri Shikshayatan School is a centre for providing quality education to girls in Kolkata. Keeping in mind the rich and diverse heritage of India, the scholastic and co-scholastic activities are geared to nurture academic excellence. The school promotes core knowledge, communication and collaborative skills and new emerging technologies to make students “Future ready” to meet the ever changing demands of the twenty first century. We also teach foreign languages like German, French and Mandarin to our students. We have five computer labs and tablet teaching is taking place in the middle school. We also have well equipped Chemistry, Physics, Biology, Nutrition and Geography laboratories. Our Mathematics lab is being maintained by NIIT. The two school libraries have over 30,000 books.</p>
+                    <p class="lead">“Lead me from darkness to light…”</p>
                     
-                    <p>The school has a wide spectrum of co-curricular activities which help to hone diverse talents and imbibe leadership skills. We have 24 clubs, Robotics being one of them. Visual and Performing Arts classes are carried out in the cultural unit. Our girls learn classical dance, ballet, guitar, drums, tabla, art and craft, synthesizer, Indian and Western music. We have professional coaches to teach basketball, table tennis, rugby, acrobatics, swimming and karate. We offer opportunities to our students. Independent and creative thinking is encouraged so that the students inculcate the habit of learning continuously and accept “problems as challenges and challenges as opportunities in life”. All students have strengths and talents and we believe in developing it through partnership with the parents. We prepare our girls to have a bright and decisive career so that they grow as economically independent and confident adults.</p>
+                    <p>The eternal prayer is our motto. Saluting the idea of our founder members of breaking down the barriers to girls education – we in the primary section of Shri Shikshayatan School, design our curriculum to motivate every child to believe that no achievement is impossible.</p>
                     
-                    <p>The aim of the institution is to help its students gain wisdom and grow intellectually and ethically to serve the nation and society at large.</p>
+                    <p>With a wide range of activities, we help them to dream of a better tomorrow by liberating their minds – as we believe that learning is always reciprocal. With a perfect blend of tech-aided learning through smart classrooms, language labs, tablet usage and value based education for character building, our extremely competent and educated staff – all together, enable the little girl to walk ahead confidently in her search for excellence.</p>
                     
                     <div class="signature-block">
-                        <span class="signature-handwritten">Sangeeta Tandon</span>
-                        <span class="signature-title">Mrs. Sangeeta Tandon</span>
-                        <span class="signature-subtitle">Principal, Shri Shikshayatan School</span>
+                        <span class="signature-handwritten">Poushali Mukherjee</span>
+                        <span class="signature-title">Mrs. Poushali Mukherjee</span>
+                        <span class="signature-subtitle">Headmistress, Primary Section</span>
                     </div>
 
                 </div>
@@ -498,7 +498,7 @@
                     </div>
                     <div class="address-block">
                         <i class="ph-fill ph-map-pin"></i>
-                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
                     </div>
                     <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -554,7 +554,7 @@
                     <ul class="quick-links">
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
-                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
                     </ul>
                     
                     <div class="visitor-counter">
