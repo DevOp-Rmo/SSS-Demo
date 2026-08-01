@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shri Shikshayatan School - Career Counselling</title>
-    <meta name="description" content="Explore the Career Counselling Cell at Shri Shikshayatan School, providing guidance for higher studies in India and abroad, professional development, and linkage to the world of work.">
+    <title>Shri Shikshayatan School - Foundation Day</title>
+    <meta name="description" content="Explore the celebrations, video highlights, and image galleries of Shri Shikshayatan School's annual Foundation Day.">
     <link rel="icon" type="image/png" href="assets/sss_logo.png">
     
     <!-- Fonts -->
@@ -17,18 +17,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=37">
+    <link rel="stylesheet" href="styles-v5.css?v=38">
     
     <style>
-        /* Scoped styles for Career Counselling page */
-        .career-page-wrapper {
+        /* Scoped styles for Foundation Day page */
+        .fd-page-wrapper {
             background-color: var(--bg-light);
             padding: 3rem 0 6rem 0;
             min-height: 100vh;
         }
 
         /* Breadcrumb navigation */
-        .career-breadcrumb {
+        .fd-breadcrumb {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -40,24 +40,24 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .career-breadcrumb a {
+        .fd-breadcrumb a {
             color: var(--primary-blue);
             transition: color 0.2s;
         }
-        .career-breadcrumb a:hover {
+        .fd-breadcrumb a:hover {
             color: var(--accent-orange);
         }
-        .career-breadcrumb i {
+        .fd-breadcrumb i {
             font-size: 0.75rem;
             color: var(--text-light);
         }
 
         /* Title block */
-        .career-title-block {
-            margin-bottom: 3.5rem;
+        .fd-title-block {
+            margin-bottom: 3rem;
             text-align: left;
         }
-        .career-page-title {
+        .fd-page-title {
             font-family: var(--font-serif);
             font-size: 3rem;
             color: var(--primary-blue);
@@ -65,7 +65,7 @@
             position: relative;
             display: inline-block;
         }
-        .career-page-title::after {
+        .fd-page-title::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -73,10 +73,11 @@
             width: 50px;
             height: 3px;
             background-color: var(--accent-orange);
+            border-radius: 2px;
         }
-        .career-subtitle {
+        .fd-subtitle {
             font-family: var(--font-sans);
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent-orange);
             font-weight: 700;
             letter-spacing: 1px;
@@ -84,235 +85,255 @@
             margin-top: 0.5rem;
         }
 
-        /* Banner styling */
-        .career-banner-container {
+        /* Banner */
+        .fd-banner-container {
             width: 100%;
             height: 380px;
             border-radius: 20px;
             overflow: hidden;
             margin-bottom: 4rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 60px rgba(26,26,75,0.08);
             position: relative;
         }
-        .career-banner-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
+        .fd-banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+        .fd-banner-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(26,26,75,0.85) 0%, rgba(26,26,75,0.5) 60%, rgba(26,26,75,0.2) 100%);
+            display: flex; align-items: flex-end; padding: 3rem 4rem;
         }
-        .career-banner-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(26, 26, 75, 0.15) 0%, rgba(26, 26, 75, 0.7) 100%);
-            display: flex;
-            align-items: flex-end;
-            padding: 3.5rem;
-        }
-        .career-banner-text {
-            color: var(--white);
+        .fd-banner-text {
             font-family: var(--font-serif);
-            font-size: 2.5rem;
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+            color: #fff;
             font-weight: 800;
-            text-shadow: 0 3px 15px rgba(0,0,0,0.4);
-            line-height: 1.2;
-            max-width: 100%;
+            line-height: 1.45;
+            max-width: 85%;
         }
 
-        /* Introduction Content Layout */
-        .career-intro-section {
+        /* Intro description boxes */
+        .fd-intro-box {
             background-color: var(--white);
             border-radius: 20px;
-            padding: 3.5rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
             border: 1px solid rgba(26, 26, 75, 0.05);
-            margin-bottom: 4rem;
-            line-height: 1.8;
+            margin-bottom: 3.5rem;
             position: relative;
             overflow: hidden;
         }
-        .career-intro-section::before {
+        .fd-intro-box::before {
             content: '';
+            position: absolute;
+            top: 0; left: 0; width: 6px; height: 100%;
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--accent-orange) 100%);
+        }
+        .fd-intro-box p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            color: #4a4f6d;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Video Grid Layout */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .video-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            padding: 1.5rem;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
+            width: 100%;
             height: 100%;
-            background-color: var(--primary-blue);
+            border: none;
         }
-        .career-intro-title {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-        .career-intro-p {
+        .video-info {
+            margin-top: 1.25rem;
             font-family: var(--font-sans);
             font-size: 1.15rem;
-            color: var(--text-dark);
-            margin-bottom: 1.5rem;
-        }
-        .career-intro-p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        /* Grid of 4 Pillars */
-        .pillars-section-title {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
+            font-weight: 700;
             color: var(--primary-blue);
             text-align: center;
-            margin-bottom: 3rem;
-            font-weight: 700;
         }
-        .pillars-grid {
+
+        /* Image Gallery Grid */
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
-            margin-bottom: 5rem;
+            margin-top: 2rem;
         }
-        .pillar-card {
+        .gallery-card {
             background-color: var(--white);
             border-radius: 16px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
             border: 1px solid rgba(26, 26, 75, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
         }
-        .pillar-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(26, 26, 75, 0.08);
-            border-color: rgba(242, 156, 31, 0.3);
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 26, 75, 0.08);
+            border-color: rgba(242, 156, 31, 0.2);
         }
-        .pillar-icon-box {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            background-color: rgba(26, 26, 75, 0.04);
-            color: var(--primary-blue);
+        .gallery-image-container {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-card:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 26, 75, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            transition: all 0.3s ease;
         }
-        .pillar-card:hover .pillar-icon-box {
-            background-color: var(--accent-orange);
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-overlay i {
             color: var(--white);
+            font-size: 2rem;
+            background-color: var(--accent-orange);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(242, 156, 31, 0.4);
         }
-        .pillar-title {
-            font-family: var(--font-sans);
-            font-size: 1.25rem;
-            color: var(--primary-blue);
-            font-weight: 800;
-            line-height: 1.3;
-        }
-        .pillar-desc {
+        .gallery-caption {
+            padding: 1.25rem 1.5rem;
             font-family: var(--font-sans);
             font-size: 0.95rem;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* Quotes section */
-        .career-quote-box {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, rgba(26, 26, 75, 0.9) 100%);
-            border-radius: 20px;
-            padding: 4rem;
-            color: var(--white);
-            text-align: center;
-            position: relative;
-            box-shadow: 0 15px 45px rgba(26, 26, 75, 0.15);
-            margin-bottom: 2rem;
-        }
-        .quote-icon {
-            font-size: 3rem;
-            color: rgba(242, 156, 31, 0.3);
-            margin-bottom: 1.5rem;
-        }
-        .quote-text {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            font-style: italic;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-        .quote-author {
-            font-family: var(--font-sans);
-            font-size: 1rem;
-            color: var(--accent-orange);
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--primary-blue);
+            background-color: var(--white);
+            border-top: 1px solid rgba(26, 26, 75, 0.03);
+            text-align: center;
         }
 
-        /* Responsive design */
-        @media (max-width: 1024px) {
-            .career-page-wrapper {
-                padding: 2rem 0 4rem 0;
-            }
-            .career-page-title {
-                font-size: 2.5rem;
-            }
-            .career-banner-container {
-                height: 300px;
-                margin-bottom: 3rem;
-            }
-            .career-banner-overlay {
-                padding: 2.5rem;
-            }
-            .career-banner-text {
-                font-size: 2rem;
-            }
-            .career-intro-section {
-                padding: 2.5rem;
-                margin-bottom: 3rem;
-            }
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
-        @media (max-width: 768px) {
-            .career-page-title {
-                font-size: 2.2rem;
-            }
-            .career-banner-container {
-                height: 220px;
-                border-radius: 12px;
-                margin-bottom: 2.5rem;
-            }
-            .career-banner-overlay {
-                padding: 1.5rem;
-            }
-            .career-banner-text {
-                font-size: 1.5rem;
-            }
-            .career-intro-section {
-                padding: 2rem 1.5rem;
-                margin-bottom: 2.5rem;
-            }
-            .career-intro-title {
-                font-size: 1.5rem;
-            }
-            .career-intro-p {
-                font-size: 1rem;
-            }
-            .pillars-section-title {
-                font-size: 1.8rem;
-                margin-bottom: 2rem;
-            }
-            .pillar-card {
-                padding: 2rem 1.5rem;
-            }
-            .career-quote-box {
-                padding: 2.5rem 1.5rem;
-            }
-            .quote-text {
-                font-size: 1.3rem;
-            }
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 75%;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            position: absolute;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10100;
+        }
+        .lightbox-close {
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+        }
+        .lightbox-prev, .lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+        }
+        .lightbox-prev { left: 30px; }
+        .lightbox-next { right: 30px; }
+        
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            background: var(--accent-orange);
+            color: #fff;
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: rgba(10, 10, 30, 0.6);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 80%;
         }
     </style>
 </head>
@@ -381,16 +402,16 @@
                             <li><a href="media-coverage.html">Media Coverage</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                     <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
                     <ul class="dropdown-menu">
                         <li class=""><a href="infrastructure.html">Infrastructure</a></li>
-                        <li class="active"><a href="career-counselling.html">Career Counselling</a></li>
+                        <li class=""><a href="career-counselling.html">Career Counselling</a></li>
                         <li><a href="index.html">Workshops</a></li>
                         <li class=""><a href="transport.html">Transport</a></li>
                     </ul>
                 </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                     <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="index.html">Intra School Activities</a></li>
@@ -398,7 +419,7 @@
                         <li class=""><a href="social-responsibility.html">School Social Responsibility</a></li>
                         <li class=""><a href="outreach-excursion.html">Outreach &amp; Excursion</a></li>
                         <li class=""><a href="annual-function.html">Annual Function</a></li>
-                        <li class=""><a href="foundation-day.html">Foundation Day</a></li>
+                        <li class="active"><a href="foundation-day.html">Foundation Day</a></li>
                     </ul>
                 </li>
                     <li class="dropdown">
@@ -415,7 +436,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="procedure.html">Procedure</a></li>
                             <li><a href="fee-structure.html">Fee Structure</a></li>
-                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -435,103 +456,104 @@
     </div>
 
     <!-- Main Container -->
-    <div class="media-page-wrapper career-page-wrapper">
+    <div class="fd-page-wrapper">
         <div class="container">
             
             <!-- Breadcrumbs -->
-            <div class="career-breadcrumb">
+            <div class="fd-breadcrumb">
                 <a href="index.html">Home</a>
                 <i class="ph ph-caret-right"></i>
-                <span>Facilities</span>
+                <span>Activities &amp; Events</span>
                 <i class="ph ph-caret-right"></i>
-                <span>Career Counselling</span>
+                <span>Foundation Day</span>
             </div>
 
             <!-- Page Title Block -->
-            <div class="career-title-block">
-                <h1 class="career-page-title">Career Counselling</h1>
-                <p class="career-subtitle">Nurturing Aspirations, Shaping Futures</p>
+            <div class="fd-title-block">
+                <h1 class="fd-page-title">Foundation Day</h1>
+                <p class="fd-subtitle">Celebrating Our Legacy, Vision, and Institutional Heritage</p>
             </div>
 
-            <!-- Banner -->
-            <div class="career-banner-container">
-                <img src="assets/CAREER.jpg" alt="Career Counselling Banner" class="career-banner-image">
-                <div class="career-banner-overlay">
-                    <div class="career-banner-text">Empowering Students for Global Opportunities</div>
+            <!-- Hero Banner Section -->
+            <div class="fd-banner-container">
+                <img src="assets/fd1.jpg" alt="Foundation Day Celebrations" class="fd-banner-image">
+                <div class="fd-banner-overlay">
+                    <h2 class="fd-banner-text">Honoring the visionary milestones of Shri Shikshayatan School in fostering quality education since 1920.</h2>
                 </div>
             </div>
 
-            <!-- Introduction Section -->
-            <div class="career-intro-section">
-                <h2 class="career-intro-title">Welcome to the Career Counselling Cell</h2>
-                <p class="career-intro-p">
-                    This cell’s primary object is to service the students with appropriate guidance to establish linkage with the world of work and locate career and academic opportunities.
-                </p>
-                <p class="career-intro-p">
-                    It also offers information on professional development courses and opportunities with regard to higher studies in India and abroad. Extensive career counseling and career guidance programmes are organized where prominent personalities from various walks of life by the school through renowned organizations, conduct programmes on career counseling at different levels.
+            <!-- Intro Description Section -->
+            <div class="fd-intro-box">
+                <p>
+                    Foundation Day marks the historic anniversary of the establishment of Shri Shikshayatan School. Commemorating the visionary efforts of our founder members who pioneered and championed girls' education in Kolkata, this day is celebrated with deep gratitude and pride. The annual celebrations feature traditional oil lamp lighting, choral assemblies, stage enactments, and inspiring messages from the Board of Trustees and guest speakers, tracing our glorious path of empowering girl children.
                 </p>
             </div>
 
-            <!-- Pillars Section -->
-            <h2 class="pillars-section-title">Core Pillars of Our Guidance Cell</h2>
-            <div class="pillars-grid">
+            <!-- Video Highlights Section -->
+            <h2 style="font-family: var(--font-serif); color: var(--primary-blue); font-size: 1.8rem; margin: 3rem 0 1.5rem 0; text-align: center;">Foundation Day Video Archives</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/vTbRVny14Is" title="Foundation Day 2025 Highlights" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">Foundation Day 2025 Highlights</div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/p6qkDDBMPJk" title="Foundation Day 2023 Highlights" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">Foundation Day 2023 Highlights</div>
+                </div>
+            </div>
+
+            <!-- Image Gallery Section -->
+            <h2 style="font-family: var(--font-serif); color: var(--primary-blue); font-size: 1.8rem; margin: 3rem 0 1.5rem 0; text-align: center;">Celebration Gallery</h2>
+            <div class="gallery-grid">
                 
-                <!-- Pillar 1 -->
-                <div class="pillar-card">
-                    <div class="pillar-icon-box">
-                        <i class="ph-bold ph-compass"></i>
+                <div class="gallery-card" onclick="openLightbox(0)">
+                    <div class="gallery-image-container">
+                        <img src="assets/fd1.jpg" alt="Foundation Day Inaugural Lamp Lighting" class="gallery-img">
+                        <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
                     </div>
-                    <h3 class="pillar-title">Career Exploration &amp; Guidance</h3>
-                    <p class="pillar-desc">
-                        Providing comprehensive resources and counseling sessions to help students map their interests to practical career goals and choices.
-                    </p>
+                    <div class="gallery-caption">Foundation Day Inaugural Lamp Lighting</div>
                 </div>
 
-                <!-- Pillar 2 -->
-                <div class="pillar-card">
-                    <div class="pillar-icon-box">
-                        <i class="ph-bold ph-graduation-cap"></i>
+                <div class="gallery-card" onclick="openLightbox(1)">
+                    <div class="gallery-image-container">
+                        <img src="assets/fd2.jpg" alt="Student Dance Recital Performance" class="gallery-img">
+                        <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
                     </div>
-                    <h3 class="pillar-title">Higher Studies Assistance</h3>
-                    <p class="pillar-desc">
-                        In-depth information and direct application support for prestigious universities and higher studies pathways across India and international destinations.
-                    </p>
+                    <div class="gallery-caption">Student Dance Recital Performance</div>
                 </div>
 
-                <!-- Pillar 3 -->
-                <div class="pillar-card">
-                    <div class="pillar-icon-box">
-                        <i class="ph-bold ph-briefcase"></i>
+                <div class="gallery-card" onclick="openLightbox(2)">
+                    <div class="gallery-image-container">
+                        <img src="assets/fd3.jpg" alt="School Choir Presentation" class="gallery-img">
+                        <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
                     </div>
-                    <h3 class="pillar-title">Professional Development</h3>
-                    <p class="pillar-desc">
-                        Guidance on vocational streams, industry courses, and professional development programs to build essential workplace skill sets.
-                    </p>
+                    <div class="gallery-caption">School Choir Presentation</div>
                 </div>
 
-                <!-- Pillar 4 -->
-                <div class="pillar-card">
-                    <div class="pillar-icon-box">
-                        <i class="ph-bold ph-users-three"></i>
+                <div class="gallery-card" onclick="openLightbox(3)">
+                    <div class="gallery-image-container">
+                        <img src="assets/fd4.jpg" alt="Distinguished Guest Address" class="gallery-img">
+                        <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
                     </div>
-                    <h3 class="pillar-title">Expert Seminars &amp; Panels</h3>
-                    <p class="pillar-desc">
-                        Regular interaction programs and panel discussions featuring prominent figures from diverse professional walks of life and renowned institutions.
-                    </p>
+                    <div class="gallery-caption">Distinguished Guest Address</div>
                 </div>
 
-            </div>
-
-            <!-- Quote Block -->
-            <div class="career-quote-box">
-                <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                <p class="quote-text">
-                    "The best way to predict the future is to create it. We stand committed to guiding our students towards careers that inspire them."
-                </p>
-                <div class="quote-author">Career Counselling Cell, Shri Shikshayatan School</div>
             </div>
 
         </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-prev" onclick="changeLightboxSlide(-1)"><i class="ph ph-caret-left"></i></span>
+        <img class="lightbox-content" id="lightboxImg" src="" alt="Enlarged view">
+        <span class="lightbox-next" onclick="changeLightboxSlide(1)"><i class="ph ph-caret-right"></i></span>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
 
     <!-- Footer / Contacts -->
@@ -627,5 +649,58 @@
     </footer>
 
     <script src="script.js?v=7"></script>
+    <script>
+        // Lightbox implementation
+        let currentImageIndex = 0;
+        const galleryImages = [
+            { src: "assets/fd1.jpg", caption: "Foundation Day Inaugural Lamp Lighting" },
+            { src: "assets/fd2.jpg", caption: "Student Dance Recital Performance" },
+            { src: "assets/fd3.jpg", caption: "School Choir Presentation" },
+            { src: "assets/fd4.jpg", caption: "Distinguished Guest Address" }
+        ];
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[currentImageIndex].src;
+            caption.innerText = galleryImages[currentImageIndex].caption;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeLightboxSlide(direction) {
+            currentImageIndex = (currentImageIndex + direction + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[currentImageIndex].src;
+            caption.innerText = galleryImages[currentImageIndex].caption;
+        }
+
+        document.getElementById('lightboxModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('lightboxModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') changeLightboxSlide(-1);
+                if (e.key === 'ArrowRight') changeLightboxSlide(1);
+            }
+        });
+    </script>
 </body>
 </html>

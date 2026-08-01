@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shri Shikshayatan School - Faculty</title>
-    <meta name="description" content="Meet the progressive, techno-savvy, and highly qualified educators shaping the future at Shri Shikshayatan School, Kolkata.">
+    <title>Shri Shikshayatan School - The Four Pillars</title>
+    <meta name="description" content="Discover the Four Pillars of Shri Shikshayatan School: Values, Understanding, Excellence, and Service, serving to guide and empower each student.">
     <link rel="icon" type="image/png" href="assets/sss_logo.png">
 
     <!-- Fonts -->
@@ -20,24 +20,24 @@
     <link rel="stylesheet" href="styles-v5.css?v=38">
 
     <style>
-        /* ── Page Wrapper ── */
-        .fac-page-wrapper {
+        /* Scoped styles for Four Pillars page */
+        .pillars-page-wrapper {
             background-color: var(--bg-light);
             padding: 3rem 0 6rem 0;
             min-height: 100vh;
         }
         @media (min-width: 769px) {
-            .fac-page-wrapper .container {
+            .pillars-page-wrapper .container {
                 max-width: 1400px !important;
                 width: 100% !important;
                 padding: 0 2.5rem !important;
             }
         }
-        @media (min-width: 1600px) { .fac-page-wrapper .container { max-width: 1600px !important; } }
-        @media (max-width: 1024px) and (min-width: 769px) { .fac-page-wrapper .container { padding: 0 2rem !important; } }
+        @media (min-width: 1600px) { .pillars-page-wrapper .container { max-width: 1600px !important; } }
+        @media (max-width: 1024px) and (min-width: 769px) { .pillars-page-wrapper .container { padding: 0 2rem !important; } }
 
-        /* ── Breadcrumb ── */
-        .fac-breadcrumb {
+        /* Breadcrumb */
+        .pillars-breadcrumb {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -49,13 +49,13 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .fac-breadcrumb a { color: var(--primary-blue); transition: color 0.2s; }
-        .fac-breadcrumb a:hover { color: var(--accent-orange); }
-        .fac-breadcrumb i { font-size: 0.75rem; }
+        .pillars-breadcrumb a { color: var(--primary-blue); transition: color 0.2s; }
+        .pillars-breadcrumb a:hover { color: var(--accent-orange); }
+        .pillars-breadcrumb i { font-size: 0.75rem; }
 
-        /* ── Title Block ── */
-        .fac-title-block { margin-bottom: 3rem; }
-        .fac-page-title {
+        /* Title Block */
+        .pillars-title-block { margin-bottom: 3rem; }
+        .pillars-page-title {
             font-family: var(--font-serif);
             font-size: 3rem;
             color: var(--primary-blue);
@@ -63,7 +63,7 @@
             position: relative;
             display: inline-block;
         }
-        .fac-page-title::after {
+        .pillars-page-title::after {
             content: '';
             position: absolute;
             bottom: -6px; left: 0;
@@ -71,7 +71,7 @@
             background-color: var(--accent-orange);
             border-radius: 2px;
         }
-        .fac-subtitle {
+        .pillars-subtitle {
             font-family: var(--font-sans);
             font-size: 1rem;
             color: var(--accent-orange);
@@ -81,147 +81,181 @@
             margin-top: 0.75rem;
         }
 
-        /* ── Banner ── */
-        .fac-banner-container {
+        /* Banner */
+        .pillars-banner-container {
             width: 100%;
-            height: 340px;
+            height: 380px;
             border-radius: 20px;
             overflow: hidden;
             margin-bottom: 4rem;
             box-shadow: 0 20px 60px rgba(26,26,75,0.08);
             position: relative;
         }
-        .fac-banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-        .fac-banner-overlay {
+        .pillars-banner-image { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+        .pillars-banner-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(26,26,75,0.82) 0%, rgba(26,26,75,0.4) 60%, transparent 100%);
-            display: flex; align-items: flex-end; padding: 2.5rem 3rem;
+            background: linear-gradient(135deg, rgba(26,26,75,0.85) 0%, rgba(26,26,75,0.5) 60%, rgba(26,26,75,0.2) 100%);
+            display: flex; align-items: flex-end; padding: 3rem 4rem;
         }
-        .fac-banner-text {
+        .pillars-banner-text {
             font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
             color: #fff;
             font-weight: 800;
-            line-height: 1.3;
-            max-width: 100%;
+            line-height: 1.45;
+            max-width: 85%;
         }
 
-        /* ── Intro Cards Grid ── */
-        .fac-intro-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3.5rem;
-        }
-        @media (max-width: 900px) {
-            .fac-intro-grid { grid-template-columns: 1fr; }
-        }
-
-        .fac-card {
-            background: var(--white);
+        /* Pillars Description */
+        .pillars-intro-desc {
+            background-color: var(--white);
             border-radius: 24px;
-            padding: 2.5rem 3rem;
-            box-shadow: 0 15px 45px rgba(26,26,75,0.04);
+            padding: 3.5rem;
+            box-shadow: 0 15px 45px rgba(26,26,75,0.03);
             border: 1px solid rgba(26,26,75,0.05);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
         }
-        .fac-card:hover {
-            box-shadow: 0 25px 65px rgba(26,26,75,0.08);
-            transform: translateY(-2px);
+        .pillars-intro-desc::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 6px; height: 100%;
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--accent-orange) 100%);
         }
-        .fac-card-header {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(26,26,75,0.06);
-        }
-        .fac-badge {
-            align-self: flex-start;
-            background-color: rgba(242,156,31,0.1);
-            color: var(--accent-orange);
-            font-size: 0.73rem;
-            font-weight: 800;
-            padding: 0.35rem 1rem;
-            border-radius: 50px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .fac-card-title {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-            font-weight: 800;
+        .pillars-intro-desc p {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            line-height: 1.85;
             margin: 0;
         }
-        .fac-card-body {
-            font-family: var(--font-sans);
-            font-size: 1rem;
-            color: var(--text-dark);
-            line-height: 1.7;
+
+        /* Pillars 2x2 Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+        @media (max-width: 900px) {
+            .pillars-grid { grid-template-columns: 1fr; }
         }
 
-        /* ── Faculty Gallery Stack ── */
-        .fac-gallery {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            width: 100%;
-            align-items: center;
-        }
-        .fac-gallery-item {
-            width: 100%;
-            max-width: 1000px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(26,26,75,0.08);
-            border: 1px solid rgba(26,26,75,0.06);
+        .pillar-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 15px 45px rgba(26,26,75,0.03);
+            border: 1px solid rgba(26,26,75,0.05);
+            transition: all 0.3s ease;
             position: relative;
-            background: #fff;
         }
-        .fac-gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.45s ease;
+        .pillar-card:hover {
+            box-shadow: 0 25px 65px rgba(26,26,75,0.08);
+            transform: translateY(-3px);
+            border-color: rgba(242, 156, 31, 0.25);
         }
-        .fac-gallery-item:hover img {
-            transform: scale(1.02);
+        .pillar-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(26,26,75,0.06);
         }
-        .fac-gallery-caption {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(26,26,75,0.85));
-            color: #fff;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            padding: 2.5rem 1.5rem 1rem;
+        .pillar-badge {
+            background-color: rgba(242,156,31,0.1);
+            color: var(--accent-orange);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-
-        /* ── Responsive Mobile Spacing ── */
-        @media (max-width: 900px) {
-            .fac-card { padding: 2rem 1.5rem; }
-            .fac-page-title { font-size: 2.2rem; }
+        .pillar-icon {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
         }
-        @media (max-width: 768px) {
-            .fac-breadcrumb, .fac-title-block {
-                padding-left: 2.2rem;
-            }
-            .fac-banner-container { height: 220px; }
-            .fac-banner-overlay { padding: 1.5rem; }
+        .pillar-card-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            margin: 0.5rem 0 0 0;
+        }
+        .pillar-card-body {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            color: #4a4f6d;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Prospectus CTA Section */
+        .prospectus-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #17174e 100%);
+            border-radius: 24px;
+            padding: 4.5rem;
+            text-align: center;
+            color: var(--white);
+            box-shadow: 0 20px 50px rgba(26,26,75,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .prospectus-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50px; right: -50px;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background-color: rgba(242, 156, 31, 0.05);
+            pointer-events: none;
+        }
+        .prospectus-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .prospectus-desc {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        .prospectus-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            background-color: var(--accent-orange);
+            padding: 1.1rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(242, 156, 31, 0.4);
+            transition: all 0.3s ease;
+        }
+        .prospectus-btn:hover {
+            background-color: #d87e15;
+            box-shadow: 0 5px 20px rgba(216, 126, 21, 0.5);
+            transform: translateY(-2px);
+            color: var(--white);
         }
     </style>
 </head>
 <body>
 
-    <!-- Left Sidebar -->
+    <!-- Sticky Left Sidebar -->
     <aside class="sticky-sidebar">
         <div class="social-icons">
-            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
             <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
             <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
         </div>
@@ -248,11 +282,13 @@
             </div>
         </div>
 
-        <!-- Header -->
+        <!-- Header (Logo & Name) -->
         <header class="main-header">
             <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
                 <div class="logo-area">
-                    <div class="logo-img"><img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" /></div>
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
                     <div class="school-title">
                         <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
                         <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
@@ -302,8 +338,8 @@
                     <li class="dropdown active">
                         <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
-                            <li class="active"><a href="faculty.html">Faculty</a></li>
-                            <li><a href="four-pillars.html">The Four Pillars</a></li>
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li class="active"><a href="four-pillars.html">The Four Pillars</a></li>
                             <li><a href="school-timing.html">School Timing</a></li>
                             <li><a href="school-calendar.html">School Calendar</a></li>
                         </ul>
@@ -332,91 +368,122 @@
         </nav>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="media-page-wrapper fac-page-wrapper">
+    <!-- Main Container -->
+    <div class="pillars-page-wrapper">
         <div class="container">
-
-            <div class="fac-breadcrumb">
+            
+            <!-- Breadcrumbs -->
+            <div class="pillars-breadcrumb">
                 <a href="index.html">Home</a>
                 <i class="ph ph-caret-right"></i>
                 <span>Academics</span>
                 <i class="ph ph-caret-right"></i>
-                <span>Faculty</span>
+                <span>The Four Pillars</span>
             </div>
 
-            <div class="fac-title-block">
-                <h1 class="fac-page-title">School Faculty</h1>
-                <p class="fac-subtitle">Our Educators &amp; Mentors</p>
+            <!-- Page Title Block -->
+            <div class="pillars-title-block">
+                <h1 class="pillars-page-title">The Four Pillars</h1>
+                <p class="pillars-subtitle">Ethos and Foundations of Shri Shikshayatan School</p>
             </div>
 
-            <div class="fac-banner-container">
-                <img src="assets/fac_1.jpg" alt="School Faculty Banner" class="fac-banner-image">
-                <div class="fac-banner-overlay">
-                    <div class="fac-banner-text">Shaping Lives Through Progressive Learning.</div>
+            <!-- Hero Banner Section -->
+            <div class="pillars-banner-container">
+                <img src="assets/four_pillers_header.jpg" alt="Four Pillars of Education" class="pillars-banner-image">
+                <div class="pillars-banner-overlay">
+                    <h2 class="pillars-banner-text">Moulding students into confident, compassionate global citizens ready to meet the challenges of the tomorrow.</h2>
                 </div>
             </div>
 
-            <!-- Scraped Info Cards -->
-            <div class="fac-intro-grid">
-                <div class="fac-card">
-                    <div class="fac-card-header">
-                        <span class="fac-badge">Progression &amp; Growth</span>
-                        <h3 class="fac-card-title">Techno-Savvy &amp; progressive Educators</h3>
-                    </div>
-                    <div class="fac-card-body">
-                        Our highly qualified, techno-savvy and progressive teachers have won many awards for excellence in education. Regular enrichment programmes and training sessions are conducted to facilitate the professional development and world-wide knowledge of the teachers who are attuned to the needs &amp; the increasingly changing learning-curve of our students in today’s generation.
-                    </div>
-                </div>
-
-                <div class="fac-card">
-                    <div class="fac-card-header">
-                        <span class="fac-badge">Collaboration</span>
-                        <h3 class="fac-card-title">Cohesive Departmental Standards</h3>
-                    </div>
-                    <div class="fac-card-body">
-                        The teachers give their best to shape up the students’ life in the finest possible way. There are departments for every subject with departmental heads working together to bring in the best results. Each department facilitates the quality and standard of teaching through discussion and collaboration among the departmental members.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stack of uncropped photos -->
-            <div class="fac-card">
-                <div class="fac-card-header">
-                    <span class="fac-badge">Official Gallery</span>
-                    <h2 class="fac-card-title">Faculty Group Portrait Directory</h2>
-                </div>
-                <p style="font-family: var(--font-sans); font-size: 0.95rem; color: var(--text-dark); line-height: 1.6; margin-bottom: 2rem;">
-                    Our teachers photographed by department and section in the main school assembly campus yard.
+            <!-- Intro Description Section -->
+            <div class="pillars-intro-desc">
+                <p>
+                    Upholding the social, intellectual, and value-creating ethos of UNESCO to be able to live together in cultural awareness, to learn to comprehend, analyse, assess, and embody the ability to research, deduce, and empower knowledge, the four pillars of Shri Shikshayatan School serve to aid the enhancement of each student.
                 </p>
-
-                <div class="fac-gallery">
-                    <div class="fac-gallery-item">
-                        <img src="assets/fac_1.jpg" alt="Shri Shikshayatan School Faculty Members Group 1">
-                        <div class="fac-gallery-caption"><i class="ph ph-users-three"></i> &nbsp;Senior Secondary &amp; High School Faculty — Group A</div>
-                    </div>
-                    <div class="fac-gallery-item">
-                        <img src="assets/fac_2.jpg" alt="Shri Shikshayatan School Faculty Members Group 2">
-                        <div class="fac-gallery-caption"><i class="ph ph-users-three"></i> &nbsp;Senior Secondary &amp; High School Faculty — Group B</div>
-                    </div>
-                    <div class="fac-gallery-item">
-                        <img src="assets/fac_3.jpg" alt="Shri Shikshayatan School Administrative & Department Heads Group">
-                        <div class="fac-gallery-caption"><i class="ph ph-users"></i> &nbsp;Department Heads, Coordinators &amp; Senior Administration</div>
-                    </div>
-                </div>
             </div>
 
-        </div><!-- /container -->
-    </div><!-- /fac-page-wrapper -->
+            <!-- Pillars 2x2 Grid Layout -->
+            <div class="pillars-grid">
+                
+                <!-- Pillar 1: Values -->
+                <div class="pillar-card">
+                    <div class="pillar-card-header">
+                        <span class="pillar-badge">Pillar I</span>
+                        <i class="ph-bold ph-heart-straight pillar-icon"></i>
+                    </div>
+                    <h3 class="pillar-card-title">Values</h3>
+                    <p class="pillar-card-body">
+                        Values are integrated and imparted through everyday teaching, fostering ethical standards, cultural awareness, and moral integrity in every student's daily life.
+                    </p>
+                </div>
 
-    <!-- Footer -->
+                <!-- Pillar 2: Understanding -->
+                <div class="pillar-card">
+                    <div class="pillar-card-header">
+                        <span class="pillar-badge">Pillar II</span>
+                        <i class="ph-bold ph-globe pillar-icon"></i>
+                    </div>
+                    <h3 class="pillar-card-title">Understanding</h3>
+                    <p class="pillar-card-body">
+                        Understanding is accepting the oneness of humanity, harbouring love for fellow human beings, and cultivating deep respect for all living things.
+                    </p>
+                </div>
+
+                <!-- Pillar 3: Excellence -->
+                <div class="pillar-card">
+                    <div class="pillar-card-header">
+                        <span class="pillar-badge">Pillar III</span>
+                        <i class="ph-bold ph-trophy pillar-icon"></i>
+                    </div>
+                    <h3 class="pillar-card-title">Excellence</h3>
+                    <p class="pillar-card-body">
+                        Excellence in all things is striving for perfection and beauty, learning to do one's best always, and continuously scaling new heights in all academic and creative endeavors.
+                    </p>
+                </div>
+
+                <!-- Pillar 4: Service -->
+                <div class="pillar-card">
+                    <div class="pillar-card-header">
+                        <span class="pillar-badge">Pillar IV</span>
+                        <i class="ph-bold ph-hands-clapping pillar-icon"></i>
+                    </div>
+                    <h3 class="pillar-card-title">Service</h3>
+                    <p class="pillar-card-body">
+                        Service to the world goes beyond simple charity. We recognize service as a conscious way of life, so that children grow up to become leaders of thought and action.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Prospectus Download Call to Action -->
+            <div class="prospectus-section">
+                <h3 class="prospectus-title">School Prospectus</h3>
+                <p class="prospectus-desc">
+                    Discover more about our holistic educational model, curriculum details, and admissions overview. Download our official school prospectus.
+                </p>
+                <a href="assets/SSS-PROSPECTUS-web-rev2.pdf" class="prospectus-btn" download>
+                    <i class="ph-bold ph-file-pdf"></i> Download Prospectus (PDF)
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
     <footer id="contacts" class="main-footer">
         <div class="footer-container container">
             <div class="footer-grid">
+                
+                <!-- Location Column -->
                 <div class="footer-col">
                     <h4 class="footer-heading">LOCATION</h4>
                     <div class="footer-logo">
-                        <div class="logo-placeholder small"><i class="ph-fill ph-student"></i></div>
-                        <div class="school-title"><h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3></div>
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
                     </div>
                     <div class="address-block">
                         <i class="ph-fill ph-map-pin"></i>
@@ -426,6 +493,8 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
+
+                <!-- Admin Office Column -->
                 <div class="footer-col">
                     <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
                     <ul class="contact-list">
@@ -438,8 +507,11 @@
                         <a href="privacy-policy.html">Privacy Policy</a>
                     </div>
                 </div>
+
+                <!-- Dept Directories Column -->
                 <div class="footer-col">
                     <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
                     <div class="dept-block">
                         <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
                         <ul>
@@ -447,6 +519,7 @@
                             <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
                         </ul>
                     </div>
+                    
                     <div class="dept-block">
                         <h5>| JUNIOR DEPT:</h5>
                         <ul>
@@ -454,6 +527,7 @@
                             <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
                         </ul>
                     </div>
+
                     <div class="dept-block">
                         <h5>| PRE-PRIMARY SECTION:</h5>
                         <ul>
@@ -462,6 +536,8 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- Quick Access Column -->
                 <div class="footer-col">
                     <h4 class="footer-heading">QUICK ACCESS</h4>
                     <ul class="quick-links">
@@ -469,12 +545,15 @@
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
                     </ul>
+                    
                     <div class="visitor-counter">
                         <p>VISITORS: 1,426,192</p>
                         <p>SHRI SHIKSHAYATAN SCHOOL</p>
                     </div>
                 </div>
+
             </div>
+            
             <div class="footer-bottom">
                 <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
                 <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>

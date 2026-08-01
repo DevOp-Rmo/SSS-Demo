@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Outreach &amp; Excursion</title>
+    <meta name="description" content="Discover the global partnerships, outreach efforts, and student exchange programs at Shri Shikshayatan School.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+    
+    <style>
+        /* Scoped styles for Outreach & Excursion page */
+        .out-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+
+        /* Breadcrumb navigation */
+        .out-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .out-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+        .out-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .out-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Title block */
+        .out-title-block {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+        .out-page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .out-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+        .out-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Select Tabs */
+        .out-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid rgba(26, 26, 75, 0.05);
+            padding-bottom: 0.5rem;
+        }
+        .out-tab-btn {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: rgba(26, 26, 75, 0.5);
+            background: none;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .out-tab-btn.active {
+            color: var(--primary-blue);
+        }
+        .out-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+        .out-tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .out-tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main description text box */
+        .out-intro-box {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .out-intro-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 6px; height: 100%;
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--accent-orange) 100%);
+        }
+        .out-intro-box p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            color: #4a4f6d;
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+        }
+        .out-intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Main Image for Junior Section only */
+        .out-main-image-container {
+            width: 100%;
+            height: 420px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+        }
+        .out-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Accordion Styling */
+        .out-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .accordion-item {
+            background-color: var(--white);
+            border-radius: 16px;
+            border: 1px solid rgba(26, 26, 75, 0.06);
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+        }
+        .accordion-item:hover {
+            box-shadow: 0 12px 35px rgba(26, 26, 75, 0.05);
+        }
+        .accordion-header {
+            padding: 1.75rem 2.25rem;
+            background-color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+        .accordion-header:hover {
+            background-color: rgba(26, 26, 75, 0.01);
+        }
+        .accordion-title-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .accordion-icon-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background-color: rgba(242, 156, 31, 0.1);
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .accordion-title {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin: 0;
+        }
+        .accordion-chevron {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-chevron {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            display: block !important;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            background-color: var(--white);
+            border-top: 1px solid rgba(26, 26, 75, 0.03);
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 1500px; /* arbitrary large value for transition */
+            transition: max-height 0.5s ease-in;
+        }
+        .accordion-content-inner {
+            padding: 2.5rem;
+        }
+
+        /* Accordion inner image gallery grid */
+        .outreach-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .outreach-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(26, 26, 75, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background-color: var(--bg-light);
+        }
+        .outreach-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(26, 26, 75, 0.06);
+            border-color: rgba(242, 156, 31, 0.2);
+        }
+        .outreach-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .outreach-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .outreach-card:hover .outreach-img {
+            transform: scale(1.04);
+        }
+        .outreach-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 26, 75, 0.35);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .outreach-card:hover .outreach-overlay {
+            opacity: 1;
+        }
+        .outreach-overlay i {
+            color: var(--white);
+            font-size: 1.75rem;
+            background-color: var(--accent-orange);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(242, 156, 31, 0.4);
+        }
+        .outreach-caption {
+            padding: 1rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-align: center;
+            background-color: var(--white);
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 75%;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+        .lightbox-close, .lightbox-prev, .lightbox-next {
+            position: absolute;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 10100;
+        }
+        .lightbox-close {
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+        }
+        .lightbox-prev, .lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+        }
+        .lightbox-prev { left: 30px; }
+        .lightbox-next { right: 30px; }
+        
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+            background: var(--accent-orange);
+            color: #fff;
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            background-color: rgba(10, 10, 30, 0.6);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="infrastructure.html">Infrastructure</a></li>
+                        <li class=""><a href="career-counselling.html">Career Counselling</a></li>
+                        <li><a href="index.html">Workshops</a></li>
+                        <li class=""><a href="transport.html">Transport</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown active">
+                    <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Intra School Activities</a></li>
+                        <li><a href="index.html">Inter School Activities</a></li>
+                        <li class=""><a href="social-responsibility.html">School Social Responsibility</a></li>
+                        <li class="active"><a href="outreach-excursion.html">Outreach &amp; Excursion</a></li>
+                        <li class=""><a href="annual-function.html">Annual Function</a></li>
+                        <li class=""><a href="foundation-day.html">Foundation Day</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="four-pillars.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="out-page-wrapper">
+        <div class="container">
+            
+            <!-- Breadcrumbs -->
+            <div class="out-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>Activities &amp; Events</span>
+                <i class="ph ph-caret-right"></i>
+                <span>Outreach &amp; Excursion</span>
+            </div>
+
+            <!-- Page Title Block -->
+            <div class="out-title-block">
+                <h1 class="out-page-title">Outreach &amp; Excursion</h1>
+                <p class="out-subtitle">Global Collaboration and Intercultural exchange programs</p>
+            </div>
+
+            <!-- Section Selector Tabs -->
+            <div class="out-tabs">
+                <button class="out-tab-btn active" onclick="switchSection(event, 'junior-out')">Junior Section</button>
+                <button class="out-tab-btn" onclick="switchSection(event, 'senior-out')">Senior Section</button>
+            </div>
+
+            <!-- Junior Section Content -->
+            <div id="junior-out" class="out-tab-content active">
+                <!-- Main Image only in Junior -->
+                <div class="out-main-image-container">
+                    <img src="assets/out.jpg" alt="Outreach Program Highlights" class="out-main-img">
+                </div>
+
+                <div class="out-intro-box">
+                    <p>
+                        Shri Shikshayatan School has a collaboration with a number of countries.
+                    </p>
+                    <p>
+                        The school is in partnership with many countries like USA, UK, Europe and many others. Our school has moved globally after receiving the prestigious International School Award in 2009, 2013 and 2017. Shri Shikshayatan aims to make its students true “Global Citizens” with a concern towards the environment and global issues that are economic, social, political and cultural in nature and are common across borders.
+                    </p>
+                </div>
+
+                <!-- Accordion Toggles -->
+                <div class="out-accordion">
+                    
+                    <!-- Accordion 1: IRISH -->
+                    <div class="accordion-item active">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-container">
+                                <span class="accordion-icon-badge">IE</span>
+                                <h3 class="accordion-title">IRISH Exchange Program</h3>
+                            </div>
+                            <i class="ph ph-caret-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <div class="outreach-gallery">
+                                    <div class="outreach-card" onclick="openLightbox(0)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/irish_1.jpg" alt="Irish Exchange Program 1" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Irish Exchange Delegation</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(1)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/irish_2.jpg" alt="Irish Exchange Program 2" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Student Interactive Workshop</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 2: CHINESE -->
+                    <div class="accordion-item active">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-container">
+                                <span class="accordion-icon-badge">CN</span>
+                                <h3 class="accordion-title">CHINESE Exchange Program</h3>
+                            </div>
+                            <i class="ph ph-caret-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <div class="outreach-gallery">
+                                    <div class="outreach-card" onclick="openLightbox(2)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin.jpg" alt="Chinese Program Main" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Cultural Exchange Ceremony</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(3)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin1.jpg" alt="Chinese Session 1" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Student Delegation Presentation</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(4)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin2.jpg" alt="Chinese Session 2" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Calligraphy and Arts Sharing</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(5)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin3.jpg" alt="Chinese Session 3" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Delegation Group Portrait</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(6)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin4.jpg" alt="Chinese Session 4" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Language and Speech Workshop</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(7)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin5.jpg" alt="Chinese Session 5" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Token of Appreciation Ceremony</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Senior Section Content -->
+            <div id="senior-out" class="out-tab-content">
+                <div class="out-intro-box">
+                    <p>
+                        Shri Shikshayatan School has a collaboration with a number of countries.
+                    </p>
+                    <p>
+                        The school is in partnership with many countries like USA, UK, Europe and many others. Our school has moved globally after receiving the prestigious International School Award in 2009, 2013 and 2017. Shri Shikshayatan aims to make its students true “Global Citizens” with a concern towards the environment and global issues that are economic, social, political and cultural in nature and are common across borders.
+                    </p>
+                </div>
+
+                <!-- Accordion Toggles (Using the same images as Junior) -->
+                <div class="out-accordion">
+                    
+                    <!-- Accordion 1: IRISH -->
+                    <div class="accordion-item active">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-container">
+                                <span class="accordion-icon-badge">IE</span>
+                                <h3 class="accordion-title">IRISH Exchange Program</h3>
+                            </div>
+                            <i class="ph ph-caret-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <div class="outreach-gallery">
+                                    <div class="outreach-card" onclick="openLightbox(0)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/irish_1.jpg" alt="Irish Exchange Program 1" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Irish Exchange Delegation</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(1)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/irish_2.jpg" alt="Irish Exchange Program 2" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Student Interactive Workshop</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 2: CHINESE -->
+                    <div class="accordion-item active">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title-container">
+                                <span class="accordion-icon-badge">CN</span>
+                                <h3 class="accordion-title">CHINESE Exchange Program</h3>
+                            </div>
+                            <i class="ph ph-caret-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-content-inner">
+                                <div class="outreach-gallery">
+                                    <div class="outreach-card" onclick="openLightbox(2)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin.jpg" alt="Chinese Program Main" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Cultural Exchange Ceremony</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(3)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin1.jpg" alt="Chinese Session 1" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Student Delegation Presentation</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(4)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin2.jpg" alt="Chinese Session 2" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Calligraphy and Arts Sharing</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(5)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin3.jpg" alt="Chinese Session 3" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Delegation Group Portrait</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(6)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin4.jpg" alt="Chinese Session 4" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Language and Speech Workshop</div>
+                                    </div>
+                                    <div class="outreach-card" onclick="openLightbox(7)">
+                                        <div class="outreach-img-wrapper">
+                                            <img src="assets/Out/chin5.jpg" alt="Chinese Session 5" class="outreach-img">
+                                            <div class="outreach-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                        </div>
+                                        <div class="outreach-caption">Token of Appreciation Ceremony</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-prev" onclick="changeLightboxSlide(-1)"><i class="ph ph-caret-left"></i></span>
+        <img class="lightbox-content" id="lightboxImg" src="" alt="Enlarged view">
+        <span class="lightbox-next" onclick="changeLightboxSlide(1)"><i class="ph ph-caret-right"></i></span>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=7"></script>
+    <script>
+        function switchSection(event, sectionId) {
+            document.querySelectorAll('.out-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.out-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function toggleAccordion(header) {
+            const item = header.closest('.accordion-item');
+            const isActive = item.classList.contains('active');
+            
+            // Close active items in the current active tab
+            const activeTab = header.closest('.out-tab-content');
+            activeTab.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Lightbox implementation
+        let currentImageIndex = 0;
+        const galleryImages = [
+            { src: "assets/Out/irish_1.jpg", caption: "Irish Exchange Program - Delegation Meeting" },
+            { src: "assets/Out/irish_2.jpg", caption: "Irish Exchange Program - Student Interactive Session" },
+            { src: "assets/Out/chin.jpg", caption: "Chinese Exchange Program - Welcome Ceremony" },
+            { src: "assets/Out/chin1.jpg", caption: "Chinese Exchange Program - Student Presentation" },
+            { src: "assets/Out/chin2.jpg", caption: "Chinese Exchange Program - Calligraphy Demonstration" },
+            { src: "assets/Out/chin3.jpg", caption: "Chinese Exchange Program - Delegation Group Photo" },
+            { src: "assets/Out/chin4.jpg", caption: "Chinese Exchange Program - Workshop Discussion" },
+            { src: "assets/Out/chin5.jpg", caption: "Chinese Exchange Program - Exchange of Souvenirs" }
+        ];
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[currentImageIndex].src;
+            caption.innerText = galleryImages[currentImageIndex].caption;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeLightboxSlide(direction) {
+            currentImageIndex = (currentImageIndex + direction + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[currentImageIndex].src;
+            caption.innerText = galleryImages[currentImageIndex].caption;
+        }
+
+        document.getElementById('lightboxModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('lightboxModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') changeLightboxSlide(-1);
+                if (e.key === 'ArrowRight') changeLightboxSlide(1);
+            }
+        });
+    </script>
+</body>
+</html>
