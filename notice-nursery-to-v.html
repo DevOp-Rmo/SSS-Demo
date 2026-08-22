@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Admission Notice Nursery to V</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=37">
+    <style>
+        .admission-header-card {
+            background: linear-gradient(135deg, #1e1e62 0%, #0d0d3a 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(13, 13, 58, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .admission-header-card::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(245, 124, 0, 0.1);
+            filter: blur(50px);
+        }
+        .admission-header-title {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+        .admission-header-meta {
+            font-size: 0.9rem;
+            color: #b0b0d0;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .admission-header-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .section-block {
+            margin-bottom: 3.5rem;
+        }
+        .section-block-title {
+            font-size: 1.35rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-block-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 4px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+        
+        /* Age Criteria Grid */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+        .criteria-card {
+            background: white;
+            border: 1px solid rgba(26, 26, 74, 0.06);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.015);
+            transition: all 0.3s ease;
+        }
+        .criteria-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+            border-color: rgba(245, 124, 0, 0.5);
+        }
+        .criteria-class {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+        }
+        .criteria-age {
+            font-size: 0.9rem;
+            color: var(--accent-orange);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        .criteria-dates {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            background: #f9fafb;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Schedule Timeline */
+        .schedule-table-wrapper {
+            background: white;
+            border: 1px solid rgba(26, 26, 74, 0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.015);
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .schedule-table th {
+            background-color: #f9fafb;
+            color: var(--primary-blue);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .schedule-table td {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+        .schedule-num {
+            font-weight: 800;
+            color: var(--primary-blue);
+            width: 30px;
+        }
+        .schedule-activity {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .schedule-date {
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+        .schedule-time {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Steps list */
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .step-item {
+            display: flex;
+            gap: 1.25rem;
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(26, 26, 74, 0.06);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.015);
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+        .step-item:hover {
+            border-color: rgba(26, 26, 74, 0.15);
+            transform: translateX(4px);
+        }
+        .step-number {
+            background: var(--primary-blue);
+            color: white;
+            font-weight: 800;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(26, 26, 74, 0.2);
+            font-size: 0.9rem;
+        }
+        .step-content {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        .step-content strong {
+            color: var(--primary-blue);
+        }
+        .step-link {
+            color: var(--accent-orange);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .step-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Notes Box */
+        .notes-box {
+            background: #fffbf0;
+            border: 1px solid #ffeeba;
+            border-left: 4px solid var(--accent-orange);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .notes-box h4 {
+            color: #856404;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .notes-box ul {
+            padding-left: 1.25rem;
+            margin: 0;
+        }
+        .notes-box li {
+            color: #664d03;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        .notes-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Action Buttons */
+        .action-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .btn-apply-primary {
+            background: var(--accent-orange);
+            color: white !important;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 25px rgba(245, 124, 0, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-apply-primary:hover {
+            background: #e65100;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 124, 0, 0.4);
+        }
+        
+        .btn-back-secondary {
+            background: white;
+            color: var(--primary-blue) !important;
+            border: 2px solid var(--primary-blue);
+            padding: 0.9rem 2.2rem;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-back-secondary:hover {
+            background: rgba(26, 26, 74, 0.04);
+            transform: translateY(-2px);
+        }
+
+        /* Original Images Section */
+        .original-attachments {
+            background-color: #f9fafb;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid #f3f4f6;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="infrastructure.html">Infrastructure</a></li>
+                        <li class=""><a href="career-counselling.html">Career Counselling</a></li>
+                        <li><a href="index.html">Workshops</a></li>
+                        <li class=""><a href="transport.html">Transport</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                    <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Intra School Activities</a></li>
+                        <li><a href="index.html">Inter School Activities</a></li>
+                        <li class=""><a href="social-responsibility.html">School Social Responsibility</a></li>
+                        <li class=""><a href="outreach-excursion.html">Outreach &amp; Excursion</a></li>
+                        <li class=""><a href="annual-function.html">Annual Function</a></li>
+                        <li class=""><a href="foundation-day.html">Foundation Day</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="four-pillars.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Notice Detail Main Wrapper -->
+    <div class="notice-detail-wrapper">
+        <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 1.5rem;">
+            
+            <!-- Header Card -->
+            <div class="admission-header-card">
+                <h2 class="admission-header-title">ADMISSION NOTICE FOR SESSION 2027 – 2028</h2>
+                <p style="font-size: 1.25rem; font-weight: 600; color: #fffb21; margin: 0.5rem 0;">FOR CLASSES NURSERY TO V</p>
+                <div class="admission-header-meta">
+                    <span><i class="ph-bold ph-file-text"></i> REF NO. SSS/JRADM/27-28/001</span>
+                    <span><i class="ph-bold ph-calendar-blank"></i> Published: June 15, 2026</span>
+                    <span><i class="ph-bold ph-tag"></i> Admission Notice (Junior Section)</span>
+                </div>
+            </div>
+
+            <!-- Age Criteria Section -->
+            <div class="section-block">
+                <h3 class="section-block-title"><i class="ph ph-student"></i> Age Criteria (As on 31.03.2027)</h3>
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <div class="criteria-class">Nursery</div>
+                        <div class="criteria-age">Age 2+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2024 &amp; 31.03.2025</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">LKG</div>
+                        <div class="criteria-age">Age 3+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2023 &amp; 31.03.2024</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">UKG</div>
+                        <div class="criteria-age">Age 4+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2022 &amp; 31.03.2023</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">SKG</div>
+                        <div class="criteria-age">Age 5+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2021 &amp; 31.03.2022</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">Class I</div>
+                        <div class="criteria-age">Age 6+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2020 &amp; 31.03.2021</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">Class II</div>
+                        <div class="criteria-age">Age 7+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2019 &amp; 31.03.2020</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">Class III</div>
+                        <div class="criteria-age">Age 8+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2018 &amp; 31.03.2019</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">Class IV</div>
+                        <div class="criteria-age">Age 9+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2017 &amp; 31.03.2018</strong></div>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="criteria-class">Class V</div>
+                        <div class="criteria-age">Age 10+</div>
+                        <div class="criteria-dates">Born between:<br><strong>01.04.2016 &amp; 31.03.2017</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Dates Section -->
+            <div class="section-block">
+                <h3 class="section-block-title"><i class="ph ph-calendar-blank"></i> Important Dates &amp; Time Schedules</h3>
+                <div class="schedule-table-wrapper">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th class="schedule-num">#</th>
+                                <th style="width: 50%;">Activity / Event Details</th>
+                                <th style="width: 25%;">Important Dates</th>
+                                <th style="width: 25%;">Timings / Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="schedule-num">1</td>
+                                <td class="schedule-activity">Online Registration Form available in Admission Tree Portal</td>
+                                <td class="schedule-date">15.06.2026 onwards</td>
+                                <td class="schedule-time">24 Hours Open</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-num">2</td>
+                                <td class="schedule-activity">Online Submission of detailed Application Form in School's Portal</td>
+                                <td class="schedule-date">15.06.2026 onwards</td>
+                                <td class="schedule-time">24 Hours Open</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-num">3</td>
+                                <td class="schedule-activity">Dates for Editing, Uploading of Documents &amp; Printing of Filled-Up Form <strong>(MANDATORY)</strong></td>
+                                <td class="schedule-date">Within 3 days of Form fill up</td>
+                                <td class="schedule-time">Within 10:00 p.m. on last day</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-num">4</td>
+                                <td class="schedule-activity">Dates to submit the Printed Application Form with documents at School's Drop Box</td>
+                                <td class="schedule-date">Within 3 days of Form fill up (post Pt. 3 completion)</td>
+                                <td class="schedule-time">8:00 a.m. to 3:00 p.m.</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-num">5</td>
+                                <td class="schedule-activity">Interview Notice publishing (tentative schedule)</td>
+                                <td class="schedule-date">29.06.2026 <small style="display:block; color:var(--text-light); font-weight:normal;">*Subject to change</small></td>
+                                <td class="schedule-time">At 1:00 p.m.</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-num">6</td>
+                                <td class="schedule-activity"><strong>For Classes Nursery, LKG, UKG &amp; SKG</strong>: Tentative date for starting of Interview Procedure</td>
+                                <td class="schedule-date">06.07.2026 <small style="display:block; color:var(--text-light); font-weight:normal;">*Subject to change</small></td>
+                                <td class="schedule-time">Notified in Interview Notice</td>
+                            </tr>
+                            <tr>
+                                <td class="schedule-num">7</td>
+                                <td class="schedule-activity"><strong>For Classes I to V</strong>: Tentative date for starting of WRITTEN TEST &amp; INTERVIEW Procedure</td>
+                                <td class="schedule-date">06.07.2026 <small style="display:block; color:var(--text-light); font-weight:normal;">*Subject to change</small></td>
+                                <td class="schedule-time">Notified in Interview Notice</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="section-block">
+                <div class="notes-box">
+                    <h4><i class="ph-fill ph-info"></i> Important Instructions &amp; Conditions</h4>
+                    <ul>
+                        <li>Online payment for the Application Form fee is <strong>Rs. 1,000/-</strong> (convenience fees apply additionally).</li>
+                        <li>The official prospectus is available directly on the school's website.</li>
+                        <li>Buying the Application Form does not assure or guarantee selection for the interview procedure.</li>
+                        <li>Application form-fill procedure will only be complete after successful Online Payment is made, documents are uploaded, and the physical printout is submitted in the drop box.</li>
+                        <li><strong>Date of Issue of Birth Certificate:</strong> Must be completed within one year of birth. Candidates whose birth certificates were issued more than one year after their birth will not be eligible for the interview.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Steps for Form Fillup Section -->
+            <div class="section-block">
+                <h3 class="section-block-title"><i class="ph ph-list-numbers"></i> Steps to Successfully Fill Up the Application Form</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            Click on the <strong>'ONLINE ADMISSION'</strong> option available on the Home page of the School Website or directly access the registration portal: <a href="https://www.admissiontree.in/#/schools/SSS" class="step-link" target="_blank">Admission Tree Portal <i class="ph ph-arrow-square-out"></i></a>.
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            Click on the <strong>'Apply Now'</strong> button (marked as Admission Going On | Apply Now).
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            Create your account and fill up the initial applicant and parent details as per the fields shown.
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            Proceed to the checkout/transaction page and complete the Online Payment.
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            An auto-generated confirmation email will be sent to your registered Email ID from Admission Tree.
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            Open the email and click the link to complete the detailed school application form:
+                            <ul style="margin: 0.5rem 0 0 1.25rem; padding: 0;">
+                                <li>a) You will be prompted to create a School Login ID and Password. Store these securely.</li>
+                                <li>b) A unique Application Number will be generated for all future school communications.</li>
+                                <li>c) Upload all required documents by editing your online application within the stipulated deadline at the School ERP Portal: <a href="https://erp.shrishikshayatanschool.com:8443/hrelIRP/startup.do" class="step-link" target="_blank">School ERP Portal <i class="ph ph-arrow-square-out"></i></a>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            Take a physical printout of the completed Application Form and submit it inside the <strong>School Drop Box</strong> along with all necessary documents listed in the form within the deadline.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Original Notice Scan Section -->
+            <div class="original-attachments">
+                <h4 style="font-size: 1.1rem; color: var(--primary-blue); font-weight: 800; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-image"></i> Original Notice Documents</h4>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <img src="assets/appl_form.jpg" alt="Admission Notice Page 1" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <img src="assets/appl_form1.jpg" alt="Admission Notice Page 2" style="width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                </div>
+            </div>
+
+            <!-- Footer Buttons -->
+            <div class="action-container">
+                <a href="https://www.admissiontree.in/schools/shri-shikshayatan-school" target="_blank" class="btn-apply-primary"><i class="ph ph-arrow-square-out"></i> APPLY ONLINE NOW</a>
+                <button class="btn-back-secondary" onclick="window.history.back()"><i class="ph ph-arrow-left"></i> Go Back</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=7"></script>
+</body>
+</html>

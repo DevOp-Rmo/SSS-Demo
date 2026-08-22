@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1d. Initialize Help Desk Chatbot (Initialize early to avoid being skipped by the local file return)
     initChatbot();
 
+    // 1d-2. Initialize Homepage Notice Board
+    initIndexNoticeBoard();
+
     // 1e. Dynamic Header Height Observer for positioning the sticky sidebar
     const headerWrapper = document.querySelector('.fixed-header-wrapper');
     if (headerWrapper && typeof ResizeObserver !== 'undefined') {
@@ -3343,3 +3346,245 @@ function logChatRatingToServer(msgIndex, rating) {
         }).catch(err => console.error("Error logging rating:", err));
     }
 }
+
+// Homepage Notice Board Component Controller
+function initIndexNoticeBoard() {
+    const container = document.getElementById('index-notice-list-container');
+    if (!container) return;
+
+    let noticesData = [];
+    const isLocal = window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('github.dev') || window.location.search.includes('demo=true');
+    let activeFilter = 'all';
+
+    // Filters out expired notices (past end_date) while keeping them preserved in backend
+    function filterActiveNotices(notices) {
+        if (!notices || !Array.isArray(notices)) return [];
+        const now = new Date();
+        return notices.filter(notice => {
+            if (notice.start_date) {
+                const timePart = notice.start_time || '00:00';
+                const startDateTime = new Date(notice.start_date + 'T' + timePart + ':00');
+                if (!isNaN(startDateTime.getTime()) && now < startDateTime) {
+                    return false;
+                }
+            }
+            if (notice.end_date) {
+                const endDateTime = new Date(notice.end_date + 'T23:59:59');
+                if (!isNaN(endDateTime.getTime()) && now > endDateTime) {
+                    return false; // Removed from front end when notice end date passes
+                }
+            }
+            return true;
+        });
+    }
+
+    function loadAndRender() {
+        if (isLocal) {
+            const stored = localStorage.getItem('school_db_data');
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    if (data && data.section_notices && Array.isArray(data.section_notices)) {
+                        noticesData = filterActiveNotices(data.section_notices);
+                        renderList(activeFilter);
+                        return;
+                    }
+                } catch(e) {}
+            }
+            if (typeof getDefaultLocalNotices === 'function') {
+                noticesData = filterActiveNotices(getDefaultLocalNotices());
+            }
+            renderList(activeFilter);
+        } else {
+            fetch('api.php?action=get_notices')
+                .then(res => res.json())
+                .then(data => {
+                    let list = [];
+                    if (Array.isArray(data)) {
+                        list = data;
+                    } else if (data && data.section_notices && Array.isArray(data.section_notices)) {
+                        list = data.section_notices;
+                    } else if (typeof getDefaultLocalNotices === 'function') {
+                        list = getDefaultLocalNotices();
+                    }
+                    noticesData = filterActiveNotices(list);
+                    renderList(activeFilter);
+                })
+                .catch(err => {
+                    console.error("Error loading index notices:", err);
+                    if (typeof getDefaultLocalNotices === 'function') {
+                        noticesData = filterActiveNotices(getDefaultLocalNotices());
+                    }
+                    renderList(activeFilter);
+                });
+        }
+    }
+
+    let scrollAnimId = null;
+
+    function buildNoticeItem(notice, visitedNotices, now) {
+        const item = document.createElement('div');
+        const isVisited = visitedNotices.includes(notice.id);
+        item.className = `index-notice-item ${isVisited ? 'notice-visited' : ''}`;
+        item.setAttribute('data-id', notice.id);
+
+        const noticeDate = new Date(notice.date);
+        const diffTime = Math.abs(now - noticeDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const isNew = diffDays <= 7;
+
+        const dateParts = notice.date ? notice.date.split('-') : [];
+        const year = dateParts[0] || '';
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const monthIndex = dateParts[1] ? parseInt(dateParts[1], 10) - 1 : 0;
+        const monthStr = monthNames[monthIndex] || '';
+        const dayStr = dateParts[2] || '';
+
+        const categoryKey = notice.category || 'general';
+        const categoryLabel = categoryKey.toUpperCase();
+
+        const blinkBadge = isNew ? '<span class="new-blink">NEW</span>' : '';
+        const readTag = isVisited ? '<span class="read-tag"><i class="ph-bold ph-check-circle"></i> READ</span>' : '';
+
+        item.innerHTML = `
+            <div class="notice-date-badge">
+                <span class="notice-day">${dayStr}</span>
+                <span class="notice-month">${monthStr}</span>
+            </div>
+            <div class="notice-content-body">
+                <div class="notice-meta-line">
+                    <span class="notice-category-tag cat-${categoryKey}">${categoryLabel}</span>
+                    ${blinkBadge}
+                    ${readTag}
+                </div>
+                <a href="notice_detail.html?id=${notice.id}" class="notice-title-link" target="_blank" onclick="event.stopPropagation();">
+                    ${escapeHtml(notice.title)}
+                </a>
+            </div>
+            <div class="notice-action-icon">
+                <i class="ph-bold ph-caret-right"></i>
+            </div>
+        `;
+
+        function handleNoticeClick() {
+            try {
+                let visited = JSON.parse(localStorage.getItem('visited_notices') || '[]');
+                if (!visited.includes(notice.id)) {
+                    visited.push(notice.id);
+                    localStorage.setItem('visited_notices', JSON.stringify(visited));
+                }
+            } catch (err) {}
+
+            document.querySelectorAll(`.index-notice-item[data-id="${notice.id}"]`).forEach(el => {
+                el.classList.add('notice-visited');
+                const metaLine = el.querySelector('.notice-meta-line');
+                if (metaLine && !metaLine.querySelector('.read-tag')) {
+                    const tag = document.createElement('span');
+                    tag.className = 'read-tag';
+                    tag.innerHTML = '<i class="ph-bold ph-check-circle"></i> READ';
+                    metaLine.appendChild(tag);
+                }
+            });
+            localStorage.setItem('active_highlight_id', notice.id);
+        }
+
+        item.addEventListener('click', (e) => {
+            handleNoticeClick();
+            if (!e.target.closest('.notice-title-link')) {
+                window.open(`notice_detail.html?id=${notice.id}`, '_blank');
+            }
+        });
+
+        const linkEl = item.querySelector('.notice-title-link');
+        if (linkEl) {
+            linkEl.addEventListener('click', handleNoticeClick);
+        }
+
+        return item;
+    }
+
+    function renderList(filter) {
+        if (scrollAnimId) {
+            cancelAnimationFrame(scrollAnimId);
+            scrollAnimId = null;
+        }
+
+        const scrollerWrapper = document.getElementById('notice-scroller-wrapper');
+        if (scrollerWrapper) {
+            scrollerWrapper.scrollTop = 0;
+        }
+        container.innerHTML = '';
+
+        if (!noticesData || noticesData.length === 0) {
+            container.innerHTML = '<div class="notice-empty">No notices currently available.</div>';
+            return;
+        }
+
+        // Sort by date descending
+        const sorted = [...noticesData].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let filtered = sorted;
+        if (filter === 'senior') {
+            filtered = sorted.filter(n => n.section === 'senior' || n.section === 'both' || n.section === 'all');
+        } else if (filter === 'junior') {
+            filtered = sorted.filter(n => n.section === 'junior' || n.section === 'both' || n.section === 'all');
+        }
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="notice-empty">No notices found for this section.</div>';
+            return;
+        }
+
+        let visitedNotices = [];
+        try {
+            visitedNotices = JSON.parse(localStorage.getItem('visited_notices') || '[]');
+        } catch (e) {
+            visitedNotices = [];
+        }
+
+        const now = new Date();
+
+        filtered.forEach(notice => {
+            container.appendChild(buildNoticeItem(notice, visitedNotices, now));
+        });
+
+        if (scrollerWrapper && filtered.length > 2) {
+            filtered.forEach(notice => {
+                container.appendChild(buildNoticeItem(notice, visitedNotices, now));
+            });
+
+            let scrollPos = 0;
+            const speed = 0.5;
+            let isHovered = false;
+
+            scrollerWrapper.onmouseenter = () => { isHovered = true; };
+            scrollerWrapper.onmouseleave = () => { isHovered = false; };
+
+            function step() {
+                if (!isHovered) {
+                    scrollPos += speed;
+                    const halfHeight = container.scrollHeight / 2;
+                    if (scrollPos >= halfHeight) {
+                        scrollPos = 0;
+                    }
+                    scrollerWrapper.scrollTop = scrollPos;
+                }
+                scrollAnimId = requestAnimationFrame(step);
+            }
+            scrollAnimId = requestAnimationFrame(step);
+        }
+    }
+
+    // Filter tab listeners
+    document.querySelectorAll('.notice-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.notice-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeFilter = tab.dataset.filter || 'all';
+            renderList(activeFilter);
+        });
+    });
+
+    loadAndRender();
+}
+

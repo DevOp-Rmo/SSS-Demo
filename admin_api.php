@@ -66,6 +66,49 @@ function handle_upload($file_key, $allowed_types, $max_size = 50000000) { // 50M
     throw new Exception("Failed to save uploaded file.");
 }
 
+// Helper to handle multiple uploads
+function handle_multiple_uploads($key, $allowed_types, $max_size = 50000000) {
+    global $upload_dir;
+    $paths = [];
+    if (!isset($_FILES[$key]) || !is_array($_FILES[$key]['name'])) {
+        return $paths;
+    }
+    
+    $file_count = count($_FILES[$key]['name']);
+    for ($i = 0; $i < $file_count; $i++) {
+        if ($_FILES[$key]['error'][$i] !== UPLOAD_ERR_OK) {
+            continue;
+        }
+        
+        $name = $_FILES[$key]['name'][$i];
+        $tmp_name = $_FILES[$key]['tmp_name'][$i];
+        $size = $_FILES[$key]['size'][$i];
+        
+        if ($size > $max_size) {
+            throw new Exception("File $name is too large.");
+        }
+        
+        $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+        if (!in_array($ext, $allowed_types)) {
+            throw new Exception("Invalid file type for $name. Allowed: " . implode(", ", $allowed_types));
+        }
+        
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+        
+        $filename = uniqid('file_') . '.' . $ext;
+        $dest_path = $upload_dir . $filename;
+        
+        if (move_uploaded_file($tmp_name, $dest_path)) {
+            $paths[] = 'uploads/' . $filename;
+        } else {
+            throw new Exception("Failed to save uploaded file: $name");
+        }
+    }
+    return $paths;
+}
+
 // Parse request action
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -97,10 +140,12 @@ if ($action === 'logout') {
 }
 
 // 2. Authentication Gate
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'message' => 'Unauthorized. Please log in.']);
-    exit;
+if ($action !== 'submit_feedback') {
+    if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized. Please log in.']);
+        exit;
+    }
 }
 
 // 3. Admin CRUD API Handlers
@@ -359,11 +404,25 @@ try {
         $category = isset($_POST['category']) ? $_POST['category'] : 'holiday'; // holiday / admission / exam
         $content = isset($_POST['content']) ? $_POST['content'] : '';
         
+        $start_date = isset($_POST['start_date']) ? $_POST['start_date'] : '';
+        $start_time = isset($_POST['start_time']) ? $_POST['start_time'] : '';
+        $end_date = isset($_POST['end_date']) ? $_POST['end_date'] : '';
+        $existing_files_json = isset($_POST['existing_files']) ? $_POST['existing_files'] : '';
+        
         if (empty($title)) {
             throw new Exception("Notice title is required.");
         }
         if (empty($class)) {
             throw new Exception("Class selection is required.");
+        }
+        
+        // Parse class if it's a JSON array string
+        $class_to_save = $class;
+        if (strpos($class, '[') === 0) {
+            $decoded_class = json_decode($class, true);
+            if (is_array($decoded_class)) {
+                $class_to_save = $decoded_class;
+            }
         }
         
         // Ensure data/db.json has section_notices key
@@ -381,37 +440,89 @@ try {
             }
         }
         
-        // Handle file upload (images & pdfs allowed)
-        $uploaded_path = handle_upload('file', ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf']);
+        // Load initial files array from existing files if provided
+        $file_paths = [];
+        if (!empty($existing_files_json)) {
+            $decoded_files = json_decode($existing_files_json, true);
+            if (is_array($decoded_files)) {
+                $file_paths = $decoded_files;
+            }
+        }
+        
+        // Handle file uploads (images & pdfs allowed)
+        $uploaded_paths = handle_multiple_uploads('files', ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf']);
+        
+        if (!empty($uploaded_paths)) {
+            // If new files were uploaded, replace old files
+            if ($found_index !== -1) {
+                $old_paths = isset($db_data['section_notices'][$found_index]['file_paths'])
+                    ? $db_data['section_notices'][$found_index]['file_paths']
+                    : (isset($db_data['section_notices'][$found_index]['file_path']) ? [$db_data['section_notices'][$found_index]['file_path']] : []);
+                foreach ($old_paths as $old_path) {
+                    if ($old_path && strpos($old_path, 'uploads/') === 0) {
+                        $full_old_path = __DIR__ . '/' . $old_path;
+                        if (file_exists($full_old_path)) {
+                            @unlink($full_old_path);
+                        }
+                    }
+                }
+            }
+            $file_paths = $uploaded_paths;
+        } else if ($found_index === -1 && !empty($file_paths)) {
+            // Copy Notice operation: we have no new uploads, but we have existing files to copy/duplicate
+            $duplicated_paths = [];
+            foreach ($file_paths as $old_path) {
+                if ($old_path && strpos($old_path, 'uploads/') === 0) {
+                    $full_old_path = __DIR__ . '/' . $old_path;
+                    if (file_exists($full_old_path)) {
+                        $ext = strtolower(pathinfo($full_old_path, PATHINFO_EXTENSION));
+                        $new_filename = uniqid('file_') . '.' . $ext;
+                        $new_relative_path = 'uploads/' . $new_filename;
+                        $full_new_path = $upload_dir . $new_filename;
+                        if (copy($full_old_path, $full_new_path)) {
+                            $duplicated_paths[] = $new_relative_path;
+                        } else {
+                            $duplicated_paths[] = $old_path;
+                        }
+                    } else {
+                        $duplicated_paths[] = $old_path;
+                    }
+                } else {
+                    $duplicated_paths[] = $old_path;
+                }
+            }
+            $file_paths = $duplicated_paths;
+        }
         
         if ($found_index !== -1) {
             // Edit existing notice
             $db_data['section_notices'][$found_index]['title'] = $title;
             $db_data['section_notices'][$found_index]['section'] = $section;
-            $db_data['section_notices'][$found_index]['class'] = $class;
+            $db_data['section_notices'][$found_index]['class'] = $class_to_save;
             $db_data['section_notices'][$found_index]['category'] = $category;
             $db_data['section_notices'][$found_index]['content'] = $content;
+            $db_data['section_notices'][$found_index]['start_date'] = $start_date;
+            $db_data['section_notices'][$found_index]['start_time'] = $start_time;
+            $db_data['section_notices'][$found_index]['end_date'] = $end_date;
+            $db_data['section_notices'][$found_index]['file_paths'] = $file_paths;
+            $db_data['section_notices'][$found_index]['file_path'] = !empty($file_paths) ? $file_paths[0] : '';
             
-            if ($uploaded_path) {
-                // Delete old file if it was uploaded to uploads/
-                $old_path = $db_data['section_notices'][$found_index]['file_path'];
-                if ($old_path && strpos($old_path, 'uploads/') === 0 && file_exists(__DIR__ . '/' . $old_path)) {
-                    @unlink(__DIR__ . '/' . $old_path);
-                }
-                $db_data['section_notices'][$found_index]['file_path'] = $uploaded_path;
-            }
             $notice_updated = $db_data['section_notices'][$found_index];
         } else {
-            // Add new notice
+            // Add new notice or Save as New (Copy)
             $new_notice = [
                 'id' => 'sn_' . time(),
                 'section' => $section,
-                'class' => $class,
+                'class' => $class_to_save,
                 'category' => $category,
                 'date' => date('Y-m-d'),
                 'title' => $title,
                 'content' => $content,
-                'file_path' => $uploaded_path ? $uploaded_path : ''
+                'start_date' => $start_date,
+                'start_time' => $start_time,
+                'end_date' => $end_date,
+                'file_paths' => $file_paths,
+                'file_path' => !empty($file_paths) ? $file_paths[0] : ''
             ];
             $db_data['section_notices'][] = $new_notice;
             $notice_updated = $new_notice;
@@ -443,15 +554,280 @@ try {
             throw new Exception("Notice not found.");
         }
         
-        // Delete associated file if it exists in uploads/
-        $old_path = $db_data['section_notices'][$found_index]['file_path'];
-        if ($old_path && strpos($old_path, 'uploads/') === 0 && file_exists(__DIR__ . '/' . $old_path)) {
-            @unlink(__DIR__ . '/' . $old_path);
+        // Delete all associated files in uploads/
+        $old_paths = isset($db_data['section_notices'][$found_index]['file_paths'])
+            ? $db_data['section_notices'][$found_index]['file_paths']
+            : (isset($db_data['section_notices'][$found_index]['file_path']) ? [$db_data['section_notices'][$found_index]['file_path']] : []);
+        foreach ($old_paths as $old_path) {
+            if ($old_path && strpos($old_path, 'uploads/') === 0 && file_exists(__DIR__ . '/' . $old_path)) {
+                @unlink(__DIR__ . '/' . $old_path);
+            }
         }
         
         array_splice($db_data['section_notices'], $found_index, 1);
         write_db($db_data);
         echo json_encode(['success' => true, 'message' => 'Notice deleted successfully.']);
+        exit;
+    }
+
+    if ($action === 'save_tc') {
+        $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+        $studentClass = isset($_POST['studentClass']) ? trim($_POST['studentClass']) : '';
+        $dateRaw = isset($_POST['dateRaw']) ? trim($_POST['dateRaw']) : '';
+        $displayDate = isset($_POST['displayDate']) ? trim($_POST['displayDate']) : '';
+        
+        if (empty($name) || empty($studentClass) || empty($dateRaw)) {
+            throw new Exception("Full Name, Class, and Date are required.");
+        }
+        
+        $file_path = '';
+        if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['pdf'];
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            if ($ext !== 'pdf') {
+                throw new Exception("Only PDF files are allowed.");
+            }
+            
+            $dest_dir = __DIR__ . '/assets/TC/downloaded_pdfs/';
+            if (!is_dir($dest_dir)) {
+                mkdir($dest_dir, 0755, true);
+            }
+            
+            // Clean up name for filename
+            $clean_name = preg_replace('/[^a-zA-Z0-9_-]/', '_', $name);
+            $filename = 'tc_' . time() . '_' . $clean_name . '.' . $ext;
+            $dest_path = $dest_dir . $filename;
+            
+            if (move_uploaded_file($file['tmp_name'], $dest_path)) {
+                $file_path = 'assets/TC/downloaded_pdfs/' . $filename;
+            } else {
+                throw new Exception("Failed to save uploaded PDF file.");
+            }
+        }
+        
+        if (!isset($db_data['transfer_certificates']) || !is_array($db_data['transfer_certificates'])) {
+            $db_data['transfer_certificates'] = [];
+        }
+        
+        $new_tc = [
+            'id' => 'tc_' . round(microtime(true) * 1000),
+            'name' => $name,
+            'class' => $studentClass,
+            'date_raw' => $dateRaw,
+            'date' => $displayDate,
+            'file_path' => $file_path,
+            'addedAt' => date('c')
+        ];
+        
+        // Prepend so newest is first
+        array_unshift($db_data['transfer_certificates'], $new_tc);
+        write_db($db_data);
+        
+        echo json_encode(['success' => true, 'message' => 'TC saved successfully.', 'data' => $new_tc]);
+        exit;
+    }
+
+    if ($action === 'delete_tc') {
+        $id = isset($_POST['id']) ? strval($_POST['id']) : '';
+        if (empty($id)) {
+            throw new Exception("TC ID is required.");
+        }
+        
+        $found_index = -1;
+        if (isset($db_data['transfer_certificates'])) {
+            foreach ($db_data['transfer_certificates'] as $idx => $entry) {
+                if (strval($entry['id']) === $id) {
+                    $found_index = $idx;
+                    break;
+                }
+            }
+        }
+        
+        if ($found_index === -1) {
+            throw new Exception("TC entry not found.");
+        }
+        
+        // Delete file if exists
+        $file_path = isset($db_data['transfer_certificates'][$found_index]['file_path']) 
+            ? $db_data['transfer_certificates'][$found_index]['file_path'] 
+            : '';
+            
+        if ($file_path && file_exists(__DIR__ . '/' . $file_path)) {
+            @unlink(__DIR__ . '/' . $file_path);
+        }
+        
+        array_splice($db_data['transfer_certificates'], $found_index, 1);
+        write_db($db_data);
+        
+        echo json_encode(['success' => true, 'message' => 'TC entry deleted successfully.']);
+        exit;
+    }
+
+    if ($action === 'save_feedback') {
+        $id = isset($_POST['id']) ? strval($_POST['id']) : '';
+        $section = isset($_POST['section']) ? $_POST['section'] : 'junior';
+        $type = isset($_POST['type']) ? $_POST['type'] : 'text';
+        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+        $subtitle = isset($_POST['subtitle']) ? trim($_POST['subtitle']) : '';
+        $content = isset($_POST['content']) ? trim($_POST['content']) : '';
+        $status = isset($_POST['status']) ? $_POST['status'] : 'approved';
+        
+        if (empty($title)) {
+            throw new Exception("Title/Name is required.");
+        }
+        
+        $uploaded_paths = handle_multiple_uploads('files', ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+        
+        if (!isset($db_data['feedbacks']) || !is_array($db_data['feedbacks'])) {
+            $db_data['feedbacks'] = [];
+        }
+        
+        $found_index = -1;
+        if ($id !== '') {
+            foreach ($db_data['feedbacks'] as $idx => $fb) {
+                if (strval($fb['id']) === $id) {
+                    $found_index = $idx;
+                    break;
+                }
+            }
+        }
+        
+        if ($found_index !== -1) {
+            $db_data['feedbacks'][$found_index]['section'] = $section;
+            $db_data['feedbacks'][$found_index]['type'] = $type;
+            $db_data['feedbacks'][$found_index]['title'] = $title;
+            $db_data['feedbacks'][$found_index]['subtitle'] = $subtitle;
+            $db_data['feedbacks'][$found_index]['content'] = $content;
+            $db_data['feedbacks'][$found_index]['status'] = $status;
+            
+            if ($type === 'images' && !empty($uploaded_paths)) {
+                $old_paths = $db_data['feedbacks'][$found_index]['file_paths'];
+                if (is_array($old_paths)) {
+                    foreach ($old_paths as $old_path) {
+                        if ($old_path && strpos($old_path, 'uploads/') === 0 && file_exists(__DIR__ . '/' . $old_path)) {
+                            @unlink(__DIR__ . '/' . $old_path);
+                        }
+                    }
+                }
+                $db_data['feedbacks'][$found_index]['file_paths'] = $uploaded_paths;
+            }
+            $fb_updated = $db_data['feedbacks'][$found_index];
+        } else {
+            $new_fb = [
+                'id' => 'fb_' . round(microtime(true) * 1000),
+                'section' => $section,
+                'type' => $type,
+                'title' => $title,
+                'subtitle' => $subtitle,
+                'content' => $content,
+                'file_paths' => ($type === 'images') ? $uploaded_paths : [],
+                'status' => $status
+            ];
+            array_unshift($db_data['feedbacks'], $new_fb);
+            $fb_updated = $new_fb;
+        }
+        
+        write_db($db_data);
+        echo json_encode(['success' => true, 'message' => 'Feedback saved successfully.', 'data' => $fb_updated]);
+        exit;
+    }
+
+    if ($action === 'submit_feedback') {
+        $section = isset($_POST['section']) ? $_POST['section'] : 'junior';
+        $type = 'text'; // User submissions are text only
+        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+        $subtitle = isset($_POST['subtitle']) ? trim($_POST['subtitle']) : '';
+        $content = isset($_POST['content']) ? trim($_POST['content']) : '';
+        
+        if (empty($title)) {
+            throw new Exception("Name is required.");
+        }
+        if (empty($content)) {
+            throw new Exception("Feedback content is required.");
+        }
+        
+        if (!isset($db_data['feedbacks']) || !is_array($db_data['feedbacks'])) {
+            $db_data['feedbacks'] = [];
+        }
+        
+        $new_fb = [
+            'id' => 'fb_' . round(microtime(true) * 1000),
+            'section' => $section,
+            'type' => $type,
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'content' => $content,
+            'file_paths' => [],
+            'status' => 'pending'
+        ];
+        array_unshift($db_data['feedbacks'], $new_fb);
+        write_db($db_data);
+        echo json_encode(['success' => true, 'message' => 'Feedback submitted successfully and is awaiting moderation.']);
+        exit;
+    }
+
+    if ($action === 'approve_feedback') {
+        $id = isset($_POST['id']) ? strval($_POST['id']) : '';
+        if (empty($id)) {
+            throw new Exception("Feedback ID is required.");
+        }
+        
+        $found_index = -1;
+        if (isset($db_data['feedbacks'])) {
+            foreach ($db_data['feedbacks'] as $idx => $fb) {
+                if (strval($fb['id']) === $id) {
+                    $found_index = $idx;
+                    break;
+                }
+            }
+        }
+        
+        if ($found_index === -1) {
+            throw new Exception("Feedback not found.");
+        }
+        
+        $db_data['feedbacks'][$found_index]['status'] = 'approved';
+        write_db($db_data);
+        echo json_encode(['success' => true, 'message' => 'Feedback approved successfully.']);
+        exit;
+    }
+
+    if ($action === 'delete_feedback') {
+        $id = isset($_POST['id']) ? strval($_POST['id']) : '';
+        if (empty($id)) {
+            throw new Exception("Feedback ID is required.");
+        }
+        
+        $found_index = -1;
+        if (isset($db_data['feedbacks'])) {
+            foreach ($db_data['feedbacks'] as $idx => $fb) {
+                if (strval($fb['id']) === $id) {
+                    $found_index = $idx;
+                    break;
+                }
+            }
+        }
+        
+        if ($found_index === -1) {
+            throw new Exception("Feedback not found.");
+        }
+        
+        $file_paths = isset($db_data['feedbacks'][$found_index]['file_paths'])
+            ? $db_data['feedbacks'][$found_index]['file_paths']
+            : [];
+            
+        if (is_array($file_paths)) {
+            foreach ($file_paths as $file_path) {
+                if ($file_path && strpos($file_path, 'uploads/') === 0 && file_exists(__DIR__ . '/' . $file_path)) {
+                    @unlink(__DIR__ . '/' . $file_path);
+                }
+            }
+        }
+        
+        array_splice($db_data['feedbacks'], $found_index, 1);
+        write_db($db_data);
+        
+        echo json_encode(['success' => true, 'message' => 'Feedback deleted successfully.']);
         exit;
     }
 

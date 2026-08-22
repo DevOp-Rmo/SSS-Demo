@@ -554,7 +554,7 @@
         <nav class="main-nav">
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
                     <li class="dropdown">
                         <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
@@ -1188,6 +1188,21 @@
                 }
             });
         });
+
+        // Check hash or URL param on load / hash change
+        function selectTabFromHash() {
+            const hash = window.location.hash;
+            if (hash === '#senior' || window.location.search.includes('section=senior')) {
+                const seniorTab = document.querySelector('.fee-tab[data-section="senior"]');
+                if (seniorTab) seniorTab.click();
+            } else if (hash === '#junior' || window.location.search.includes('section=junior')) {
+                const juniorTab = document.querySelector('.fee-tab[data-section="junior"]');
+                if (juniorTab) juniorTab.click();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', selectTabFromHash);
+        window.addEventListener('hashchange', selectTabFromHash);
     </script>
     <script src="script.js?v=7"></script>
 </body>

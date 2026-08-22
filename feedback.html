@@ -1,0 +1,2870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Parents & Students Feedback</title>
+    <meta name="description" content="Read honest feedback, reviews, and scanned letters from parents, alumni, and students of Shri Shikshayatan School, Kolkata.">
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=38">
+
+    <style>
+        /* ── Page Wrapper ── */
+        .fb-page-wrapper {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        @media (min-width: 769px) {
+            .fb-page-wrapper .container {
+                max-width: 1400px !important;
+                width: 100% !important;
+                padding: 0 2.5rem !important;
+            }
+        }
+        @media (min-width: 1600px) { .fb-page-wrapper .container { max-width: 1600px !important; } }
+        @media (max-width: 1024px) and (min-width: 769px) { .fb-page-wrapper .container { padding: 0 2rem !important; } }
+
+        /* ── Breadcrumb ── */
+        .fb-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .fb-breadcrumb a { color: var(--primary-blue); transition: color 0.2s; }
+        .fb-breadcrumb a:hover { color: var(--accent-orange); }
+        .fb-breadcrumb i { font-size: 0.75rem; }
+
+        /* ── Title Block ── */
+        .fb-title-block { margin-bottom: 2.5rem; text-align: center; }
+        .fb-page-title {
+            font-family: var(--font-serif);
+            font-size: 3.25rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.4rem;
+            position: relative;
+            display: inline-block;
+        }
+        .fb-page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 50%;
+            transform: translateX(-50%);
+            width: 70px; height: 4px;
+            background-color: var(--accent-orange);
+            border-radius: 4px;
+        }
+        .fb-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            color: var(--accent-orange);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.75rem;
+            display: block;
+        }
+
+        /* ── Dashboard Row ── */
+        .fb-dashboard-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+        }
+        @media (max-width: 991px) {
+            .fb-dashboard-row { grid-template-columns: 1fr; }
+        }
+        .fb-stat-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.75rem 2rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .fb-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.06);
+        }
+        .fb-stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(242, 156, 31, 0.1);
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .fb-stat-card:nth-child(2) .fb-stat-icon {
+            background: rgba(26, 26, 75, 0.08);
+            color: var(--primary-blue);
+        }
+        .fb-stat-card:nth-child(3) .fb-stat-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .fb-stat-info h3 {
+            font-family: var(--font-serif);
+            font-size: 1.85rem;
+            color: var(--primary-blue);
+            margin: 0;
+            font-weight: 700;
+        }
+        .fb-stat-info p {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin: 0.1rem 0 0 0;
+            font-weight: 600;
+        }
+
+        /* ── Featured Quotes Carousel ── */
+        .fb-carousel-container {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            margin-bottom: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .fb-carousel-quote-icon {
+            font-size: 3.5rem;
+            color: rgba(242, 156, 31, 0.15);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .fb-carousel-slide {
+            display: none;
+            animation: carouselFade 0.6s ease forwards;
+        }
+        .fb-carousel-slide.active {
+            display: block;
+        }
+        @keyframes carouselFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fb-carousel-text {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        .fb-carousel-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .fb-carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        .fb-carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(26, 26, 75, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+        .fb-carousel-dot.active {
+            background: var(--accent-orange);
+            width: 28px;
+            border-radius: 50px;
+        }
+
+        /* ── Submit CTA Banner ── */
+        .fb-cta-banner {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e1b4b 100%);
+            border-radius: 24px;
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .fb-cta-banner::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(242, 156, 31, 0.15) 0%, transparent 70%);
+            top: -125px;
+            right: -50px;
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .fb-cta-banner { flex-direction: column; text-align: center; gap: 1.5rem; padding: 2rem; }
+        }
+        .fb-cta-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            margin: 0 0 0.5rem 0;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .fb-cta-content p {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            max-width: 750px;
+            line-height: 1.6;
+        }
+        .fb-cta-button {
+            font-family: var(--font-sans);
+            background: var(--accent-orange);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(242, 156, 31, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            white-space: nowrap;
+        }
+        .fb-cta-button:hover {
+            background: #e08b1b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(242, 156, 31, 0.4);
+        }
+
+        /* ── Search & Filter Toolbar ── */
+        .fb-toolbar {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .fb-search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .fb-search-wrapper .search-icon {
+            position: absolute;
+            left: 1.25rem;
+            font-size: 1.25rem;
+            color: var(--text-light);
+            pointer-events: none;
+        }
+        .fb-search-wrapper input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 3.25rem;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            border: 1.5px solid rgba(15, 23, 42, 0.08);
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.25s ease;
+            background: #f8fafc;
+        }
+        .fb-search-wrapper input:focus {
+            background: #ffffff;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(26, 26, 75, 0.08);
+        }
+        .clear-search-btn {
+            position: absolute;
+            right: 1.25rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+            padding: 0;
+        }
+        .clear-search-btn:hover { color: var(--accent-orange); }
+
+        .fb-filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+        .filter-tag {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            border: 1.5px solid rgba(15, 23, 42, 0.08);
+            background: #ffffff;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .filter-tag:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        .filter-tag.active {
+            background: var(--primary-blue);
+            color: #ffffff;
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(26, 26, 75, 0.15);
+        }
+
+        /* ── Tabs Component ── */
+        .fb-tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+        .fb-tabs {
+            display: flex;
+            background: #ffffff;
+            padding: 0.4rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(26,26,75,0.04);
+            border: 1px solid rgba(26,26,75,0.04);
+            gap: 0.25rem;
+        }
+        .fb-tab {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 0.8rem 2rem;
+            border: none;
+            background: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .fb-tab i { font-size: 1.1rem; }
+        .fb-tab.active {
+            background-color: var(--primary-blue);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(26, 26, 75, 0.2);
+        }
+        .fb-tab:hover:not(.active) {
+            color: var(--primary-blue);
+            background-color: rgba(26, 26, 75, 0.03);
+        }
+
+        /* ── Content Sections ── */
+        .fb-pane {
+            display: none;
+            animation: paneFadeIn 0.5s ease forwards;
+        }
+        .fb-pane.active { display: block; }
+        @keyframes paneFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Section Subtitle ── */
+        .section-intro {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            color: #4b5563;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+        }
+
+        /* ── Testimonials Grid ── */
+        .fb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        @media (max-width: 768px) {
+            .fb-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── Testimonial Card ── */
+        .fb-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.2rem;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            animation: cardFadeIn 0.4s ease forwards;
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .fb-card:hover {
+            box-shadow: 0 22px 45px rgba(15, 23, 42, 0.07);
+            transform: translateY(-5px);
+            border-color: rgba(242, 156, 31, 0.25);
+        }
+        .fb-card-quote-icon {
+            font-size: 2rem;
+            color: rgba(242, 156, 31, 0.16);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .fb-card-stars {
+            display: flex;
+            gap: 0.15rem;
+            margin-bottom: 1rem;
+            color: #f59e0b;
+            font-size: 0.85rem;
+        }
+        .fb-card-tag {
+            position: absolute;
+            top: 1.8rem;
+            right: 1.8rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tag-counseling { background: #f3e8ff; color: #6b21a8; }
+        .tag-sports { background: #ccfbf1; color: #115e59; }
+        .tag-online { background: #e0f2fe; color: #075985; }
+        .tag-academics { background: #fef3c7; color: #92400e; }
+        .tag-general { background: #f3f4f6; color: #374151; }
+
+        .fb-card-content {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #334155;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            white-space: pre-line;
+        }
+        .fb-card-author {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            border-top: 1px solid rgba(15, 23, 42, 0.06);
+            padding-top: 1.25rem;
+        }
+        .fb-author-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.15rem;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+            flex-shrink: 0;
+        }
+        .fb-author-info h4 {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 750;
+            color: var(--primary-blue);
+            margin: 0;
+        }
+        .fb-author-info p {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin: 0.15rem 0 0 0;
+            font-weight: 600;
+        }
+
+        /* ── Scanned Letters Gallery ── */
+        .gallery-header-block {
+            margin-top: 5rem;
+            margin-bottom: 2rem;
+            border-top: 2px dashed rgba(26,26,75,0.08);
+            padding-top: 4rem;
+        }
+        .gallery-title {
+            font-family: var(--font-serif);
+            font-size: 2.25rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .gallery-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        .scans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .scan-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(26,26,75,0.03);
+            border: 1px solid rgba(26,26,75,0.04);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scan-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(26,26,75,0.09);
+        }
+        .scan-image-wrapper {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            background-color: #f3f4f6;
+            overflow: hidden;
+        }
+        .scan-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .scan-card:hover .scan-image-wrapper img {
+            transform: scale(1.05);
+        }
+        .scan-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,26,75,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .scan-card:hover .scan-overlay { opacity: 1; }
+        .scan-zoom-icon {
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .scan-info {
+            padding: 1.25rem;
+            border-top: 1px solid rgba(26,26,75,0.05);
+        }
+        .scan-info h4 {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--primary-blue);
+            margin: 0;
+            font-weight: 700;
+        }
+        .scan-info p {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin: 0.2rem 0 0 0;
+        }
+
+        /* ── Slide-in Drawer Modal ── */
+        .fb-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .fb-drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .fb-drawer {
+            position: fixed;
+            top: 0;
+            right: -600px;
+            width: 600px;
+            max-width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -10px 0 50px rgba(15, 23, 42, 0.15);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fb-drawer.active {
+            transform: translateX(-600px);
+        }
+        @media (max-width: 600px) {
+            .fb-drawer { width: 100vw; }
+            .fb-drawer.active { transform: translateX(-100vw); }
+        }
+        .fb-drawer-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fb-drawer-header h2 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin: 0;
+            font-weight: 700;
+        }
+        .fb-drawer-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fb-drawer-close:hover { color: var(--accent-orange); }
+
+        .fb-drawer-body {
+            padding: 2rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .fb-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        @media (max-width: 576px) {
+            .fb-form-row { grid-template-columns: 1fr; }
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .form-group label {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.8rem 1rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            border: 1.5px solid rgba(15, 23, 42, 0.12);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 26, 75, 0.08);
+        }
+        
+        /* Stars Input */
+        .stars-input {
+            display: flex;
+            gap: 0.4rem;
+            font-size: 1.75rem;
+            color: #d1d5db;
+        }
+        .stars-input i {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .stars-input i.hovered, .stars-input i.selected {
+            color: #f59e0b;
+        }
+
+        /* Live Preview container */
+        .preview-title {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+        .preview-card-wrap {
+            padding: 0.5rem;
+            background: #f8fafc;
+            border: 2px dashed rgba(15, 23, 42, 0.08);
+            border-radius: 20px;
+        }
+
+        .fb-submit-btn {
+            font-family: var(--font-sans);
+            background: var(--primary-blue);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(26, 26, 75, 0.15);
+            margin-top: 1rem;
+        }
+        .fb-submit-btn:hover {
+            background: #1e1b4b;
+            transform: translateY(-1px);
+        }
+
+        /* Success Animation */
+        .submit-success {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 2rem;
+            animation: paneFadeIn 0.5s ease forwards;
+        }
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #d1fae5;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .submit-success h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+        .submit-success p {
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin: 0 0 2rem 0;
+            line-height: 1.5;
+        }
+        .success-reset-btn {
+            font-family: var(--font-sans);
+            background: var(--primary-blue);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.75rem 1.75rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .success-reset-btn:hover { background: #1e1b4b; }
+
+        /* ── Lightbox Modal ── */
+        .lightbox-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox-caption {
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            margin-top: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -2.5rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .lightbox-close:hover { color: var(--accent-orange); }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-nav:hover { background: var(--accent-orange); }
+        .lightbox-prev { left: -4rem; }
+        .lightbox-next { right: -4rem; }
+
+        @media (max-width: 768px) {
+            .lightbox-nav { display: none; }
+            .lightbox-modal { padding: 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-nav { display: none; }
+            .lightbox-modal { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img"><img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" /></div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="infrastructure.html">Infrastructure</a></li>
+                        <li class=""><a href="career-counselling.html">Career Counselling</a></li>
+                        <li><a href="index.html">Workshops</a></li>
+                        <li class=""><a href="transport.html">Transport</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                    <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Intra School Activities</a></li>
+                        <li><a href="index.html">Inter School Activities</a></li>
+                        <li class=""><a href="social-responsibility.html">School Social Responsibility</a></li>
+                        <li class=""><a href="outreach-excursion.html">Outreach &amp; Excursion</a></li>
+                        <li class=""><a href="annual-function.html">Annual Function</a></li>
+                        <li class=""><a href="foundation-day.html">Foundation Day</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="four-pillars.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><a href="feedback.html">FEEDBACK</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="fb-page-wrapper">
+        <div class="container">
+
+            <div class="fb-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph-bold ph-caret-right"></i>
+                <span>Feedback</span>
+            </div>
+
+            <div class="fb-title-block">
+                <span class="fb-subtitle">Voices of Our Community</span>
+                <h1 class="fb-page-title">FEEDBACK & TESTIMONIALS</h1>
+            </div>
+
+            <!-- Dashboard Stats Row -->
+            <div class="fb-dashboard-row">
+                <div class="fb-stat-card">
+                    <div class="fb-stat-icon"><i class="ph-fill ph-chat-circle-text"></i></div>
+                    <div class="fb-stat-info">
+                        <h3>100+</h3>
+                        <p>Verified Testimonials</p>
+                    </div>
+                </div>
+                <div class="fb-stat-card">
+                    <div class="fb-stat-icon"><i class="ph-fill ph-star"></i></div>
+                    <div class="fb-stat-info">
+                        <h3>4.9/5</h3>
+                        <p>Parent Rating</p>
+                    </div>
+                </div>
+                <div class="fb-stat-card">
+                    <div class="fb-stat-icon"><i class="ph-fill ph-heart"></i></div>
+                    <div class="fb-stat-info">
+                        <h3>100%</h3>
+                        <p>Empathy & Growth</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Testimonials Carousel Slider -->
+            <div class="fb-carousel-container">
+                <div class="fb-carousel-quote-icon">“</div>
+                <div class="fb-carousel-slides">
+                    <!-- Slide 1 -->
+                    <div class="fb-carousel-slide active" data-index="0">
+                        <div class="fb-carousel-text">"I would like to take this opportunity to express our heartfelt appreciation for the truly outstanding performance presented by our SKG children. We sincerely admire the way the entire SKG teaching team coordinated more than 200 students so wonderfully. It was a spectacular event!"</div>
+                        <div class="fb-carousel-author">
+                            <div class="fb-author-avatar" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); color: #9d174d;">P</div>
+                            <div class="fb-author-info">
+                                <h4>Pinki Adak</h4>
+                                <p>M/o Suhina Adak (SKG-G)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="fb-carousel-slide" data-index="1">
+                        <div class="fb-carousel-text">"I am an alumna of Shri Shikshayatan School. I am extremely happy to share that I have been selected for fashion designing at Symbiosis College of Design, Nagpur with a 25% scholarship. Symbiosis noted that I am well-disciplined, honest, and that my school shaped me in a very positive manner."</div>
+                        <div class="fb-carousel-author">
+                            <div class="fb-author-avatar" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #78350f;">A</div>
+                            <div class="fb-author-info">
+                                <h4>Astha Ghia</h4>
+                                <p>Alumna (Class 12-E, Humanities)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="fb-carousel-slide" data-index="2">
+                        <div class="fb-carousel-text">"I'm writing to let you know how happy I am as a parent with the online education that the school has been providing during the lockdown. The classes are efficient, teachers explain minute details beautifully, and balance their professional and personal lives in these trying times wonderfully."</div>
+                        <div class="fb-carousel-author">
+                            <div class="fb-author-avatar" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); color: #312e81;">S</div>
+                            <div class="fb-author-info">
+                                <h4>Sanistha Basu</h4>
+                                <p>Guardian of Meghna Basu (Senior Section)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fb-carousel-dots">
+                    <button class="fb-carousel-dot active" data-slide="0"></button>
+                    <button class="fb-carousel-dot" data-slide="1"></button>
+                    <button class="fb-carousel-dot" data-slide="2"></button>
+                </div>
+            </div>
+
+            <!-- CTA Callout Banner -->
+            <div class="fb-cta-banner">
+                <div class="fb-cta-content">
+                    <h3>Have a Story to Share?</h3>
+                    <p>Your reviews, stories, and suggestions motivate us and guide our growth. Share your experience at Shri Shikshayatan School with us today.</p>
+                </div>
+                <button class="fb-cta-button" id="open-feedback-drawer">
+                    <i class="ph ph-note-pencil"></i> Write a Testimonial
+                </button>
+            </div>
+
+            <!-- Search & Filter Toolbar -->
+            <div class="fb-toolbar">
+                <div class="fb-search-wrapper">
+                    <i class="ph ph-magnifying-glass search-icon"></i>
+                    <input type="text" id="fb-search" placeholder="Search testimonials by parent name, keywords, or class...">
+                    <button id="fb-clear-search" class="clear-search-btn"><i class="ph ph-x"></i></button>
+                </div>
+                <div class="fb-filter-tags" id="fb-tags-container">
+                    <button class="filter-tag active" data-filter="all">All Topics</button>
+                    <button class="filter-tag" data-filter="Counseling & Support">Counseling</button>
+                    <button class="filter-tag" data-filter="Academics & Achievement">Academics & Achievement</button>
+                    <button class="filter-tag" data-filter="Sports & Co-Curricular">Sports & Trips</button>
+                    <button class="filter-tag" data-filter="School Life & Facilities">School Life & Facilities</button>
+                </div>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="fb-tabs-container">
+                <div class="fb-tabs">
+                    <button class="fb-tab active" data-target="junior">
+                        <i class="ph ph-student"></i> Junior Section
+                    </button>
+                    <button class="fb-tab" data-target="senior">
+                        <i class="ph ph-chalkboard-teacher"></i> Senior Section
+                    </button>
+                </div>
+            </div>
+
+            <!-- Junior Pane -->
+            <div class="fb-pane active" id="pane-junior">
+                <p class="section-intro">Heartfelt feedback and appreciation letters from the parents of our pre-primary and junior students, reflecting their experiences and partnership with the school.</p>
+                
+                <div class="fb-grid" id="junior-text-grid">
+                    <!-- Text feedbacks populated dynamically -->
+                </div>
+
+                <div class="gallery-header-block" id="junior-gallery-section">
+                    <h2 class="gallery-title">Scanned Hand-Written Feedback</h2>
+                    <p class="gallery-subtitle">Direct, scanned pages of handwritten letters and notes submitted by parents of the Junior Section.</p>
+                    <div class="scans-grid" id="junior-images-grid">
+                        <!-- Scanned image feedbacks populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Senior Pane -->
+            <div class="fb-pane" id="pane-senior">
+                <p class="section-intro">Appreciations and success stories shared by our senior school parents, alumni, and students highlighting academic experiences, counseling success, and educational excursions.</p>
+                
+                <div class="fb-grid" id="senior-text-grid">
+                    <!-- Text feedbacks populated dynamically -->
+                </div>
+
+                <div class="gallery-header-block" id="senior-gallery-section">
+                    <h2 class="gallery-title">Scanned & Documented Feedback</h2>
+                    <p class="gallery-subtitle">Original scanned letters and feedback documents related to the Senior Section.</p>
+                    <div class="scans-grid" id="senior-images-grid">
+                        <!-- Scanned image feedbacks populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /container -->
+    </div><!-- /fb-page-wrapper -->
+
+    <!-- Slide-in Drawer overlay & drawer -->
+    <div class="fb-drawer-overlay" id="drawer-overlay"></div>
+    <div class="fb-drawer" id="feedback-drawer">
+        <div class="fb-drawer-header">
+            <h2>Share Your Experience</h2>
+            <button class="fb-drawer-close" id="close-feedback-drawer"><i class="ph ph-x"></i></button>
+        </div>
+        
+        <!-- Form Container -->
+        <div class="fb-drawer-body" id="form-container-el">
+            <div class="fb-form-row">
+                <div class="form-group">
+                    <label for="input-name">Your Full Name</label>
+                    <input type="text" id="input-name" placeholder="e.g. Sanistha Basu" required>
+                </div>
+                <div class="form-group">
+                    <label for="input-relation">Relation / Role / Class</label>
+                    <input type="text" id="input-relation" placeholder="e.g. Guardian of Meghna Basu" required>
+                </div>
+            </div>
+            
+            <div class="fb-form-row">
+                <div class="form-group">
+                    <label for="input-section">School Section</label>
+                    <select id="input-section">
+                        <option value="junior">Junior Section</option>
+                        <option value="senior" selected>Senior Section</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="stars-input" id="stars-input">
+                        <i class="ph-fill ph-star" data-value="1"></i>
+                        <i class="ph-fill ph-star" data-value="2"></i>
+                        <i class="ph-fill ph-star" data-value="3"></i>
+                        <i class="ph-fill ph-star" data-value="4"></i>
+                        <i class="ph-fill ph-star" data-value="5"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-content">Your Testimonial</label>
+                <textarea id="input-content" rows="6" placeholder="Tell us about your experience, teachers, school environment, facilities..." required></textarea>
+            </div>
+
+            <!-- Live Preview Card -->
+            <div class="preview-title">Live Preview</div>
+            <div class="preview-card-wrap" id="preview-card-wrap">
+                <!-- Testimonial card rendering live -->
+            </div>
+
+            <button type="button" class="fb-submit-btn" id="submit-feedback-btn">Submit Testimonial</button>
+        </div>
+
+        <!-- Success Container -->
+        <div class="submit-success" id="success-container-el">
+            <div class="success-checkmark">
+                <i class="ph ph-check-circle"></i>
+            </div>
+            <h3>Thank You!</h3>
+            <p>Your testimonial has been submitted successfully and is now pending review. It will appear on the feedback page once approved by the school administration.</p>
+            <button class="success-reset-btn" id="reset-success-btn">Write Another</button>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close"><i class="ph ph-x"></i></button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev"><i class="ph ph-caret-left"></i></button>
+        <div class="lightbox-content">
+            <img src="" alt="Enlarged Feedback Scan" class="lightbox-img" id="lightbox-img">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next"><i class="ph ph-caret-right"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small"><i class="ph-fill ph-student"></i></div>
+                        <div class="school-title"><h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3></div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    <div class="visitor-counter">
+                        <p>VISITORS: 1,426,192</p>
+                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=7"></script>
+    <script>
+        // Tab switching logic
+        document.querySelectorAll('.fb-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active classes
+                document.querySelectorAll('.fb-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.fb-pane').forEach(p => p.classList.remove('active'));
+                
+                // Add active class
+                tab.classList.add('active');
+                const target = tab.getAttribute('data-target');
+                document.getElementById(`pane-${target}`).classList.add('active');
+            });
+        });
+
+        // Dynamic Loading & Rendering from Database
+        let allGalleryImages = [];
+        let currentImageIndex = -1;
+
+        const defaultFeedbacks = [
+    {
+        "id": "fb_1",
+        "section": "junior",
+        "type": "text",
+        "title": "Pinki Adak",
+        "subtitle": "M/o Suhina Adak (SKG-G)",
+        "content": "Gratitude from the parent of a student of junior section of Shri Shikshayatan School\n\nDear Madam,\n\nI would like to take this opportunity to express our heartfelt appreciation for the truly outstanding performance presented by our SKG children on 25th February 2026. We sincerely admire the way the entire SKG teaching team coordinated more than 200 students in a single play so flawlessly. It was evident that immense hard work, thoughtful planning, and great dedication went into creating such a marvelous and mesmerizing presentation—words truly fall short in praising your efforts.\n\nI extend my sincere thanks to the respected Principal Ma’am, Headmistress Ma’am, Suhina’s class teacher Subhasini Ma’am, all the SKG section teachers, as well as the teaching and non-teaching staff and our beloved security staff for their tireless efforts and commitment. I am deeply grateful for everything you do for our children.\n\nI would also like to express special gratitude to Subhasini Ma’am for guiding Suhina throughout the past year and helping her to grow and develop.\n\nAdditionally, I would like to appreciate the school’s initiative in introducing programs such as Logikids, Olympiad exams, and Spell Bee at such an early age. These opportunities play a vital role in nurturing and developing children from the grassroots level. I am sincerely thankful for the school’s support and hope to be continued so.\n\nThanking you,\n\nYours sincerely,\n\nPinki Adak\n\nM/o Suhina Adak\n\n(Student of SKG-G)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_2",
+        "section": "junior",
+        "type": "text",
+        "title": "Rohit Shaw",
+        "subtitle": "Parent",
+        "content": "Dear Madam,\n\nI hope you are doing well.\n\nApologies for sending this email a bit late, but I wanted to take a moment to share my appreciation for the wonderful annual sports meet held on January 18, 2025. It was a fantastic event that truly reflected the efforts and hard work of the teachers.\n\nWe were so happy and excited to witness the event. It was beautifully hosted, and the arrangements made for parents were excellent. I also learnt about the many other activities the school encourages students to participate in, which is wonderful.\n\nThank you for your guidance and for organizing such engaging opportunities for the students. I look forward to hearing from you.\n\nBest regards,\n\nRohit Shaw",
+        "file_paths": []
+    },
+    {
+        "id": "fb_3",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected Madam,\n\nToday I placed an empty tiffin box in my daughter's school bag by mistake. When I realized the matter, by that time, the school bus had already left. The whole day I was tensed about the matter.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_4",
+        "section": "junior",
+        "type": "text",
+        "title": "Jayanta Majumdar",
+        "subtitle": "F/o Apoorba Majumdar (Class 1-B)",
+        "content": "To\n\nThe Class Teacher,\n\nClass-1,\n\nSection-B\n\nRespected Madam,\n\nI wish  to inform you that my daughter Apoorba Majumdar (Class-1, Section-B, Roll Number-4) ,would note be able to attend school on 04/03/2022, due to some prior engagements from our end.\n\nHowever It won't be inappropriate to mention here that she enjoyed her offline class last week, so much that, now she is very reluctant to absent her offline class.\n\nI would like to thank you and other teachers of her class for doing outstanding work while conducting online and offline classes.\n\nThanks a lot!.\n\nRegards,\n\nJayanta Majumdar",
+        "file_paths": []
+    },
+    {
+        "id": "fb_5",
+        "section": "junior",
+        "type": "text",
+        "title": "Vrinda Agarwal",
+        "subtitle": "Class 10 Student",
+        "content": "From: 20210099 VRINDA AGARWAL <20210099@shrishikshayatanschool.com>\n\nDate: Thu, Feb 24, 2022 at 9:36 AM\n\nSubject: Feedback after the counselling held on 23rd Feb.\n\nTo: Shikshayatan School <info@shrishikshayatanschool.com>\n\nBoth the teachers motivated me that there are positive changes in me. I am encouraged that I can change my nature and behavior towards little children. I am thankful to the school for helping me and Vrinda.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_6",
+        "section": "junior",
+        "type": "text",
+        "title": "Shambhabi Mahaputra",
+        "subtitle": "Guardian of Dhriti Mahaputra (Class 3-B)",
+        "content": "Respected Headmistress Madam,\n\nToday it was nearly after two years our daughters were able to go back to where they actually belong,their school.They were super excited and so was we.Standing by the main gate and hearing their shout of joy after 2 years made us feel that we got back that part of our lives which we missed for last two years.It seemed that the school was waiting for them too.\n\nI want to thank each and every teacher of SSS for their sincere efforts that they have given for last two years to run the education system even in the time of crisis.Adopting a totally new system , fighting with technical problems , irresistible migrain pain after a whole day hearing shouts through the headphones but next morning again appearing before the class with a sunshine smile deserves a salute.You were there ,so our wards are here today.You all proved that learning is never impossible even though in worst situation.\n\nThank you so much Maam for all the herculean tasks for last two years to brightening up the futures of our little ones.\n\nYours faithfully\n\nShambhabi Mahaputra\n\nGurdian of Dhriti Mahaputra\n\nClass 3 B,Roll -7",
+        "file_paths": []
+    },
+    {
+        "id": "fb_7",
+        "section": "junior",
+        "type": "text",
+        "title": "Siddhartha Jain",
+        "subtitle": "Parent of Jessica Jain (Class 1-B)",
+        "content": "Dear Sir/Madam,\n\nThank you for your prompt response in Gmail Password for re-login for student Jessica Jain, Class – 1,Sec – B, Roll No. – 29.\n\nRegards\n\nSiddhartha Jain",
+        "file_paths": []
+    },
+    {
+        "id": "fb_8",
+        "section": "junior",
+        "type": "text",
+        "title": "Neha Poddar",
+        "subtitle": "Parent",
+        "content": "Need help in maths\n\nFrom: Neha Poddar Date: Mon, Jan 10, 2022,\n\nSubject: : Need help in maths\n\nTo: Shikshayatan School <info@shrishikshayatanschool.com>\n\nThank you mam i recived call from mam and all my issues is solved nicely. THANK YOU FOR HELPING US EVERY TIME",
+        "file_paths": []
+    },
+    {
+        "id": "fb_9",
+        "section": "junior",
+        "type": "text",
+        "title": "Parents of Jaagriti Chatterjee",
+        "subtitle": "LKG-E",
+        "content": "Regarding Jaagriti Chatterjee vision issue\n\nFrom: 20210275 JAAGRITI CHATTERJEE\n\nDate: Mon, Jan 10, 2022\n\nSubject: : Regarding Jaagriti Chatterjee vision issue\n\nShikshayatan School <info@shrishikshayatanschool.com>\n\nRespected Madam,\n\nWe very much thankful to Class Teacher and School Management's for  guidance and support regarding the above said issue over telephonic conversation.\n\nWe really very much appreciated to all for this type of immediate cooperation from School Management's and Class Teacher.\n\nThanks & Regards,\n\nParents of Jaagriti Chatterjee.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_10",
+        "section": "junior",
+        "type": "text",
+        "title": "Somnath Biswas",
+        "subtitle": "Father of Sharanya (Class 1-B)",
+        "content": "Respected Madam..\n\nI am submerged and engulfed by the pragmatic and astute response from your part&#8230;which has helped me to effaced out the imbroglio&#8230;\n\nSomnath Biswas\n\nFather of Sharanya\n\nClass 1, Sec – B",
+        "file_paths": []
+    },
+    {
+        "id": "fb_11",
+        "section": "junior",
+        "type": "text",
+        "title": "Parents of Jaagriti Chatterjee",
+        "subtitle": "LKG-E",
+        "content": "Regarding Madam,\n\nWe would like to inform you that the respected class teacher of LKG-E section ,posted information regarding Storyteller Kolkata events of “Byond Books” dated :27/11/2021. As per the information we also registered my daughter's name and attended the said events with my kids Jaagriti Chatterjee /LKG/E/Roll -18.\n\nThe entire events of StoryTeller were organised very well and my daughter also very much enjoyed the entire session of different events in the Story Teller platform.\n\nWe are very much thankful to the class teacher and School management for this kind of informative information.\n\nPlease find enclosed herewith some photos and videos of  my daughter Jaagriti Chatterjee participation in Story Teller platform.\n\nThanks & Regards,\n\nParents of Jaagriti Chatterjee.\n\nLKG/Section-E/Roll no- 18",
+        "file_paths": []
+    },
+    {
+        "id": "fb_12",
+        "section": "junior",
+        "type": "text",
+        "title": "Aloy & Anusri Biswas",
+        "subtitle": "Parents of Aadvika Biswas (Class 1-D)",
+        "content": "To,\n\nThe Head Mistress/ Teachers/School,\n\nWe are very thankful for appreciating our child's work and the certificate that she has got. Thank you very much.\n\nThanking You,\n\nYours faithfully,\n\nAloy Biswas and Anusri Biswas\n\n(Parents of Aadvika Biswas Class 1-D Roll No-1)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_13",
+        "section": "junior",
+        "type": "text",
+        "title": "Deboshree Bandyopadhyay",
+        "subtitle": "Mother of Shubhoshri Mukherjee (LKG-C)",
+        "content": "Respected Mam\n\nI am Deboshree Bandyopadhyay,mother of Shubhoshri Mukherjee,LkgC.I would like to appreciate you for the great idea and efforts taken by our Rituparna Mam.it was really very nice programme.Grandparents of Shubhoshri are soo happy,they appreciates your idea so many times.\n\nThanking You\n\nDeboshree Bandyopadhyay",
+        "file_paths": []
+    },
+    {
+        "id": "fb_14",
+        "section": "junior",
+        "type": "text",
+        "title": "Chandan Chatterjee",
+        "subtitle": "F/o Yukta Chatterjee (Class 3-A)",
+        "content": "Respected Madam,\n\nI,Chandan Chatterjee,F/O Yukta Chatterjee,Class 3,Section A,Roll 39 would like to mention that today on 26.08.2021 at 9 AM she has visited the school.She is very much excited on visiting her school, her classroom,teachers and some of her friends .Lastly she has visited respected Principal madam and had a brief conversation.This was a wonderful and enriching experience for her.\n\nSo, I am very much thankful to the school authority for this arrangement.\n\nLastly I would like to ask  when my daughter will get her School Identity Cards as she is newly admitted and  has not received it yet.\n\nThanking you,\n\nWith Regards\n\nChandan Chatterjee\n\nF/O Yukta Chatterjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_15",
+        "section": "junior",
+        "type": "text",
+        "title": "Priyanka Chaki",
+        "subtitle": "Mother of Rishita Chaki (UKG-E)",
+        "content": "I attended the PTM on 11th September, 2021. It was a really good experience and very helpful to understand Rishita's progress in the Class from her Class teacher MS. SACHI KAUR mam.\n\nRishita (student of UKG-E, Roll no: 26) attends all the classes and activities conducted by the teachers. She follows digital lectures and worksheets regularly.\n\nAll Class teachers are very well planned, kind, pantuate and supportive. They communicate with the students nicely, and help the students to express themselves.\n\nThanks and regards\n\nPriyanka Chaki\n\nMother of Rishita Chaki",
+        "file_paths": []
+    },
+    {
+        "id": "fb_16",
+        "section": "junior",
+        "type": "text",
+        "title": "Premshila Shaw",
+        "subtitle": "Mother of Pihu Shaw (Class 3-F)",
+        "content": "Hi,\n\nI am writing this on behalf of my daughter Pihu Shaw who is a student of class III Section F. On 19th August she visited the school premises after an invitation from school management. She was very much excited to visit school for the first time that day, after her visit she shared with me how much she liked seeing the premises and other children that day. She is really looking forward to attending classes in school itself.\n\nAs parents we also appreciate this small initiative from the school management to give students the sense of feeling for a school in real.\n\nThanks and regards,\n\nPremshila shaw",
+        "file_paths": []
+    },
+    {
+        "id": "fb_17",
+        "section": "junior",
+        "type": "text",
+        "title": "Surajit Kundu",
+        "subtitle": "Parent",
+        "content": "Respected Madam,\n\nIt was a great experience attending this meeting & I am really proud that my daughter is a part of Shri Shikshyatan School . I am pretty sure my daughter's future is in good hands.\n\nAs a matter of fact my daughter is also happy with all the faculties of the school & their co operation.\n\nThanks & Regards,\n\nSurajit Kundu",
+        "file_paths": []
+    },
+    {
+        "id": "fb_18",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent of Adrija Das",
+        "subtitle": "Feedback",
+        "content": "Dear ma'am,\n\nFrom the today's parents teacher meet I am very much satisfied and the suggestions given by the class teacher is very much helpful for my child to understand herself and change herself accordingly.\n\nParent of ADRIJA DAS",
+        "file_paths": []
+    },
+    {
+        "id": "fb_19",
+        "section": "junior",
+        "type": "text",
+        "title": "Nirupam Chatterjee & Debaki Mukherjee",
+        "subtitle": "Parents of Aratrika (Class 4-F)",
+        "content": "Dear Headmistress madam,\n\nGreetings! Hope you are doing well. First of all, I would like to thank you, Miss Shreya madam and all other teachers of Class 4 F. I could see Aratrika developing interests for learning more. We are lucky to be part of this family. Thank you for your continuous support.\n\nRegards,\n\nNirupam Chatterjee\n\nDebaki Mukherjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_20",
+        "section": "junior",
+        "type": "text",
+        "title": "Parents of Prabha Paik",
+        "subtitle": "Class 2-F",
+        "content": "&#8212;&#8212;&#8212;- Forwarded message &#8212;&#8212;&#8212;\n\nFrom: PRABHA PAIK\n\nDate: Mon, Sep 6, 2021, 23:48\n\nSubject: School visit day\n\nRespected teachers,\n\nToday it was the school visit day. The excitement, joy and enthusiasm in the eyes of my daughter was unspeakable. After a long period of confinement at home due to pandemic situation she literally got a gasp of fresh air going to the school. The long corridors of school, music class full of wonderful instruments, basket ball court, doll house, wooden horse ride&#8230;. So many things are there in her school, that she went on telling me on and on, as if she just discovered a treasure Island somewhere on this earth. But the cherry on the top, her feeling of seeing her friends and teachers physically was really amazing. I couldn't hide my happiness too, seeing my daughter so happy after a pretty long period of time.\n\nThank you all. Bless her\n\nParents of Prabha Paik\n\nClass 2",
+        "file_paths": []
+    },
+    {
+        "id": "fb_21",
+        "section": "junior",
+        "type": "text",
+        "title": "Shweta Sinha",
+        "subtitle": "Mother of Shyla Shekhar (Class 2-E)",
+        "content": "&#8212;&#8212;&#8212;- Forwarded message &#8212;&#8212;&#8212;\n\nFrom: SHYLA SHEKHAR\n\nDate: Mon, Sep 6, 2021, 18:30\n\nSubject: Feedback for school visit\n\nRespected Mam,\n\nMy daughter Shyla Shekhar of class 2E visited school on 6.09.21. She enjoyed her visit and was very happy after that.\n\nI would like to thank head mam,teachers and school staff for planning this.\n\nRegards:\n\nShweta Sinha",
+        "file_paths": []
+    },
+    {
+        "id": "fb_22",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected teachers,\n\nToday it was the school visit day. The excitement, joy and enthusiasm in the eyes of my daughter was unspeakable. After a long period of confinement at home due to pandemic situation she literally got a gasp of fresh air going to the school. The long corridors of school, music class full of wonderful instruments, basket ball court, doll house, wooden horse ride&#8230;. So many things are there in her school, that she went on telling me on and on, as if she just discovered a treasure Island somewhere on this earth. But the cherry on the top, her feeling of seeing her friends and teachers physically was really amazing. I couldn't hide my happiness too, seeing my daughter so happy after a pretty long period of time.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_23",
+        "section": "junior",
+        "type": "text",
+        "title": "Gouraba Agarwalla",
+        "subtitle": "Father of Aadya Agarwalla (Class 5)",
+        "content": "Dear Sir/Madam,\n\nGreetings!!\n\nI would like to thank you for allowing our child to visit school recently . For her it was a very nice experience since this was her first visit to your school.We as parents can see our child happiness for this short trip.\n\nThank you\n\nGouraba Agarwalla\n\nFather of Aadya Agarwalla- Class-5",
+        "file_paths": []
+    },
+    {
+        "id": "fb_24",
+        "section": "junior",
+        "type": "text",
+        "title": "Ayan Sen",
+        "subtitle": "Father of Anandi Sen (Class 3)",
+        "content": "Respected ma'am,\n\nI would like to share my immense gratitude for giving my ward the opportunity to see her school since she joined SSS.\n\nThis was a really good initiative and helped her to ideate about one of the most important places in her life. The experience was really enriching for her. She was all very excited and happy not only to see her school but also her teachers, you and principle maam. She could hardly get out of the “hang over” about the school and she kept on telling me that she definitely wants to get back to the school.\n\nThank you again for arranging this short but very effective tour which left her with a bunch of very good memories which I am sure she would cherish for her entire life.\n\nRegards,\n\nAyan Sen\n\n(Father of Anandi Sen, class 3)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_25",
+        "section": "junior",
+        "type": "text",
+        "title": "Shantanu Ghosh",
+        "subtitle": "Parent",
+        "content": "Dear Madam,\n\nUpon visiting the school yesterday my daughter was so overwhelmed and she is pretty confident about her school. Upon seeing the overwhelming response of our daughter we feel that  that the warm, caring ethos of the school suits our child’s personality and feel it is the best school to bring out her full potential. Our child loved the school when she visited it, and she instantly felt comfortable and at home there. It was evident that the teachers really wanted to know each child and understand all of their individual quirks and traits.\n\nThanks & regards,\n\nShantanu Ghosh",
+        "file_paths": []
+    },
+    {
+        "id": "fb_26",
+        "section": "junior",
+        "type": "text",
+        "title": "Vikash Chitlangia",
+        "subtitle": "Parent",
+        "content": "Dear Madam,\n\nThanks for prompt action.\n\nIssue is resolved.\n\nRegards\n\nVikash Chitlangia",
+        "file_paths": []
+    },
+    {
+        "id": "fb_27",
+        "section": "junior",
+        "type": "text",
+        "title": "Rabindra Lal Mukherjee",
+        "subtitle": "Parent",
+        "content": "Dear Ms. Kar\n\nMy problem is solved.\n\nThanks a lot for your support\n\nThanks & Regards\n\nRabindra lal Mukherjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_28",
+        "section": "junior",
+        "type": "text",
+        "title": "Neha Turakhia",
+        "subtitle": "Mother of Heer Turakhia",
+        "content": "Respected Sir/Madam,\n\nHeer Turakhia my daughter can join regular classes from Monday dated 26/07/2021.Thanks for the technical support and guidance given by you. I am highly obliged\n\nThanking You\n\nYours Faithfully\n\nNeha Turakhia",
+        "file_paths": []
+    },
+    {
+        "id": "fb_29",
+        "section": "junior",
+        "type": "text",
+        "title": "Saurav Jaiswal",
+        "subtitle": "Parent",
+        "content": "Respected Mam/Sir\n\nI want to thanks the management & teachers of Shri Shikshayatan School & College for the educational support they are providing to the students. Even in this difficult time of pandemic our children are not being forbiden from the light of education. Due to your hard efforts they are still being able to learn & practice online at home. Thus it is also the duty of parents to support the school & teachers in whatever way they can. In the meantime we had selected & paid the complete 100% fees for the 2nd qtr of 21-22. If any thing else is required then please let us know, we will try to fullfill it.\n\nRegards\n\nSaurav Jaiswal",
+        "file_paths": []
+    },
+    {
+        "id": "fb_30",
+        "section": "junior",
+        "type": "text",
+        "title": "Anupam Ghosh",
+        "subtitle": "Parent",
+        "content": "Dear madam\n\nThank you for your advice during today’s PTM regarding our daughter’s weakness and strength. I am highly satisfied after group conversation with all three teachers. I will try my level best to follow your advice in future.\n\nThanking you\n\nAnupam Ghosh",
+        "file_paths": []
+    },
+    {
+        "id": "fb_31",
+        "section": "junior",
+        "type": "text",
+        "title": "Debashis & Jayita Mitra",
+        "subtitle": "Parents of Dhanishtha Mitra (Class 4-D)",
+        "content": "Madam/Sir,\n\nTonight at around 9.00 pm we (the parents of Dhanishtha Mitra, Class IV Sec – D) had a Counselling session with Headmistress Madam, Coordinator Madam, Counselling Madam and Class Teacher Madam for nearly about half an hour. We were actually overwhelmed by the patience they took to listen to us and advised us accordingly. We are really honoured and obliged to get such kind of cooperation from the school.\n\nOnce again we are thankful to the school authority and hope to get further cooperation.\n\nThanking you.\n\nYours faithfully,\n\nDebashis Mitra\n\nJayita Mitra\n\n(Parents of Dhanishtha Mitra, Class – IV, Sec – D, Roll No. 8)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_32",
+        "section": "junior",
+        "type": "text",
+        "title": "Madhabi Guha Basu",
+        "subtitle": "Mother of Adrita Basu",
+        "content": "Dear Madam,\n\nI would like to extend my sincere thanks to all the teachers for giving us time and sharing your valuable feedback.\n\nThe session was really enriching and gave us a new perspective to look at the issue. Thanks to Headmistress Mam, Counsellor, Madhu Mam and special educator Mam for all the support you have extended to us.\n\nRegards\n\nMadhabi Guha Basu\n\nM/O ADRITA BASU",
+        "file_paths": []
+    },
+    {
+        "id": "fb_33",
+        "section": "junior",
+        "type": "text",
+        "title": "Parents of Jaagriti Chatterjee",
+        "subtitle": "LKG-E",
+        "content": "Respected Madam,\n\nGood Afternoon\n\nWe very much thankful to you and teachers for this appreciation & valuable certificates.\n\nWith Regards & Thanks,\n\nParents of Jaagriti Chatterjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_34",
+        "section": "junior",
+        "type": "text",
+        "title": "Sanchari Karar",
+        "subtitle": "Parent",
+        "content": "I am thankful to headmistress ma'am, class teacher, counselor ma'am and co- ordinator ma'am for the kind guidance and cooperation. I am feeling uplifted after the session.\n\nSanchari Karar",
+        "file_paths": []
+    },
+    {
+        "id": "fb_35",
+        "section": "junior",
+        "type": "text",
+        "title": "Arghadip & Soma Banerjee",
+        "subtitle": "Parents of Agnidipta Banerjee (Class 4-B)",
+        "content": "Respected Headmistress,\n\nWe the parents of Agnidipta Banerjee Class-IV, Section-B would like to thank you, the counselor madam, Spl Educator Madam and the Class Teacher, from bottom of our heart for your kind cooperation and support provided to us in the online counselling session for the goodness of my daughter. We have already started to guide her and ourselves according to your precious guidance and observed a good amount of development in her behaviour.\n\nThank you once again for your precious time and advice.\n\nwith regards,\n\nYours sincerely,\n\nArghadip Banerjee & Soma Banerjee\n\nParents of Agnidipta Banerjee\n\nClass-IV, Section-B",
+        "file_paths": []
+    },
+    {
+        "id": "fb_36",
+        "section": "junior",
+        "type": "text",
+        "title": "Somnath & Sayoni Kunti",
+        "subtitle": "Parents of Sriadrita Kunti (Class 3-D)",
+        "content": "Respected Sir/Madam,\n\nWe are parents of Sriadrita Kunti (class 3D).Thank you for arranging such a counseling session for us.. It helps to review our own reactions and behaviours towards our child, which will help us for positive upbringing in future.\n\nThanks & Regards,\n\nSomnath Kunti & Sayoni Santra Kunti",
+        "file_paths": []
+    },
+    {
+        "id": "fb_37",
+        "section": "junior",
+        "type": "text",
+        "title": "Dr. Varsha Jain Das",
+        "subtitle": "Mother of Anishaa Das (UKG-A)",
+        "content": "Respected mam.\n\nI undersigned Dr Varsha Jain Das. Mother of Anishaa Das UKG A roll no 12. I really appreciate the initiative taken by the school for counselling the child of their problem it's really helpful for the children as well as the parents to overcome from the problem. Personally I feel more strong after taking with all receptive teachers And the counselor mam. They explain very nicely about the solution and how to handle the situation. Special thanks Debjani mam because of her anishaa now taking interest in attending the online classes.\n\nThank you. thank you so much for your efforts\n\nDr Varsha Jain",
+        "file_paths": []
+    },
+    {
+        "id": "fb_38",
+        "section": "junior",
+        "type": "text",
+        "title": "Moushumi Mukherjee",
+        "subtitle": "Mother of Shrija Bhattacharya",
+        "content": "Hello Mam,\n\nThis is regarding the counselling session held on 05.07.2021 of Shrija Bhattacharya. We are very much satisfied and relieved the way we got the feedback from each one of you specially from Shilpi Kothari Madam. We as parents will follow all the guidance gave to us for our daughters' upbringing.\n\nThank you all for your support.\n\nRegards.\n\nMoushumi Mukherjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_39",
+        "section": "junior",
+        "type": "text",
+        "title": "Subhadip & Shaonee Nag",
+        "subtitle": "Parents of Sudiksha Nag (Class 5)",
+        "content": "Dear Madam\n\nThe councelling session related to my daughters domestic behaviour and changed way of reaction towards parents were very effective and useful.\n\nThanks for allowing us to express in front of dignified teachers of the school.\n\nWe have started following the guidelines by you all and allowing a healthy space for Sudiksha within her previous busy schedule.\n\nWill look forward for such type of session in future.\n\nRegards\n\nMr.Subhadip Nag /\n\nMrs Shaonee Nag\n\nF/o Sudiksha Nag\n\nClass V.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_40",
+        "section": "junior",
+        "type": "text",
+        "title": "Soumi Banerjee",
+        "subtitle": "Mother of Ira Majumder (Class 4-D)",
+        "content": "Dear Ms. Kar,\n\nChecked and found okay. Thank you so much for your help.\n\nRegards,\n\nSoumi Banerjee\n\nMother of Ira Majumder\n\nClass IV Sec D Roll 11",
+        "file_paths": []
+    },
+    {
+        "id": "fb_41",
+        "section": "junior",
+        "type": "text",
+        "title": "Nabanita Banerjee",
+        "subtitle": "Mother of Aditri Mondal",
+        "content": "Respected Teachers and Coordinator Mam,\n\nFirstly I feel that we are so lucky to be a part of this eminent school.I thank everyone associated with this meeting today in the evening.It was very important & progressive one to me for the betterment of her future also I think it will guide us to welcome a new dawn in our lives.In future we need some more guidances from you to develop her academic career and enhance her concentration level to this matter.\n\nWe remain ever  grateful to you all for this kind support to us.\n\nSo Marching Together & we move onward with zeal and zest for building an everlasting relation SHRI SHIKSHAYATAN SCHOOL.\n\nRegards\n\nNabanita Banerjee.\n\nM/O ADITRI MONDAL",
+        "file_paths": []
+    },
+    {
+        "id": "fb_42",
+        "section": "junior",
+        "type": "text",
+        "title": "Parents of Jaagriti Chatterjee",
+        "subtitle": "LKG-E",
+        "content": "Respected Madam,\n\nGood Morning,\n\nThis has reference to the above subject ,we would like to inform you that we are very much thankful to Teachers & School Managements for the organizing of this wonderful innovative activity which was started from today. It will help to enhanced the students throughout performance & other activities.\n\nWe also observed that all the kids also enjoyed  very much during the class time.\n\nWith Thanks & Regards,\n\nParents of Jaagriti Chatterjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_43",
+        "section": "junior",
+        "type": "text",
+        "title": "Sunny Gupta",
+        "subtitle": "Father of Aaradhya Gupta (UKG-A)",
+        "content": "&#8212;&#8212;&#8212;- Forwarded message &#8212;&#8212;&#8212;\n\nFrom: AARADHYA GUPTA\n\nDate: Mon, Jun 21, 2021, 10:59\n\nSubject: Experience about Father's Day Celebration\n\nTo: Shikshayatan School\n\nI, Sunny Gupta, father of Aaradhya Gupta Upper KG – A, was very excited about the celebration and felt very happy. I am really thankful to The School, The Headmistress, The Teachers for organising such a wonderful event in such a pandemic. Thank you so much once again for making us a part of the celebration.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_44",
+        "section": "junior",
+        "type": "text",
+        "title": "Soumitra Bhattacharjee",
+        "subtitle": "Father of Shreyanshi Bhattacharjee (UKG)",
+        "content": "The said problem is solved. Thank you for your kind cooperation and prompt support.\n\nWith Regards\n\nSoumitra Bhattacharjee\n\nF/O Shreyanshi Bhattacharjee UKG",
+        "file_paths": []
+    },
+    {
+        "id": "fb_45",
+        "section": "junior",
+        "type": "text",
+        "title": "Subhra & Durba Mukherjee",
+        "subtitle": "Parents of Shridatri Mukherjee",
+        "content": "Respected HM Madam,\n\nWe express profound thanks from the bottom of our heart  for your such positive, encouraging as well as compassionate words/gestures towards Shridatri as we all are looking forward and praying to Almighty  for her speedy total recovery. Will surely convey to her this warm messaging from you as she would be more than delighted on hearing this.\n\nAlso, our deep condolences for our teachers  who have suffered personal losses during these trying times.\n\nRegards,\n\nSubhra Sankha Mukherjee\n\nDurba Chattopadhyay Mukherjee\n\n(Parents of Shridatri Mukherjee)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_46",
+        "section": "junior",
+        "type": "text",
+        "title": "Anjana Basu",
+        "subtitle": "Mother of Debanjana Basu (Class 4-G)",
+        "content": "Respected Teachers,\n\nI am Anjana Basu, Mother of Debanjana Basu (Class IV Sec – G,Roll No. – 9).My daughter has recently been admitted to your reputed school. With many hopes and dreams i bring my only child here.  I don't know if it's too early or not  but I would say that i am really proud and happy that my child has got the opportunity to get admission in such a good school, where she is getting guidance and teaching from teachers like you.  I am overwhelmed that a new student is able to adapt to her new environment and with so much ease, studying with interest and doing extracurricular activities.  This has only been possible for your behavior , teaching method, discipline . More over, your appreciation to my child  for her every single even small achievements  motivates her to give her best. I am very happy that my girl is getting instructions from her school regarding her favorite synthesizer along with her studies. I am optimistic and somewhat sure that my child will be able to enrich herself and succeed in the future by not only studying as a student, but also by judgment, discipline, punctuality, ability to make right decisions, honesty. Please keep bless her.\n\nThank you very much.\n\nYour Sincerely,\n\nAnjana Basu\n\nDebanjana's Mother.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_47",
+        "section": "junior",
+        "type": "text",
+        "title": "Mohan Das",
+        "subtitle": "Father of Sreeja Das (Class 3-F)",
+        "content": "&#8212;&#8212;&#8212;- Forwarded message &#8212;&#8212;&#8212;\n\nFrom: 20170025 SREEJA DAS <20170025@shrishikshayatanschool.com>\n\nDate: Mon, May 10, 2021 at 4:06 PM\n\nSubject: Fwd: PTM ON 10 MAY 2021\n\nTo: Shikshayatan School <info@shrishikshayatanschool.com>\n\nTHE HEADMISTRESS\n\nSHRI SHIKSHAYATAN SCHOOL\n\nRespected Madam,\n\nPlease refer to my trailing mail of today addressed to the Class Teacher of Level 3.\n\nI would like to inform you that I was just invited to talk with the Class Teacher Mam and Co-ordinator Mam of  Class 3 and had a detailed discussion about my daughter Sreeja Das, student of Class 3. I am genuinely pleased with all of your support and guidance being provided towards their education during this pandemic covid-19.\n\nWith high regards,\n\nMohan Das\n\nFather of Sreeja Das\n\nClass III/F/18",
+        "file_paths": []
+    },
+    {
+        "id": "fb_48",
+        "section": "junior",
+        "type": "text",
+        "title": "Aloy & Anusri Biswas",
+        "subtitle": "Parents of Aadvika Biswas (Class 1-D)",
+        "content": "To,\n\nThe Head Mistress/ Teachers/School,\n\nWe are very thankful for appreciating our child's work and the certificate. Thank you very much.\n\nThanking You,\n\nYours faithfully,\n\nAloy Biswas and Anusri Biswas\n\n(Parents of Aadvika Biswas UKG-D Roll No-3)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_49",
+        "section": "junior",
+        "type": "text",
+        "title": "Somnath Biswas",
+        "subtitle": "Father of Sharanya (Class 1-B)",
+        "content": "Respected Madam\n\nThank You for all the laborious toil you have undertaken to efface out this problem.\n\nSomnath Biswas\n\nFather of Sharanya Biswas",
+        "file_paths": []
+    },
+    {
+        "id": "fb_50",
+        "section": "junior",
+        "type": "text",
+        "title": "Sumita Dutta",
+        "subtitle": "Mother of Subhamita Dutta",
+        "content": "Dear Madam,\n\nPlease note that I am able to open and view Digital Diary at present for Subhamita Dutta.\n\nThanks a lot for your continuous help and support.\n\nThanks and Regards,\n\nSumita Dutta ( 9830486954)\n\nMother of Subhamita Dutta",
+        "file_paths": []
+    },
+    {
+        "id": "fb_51",
+        "section": "junior",
+        "type": "text",
+        "title": "Suchhanda Mukhopadhyay",
+        "subtitle": "Mother of Antarleena Sriti (Class 4-G)",
+        "content": "On Fri, May 28, 2021 at 1:24 PM Suchhanda Mukhopadhyay <suchhanda.mukhopadhyay@gmail.com> wrote:\n\nThanks a lot for your cooperation.\n\nSuchhanda Mukhopadhyay\n\nMother of Antarleena Sriti of class IV, G.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_52",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected ma'am,\n\nThank you for adding my daughter Devanshi Chaki in LKG section-E. Her roll number is 35.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_53",
+        "section": "junior",
+        "type": "text",
+        "title": "Sibashis Das",
+        "subtitle": "Father of Shinjini Das",
+        "content": "Dear Maam,\n\nThis has reference to your kind support that you have provided during the bad time we faced during lockdown and my sincere gratitude for the same.\n\nFor the kind of work I do, I have to spend days and months in outstation. During Lockdown the situation did not allow me to return back to Kolkata immediately.\n\nMy wife and daughter got stuck in Shantipur. Being a remote area internet connectivity has issues over there. Shinjini could not attend her online classes for months. She even could not attend her first semester exams in times. You used to communicate regularly with Sinjini's mother over phone and gave her second chance to appear for the exam. You helped them to communicate with head mistress to understand their situation.\n\nWe have not forgotten those days .\n\nHence we are very much grateful to you for your kind attitude that you have shown for your student.\n\nThanks & Regards\n\nSibashis Das",
+        "file_paths": []
+    },
+    {
+        "id": "fb_54",
+        "section": "junior",
+        "type": "text",
+        "title": "Raju Ghosh",
+        "subtitle": "Father of Krittika Ghosh (Class 5-B)",
+        "content": "To\n\nThe Headmistress Ma'am\n\nRespected Ma'am\n\nI am Raju Ghosh , father of Krittika Ghosh, Class:- V, Sec:- B, Roll No:- 10, U.I.N No:- 20145035, Class Teacher:- Ms. Piya Basak Ma'am.\n\nI am very glad to appreciate that  all the teachers of the primary sections are extremely helpful. Their teaching styles are excellent and easy to learn by the students. In this kind of pandemic situation although everything was new to everyone but still the teachers handled all the students so nicely and taught them so wonderfully that our children  could understand it very easily. I really appreciate their efforts. Our class teacher Ms.Piya Basak Ma'am as well as all the subject teachers (Anjana Dikshit Ma'am, Maitree Sen Ma'am, Uma Kundu Ma'am, Baishali Das Ma,am, Poulomi Bannerjee Ma'am, Payel Bannerjee Ma'am, Suman Shah Ma'am, Soma Bhattacharya Ma'am, Dolon Chowdhury Ma'am, Rupa Mitra Ma'am, Sukanta Chatterjee Sir, Beauty Ghosh Ma'am and Special Activity Teacher- Pranajit Bose Sir) are very helpful and cooperative towards their students. I think that our children would miss all these teachers very much for their kindness and hard work on them. We are very thankful to have all these teachers as my daughter's subject teachers.\n\nThanks and regards\n\nRaju Ghosh\n\nFather of Krittika Ghosh ( Class:- V, Sec:- B, Roll No:- 10)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_55",
+        "section": "junior",
+        "type": "text",
+        "title": "Dr. Raghwendra Mishra",
+        "subtitle": "Father of Adwaita Mishra (UKG-F)",
+        "content": "Respected Madam,\n\nI am father of Adwaita Mishra, Class UKG, Section- F, Roll no.: 6. Due to certain technical issues I was  unable to fill the feedback form this time. I would like to submit the feedback with this mail.\n\nFirst of all, I would like to thank you all for such a wonderful year-long experience amid this COVID lockdown situation. At first it appears to be very difficult, if not impossible, to continue the classes of kids of this age who are nearly unaware of the virtual world. Though the students didn't get the chance of interaction in the classroom with teachers and friends, the online classes and activities are at par with the physical experience. Great cooperation from your side, the care, empathy and encouragement from the class teacher Sachi Mam and other teachers (Shreya Mam, Sagarika Mam, Madhu Mam and Samadrita Mam) make this tough job done. The untiring effort of all the teachers to teach the students and make learning fun is highly appreciable. The extra-curricular activities help the kids to enjoy other aspects of life and impart significant impact to develop interests in various activities and hone their skills.\n\nWe are hopeful that Adwaita will meet her favourite teacher Sachi mam and make new friends in near future once the COVID is under control and the normal activities resumes.\n\nOnce again, thank you all for such a great experience.\n\nRegards,\n\nRaghwendra Mishra, Ph.D.\n\nAssistant Professor\n\nDepartment of Physiology\n\nAnanda Mohan College\n\nKolkata-700009",
+        "file_paths": []
+    },
+    {
+        "id": "fb_56",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Ref. :  Studant Name : Rajonya Roy, Class – V, Sec.- B, UID. 20145470",
+        "file_paths": []
+    },
+    {
+        "id": "fb_57",
+        "section": "junior",
+        "type": "text",
+        "title": "Sonia",
+        "subtitle": "Parent of Nishma Ghosh",
+        "content": "Subject: Re: English Phonics 01 Mar 2021.pdf\n\nHi,\n\nI received the password today morning around 8:30 ish and have been able to get everything set up again. I have also filled the form and submitted it. You all have gone out of the way to help us. Thank you so much for all the effort and co-operation.\n\nReally appreciate the way everything is being handed online and offline by the school.  Truly commendable. 🙂\n\nRegards,\n\nSonia\n\nParent of Nishma Ghosh\n\nClass 2 G\n\nRoll – 30",
+        "file_paths": []
+    },
+    {
+        "id": "fb_58",
+        "section": "junior",
+        "type": "text",
+        "title": "Aloy & Anusri Biswas",
+        "subtitle": "Parents of Aadvika Biswas (Class 1-D)",
+        "content": "Subject: Re: Class UKG D Drawing Competition E-Certificate 10.02.2021\n\nTo,\n\nThe Head Mistress/ Teachers/School,\n\nWe are very thankful for appreciating our child's work and the certificate. Thank you very much.\n\nThanking You,\n\nYours faithfully,\n\nAloy Biswas and Anusri Biswas\n\n(Parents of Aadvika Biswas UKG-D Roll No-3)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_59",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "I Priyanka Dubey mother of Vaishnavi Dubey class 3. Heartily grateful for your kind  assistance to Regularly our online class.",
+        "content": "Subject: To respected teacher. Greatful for your cooperation\n\nI Priyanka Dubey mother of Vaishnavi Dubey class 3. Heartily grateful for your kind  assistance to Regularly our online class.\n\nThank you",
+        "file_paths": []
+    },
+    {
+        "id": "fb_60",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "This is in regard to the Morning Assembly arranged by the Junior Section, Initiative taken by the school authority is very appreciable.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_61",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected Principal Madam,\n\nI would like to express my heartfelt thanks to your institution for arranging a parents- teacher meeting, despite the ongoing pandemic situation. It has been quite helpful for us to  know about our ward's progress/participation in the online classes that are taking place.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_62",
+        "section": "senior",
+        "type": "text",
+        "title": "Sanistha Basu",
+        "subtitle": "Guardian of Meghna Basu",
+        "content": "Respected Headmistress,\n\nI'm writing to let you know how happy I am as a parent with the online education that the school has been providing during the COVID-19 lockdown.\n\nThe classes are very efficient and can be accessed with ease. The teachers are doing a very good job of explaining minute details throughout all the subjects. The schedule is very flexible, and the homework assigned by the teachers can indeed be completed on any device and uploaded to the website, following which the teachers are validating the answers.\n\nA special mention about the teachers balancing both their professional and personal lives in these trying times and still trying their level best to do their job so wonderfully.\n\nThanking you,\n\nSanistha Basu\n\nGuardian of Meghna Basu",
+        "file_paths": []
+    },
+    {
+        "id": "fb_63",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Dear Mam,\n\nThis is in regards to counseling session that was conducted today morning and similar session in past for my daughter Mananya Roy Ghosh studying in class 2 , section C .\n\nAppreciate that during this crisis period , school has taken the initiative to conduct counselling session. It was indeed a valuable discussion and helpful guidance given to my daughter .\n\nThis counselling program has brought positive behavioural changes in my daughter and also helped her in improving her skill sets. She has become more social, more participative, improved handwriting, level of patience and concentration is slowly improving. Reading skills are getting better.\n\nI am thankful to SSS for organising such counselling session for my daughter.\n\nWould request for continuation of the same if felt appropriate.\n\nI sincerely thanks Ms Poulomi Nayak for her sincere approach to bring such positive changes in my daughter.\n\nThanking you sincerely,\n\nRegards ,\n\nMrs Monalia Ghosh",
+        "file_paths": []
+    },
+    {
+        "id": "fb_64",
+        "section": "junior",
+        "type": "text",
+        "title": "Dear Ma'am,",
+        "subtitle": "I am the father of Zaara Shahnaaz of class V sec D, I want to thank the school for their immense support and guidance during this Corona Crisis. My daughter is following the digital diary everyday and also solving the digital worksheet. We are very happy to be a part of such an institution which is so helpful and has shown such concerns in this lockdown. The videos are helping us and also guiding us to teach our children accordingly.",
+        "content": "Dear Ma'am,\n\nI am the father of Zaara Shahnaaz of class V sec D, I want to thank the school for their immense support and guidance during this Corona Crisis. My daughter is following the digital diary everyday and also solving the digital worksheet. We are very happy to be a part of such an institution which is so helpful and has shown such concerns in this lockdown. The videos are helping us and also guiding us to teach our children accordingly.\n\nThank you\n\nRegards\n\nFiroj Hassan",
+        "file_paths": []
+    },
+    {
+        "id": "fb_65",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Dear Madam,\n\nGreetings.\n\nWe are pleased with your new way of teaching technique to our kid through digital platform in the present situation. Our child, Ditsa, likes to go school &  make new friends in her new class but she understands that now it is not possible. So spending time in front of computer & listening teacher's guidance is really helpful to her. Your digital class reveals us that she sings well. Thank you once again .\n\nWe are overwhelmed with teacher's behaviour  & teaching methods. Ditsa is eagerly waiting every day for listening web lectures & complete the work sheets of her own. She already introduced Sagarika Mam, her SST teacher whom she miss a lot and she recollected her school days.\n\nWe received the scan copy of books from Sureka Stores. This process is very good and helpful so that our child be in touch with books. Though the scanning was not properly done but we appreciate the initiative. Smart class module through EXTRAMARKS APP is helpful.\n\nDitsa start watching online movies every night from International Kids Film Festival. This actually helps her to take interest in co-curricular activities.\n\nThe school management has decided for a revised payment schedule keeping in view of the difficult times is a nice gesture.\n\nMam, before concluding I like to say that Ditsa is really missing her school discipline under the guidance of you & your efficient team of teachers. Hope we overcome the situation soon & will back to our normal life. Till the time let’s stay safe.\n\nThanking you.\n\nRegards\n\nDattatreyo Ghosh & Sampa Naskar\n\nWard name : Ditsa Ghosh\n\nClass IV, Section – E",
+        "file_paths": []
+    },
+    {
+        "id": "fb_66",
+        "section": "junior",
+        "type": "text",
+        "title": "Sourav Ghosh",
+        "subtitle": "Parent of SRESTHA GHOSH",
+        "content": "To\n\nThe Headmistress\n\nIn this unprecedented situation of Lockdown we are very much in uncertainty. This uncertainties & tension were slowly gripping our children. In the meantime your initiative to keep busy our children through digital classes is very much praiseworthy. Shri Sikshayatan school is one of the first school to take such initiative in the city.\n\nDigital classes consisting of video class, slide show, digital diary date wise and finally worksheet submission with a gap of approximately 7 days is really a scientific way to provide students classroom like busy feeling.\n\nAbsence of book did not effect much. It is very satisfying to see that our child is remaining busy with their study and homework. Not only study singing & dancing classes are also keeping children excited & happy.\n\nI would like to appreciate the initiative of the school to utilize the  internet & digital technology for the benefit of the students. I believe,  school will continue to explore such wonderful initiatives for the benefit of the students.\n\nWish you best of luck !\n\nSourav Ghosh\n\nParent of SRESTHA GHOSH\n\nClass -5 Section-C .",
+        "file_paths": []
+    },
+    {
+        "id": "fb_67",
+        "section": "junior",
+        "type": "text",
+        "title": "Dear Mam,",
+        "subtitle": "With due respect I'm  Mrs. Mousumi Dutta, mother of Ms. Sayona Dutta, class-V, section – B&#8230; I feel so blessed to have a teachers like you for my child. I am a witness on how dedicated you are in teaching your students through online so deadicatedly done&#8230;.Thats why I feel so relieved that you are the one who will be nurturing her future. Thank you and may you keep up the good work.Thank you very much for being such a good teacher to my child & so thankfull to you for my child on line education that's so deciplinedly done. Also thankfull for extend the date of submission fees till June 2020.",
+        "content": "To\n\nThe Headmistress\n\nShri Shikshayatan School\n\nPrimary sections\n\nDear Mam,\n\nWith due respect I'm  Mrs. Mousumi Dutta, mother of Ms. Sayona Dutta, class-V, section – B&#8230; I feel so blessed to have a teachers like you for my child. I am a witness on how dedicated you are in teaching your students through online so deadicatedly done&#8230;.Thats why I feel so relieved that you are the one who will be nurturing her future. Thank you and may you keep up the good work.Thank you very much for being such a good teacher to my child & so thankfull to you for my child on line education that's so deciplinedly done. Also thankfull for extend the date of submission fees till June 2020.\n\nThanking you\n\nYour's sincerely\n\nMousumi Dutta",
+        "file_paths": []
+    },
+    {
+        "id": "fb_68",
+        "section": "junior",
+        "type": "text",
+        "title": "Kaushik Tapadar",
+        "subtitle": "Parent of Krishika Tapadar",
+        "content": "We would like to thank school authority for starting video classes again instead of online classes. It was really tough for us to help our daughter in her online classes. As we are serving emergency and essential services .\n\nThanking you again.\n\nRegards\n\nSusmita Tapadar\n\nKaushik Tapadar\n\nParent of Krishika Tapadar\n\nClass 2 G",
+        "file_paths": []
+    },
+    {
+        "id": "fb_69",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Dear Ma'am,\n\nToday's initiative was excellent experience for our child and for us too. This is very new concept for class 1 students and they enjoyed thoroughly which we can understand from their body Language in video. Also they build up their confidence as they can speak in english or can express their feelings to others in english. Also this is different from regular online classes so Aarushi was very excited after hearing the information that she is going to tell a story.\n\nThank you so much for organized this kind of activity.\n\nAarushi Dey Sarkar\n\nClass-1\n\nSection-A\n\nRoll No-21\n\nUIN – 20180130\n\nRegards\n\nSayantan Dey Sarkar",
+        "file_paths": []
+    },
+    {
+        "id": "fb_70",
+        "section": "junior",
+        "type": "text",
+        "title": "Reshma Basu Ghosh",
+        "subtitle": "Mother of  Shivapriya",
+        "content": "Dear Madam ,\n\nThis is a very good initiative by the school helping children to learn how to express themselves. Also in this time like no other when they are missing their school so much, this sort of activities apart from the online classes gives them an opportunity to stay connected with their school.\n\nThank you for the effort and hope we all shall come out of this situation better and stronger.\n\nThanks and Regards,\n\nReshma Basu Ghosh\n\nMother of  Shivapriya\n\nGhosh,Class I,\n\nSection F",
+        "file_paths": []
+    },
+    {
+        "id": "fb_71",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected madam,\n\nMy daughter Jhaanvikaa Dhiraj Shah student of class 2A Roll No 32 was very much excited when she heard of the online storytelling and was very much keen to participate in it.I as a parent was also very much happy that apart from the regular routine study something different we can teach them.\n\nI also would like to thank all the teachers, headmistress, principal and the school management for discovering different techniques and ways for teaching the student in the pandemic situation.\n\nThanking you\n\nDhiraj Kumar Shah\n\nF/O Jhaanvikaa Dhiraj Shah",
+        "file_paths": []
+    },
+    {
+        "id": "fb_72",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Student Name : BRINDARIKA GHOSH.\n\nClass : UKG //SEC – C //Roll No – 14.\n\nI would like to share you that she was enjoying story telling competition very much. Thanks for giving us such activity.Please give us more activity like this. Because when my child participating any activities it helps her to raise her confidence level and thinking ability. So thank you again teachers.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_73",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Greetings\n\nI am glad to inform that my daughter Aamaira Meraj Ahmed of UKG -B Roll No:-1, took a part, Earlier we have never thought that it would to so easy for us to make her learn a long paragraph with some words which she exactly dont even know how to pronounce it, after the completion of the entire video me as a parent would like to thank our teachers who bascially trying to teach us a nothing is impossble if an effort is given to things. One minute story telling for a kids who are not even 5 years old, and presenting the entire things was really a great fun for all of us.\n\nRegards\n\nMeraj Ahmed",
+        "file_paths": []
+    },
+    {
+        "id": "fb_74",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected Headmistress,\n\nJunior Section,\n\nShri Shikshayatan School,\n\nMadam,\n\nWe parents of Debadyuti De express our pleasure for conducting such competition of online story telling. We all have enjoyed this very much. Such type of competition will enhance creativity and increase speaking power and also decrease nervousness of our daughter.\n\nThanking to you and all teachers.\n\nYours sincerely,\n\nUtpal Kumar De & Kaberi De",
+        "file_paths": []
+    },
+    {
+        "id": "fb_75",
+        "section": "junior",
+        "type": "text",
+        "title": "Prasun Das",
+        "subtitle": "(father of Pratistha Das)",
+        "content": "Dear Ma'am,\n\nReference to online story telling competition, I like to share my positive feedback to the school organizing committee.\n\nApart from regular school courses, this kind of competition will help small students (UKG) to compete in larger forums. And school (especially all teachers who are interacting on a daily basis) needs to encourage all students to involve their participation sportingly.\n\nAgain thank you to all UKG Class teachers and associated responsible members.\n\nBest regards,\n\nPrasun Das\n\n(father of Pratistha Das)\n\nUIN- 20190113\n\nUKG/ C/ 20",
+        "file_paths": []
+    },
+    {
+        "id": "fb_76",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent of Adrija Das",
+        "subtitle": "Feedback",
+        "content": "Respected Madam,\n\nWe would like to inform you that the idea of online storytelling among the kids was very wonderful and all the Kids have actively participated enthusiastically , it will help our children to participate in such type competition in future. lIt was a very good healthy competition among the children. We have to thank all the class teachers/Mam for arranging such a wonderful story telling competition.   I also thank every participant in this competition.\n\nThanking You,\n\nAbhijit Das and Dipika Das\n\n(Parents of Adrija Das)\n\nClass 1A, Roll No.26",
+        "file_paths": []
+    },
+    {
+        "id": "fb_77",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Dear Madam,\n\nWe are really thankful to you regarding your initiative to arrange Online story telling competition.\n\nDuring this hard time children need some productive activities to do at home. We belive these kind of initiatives by school really help children to think and be productive on their own.\n\nThanks and regards,\n\nArnab Pal\n\nSudeepta Nandi Pal\n\nKolkata",
+        "file_paths": []
+    },
+    {
+        "id": "fb_78",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "From : Sumanta Dolui & Priyanka Bhowmick Dolui\n\nTo : School\n\nSent : 02/08/2020\n\nSubject : Appreciation Notes\n\nDear Shilpi Ma'am,\n\nThank you!!\n\nWe are delighted to see how much Ojaswini has learnt over these 4 months through online class !!\n\n&#8216;Storytelling activity' is one of the good initiatives by the school. As a parent, we look at it from an &#8216;just activities' point of view when we did it one by one but the hidden learning outcomes come to light when we see Ojaswini's reflections and understanding on the same.\n\nWe want you to know how grateful we are to have you as a teacher. Your teaching style really engages the kids and gets them pumped up and excited about learning.\n\nWe appreciate all your hard work, patience and the positive learning environment you provide for your students.\n\nKudos to you and all other teachers for the time consuming planning and excellent execution in terms of curricular or co curricular activities.\n\nWarm Regards,\n\nSumanta Dolui & Priyanka Bhowmick Dolui (Ojaswini's Parents) Class – UKG, Roll No -28",
+        "file_paths": []
+    },
+    {
+        "id": "fb_79",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected Headmistress mam/ Class Teacher Mam,\n\nMy daughter Saishri Chatterjee studying in Class IIC bearing UIN number 20170029 had participated in the story telling competition with much enthusiasm.\n\nThis competition conducted by the school was a well thought initiative for giving the children the opportunity to be involved in a productive activity.  Such activities conducted by the school are a breath of fresh air for the students during these times when they are confined to their homes.\n\nThank you for such wonderful well planned online co-curricular activities.\n\nRegards,\n\nSomesh Chatterjee",
+        "file_paths": []
+    },
+    {
+        "id": "fb_80",
+        "section": "junior",
+        "type": "text",
+        "title": "Kuntal Datta",
+        "subtitle": "F/o Mohor Datta",
+        "content": "To\n\nThe Headmistress\n\nShri Shikshayatan School\n\n11, Lord Sinha Road\n\nKolkata – 700071\n\nSub: Regarding participation in online story telling competition.\n\nRef : UIN 20190273, Class-UKG, sec- E, Roll-20\n\nRespected Ma’am,\n\nMost humbly, I have to state that it has been truely enjoying and joyful experience in listening to every student’s addressing and their enhancing maturity.\n\nI have to mention in this regard that earlier I placed my personal opinion regarding consideration of all the participants of the group instead of considering only first five entries and I am honoured that I was duly heard by the authority forthwith.\n\nDuring the present situation, where every child is confined within the walls, such involvement must have given them some freshness of free air.\n\nLooking forward to involve in such more in near future.\n\nThanking you.\n\nWith regards,\n\nKuntal Datta\n\nF/o Mohor Datta",
+        "file_paths": []
+    },
+    {
+        "id": "fb_81",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Respected madam,\n\nMy ward Riyanshi enjoyed this story telling activity very much. And I also appreciate this school initiations to engage all the students for showing their creativity during this lockdown..\n\nThanking you\n\nRimita Chakraborty.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_82",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Mithu Singha Mahapatra(Mother of Adrija Panda),Class2,D,Roll No 2.",
+        "content": "Mam,\n\nIt was very good activity for the child and good experience  especially to participate such programme in this situation add happiness to the child.\n\nShe was very excited to participate.\n\nThanks to all for organising such programme.\n\nRegards.\n\nMithu Singha Mahapatra(Mother of Adrija Panda),Class2,D,Roll No 2.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_83",
+        "section": "junior",
+        "type": "text",
+        "title": "Aloy Biswas & Anusri Biswas",
+        "subtitle": "(Father and Mother of Aadvika Biswas)",
+        "content": "To,\n\nThe Head Mistress/ Class Teacher,\n\nShri Shikshayatan School\n\nRespected Madam,\n\nThis is a good initiative taken by the school for the children during this lockdown period. My child got to do some creative activity apart from daily routine and online classes. We parents also enjoyed the fun task along with our child.\n\nTherefore, We are hoping that the school will come with more activity like this in future.\n\nThanking You,\n\nYours faithfully,\n\nAloy Biswas & Anusri Biswas\n\n(Father and Mother of Aadvika Biswas)\n\nClass- UKG Section-D\n\nRoll no.- 3",
+        "file_paths": []
+    },
+    {
+        "id": "fb_84",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Hi,\n\nActivities like Story Telling keeps the kids engaged. They take participate in such activities with lot of energy and fun.\n\nIt improves the vocabulary of my child and more importantly they also moral lesson from such stories.\n\nThe school should keep doing such activities on a periodic basis.\n\nThanks and regards,\n\nShalini",
+        "file_paths": []
+    },
+    {
+        "id": "fb_85",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Through this email, we want to convey our sincere gratitude to You and all the Respected Teachers of Class ukg f.In this unprecented situation, the way, teachers planned a curriculum and effectively implemented it digitally, it’s highly appreciated.\n\nManaging kids in a class is not an easy task.  Managing them virtually is beyond imagination.\n\nWe are delighted to see how much kavya singh has learnt over these two months that too through online classes !!\n\nAs a parent,  we look at it from ‘just activities’ point of view when we did it one by one but the hidden learning outcomes comes to light when we see kavya’s reflections and understanding on the same&#8230;regarding this competion me as well as my child enjoyed a ton while making video\n\nkavya has tried very hard as she learned this story with all of her effort in one day.\n\nA big Thank You for all of SAKSHI Ma’m’s efforts and your overarching guidance\n\nWarm Regards\n\nvivek singh (parent)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_86",
+        "section": "junior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Dear Madam, My experience in respect of story telling was great as always. Preparing her to take part or making  prop for her is more exciting.Thanking you for such  systematic arrangement. Looking for more.                                                                                                                    Thanking you. Paromita ghosh Thakur,",
+        "file_paths": []
+    },
+    {
+        "id": "fb_87",
+        "section": "junior",
+        "type": "text",
+        "title": "Respected Sir/ Madam",
+        "subtitle": "This is Dr, Joy Mukhopadhyay, father of  Aahna Mukherjee, of Class 1, Section -C, Roll no – 2 is hereby to state that the on-line activity of students is very important and useful , specially during this unprecedented situation of covid , when they are not able to go to school physically and mix up with their friends and teachers, doing the co-curricular activities physically. Through theses online activities they engaged themselves and get some moral boost mentally and physically,",
+        "content": "Respected Sir/ Madam\n\nThis is Dr, Joy Mukhopadhyay, father of  Aahna Mukherjee, of Class 1, Section -C, Roll no – 2 is hereby to state that the on-line activity of students is very important and useful , specially during this unprecedented situation of covid , when they are not able to go to school physically and mix up with their friends and teachers, doing the co-curricular activities physically. Through theses online activities they engaged themselves and get some moral boost mentally and physically,\n\nLooking forward  such activities in  near future also and the cooperation from the teachers in this regard is highly appreciable.\n\nRegards\n\nJoy Mukhopadhyay.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_88",
+        "section": "senior",
+        "type": "text",
+        "title": "Akshara Chaudhuri",
+        "subtitle": "Class 12 Student",
+        "content": "Akshara Chaudhuri\n\nClass 12\n\nFeedback regarding the Bhutan Trip from school\n\nI would like to express my sincere appreciation to our school for organizing such a well-planned and enriching educational tour to Bhutan. The trip provided us with a wonderful opportunity to explore Bhutan's breathtaking landscapes, rich cultural heritage, and spiritual traditions while creating unforgettable memories with our peers.\n\nThe itinerary was thoughtfully planned, allowing us to visit remarkable places such as Tiger's Nest Monastery, Buddha Dordenma, and several other cultural landmarks. The tour was not only enjoyable but also highly educational, helping us gain a deeper understanding of Bhutanese history, Buddhism, architecture, and way of life.\n\nA special appreciation goes to our teachers and school authorities who ensured our safety, comfort, and smooth travel throughout the journey. Their guidance, support, and dedication made the experience both enjoyable and stress-free. We also appreciate EdTerra for their assistance in coordinating the tour.\n\nOverall, this trip was a perfect blend of learning, adventure, and cultural exploration. I am grateful to my school for providing such a memorable experience and look forward to participating in similar educational tours in the future.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_89",
+        "section": "senior",
+        "type": "text",
+        "title": "Sushmita & Kaniska Chaudhuri",
+        "subtitle": "Parents of Akshara Chaudhuri (Class 12)",
+        "content": "Sushmita Chaudhuri and Kaniska Chaudhuri (parents of Akshara Chaudhuri)\n\nFeedback regarding the Bhutan Trip\n\nAs parents of Akshara Chaudhuri, we would like to express our sincere appreciation to the school for organizing such a well-planned and enriching educational tour to Bhutan. The trip provided our child with a unique opportunity to explore a new culture, learn about Bhutanese traditions, and experience the country's remarkable natural beauty and spiritual heritage.\n\nWe are delighted to see how this journey has broadened our child's perspective and encouraged greater independence, confidence, and cultural awareness. The educational value of visiting historical and religious sites, combined with the opportunity to interact with a different way of life, has made this experience truly meaningful.\n\nWe would also like to commend the teachers and school authorities for ensuring the safety, comfort, and well-being of all the students throughout the trip. Their dedication, care, and professionalism gave us complete confidence and peace of mind. We also appreciate EdTerra for their support in facilitating the tour.\n\nWe would also like to express our heartfelt gratitude to Ms. Krishnokoli Mam and Principal Mam for the exceptional care they extended to our daughter when she fell ill during the trip. Being away from home, such situations can be challenging for both children and parents. However, their kindness, concern, and attentive care provided her with comfort and reassurance. They looked after her with a warmth and affection that truly reflected a mother's touch in the absence of her parents. Their thoughtful gesture and genuine compassion will always be remembered and deeply appreciated by our family.\n\nWe are also immensely proud of our daughter for displaying exceptional qualities of kindness, friendliness, responsibility, and cooperation throughout the trip. What makes this recognition even more special is that, within a relatively short period of time, she was able to earn the trust, respect, and appreciation of her peers, teachers, the respected Principal Mam, and the EdTerrace team. Their collective decision to nominate her as the “Dependable Person of the Crew” is a testament to her character and conduct. Receiving the badge and certificate was a moment of immense pride for our family. As a mother, it fills my heart with great joy and satisfaction to see her values, compassion, and reliability acknowledged by those around her. This achievement has made me an exceptionally proud mother and will remain a cherished memory for our family.\n\nOverall, this tour has been a memorable and rewarding experience for our child. We are grateful to the school for creating such valuable learning opportunities and look forward to more educational tours of this kind in the future. ✨🇧🇹🌸",
+        "file_paths": []
+    },
+    {
+        "id": "fb_90",
+        "section": "senior",
+        "type": "text",
+        "title": "Nitesh Kumar & Neha Banthia",
+        "subtitle": "Parents of Aditi Banthia (Class 12-D)",
+        "content": "We are extremely pleased with the school-organized trip to Bhutan. The entire journey was well-planned, safe, and smoothly executed. The faculty members accompanying the students were highly responsible, supportive, and caring throughout the trip, ensuring the well-being and comfort of every child. The itinerary was thoughtfully designed, providing students with valuable learning experiences while allowing them to explore Bhutan’s culture, heritage, and natural beauty.\n\nWe would like to extend our heartfelt appreciation to Shri Shikshayatan School and its Principal, Ms. Sangeeta Tandon, for providing students with such enriching opportunities beyond the classroom. We also sincerely thank Edterra for their excellent coordination and management, which contributed greatly to the success of the trip. The regular communication, meticulous planning, and overall supervision gave us complete peace of mind. This journey has undoubtedly been a memorable and valuable experience for our child.\n\nNitesh Kumar Banthia\n\nNeha Banthia\n\nParents of Aditi Banthia 12D",
+        "file_paths": []
+    },
+    {
+        "id": "fb_91",
+        "section": "senior",
+        "type": "text",
+        "title": "Aditi Banthia",
+        "subtitle": "Class 12-D Student",
+        "content": "The Bhutan trip was truly a wonderful and memorable experience. It gave me the opportunity to explore beautiful places and learn about a new culture. Although there were a few changes to the original plan, the trip remained well-organized and enjoyable throughout. The faculty members were supportive, approachable, and ensured that everyone was comfortable and safe. From visiting scenic landmarks to experiencing the peaceful atmosphere of Bhutan, every day offered something new and exciting. I am grateful to the school for organizing such an enriching trip and creating memories that I will cherish for a long time.\n\nAditi Banthia\n\n12 D",
+        "file_paths": []
+    },
+    {
+        "id": "fb_92",
+        "section": "senior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Mother's Name – Puja Lall\n\nFather's Name – Mantu Prasad Lall\n\nParents of Shuvangi Lall, class XI\n\nMy daughter, Shuvangi, had an amazing time during her trip to Bhutan. Seeing all her pictures and videos, I can say her trip was excellent. All the amenities provided were also really good. She was taken good care of. She wasn't willing to return home. Next time if there is another trip like this, she is willing to go and I am willing to send her as well.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_93",
+        "section": "senior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Shuvangi Lall, class XI-\n\nThe trip to Bhutan organised by EdTerra was a fascinating trip. We had a lot of fun and gained a lot of educational knowledge about the culture of Bhutan. The hotels, food served, everything was high quality. I had a memorable time with all the teachers, my friends and the guides too.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_94",
+        "section": "senior",
+        "type": "text",
+        "title": "Mahek Shah",
+        "subtitle": "Class 12-D Student",
+        "content": "Niraj Shah and Priyanka Shah\n\nParents of Mahek Shah\n\nWe would like to express our sincere gratitude to Shri Shikshayatan School, the respected Principal, and the dedicated faculty for providing our daughter, Mahek Shah with the opportunity to be part of the Bhutan educational trip. We truly appreciate the school’s continuous efforts in creating such meaningful learning experiences beyond the classroom, which help students grow in confidence, awareness, and independence. A special note of thanks to Mrs Sangeeta Tandon for her guidance and support in making this experience possible. We are also grateful to EdTerra for organizing the trip so efficiently and ensuring the safety, comfort, and well-being of the students throughout the journey. The entire experience has been enriching and memorable, and we deeply value the care and coordination that made it so smooth and impactful for the children.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_95",
+        "section": "senior",
+        "type": "text",
+        "title": "Mahek Shah",
+        "subtitle": "Class 12-D Student",
+        "content": "Mahek Shah\n\nXII-D\n\nEntering Phuentsholing felt like stepping into a calm little gateway between two worlds. Paro was the real highlight, especially the hike to Tiger’s Nest. The climb was exhausting, but the view at the monastery made it all worth it. It genuinely felt like something out of a postcard and was so beautiful.\n\nThimphu had its own charm too. Buddha Point was peaceful and massive in a way that made everything else feel small around it. Dochula Pass was cold, cloudy, and incredibly scenic with those endless prayer flags adding color everywhere. The Takin Preserve was unusual but interesting, especially seeing Bhutan’s national animal up close. The local markets were lively and fun, with small shops and souvenirs that made it hard to leave without buying something.\n\nOverall, the trip was peaceful, scenic, and slightly exhausting in the best way possible. Bhutan didn’t feel like a place you just visit—it felt like a place that felt so peaceful that it was surreal at times.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_96",
+        "section": "senior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Good Morning Ma’am,\n\nWe Neelam agarwal and Roshan agarwal parents of Riddhi Agarwal, Class 12. We want to thank you for organizing such a well-managed Bhutan trip. Our daughter returned home safe, happy, and full of great memories. The arrangements, food, accommodation, and supervision by your team gave us complete peace of mind. It was money well spent.\n\nThank you Shri Shikshayatan and EdTerra for making this trip memorable for my child\n\nWe highly appreciate your efforts.\n\nRegards,\n\nRiddhi’s Parents",
+        "file_paths": []
+    },
+    {
+        "id": "fb_97",
+        "section": "senior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "Good Morning Ma'am,\n\nI am Riddhi Agarwal, Class 12. I just returned from the Bhutan trip organized by EdTerra and it was a wonderful experience. The itinerary was well planned, the guides were knowledgeable, and every activity from Tiger nest to Thimphu sightseeing was managed smoothly. I especially enjoyed the cultural experiences and the safety arrangements. It was truly a trip to remember.\n\nThank you Shri Shikshayatan school and EdTerra for making it so memorable.\n\nRiddhi Agarwal\n\nClass 12",
+        "file_paths": []
+    },
+    {
+        "id": "fb_98",
+        "section": "senior",
+        "type": "text",
+        "title": "Parents' Feedback:",
+        "subtitle": "We the parent of Sreya Agarwal of class X are very happy that our child got the opportunity to be a part of this educational trip. The trip was well-organized, and the teachers took excellent care of the students throughout the journey. Our child returned with many new experiences, greater confidence, and valuable knowledge about Bhutan. We sincerely thank the school management and teachers for their efforts in making this trip successful and meaningful.",
+        "content": "Student Feedback:\n\nThe Bhutan educational trip was a wonderful and memorable experience. I got the opportunity to explore Bhutan's culture, traditions, and beautiful landscapes. Visiting places like Thimphu, Buddha Dordenma, and local markets helped me learn about the Bhutanese way of life. The trip also taught me important values such as discipline, responsibility, teamwork, and respect for different cultures. I am grateful to the school and teachers for organizing such a safe and enriching educational tour.\n\nSreya Agarwal\n\nXB\n\nParents' Feedback:\n\nWe the parent of Sreya Agarwal of class X are very happy that our child got the opportunity to be a part of this educational trip. The trip was well-organized, and the teachers took excellent care of the students throughout the journey. Our child returned with many new experiences, greater confidence, and valuable knowledge about Bhutan. We sincerely thank the school management and teachers for their efforts in making this trip successful and meaningful.\n\nPoonam Agarwal\n\nMahesh Agarwal",
+        "file_paths": []
+    },
+    {
+        "id": "fb_99",
+        "section": "senior",
+        "type": "text",
+        "title": "Parent",
+        "subtitle": "Feedback",
+        "content": "The Bhutan trip was truly one of the most memorable experiences of my life. It was the perfect blend of learning, adventure, fun, and friendship. From exploring beautiful places like Tiger's Nest and Buddha Dordenma to experiencing Bhutanese culture, every moment was special and enriching.\n\nA special mention must go to our Edterra mentor, Raj Sir, who was incredibly caring, supportive, and approachable throughout the journey. He guided us at every step and was always there whenever we needed help, making us feel comfortable and secure away from home. Our teachers were equally friendly and encouraging, which made the trip even more enjoyable.\n\nThe seven days passed by so quickly that we could hardly believe it was time to return. None of us wanted the trip to end. The laughter, adventures, lessons, and moments shared with our friends, teachers, Raj Sir, and our wonderful guides will remain close to our hearts forever.\n\nThis journey has given us memories that we will cherish for a lifetime, and I am truly grateful to everyone who made it possible.\n\nThank you.\n\nYasita Agarwal\n\nClass XII C",
+        "file_paths": []
+    },
+    {
+        "id": "fb_100",
+        "section": "senior",
+        "type": "text",
+        "title": "Astha Ghia",
+        "subtitle": "Alumna (Class 12-E, Humanities 2024-25)",
+        "content": "Astha Ghia – Sharing My Achievement – Selection in Symbiosis College of Design Nagpur\n\nDear Principal Ma’am,\n\nI hope you are in good health and doing well.\n\nI am Astha Ghia (UIN – 20140731), an ex-student of your esteemed school. I passed out in the academic year 2024–25 from Class 12 E (Humanities), under the guidance of my class teacher, Kakoli Mukherjee Ma’am.\n\nI am extremely happy to share that I have been selected for the Bachelor’s degree in Fashion Designing at Symbiosis College of Design, Nagpur. In the first round, I secured a score of 53 out of 60 in the entrance examination. The second round was the PRPI, for which I appeared for the interview. After successfully clearing both rounds, I have been selected in the merit list, which was released on 22nd April 2026. I am also proud to share that, being selected in the merit list, I have been awarded a 25% scholarship by the college.\n\nDuring the interview, I was told that I am a well-disciplined, honest, and a good individual, and that my school has shaped me in a very positive and meaningful manner. They also mentioned that they are very happy to have me as a part of their college. Hearing this made me feel extremely proud and grateful towards my school.\n\nThis achievement would not have been possible without the constant support, guidance, and encouragement I received from you, my teachers, and the school. I would like to sincerely thank you for making me capable of reaching this stage. I also extend my heartfelt gratitude to my class teacher, my subject teachers, and every single teacher who guided and supported me throughout my journey. I am truly thankful to my school for providing me with the best education, strong discipline, and for shaping me into the person I am today. My parents are also very thankful to the school for everything it has done for me.\n\nI feel truly grateful to be a part of such an institution that has played a significant role in my growth and success.\n\nThank you once again for your continuous support and blessings. I am attaching my scorecard and offer letter with this email for your reference.\n\nYours sincerely,\n\nAstha Ghia",
+        "file_paths": []
+    },
+    {
+        "id": "fb_101",
+        "section": "senior",
+        "type": "text",
+        "title": "Avilika Dhara",
+        "subtitle": "Alumna (Class 12-E)",
+        "content": "On Sun, 5 Sep 2021 at 2:09 PM, Avilika dhara wrote:\n\nRespected principal Ma'am ,\n\nI am Avilika Dhara, a pass out student of Shri Shikshayatan School . I have studied in this school for 15 year's (2006 to 2021) and was a part of the &#8216;SSY' family since my childhood . I want to thank you and all my teacher's for all the warmth, the memories , and the learnings that I have received throughout my school years.\n\nI want to express my gratitude towards you because you have been a great teacher , a wonderful guide and an understanding mentor . It's not only academics that you have taught me . you have even taught me the ways of life and the discipline that comes along. It has not been an easy transition for any of us , but your leadership and positive attitude have helped to pull us through. I can't thank you enough for all you have done as our principal ma'am! Your vision , wisdom , and passion for the school is apparent every time you hold an assembly or speak to us as a teacher. Thank you for all the opportunities that you have provided me throughout my school life starting from the school fests , interhouse competitions ,annual functions, travelling to France as an international student etc. I have achieved numerous awards and certificates and discovered my hidden talents only because of these activities (that you had always arranged for us). Thank you ma'am for turning me into an honest and confident person . Only because of your teachings I was confident and wise enough during my college entrance exams or interviews and today I am so happy to inform you that &#8216; I received my acceptance letter from 8 colleges under Mumbai University and I am shifting to Mumbai next month'. For the teachings that I received from you , for the values that are a part of my culture , I am thankful from the core of my heart .\n\nLastly , you have changed my whole aspect of learning . I wouldn't be where I am today without your help. Your encouragement and persistence in my junior years has taught me that I am who I am , and to get to the top, it's all down to me . I am capable , but it will take hard work and lots of dedication . Thank you so much for everything and a very Happy Teacher's Day Ma'am.\n\nThanking you,\n\nyours sincerely\n\nAvilika Dhara , (XII E)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_102",
+        "section": "senior",
+        "type": "text",
+        "title": "Partha & Dr. Manimala Bandyopadhyay",
+        "subtitle": "Parents of Ragesri Bandyopadhyay",
+        "content": "11th June, 2024\n\nTo\n\nThe Principal\n\nShri Shikshayatan School\n\n11, Lord Sinha Road\n\nKolkata 700071\n\nSubject: Our heartiest acknowledgment to the school\n\nRespected Madam,\n\nWe are the parents of Ragesri Bandyopadhyay, who successfully passed out this year from your school. We are very much grateful to the school and all the teachers who had guided my ward with education and significant values since pre-primary. Today her success is because of the enlightenment of the teachers, Ms. Kakoli Mukherjee, Ms. Pallabi Ghatak, Ms.Pallavi Sengupta, Ms.Manjishta Chatterjee, Ms. Semantika Ghosh and Ms. Mehrush Akhtar who all did a lot of hard work with dedication behind all the students. We are thankful to the school for letting our ward to participate in various cultural activities and at the same time to look after the academics.\n\nWe are very much obliged to you too for giving all the opportunities of learning and will always remain indebted to the school for providing my ward immense guidance with education, co- curriculum activities and values for all these years.\n\nWe wish Shri Shikshayatan School to excel this way throughout the years.\n\nThanking You\n\nBest regards\n\nPartha Bandyopadhyay\n\nDr. Manimala Bandyopadhyay\n\n(Parents of Ragesri Bandyopadhyay)",
+        "file_paths": []
+    },
+    {
+        "id": "fb_103",
+        "section": "senior",
+        "type": "text",
+        "title": "M. Ekramul & Farina Haque",
+        "subtitle": "Parents of Sadia Haque (Class 12)",
+        "content": "We are forever grateful to the Principal  , teachers and Staff of Shri Shikshayatan School for guiding and inspiring our daughter Sadia Haque.\n\nOur daughter joined your esteemed institution in Class 11 in the Humanities department and her journey has been immensely enriching.She is deeply inspired by her teachers who have been her mentor n guide constantly.\n\nSadia has secured 98.6 percentage in class 12 CBSE BOARD 2022.  Scoring a full hundred in Psychology and Food Nutrition.\n\nWe parents take this opportunity to thank the principal,  teachers and staff of Shri Shikshayatan School from the deepest core of our heart..\n\nThanking You.\n\nMohammed Ekramul Haque.\n\nMrs.  Farina Haque.",
+        "file_paths": []
+    },
+    {
+        "id": "fb_104",
+        "section": "senior",
+        "type": "text",
+        "title": "Debadatta Ghosh Das",
+        "subtitle": "Mother of Yajnaseni Das (Class 8-A)",
+        "content": "TO\n\nTHE PRINCIPAL MAAM AND ALL THE TEACHERS OF SHRI SHIKSHAYATAN SCHOOL.\n\nHere’s a sincere message of gratitude to all the teachers of SHRI SHIKSHAYATAN SCHOOL, those who guide our children through some of the most chaotic times of our lives. We want to remind you how much of an impact you can have, not just on each student you teach, but as a profession and a community long after classes are over.\n\nIt has been almost two years that we are facing this neo-normal, pandemic situation.\n\nI know you miss your students, the classroom community, and the culture you cultivated. I know how much your students mean to you — how they become “your kids” year after year — and how much you love seeing them light up when they learn something new.\n\nYou have a place in our kids’ lives. Whether they’re groaning about doing the work you’ve assigned, anxiously awaiting a phone call from you, or gleefully trying to get your attention during your virtual class meeting- it’s because you matter.\n\nI’m doing my best to support my child’s at-home learning.  I’m supervising, but you, the teachers, are doing the heavy lifting. I know how hard teaching is.\n\nDear teachers, parents can’t replace you. You are essential. Take care of yourselves . Be well. Try your best. And thank you for being there.The school may have found a teacher in you, but our child found a hero in you.\n\nThanks and regards.\n\nDebadatta Ghosh Das\n\nADVOCATE.\n\nMOTHER OF YAJNASENI DAS\n\nCLASS 8 A\n\nROLL NO: 09.\n\n08.10.2021",
+        "file_paths": []
+    },
+    {
+        "id": "fb_105",
+        "section": "senior",
+        "type": "images",
+        "title": "Senior Section Feedback",
+        "subtitle": "Scanned Handwritten Letters",
+        "content": "",
+        "file_paths": [
+            "assets/feedbksnr1.jpg",
+            "assets/feedbksnr2.jpeg",
+            "assets/feedbksnr3.jpg"
+        ]
+    }
+];
+
+        // ── Highlight Carousel Logic ──
+        let fbCurrentSlideIndex = 0;
+        const fbSlides = document.querySelectorAll('.fb-carousel-slide');
+        const fbDots = document.querySelectorAll('.fb-carousel-dot');
+        let fbCarouselInterval;
+
+        function fbShowSlide(index) {
+            fbSlides.forEach(slide => slide.classList.remove('active'));
+            fbDots.forEach(dot => dot.classList.remove('active'));
+            
+            fbCurrentSlideIndex = index;
+            if (fbCurrentSlideIndex >= fbSlides.length) fbCurrentSlideIndex = 0;
+            if (fbCurrentSlideIndex < 0) fbCurrentSlideIndex = fbSlides.length - 1;
+
+            fbSlides[fbCurrentSlideIndex].classList.add('active');
+            fbDots[fbCurrentSlideIndex].classList.add('active');
+        }
+
+        function fbStartCarousel() {
+            fbStopCarousel();
+            fbCarouselInterval = setInterval(() => {
+                fbShowSlide(fbCurrentSlideIndex + 1);
+            }, 6000);
+        }
+
+        function fbStopCarousel() {
+            if (fbCarouselInterval) clearInterval(fbCarouselInterval);
+        }
+
+        fbDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const targetIdx = parseInt(dot.getAttribute('data-slide'));
+                fbShowSlide(targetIdx);
+                fbStartCarousel(); // Reset interval on manual click
+            });
+        });
+
+        // ── Avatar Gradient Generator ──
+        function getAvatarGradient(name) {
+            if (!name || name.trim() === '') name = 'Parent';
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const gradients = [
+                'linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%)', // Teal
+                'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)', // Purple
+                'linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%)', // Orange
+                'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)', // Sky
+                'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)'  // Pink
+            ];
+            const textColors = ['#312e81', '#78350f', '#065f46', '#581c87', '#9a3412', '#075985', '#9d174d'];
+            const idx = Math.abs(hash) % gradients.length;
+            return { bg: gradients[idx], color: textColors[idx] };
+        }
+
+        // ── Dynamic Feedback Categorizer ──
+        function getFeedbackCategory(content) {
+            const text = content.toLowerCase();
+            if (text.includes('counsel') || text.includes('counsell')) {
+                return { name: 'Counseling & Support', class: 'tag-counseling' };
+            }
+            if (text.includes('sport') || text.includes('basketball') || text.includes('swimming') || text.includes('karate') || text.includes('athlet') || text.includes('excur') || text.includes('trip') || text.includes('bhutan')) {
+                return { name: 'Sports & Co-Curricular', class: 'tag-sports' };
+            }
+            if (text.includes('online') || text.includes('lockdown') || text.includes('tiffin') || text.includes('offline') || text.includes('canteen')) {
+                return { name: 'School Life & Facilities', class: 'tag-online' };
+            }
+            if (text.includes('syllabus') || text.includes('board') || text.includes('cbse') || text.includes('academic') || text.includes('fashion') || text.includes('achievement') || text.includes('admit') || text.includes('exam')) {
+                return { name: 'Academics & Achievement', class: 'tag-academics' };
+            }
+            return { name: 'General Feedback', class: 'tag-general' };
+        }
+
+        // ── Dynamic Loading & Rendering from Database ──
+        let rawFeedbacksList = [];
+        let filteredFeedbacksList = [];
+        let currentSearchQuery = '';
+        let currentCategoryFilter = 'all';
+
+        async function initFeedbacks() {
+            fbStartCarousel();
+
+            const isLocal = window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('github.dev') || window.location.search.includes('demo=true');
+            let feedbacks = [];
+
+            // Load remote or fallback default feedbacks
+            if (isLocal) {
+                console.log('Running in local/offline mode, loading feedbacks from localStorage or fallback defaults.');
+                feedbacks = defaultFeedbacks;
+                try {
+                    const localDbRaw = localStorage.getItem('school_db');
+                    if (localDbRaw) {
+                        const localDb = JSON.parse(localDbRaw);
+                        if (localDb && Array.isArray(localDb.feedbacks)) {
+                            feedbacks = localDb.feedbacks;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Failed to parse local storage feedbacks:', e);
+                }
+            } else {
+                try {
+                    const response = await fetch('api.php');
+                    const db = await response.json();
+                    if (db && Array.isArray(db.feedbacks)) {
+                        feedbacks = db.feedbacks;
+                    } else {
+                        console.error('Feedbacks array not found in database, falling back to defaults');
+                        feedbacks = defaultFeedbacks;
+                    }
+                } catch (err) {
+                    console.error('Failed to load feedbacks from backend, falling back to defaults:', err);
+                    feedbacks = defaultFeedbacks;
+                }
+            }
+
+            // Merge with local custom feedbacks submitted via form
+            try {
+                const customFeedbacksRaw = localStorage.getItem('custom_feedbacks');
+                if (customFeedbacksRaw) {
+                    const customList = JSON.parse(customFeedbacksRaw);
+                    if (Array.isArray(customList)) {
+                        feedbacks = [...customList, ...feedbacks];
+                    }
+                }
+            } catch(e) {
+                console.error('Failed to load custom feedbacks:', e);
+            }
+
+            rawFeedbacksList = feedbacks;
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            // Apply search filter and category filter
+            filteredFeedbacksList = rawFeedbacksList.filter(item => {
+                const matchesSearch = !currentSearchQuery || 
+                    item.title.toLowerCase().includes(currentSearchQuery) ||
+                    item.subtitle.toLowerCase().includes(currentSearchQuery) ||
+                    item.content.toLowerCase().includes(currentSearchQuery);
+
+                if (!matchesSearch) return false;
+
+                if (currentCategoryFilter === 'all') return true;
+                
+                if (item.type === 'images') return true; // Scanned images always display
+
+                const cat = getFeedbackCategory(item.content);
+                return cat.name === currentCategoryFilter;
+            });
+
+            renderFeedbacks(filteredFeedbacksList);
+        }
+
+        function renderFeedbacks(feedbacks) {
+            const juniorTextGrid = document.getElementById('junior-text-grid');
+            const juniorImagesGrid = document.getElementById('junior-images-grid');
+            const seniorTextGrid = document.getElementById('senior-text-grid');
+            const seniorImagesGrid = document.getElementById('senior-images-grid');
+
+            // Clear previous elements
+            juniorTextGrid.innerHTML = '';
+            juniorImagesGrid.innerHTML = '';
+            seniorTextGrid.innerHTML = '';
+            seniorImagesGrid.innerHTML = '';
+            allGalleryImages = [];
+
+            feedbacks.forEach(item => {
+                if (item.type === 'text') {
+                    // Create text testimonial card
+                    const card = document.createElement('div');
+                    card.className = 'fb-card';
+                    
+                    const avatarStyle = getAvatarGradient(item.title);
+                    const cat = getFeedbackCategory(item.content);
+                    const starsCount = item.rating || 5;
+                    
+                    let starsHtml = '';
+                    for (let i = 0; i < starsCount; i++) {
+                        starsHtml += '<i class="ph-fill ph-star"></i>';
+                    }
+
+                    card.innerHTML = `
+                        <span class="fb-card-tag ${cat.class}">${cat.name}</span>
+                        <div class="fb-card-quote-icon"><i class="ph-fill ph-quotes"></i></div>
+                        <div class="fb-card-stars">${starsHtml}</div>
+                        <div class="fb-card-content">${item.content}</div>
+                        <div class="fb-card-author">
+                            <div class="fb-author-avatar" style="background: ${avatarStyle.bg}; color: ${avatarStyle.color};">${item.title.charAt(0).toUpperCase()}</div>
+                            <div class="fb-author-info">
+                                <h4>${item.title}</h4>
+                                <p>${item.subtitle}</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    if (item.section === 'junior') {
+                        juniorTextGrid.appendChild(card);
+                    } else {
+                        seniorTextGrid.appendChild(card);
+                    }
+                } else if (item.type === 'images' && Array.isArray(item.file_paths) && item.file_paths.length > 0) {
+                    // Render scanned images
+                    item.file_paths.forEach((filePath, idx) => {
+                        const imgIndex = allGalleryImages.length;
+                        allGalleryImages.push({
+                            src: filePath,
+                            title: `${item.title} (Page ${idx + 1})`,
+                            subtitle: item.subtitle
+                        });
+
+                        const card = document.createElement('div');
+                        card.className = 'scan-card';
+                        card.onclick = () => openLightbox(imgIndex);
+                        card.innerHTML = `
+                            <div class="scan-image-wrapper">
+                                <img src="${filePath}" alt="${item.title} - Page ${idx + 1}" loading="lazy">
+                                <div class="scan-overlay">
+                                    <div class="scan-zoom-icon"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                                </div>
+                            </div>
+                            <div class="scan-info">
+                                <h4>${item.title}</h4>
+                                <p>${item.subtitle} — Page ${idx + 1}</p>
+                            </div>
+                        `;
+
+                        if (item.section === 'junior') {
+                            juniorImagesGrid.appendChild(card);
+                        } else {
+                            seniorImagesGrid.appendChild(card);
+                        }
+                    });
+                }
+            });
+
+            // If empty text sections, display placeholder
+            if (juniorTextGrid.children.length === 0) {
+                juniorTextGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-light); font-family: var(--font-sans); padding: 3rem;">No text testimonials matching your criteria.</div>';
+            }
+            if (seniorTextGrid.children.length === 0) {
+                seniorTextGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-light); font-family: var(--font-sans); padding: 3rem;">No text testimonials matching your criteria.</div>';
+            }
+
+            // Hide gallery sections if empty
+            const juniorGallery = document.getElementById('junior-gallery-section');
+            if (juniorGallery) {
+                juniorGallery.style.display = juniorImagesGrid.children.length === 0 ? 'none' : 'block';
+            }
+            const seniorGallery = document.getElementById('senior-gallery-section');
+            if (seniorGallery) {
+                seniorGallery.style.display = seniorImagesGrid.children.length === 0 ? 'none' : 'block';
+            }
+        }
+
+        // ── Search & Filters Handlers ──
+        const searchInput = document.getElementById('fb-search');
+        const clearSearchBtn = document.getElementById('fb-clear-search');
+        const filterTags = document.querySelectorAll('.filter-tag');
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearchQuery = e.target.value.toLowerCase().trim();
+            if (currentSearchQuery.length > 0) {
+                clearSearchBtn.style.display = 'flex';
+            } else {
+                clearSearchBtn.style.display = 'none';
+            }
+            applyFiltersAndRender();
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            currentSearchQuery = '';
+            clearSearchBtn.style.display = 'none';
+            applyFiltersAndRender();
+        });
+
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                currentCategoryFilter = tag.getAttribute('data-filter');
+                applyFiltersAndRender();
+            });
+        });
+
+        // ── Write Feedback Drawer Logic ──
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const feedbackDrawer = document.getElementById('feedback-drawer');
+        const openDrawerBtn = document.getElementById('open-feedback-drawer');
+        const closeDrawerBtn = document.getElementById('close-feedback-drawer');
+        
+        const formContainer = document.getElementById('form-container-el');
+        const successContainer = document.getElementById('success-container-el');
+        
+        const inputName = document.getElementById('input-name');
+        const inputRelation = document.getElementById('input-relation');
+        const inputSection = document.getElementById('input-section');
+        const inputContent = document.getElementById('input-content');
+        const previewCardWrap = document.getElementById('preview-card-wrap');
+        const submitFeedbackBtn = document.getElementById('submit-feedback-btn');
+        const resetSuccessBtn = document.getElementById('reset-success-btn');
+        const starsContainer = document.getElementById('stars-input');
+        const starIcons = starsContainer.querySelectorAll('i');
+        
+        let selectedRating = 5;
+
+        function openDrawer() {
+            drawerOverlay.classList.add('active');
+            feedbackDrawer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateLivePreview();
+        }
+
+        function closeDrawer() {
+            drawerOverlay.classList.remove('active');
+            feedbackDrawer.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        openDrawerBtn.addEventListener('click', openDrawer);
+        closeDrawerBtn.addEventListener('click', closeDrawer);
+        drawerOverlay.addEventListener('click', closeDrawer);
+
+        // Stars Rating Interaction
+        starIcons.forEach((star, index) => {
+            star.addEventListener('mouseover', () => {
+                starIcons.forEach((s, idx) => {
+                    if (idx <= index) s.classList.add('hovered');
+                    else s.classList.remove('hovered');
+                });
+            });
+
+            star.addEventListener('mouseout', () => {
+                starIcons.forEach(s => s.classList.remove('hovered'));
+            });
+
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.getAttribute('data-value'));
+                starIcons.forEach((s, idx) => {
+                    if (idx < selectedRating) s.classList.add('selected');
+                    else s.classList.remove('selected');
+                });
+                updateLivePreview();
+            });
+        });
+
+        // Initialize stars to 5 selected
+        starIcons.forEach(s => s.classList.add('selected'));
+
+        // Live Preview Logic
+        function updateLivePreview() {
+            const name = inputName.value.trim() || 'Your Name';
+            const relation = inputRelation.value.trim() || 'Parent / Relationship / Class';
+            const section = inputSection.value;
+            const content = inputContent.value.trim() || 'Your testimonial text body will update here in real-time as you type your experience...';
+            
+            const avatarStyle = getAvatarGradient(name);
+            const cat = getFeedbackCategory(content);
+            
+            let starsHtml = '';
+            for (let i = 0; i < selectedRating; i++) {
+                starsHtml += '<i class="ph-fill ph-star"></i>';
+            }
+
+            previewCardWrap.innerHTML = `
+                <div class="fb-card" style="animation: none; margin: 0; box-shadow: none;">
+                    <span class="fb-card-tag ${cat.class}">${cat.name}</span>
+                    <div class="fb-card-quote-icon"><i class="ph-fill ph-quotes"></i></div>
+                    <div class="fb-card-stars">${starsHtml}</div>
+                    <div class="fb-card-content">${content}</div>
+                    <div class="fb-card-author">
+                        <div class="fb-author-avatar" style="background: ${avatarStyle.bg}; color: ${avatarStyle.color};">${name.charAt(0).toUpperCase()}</div>
+                        <div class="fb-author-info">
+                            <h4>${name}</h4>
+                            <p>${relation} (${section.charAt(0).toUpperCase() + section.slice(1)} Section)</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        [inputName, inputRelation, inputSection, inputContent].forEach(el => {
+            el.addEventListener('input', updateLivePreview);
+            el.addEventListener('change', updateLivePreview);
+        });
+
+        // Submit Testimonial to Server
+        submitFeedbackBtn.addEventListener('click', () => {
+            const name = inputName.value.trim();
+            const relation = inputRelation.value.trim();
+            const content = inputContent.value.trim();
+            const section = inputSection.value;
+
+            if (!name || !relation || !content) {
+                alert('Please fill out all fields before submitting.');
+                return;
+            }
+
+            submitFeedbackBtn.disabled = true;
+            submitFeedbackBtn.textContent = 'Submitting...';
+
+            const formData = new URLSearchParams({
+                name: name,
+                relation: relation,
+                content: content,
+                section: section,
+                rating: selectedRating
+            });
+
+            fetch('admin_api.php?action=submit_feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Switch to success view
+                    formContainer.style.display = 'none';
+                    successContainer.style.display = 'flex';
+                } else {
+                    alert('Error: ' + (data.message || 'Failed to submit testimonial.'));
+                }
+            })
+            .catch(err => {
+                console.warn('Server unreachable, saving to localStorage as fallback:', err);
+                // Fallback: save to localStorage
+                const newFeedback = {
+                    id: 'fb_custom_' + Date.now(),
+                    section: section,
+                    type: 'text',
+                    title: name,
+                    subtitle: relation,
+                    content: content,
+                    rating: selectedRating,
+                    file_paths: []
+                };
+
+                let customFeedbacks = [];
+                try {
+                    const customRaw = localStorage.getItem('custom_feedbacks');
+                    if (customRaw) customFeedbacks = JSON.parse(customRaw);
+                } catch(e) {}
+                customFeedbacks.unshift(newFeedback);
+                localStorage.setItem('custom_feedbacks', JSON.stringify(customFeedbacks));
+
+                rawFeedbacksList.unshift(newFeedback);
+                applyFiltersAndRender();
+
+                formContainer.style.display = 'none';
+                successContainer.style.display = 'flex';
+            })
+            .finally(() => {
+                submitFeedbackBtn.disabled = false;
+                submitFeedbackBtn.textContent = 'Submit Testimonial';
+            });
+        });
+
+        resetSuccessBtn.addEventListener('click', () => {
+            // Reset fields
+            inputName.value = '';
+            inputRelation.value = '';
+            inputContent.value = '';
+            selectedRating = 5;
+            starIcons.forEach(s => s.classList.add('selected'));
+            
+            formContainer.style.display = 'flex';
+            successContainer.style.display = 'none';
+            updateLivePreview();
+        });
+
+        // ── Lightbox Modal implementation ──
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const closeBtn = document.getElementById('lightbox-close');
+        const prevBtn = document.getElementById('lightbox-prev');
+        const nextBtn = document.getElementById('lightbox-next');
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const imgData = allGalleryImages[index];
+            if (imgData) {
+                lightboxImg.src = imgData.src;
+                lightboxCaption.textContent = `${imgData.title} - ${imgData.subtitle}`;
+                lightbox.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            lightboxImg.src = '';
+        }
+
+        function showNextImage() {
+            if (allGalleryImages.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % allGalleryImages.length;
+                openLightbox(currentImageIndex);
+            }
+        }
+
+        function showPrevImage() {
+            if (allGalleryImages.length > 0) {
+                currentImageIndex = (currentImageIndex - 1 + allGalleryImages.length) % allGalleryImages.length;
+                openLightbox(currentImageIndex);
+            }
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', showPrevImage);
+        nextBtn.addEventListener('click', showNextImage);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard navigation inside lightbox
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('show')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') showNextImage();
+                if (e.key === 'ArrowLeft') showPrevImage();
+            }
+        });
+
+        // Tab switching logic
+        document.querySelectorAll('.fb-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.fb-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.fb-pane').forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const target = tab.getAttribute('data-target');
+                document.getElementById(`pane-${target}`).classList.add('active');
+            });
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initFeedbacks);
+    </script>
+</body>
+</html>

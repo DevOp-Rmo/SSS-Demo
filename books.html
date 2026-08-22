@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shri Shikshayatan School - Secretary General's Message</title>
+    <title>Shri Shikshayatan School - Booklists & Declaration</title>
     <link rel="icon" type="image/png" href="assets/sss_logo.png">
     
     <!-- Fonts -->
@@ -16,18 +16,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=37">
+    <link rel="stylesheet" href="styles-v5.css?v=39">
     
     <style>
-        /* Scoped styles for Secretary General Message page */
-        .secretary-page-wrapper {
+        .books-page-wrapper {
             background-color: var(--bg-light);
             padding: 3rem 0 6rem 0;
             min-height: 100vh;
         }
 
-        /* Breadcrumb navigation */
-        .secretary-breadcrumb {
+        .books-breadcrumb {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -39,192 +37,230 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .secretary-breadcrumb a {
+        .books-breadcrumb a {
             color: var(--primary-blue);
             transition: color 0.2s;
         }
-        .secretary-breadcrumb a:hover {
+        .books-breadcrumb a:hover {
             color: var(--accent-orange);
         }
-        .secretary-breadcrumb i {
+        .books-breadcrumb i {
             font-size: 0.75rem;
             color: var(--text-light);
         }
 
-        /* Title block */
-        .secretary-title-block {
-            margin-bottom: 3.5rem;
+        .admission-header-card {
+            background: linear-gradient(135deg, #0d0d3a 0%, #1e1e62 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(13, 13, 58, 0.15);
+            position: relative;
+            overflow: hidden;
             text-align: left;
         }
-        .secretary-page-title {
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            color: var(--primary-blue);
-            margin-bottom: 0.75rem;
-            position: relative;
-            display: inline-block;
-        }
-        .secretary-page-title::after {
-            content: '';
+        .admission-header-card::after {
+            content: "";
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-orange);
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(0, 208, 130, 0.1);
+            filter: blur(50px);
         }
-
-        /* 2-Column Split Layout */
-        .secretary-content-grid {
-            display: grid;
-            grid-template-columns: 0.75fr 1.25fr;
-            gap: 4.5rem;
-            align-items: flex-start;
-            margin-bottom: 3rem;
+        .admission-header-title {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            line-height: 1.3;
         }
-
-        /* Left Column: Portrait Card */
-        .secretary-profile-card {
-            background-color: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(26, 26, 75, 0.05);
-            position: sticky;
-            top: calc(var(--fixed-header-total) + 30px);
-            transition: var(--transition);
+        .admission-header-meta {
+            font-size: 0.9rem;
+            color: #b0b0d0;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
         }
-        .secretary-profile-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 45px rgba(26, 26, 75, 0.08);
-            border-color: rgba(242, 156, 31, 0.2);
+        .admission-header-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .secretary-img-wrapper {
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            background-color: var(--bg-light);
-            position: relative;
-        }
-        .secretary-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            transition: transform 0.5s ease;
-        }
-        .secretary-profile-card:hover .secretary-img {
-            transform: scale(1.03);
-        }
-        .secretary-info-banner {
-            padding: 2rem 1.75rem;
-            text-align: center;
-            border-top: 1px solid rgba(26, 26, 75, 0.05);
-            background: linear-gradient(to bottom, var(--white) 0%, #fafcfa 100%);
-        }
-        .secretary-name {
-            font-family: var(--font-serif);
-            font-size: 1.4rem;
-            color: var(--primary-blue);
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-        .secretary-role {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
+        .admission-header-meta i {
             color: var(--accent-orange);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        .secretary-org {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: 0.25rem;
-            font-weight: 500;
         }
 
-        /* Right Column: Message Text */
-        .secretary-message-box {
-            background-color: var(--white);
+        /* Download Section grid */
+        .booklists-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 100%;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .booklist-card {
+            background: white;
+            border: 1px solid rgba(26, 26, 74, 0.05);
             border-radius: 20px;
-            padding: 4rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(26, 26, 75, 0.05);
-        }
-        .secretary-message-box p {
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            line-height: 1.85;
-            margin-bottom: 2rem;
-        }
-        .secretary-message-box p.lead {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: var(--primary-blue);
-            line-height: 1.7;
-            position: relative;
-            margin-bottom: 2.25rem;
-        }
-        .secretary-message-box p.lead::before {
-            content: '“';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            font-family: var(--font-serif);
-            font-size: 5rem;
-            color: rgba(242, 156, 31, 0.15);
-            line-height: 1;
-        }
-        .secretary-message-box p:last-of-type {
-            margin-bottom: 0;
-        }
-
-        /* Signature block */
-        .signature-block {
-            margin-top: 3.5rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            padding-top: 2rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            gap: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
+            transition: all 0.3s ease;
         }
-        .signature-handwritten {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            font-style: italic;
-            font-weight: 700;
-            color: var(--primary-blue);
+        .booklist-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(26, 26, 74, 0.06);
+            border-color: rgba(26, 26, 74, 0.1);
+        }
+        .booklist-card .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(79, 70, 229, 0.06);
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
         }
-        .signature-title {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--accent-orange);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+        .booklist-card.card-senior .icon-wrapper {
+            background: rgba(13, 148, 136, 0.06);
+            color: #0d9488;
         }
-        .signature-subtitle {
+        .booklist-card h3 {
             font-family: var(--font-sans);
-            font-size: 0.85rem;
+            color: var(--primary-blue);
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 0;
+        }
+        .booklist-card p {
+            font-family: var(--font-sans);
             color: var(--text-light);
-            margin-top: 0.25rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .btn-download-pdf {
+            width: 100%;
+            background: var(--primary-blue);
+            color: white !important;
+            padding: 0.85rem 1.75rem;
+            border-radius: 30px;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 26, 74, 0.15);
+        }
+        .btn-download-pdf:hover {
+            background: var(--accent-orange);
+            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.25);
+            transform: translateY(-1px);
         }
 
-        /* 15-24 inch Screens (1400px - 2560px) Optimizations */
+        /* Declaration display section */
+        .declaration-container {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(26, 26, 74, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.01);
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .declaration-container h2 {
+            font-family: var(--font-serif);
+            color: var(--primary-blue);
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(26, 26, 74, 0.04);
+            padding-bottom: 0.75rem;
+        }
+        .declaration-img-frame {
+            border: 1px solid rgba(26, 26, 74, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fafafa;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            max-width: 100%;
+        }
+        .declaration-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .declaration-footer {
+            margin-top: 1.5rem;
+        }
+        .btn-view-declaration {
+            background: #f1f5f9;
+            color: var(--primary-blue) !important;
+            padding: 0.75rem 1.75rem;
+            border-radius: 30px;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-view-declaration:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .booklists-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            .declaration-container {
+                padding: 2rem 1.25rem;
+                margin: 0 1rem;
+            }
+            .books-hero {
+                padding: 4rem 1.5rem;
+            }
+            .books-hero-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        /* 15-24 inch Screens (1400px - 2560px) Optimizations to cover page width */
         @media (min-width: 1400px) {
             .container {
                 max-width: 1400px;
                 padding: 0 3rem;
             }
-            .secretary-content-grid {
-                gap: 5.5rem;
-            }
-            .secretary-img-wrapper {
-                height: 440px;
+            .books-hero {
+                padding: 7.5rem 5rem;
             }
         }
         @media (min-width: 1900px) {
@@ -232,78 +268,12 @@
                 max-width: 1650px;
                 padding: 0 4rem;
             }
-            .secretary-page-title {
-                font-size: 3.8rem;
+            .books-hero {
+                padding: 9rem 6rem;
+                border-radius: 32px;
             }
-            .secretary-name {
-                font-size: 1.6rem;
-            }
-            .secretary-role, .secretary-org {
-                font-size: 0.9rem;
-            }
-            .secretary-message-box {
-                padding: 5rem;
-                border-radius: 28px;
-            }
-            .secretary-message-box p {
-                font-size: 1.25rem;
-                line-height: 1.95;
-            }
-            .secretary-message-box p.lead {
-                font-size: 1.5rem;
-                line-height: 1.8;
-            }
-            .signature-handwritten {
-                font-size: 2.6rem;
-            }
-            .signature-title, .signature-subtitle {
-                font-size: 1rem;
-            }
-            .secretary-img-wrapper {
-                height: 520px;
-            }
-        }
-
-        /* Tablets & Small Laptops */
-        @media (max-width: 1024px) {
-            .secretary-content-grid {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
-            .secretary-profile-card {
-                max-width: 500px;
-                margin: 0 auto;
-                position: static;
-            }
-            .secretary-message-box {
-                padding: 3rem;
-            }
-        }
-
-        /* Mobile Layouts */
-        @media (max-width: 768px) {
-            .secretary-page-wrapper {
-                padding: 2rem 0 4rem 0;
-            }
-            .secretary-page-title {
-                font-size: 2.25rem;
-            }
-            .secretary-message-box {
-                padding: 2.25rem 1.5rem;
-                border-radius: 16px;
-            }
-            .secretary-message-box p {
-                font-size: 1rem;
-                line-height: 1.75;
-                margin-bottom: 1.5rem;
-            }
-            .secretary-message-box p.lead {
-                font-size: 1.15rem;
-                line-height: 1.65;
-                margin-bottom: 1.75rem;
-            }
-            .signature-handwritten {
-                font-size: 1.85rem;
+            .books-hero-title {
+                font-size: 3.5rem;
             }
         }
     </style>
@@ -355,17 +325,17 @@
             </div>
         </header>
 
-        <!-- Navigation -->
+        <!-- Navigation Menu -->
         <nav class="main-nav">
             <div class="nav-container">
                 <ul class="nav-links">
                     <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="history.html">History</a></li>
                             <li><a href="president-message.html">President's Message</a></li>
-                            <li class="active"><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
                             <li><a href="principal-message.html">Principal's Message</a></li>
                             <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
                             <li><a href="board-of-trustees.html">Board of Trustees</a></li>
@@ -426,68 +396,69 @@
         </nav>
     </div>
 
-    <!-- Main Container -->
-    <div class="secretary-page-wrapper">
+    <!-- MAIN CONTENT -->
+    <div class="notice-detail-wrapper">
         <div class="container">
             
-            <!-- Breadcrumbs -->
-            <div class="secretary-breadcrumb">
+            <div class="books-breadcrumb">
                 <a href="index.html">Home</a>
                 <i class="ph ph-caret-right"></i>
-                <span>About Us</span>
-                <i class="ph ph-caret-right"></i>
-                <span>Secretary General's Message</span>
+                <span>Books &amp; Stationeries</span>
             </div>
 
-            <!-- Page Title Block -->
-            <div class="secretary-title-block">
-                <h1 class="secretary-page-title">Secretary General's Message</h1>
+            <!-- Header Card -->
+            <div class="admission-header-card">
+                <h2 class="admission-header-title">BOOKLIST &amp; STATIONERIES (2026-2027)</h2>
+                <p style="font-size: 1.2rem; font-weight: 600; color: #fffb21; margin: 0.5rem 0;">Official lists of recommended books &amp; stationeries for Junior &amp; Senior sections</p>
+                <div class="admission-header-meta">
+                    <span><i class="ph-bold ph-calendar-blank"></i> Session: 2026 - 2027</span>
+                    <span><i class="ph-bold ph-tag"></i> General Notice</span>
+                </div>
             </div>
 
-            <!-- Profile Grid -->
-            <div class="secretary-content-grid">
+            <!-- Grid: Download Booklists -->
+            <div class="booklists-grid">
                 
-                <!-- Left: Portrait Card -->
-                <div class="secretary-profile-card-wrapper">
-                    <div class="secretary-profile-card">
-                        <div class="secretary-img-wrapper">
-                            <img src="assets/Secretary.jpg" alt="Mr. Vinod Agrawal" class="secretary-img">
-                        </div>
-                        <div class="secretary-info-banner">
-                            <h2 class="secretary-name">Mr. Vinod Agrawal</h2>
-                            <p class="secretary-role">Secretary General</p>
-                            <p class="secretary-org">Shikshayatan Foundation</p>
-                        </div>
+                <!-- Junior Card -->
+                <div class="booklist-card card-junior">
+                    <div class="icon-wrapper">
+                        <i class="ph ph-backpack"></i>
                     </div>
+                    <h3>Junior Section Booklist</h3>
+                    <p>Includes prescribed textbooks, workbooks, and stationary items for classes **Nursery to V** for the academic session 2026-2027.</p>
+                    <a href="assets/20260410-Booklist-Junior-Section-2026-2027.pdf" target="_blank" class="btn-download-pdf">
+                        <i class="ph ph-file-pdf"></i> Download Junior Booklist (PDF)
+                    </a>
                 </div>
 
-                <!-- Right: Message Content -->
-                <div class="secretary-message-box">
-                    
-                    <p class="lead">Shri Shikshayatan School established in 1954 in a centrally posh location is one of the brightest stars among many Educational Institutes in the city of joy, Kolkata. The school has always inspired its girl students to strive for excellence in academic as well as various extra-curricular activities.</p>
-                    
-                    <p>During seven decades of its journey, the school’s achievements have been exemplary, impressive and encouraging. It has been declared   as   the best school in the city by The Telegraph and Global Education World. The Collaborative approach to learning fosters a welcoming atmosphere where teachers, students and parents work together to ensure a holistic educational experience.</p>
-                    
-                    <p>Shri Shikshayatan School provides wide range of learning clubs and multiple activities for sustainable development goals. Its facilities include state-of-arts, computers, tabs, Interactive Panels in the classroom, auditorium, playground, a congenial atmosphere for learning music, dance, drawing and foreign language.</p>
-                    
-                    <p>Shikshayatan is committed to support girls by all the means to helping them grow into responsible global citizens and be a catalyst for bringing change in the society.</p>
-                    
-                    <p>Our students have regularly achieved spectacular academic result in board examinations. They have also developed a strong tradition of excelling in various sports at both state and national levels.</p>
-                    
-                    <p>Children with special needs receive due empathy from teachers, support staffs and peers.</p>
-                    
-                    <p>The intensive training opportunities are provided to the teachers, most vital resources, to implement the concept of Skill-based learning as recommended by National Education Policy 2020.</p>
-                    
-                    <p>Shri Shikshayatan School, an abode of learning temple for girls, makes all effort in mentoring and metamorphosing the uncut raw diamonds into final, polished and sparkling gems.</p>
-                    
-                    <div class="signature-block">
-                        <span class="signature-handwritten">Vinod Agrawal</span>
-                        <span class="signature-title">Mr. Vinod Agrawal</span>
-                        <span class="signature-subtitle">Secretary General, Shikshayatan Foundation</span>
+                <!-- Senior Card -->
+                <div class="booklist-card card-senior">
+                    <div class="icon-wrapper">
+                        <i class="ph ph-books"></i>
                     </div>
-
+                    <h3>Senior Section Booklist</h3>
+                    <p>Includes prescribed textbooks, reference books, lab manuals, and stationary lists for classes **VI to XII** for the academic session 2026-2027.</p>
+                    <a href="assets/20260519_Booklist-Senior-Section-2026-2027.pdf" target="_blank" class="btn-download-pdf">
+                        <i class="ph ph-file-pdf"></i> Download Senior Booklist (PDF)
+                    </a>
                 </div>
 
+            </div>
+
+            <!-- Block: Booklist Declaration Image -->
+            <div class="declaration-container">
+                <h2>Declaration for Booklist</h2>
+                <p style="font-family: var(--font-sans); color: var(--text-light); font-size: 0.95rem; margin-top: 0; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Signed declaration by the school authority confirming that the selection of textbooks is fully aligned with guidelines and CBSE standards.
+                </p>
+                <div class="declaration-img-frame">
+                    <img src="assets/20260512_Declaration-for-Booklist-Session-2026-2027_001.jpg" alt="Declaration for Booklist Session 2026-2027" class="declaration-image">
+                </div>
+                <div class="declaration-footer">
+                    <a href="assets/20260512_Declaration-for-Booklist-Session-2026-2027_001.jpg" target="_blank" class="btn-view-declaration">
+                        <i class="ph ph-magnifying-glass-plus"></i> View Full Image
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -511,7 +482,7 @@
                     </div>
                     <div class="address-block">
                         <i class="ph-fill ph-map-pin"></i>
-                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
                     </div>
                     <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -567,12 +538,15 @@
                     <ul class="quick-links">
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
-                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
                     </ul>
                     
                     <div class="visitor-counter">
-                        <p>VISITORS: 1,426,192</p>
-                        <p>SHRI SHIKSHAYATAN SCHOOL</p>
+                        <p style="margin: 0 0 0.5rem 0; font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">VISITOR COUNTER</p>
+                        <div class="visitor-digits-box">
+                            <span class="visitor-digit">1</span><span class="visitor-digit">,</span><span class="visitor-digit">4</span><span class="visitor-digit">2</span><span class="visitor-digit">6</span><span class="visitor-digit">,</span><span class="visitor-digit">1</span><span class="visitor-digit">9</span><span class="visitor-digit">2</span>
+                        </div>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 1px; text-transform: uppercase;">Shri Shikshayatan School</p>
                     </div>
                 </div>
 
@@ -585,6 +559,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=7"></script>
+    <!-- JS -->
+    <script src="script.js?v=41"></script>
 </body>
 </html>

@@ -73,6 +73,15 @@ files.forEach(file => {
         content = content.replace(regexFac, `<li class="${parentClass}">\n                    <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>\n                    <ul class="dropdown-menu">${replacementMenu}</ul>\n                </li>`);
         updated = true;
     }
+
+    // 5. Update Mandatory Disclosure menu item
+    const regexMD = /<li[^>]*>\s*<a\s+href\s*=\s*["'](?:#|index\.html|mandatory-disclosure\.html)?["']\s*>MANDATORY\s+DISCLOSURE<\/a>\s*<\/li>/gi;
+    if (regexMD.test(content)) {
+        const isMDPage = file === 'mandatory-disclosure.html';
+        const mdMenuHTML = isMDPage ? '<li class="active"><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>' : '<li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>';
+        content = content.replace(regexMD, mdMenuHTML);
+        updated = true;
+    }
     
     if (updated) {
         fs.writeFileSync(filePath, content, 'utf8');

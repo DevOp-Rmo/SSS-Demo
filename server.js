@@ -130,10 +130,19 @@ function parseRequestBody(req, callback) {
                             
                             const filenameMatch = headers.match(/filename="([^"]*)"/);
                             if (filenameMatch && filenameMatch[1]) {
-                                files[name] = {
+                                const fileObj = {
                                     filename: filenameMatch[1],
                                     data: value
                                 };
+                                if (files[name]) {
+                                    if (Array.isArray(files[name])) {
+                                        files[name].push(fileObj);
+                                    } else {
+                                        files[name] = [files[name], fileObj];
+                                    }
+                                } else {
+                                    files[name] = fileObj;
+                                }
                             } else {
                                 fields[name] = value.toString('utf8').trim();
                             }
@@ -252,7 +261,11 @@ const server = http.createServer((req, res) => {
             return;
         }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
-        res.end(fs.readFileSync(DB_FILE, 'utf8'));
+        const dbContent = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+        if (dbContent.feedbacks && Array.isArray(dbContent.feedbacks)) {
+            dbContent.feedbacks = dbContent.feedbacks.filter(fb => !fb.status || fb.status === 'approved');
+        }
+        res.end(JSON.stringify(dbContent, null, 2));
         return;
     }
 
@@ -292,6 +305,44 @@ const server = http.createServer((req, res) => {
                 'Set-Cookie': 'admin_logged_in=false; Path=/; Max-Age=0; HttpOnly'
             });
             res.end(JSON.stringify({ success: true }));
+            return;
+        }
+
+        // Public action: submit_feedback (no auth required — users submit from frontend)
+        if (action === 'submit_feedback') {
+            parseRequestBody(req, (fields) => {
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.feedbacks) db.feedbacks = [];
+
+                const name = fields.name || fields.title || '';
+                const relation = fields.relation || fields.subtitle || '';
+                const content = fields.content || '';
+                const section = fields.section || 'junior';
+                const rating = parseInt(fields.rating) || 5;
+
+                if (!name || !relation || !content) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Please fill in all fields.' }));
+                    return;
+                }
+
+                const newFb = {
+                    id: 'fb_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+                    section: section,
+                    type: 'text',
+                    title: name,
+                    subtitle: relation,
+                    content: content,
+                    rating: rating,
+                    file_paths: [],
+                    status: 'pending'
+                };
+
+                db.feedbacks.unshift(newFb);
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Testimonial submitted for review.' }));
+            });
             return;
         }
 
@@ -595,21 +646,95 @@ const server = http.createServer((req, res) => {
                 if (!db.section_notices) db.section_notices = [];
                 
                 const noticeId = fields.notice_id || '';
+                const isEdit = !!noticeId;
                 
-                let filePath = '';
-                const noticeFile = files.file;
-                if (noticeFile && noticeFile.filename && noticeFile.data && noticeFile.data.length > 0) {
-                    const ext = path.extname(noticeFile.filename).toLowerCase();
-                    const safeName = 'notice_' + (noticeId || Date.now()) + ext;
+                let filePaths = [];
+                if (fields.existing_files) {
+                    try {
+                        filePaths = JSON.parse(fields.existing_files);
+                    } catch (e) {
+                        filePaths = [fields.existing_files];
+                    }
+                }
+                
+                // Parse class if it's a JSON array string
+                let classToSave = fields.class || 'Class I';
+                if (typeof classToSave === 'string' && classToSave.startsWith('[')) {
+                    try {
+                        classToSave = JSON.parse(classToSave);
+                    } catch (e) {}
+                }
+                
+                // Handle multiple files uploads
+                let uploadedPaths = [];
+                const noticeFiles = files['files[]'];
+                if (noticeFiles) {
+                    const noticeFilesArray = Array.isArray(noticeFiles) ? noticeFiles : [noticeFiles];
                     const uploadsDir = path.join(__dirname, 'uploads');
                     if (!fs.existsSync(uploadsDir)) {
                         fs.mkdirSync(uploadsDir);
                     }
-                    fs.writeFileSync(path.join(uploadsDir, safeName), noticeFile.data);
-                    filePath = 'uploads/' + safeName;
+                    
+                    noticeFilesArray.forEach((fileObj, index) => {
+                        if (fileObj && fileObj.filename && fileObj.data && fileObj.data.length > 0) {
+                            const ext = path.extname(fileObj.filename).toLowerCase();
+                            const safeName = 'notice_' + Date.now() + '_' + index + ext;
+                            fs.writeFileSync(path.join(uploadsDir, safeName), fileObj.data);
+                            uploadedPaths.push('uploads/' + safeName);
+                        }
+                    });
                 }
                 
-                const isEdit = !!noticeId;
+                if (uploadedPaths.length > 0) {
+                    // Delete old files on edit if new files are uploaded
+                    if (isEdit) {
+                        const idx = db.section_notices.findIndex(n => String(n.id) === String(noticeId));
+                        if (idx !== -1) {
+                            const oldPaths = db.section_notices[idx].file_paths || (db.section_notices[idx].file_path ? [db.section_notices[idx].file_path] : []);
+                            oldPaths.forEach(oldPath => {
+                                if (oldPath && oldPath.startsWith('uploads/')) {
+                                    const fullOldPath = path.join(__dirname, oldPath);
+                                    if (fs.existsSync(fullOldPath)) {
+                                        try {
+                                            fs.unlinkSync(fullOldPath);
+                                        } catch (e) {}
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    filePaths = uploadedPaths;
+                } else if (!isEdit && filePaths.length > 0) {
+                    // Copy Notice operation: duplicate files on disk to prevent reference break
+                    const duplicatedPaths = [];
+                    const uploadsDir = path.join(__dirname, 'uploads');
+                    filePaths.forEach((oldPath, index) => {
+                        if (oldPath && oldPath.startsWith('uploads/')) {
+                            const fullOldPath = path.join(__dirname, oldPath);
+                            if (fs.existsSync(fullOldPath)) {
+                                const ext = path.extname(oldPath).toLowerCase();
+                                const safeName = 'notice_copy_' + Date.now() + '_' + index + ext;
+                                const fullNewPath = path.join(uploadsDir, safeName);
+                                try {
+                                    fs.copyFileSync(fullOldPath, fullNewPath);
+                                    duplicatedPaths.push('uploads/' + safeName);
+                                } catch (e) {
+                                    duplicatedPaths.push(oldPath);
+                                }
+                            } else {
+                                duplicatedPaths.push(oldPath);
+                            }
+                        } else {
+                            duplicatedPaths.push(oldPath);
+                        }
+                    });
+                    filePaths = duplicatedPaths;
+                }
+                
+                const start_date = fields.start_date || '';
+                const start_time = fields.start_time || '';
+                const end_date = fields.end_date || '';
+                
                 let finalNotice;
                 
                 if (isEdit) {
@@ -617,23 +742,29 @@ const server = http.createServer((req, res) => {
                     if (idx !== -1) {
                         db.section_notices[idx].title = fields.title || '';
                         db.section_notices[idx].section = fields.section || 'junior';
-                        db.section_notices[idx].class = fields.class || 'Class I';
+                        db.section_notices[idx].class = classToSave;
                         db.section_notices[idx].category = fields.category || 'holiday';
                         db.section_notices[idx].content = fields.content || '';
-                        if (filePath) {
-                            db.section_notices[idx].file_path = filePath;
-                        }
+                        db.section_notices[idx].start_date = start_date;
+                        db.section_notices[idx].start_time = start_time;
+                        db.section_notices[idx].end_date = end_date;
+                        db.section_notices[idx].file_paths = filePaths;
+                        db.section_notices[idx].file_path = filePaths.length > 0 ? filePaths[0] : '';
                         finalNotice = db.section_notices[idx];
                     } else {
                         finalNotice = {
                             id: 'sn_' + Date.now(),
                             section: fields.section || 'junior',
-                            class: fields.class || 'Class I',
+                            class: classToSave,
                             category: fields.category || 'holiday',
                             date: new Date().toISOString().split('T')[0],
                             title: fields.title || '',
                             content: fields.content || '',
-                            file_path: filePath
+                            start_date: start_date,
+                            start_time: start_time,
+                            end_date: end_date,
+                            file_paths: filePaths,
+                            file_path: filePaths.length > 0 ? filePaths[0] : ''
                         };
                         db.section_notices.push(finalNotice);
                     }
@@ -641,12 +772,16 @@ const server = http.createServer((req, res) => {
                     finalNotice = {
                         id: 'sn_' + Date.now(),
                         section: fields.section || 'junior',
-                        class: fields.class || 'Class I',
+                        class: classToSave,
                         category: fields.category || 'holiday',
                         date: new Date().toISOString().split('T')[0],
                         title: fields.title || '',
                         content: fields.content || '',
-                        file_path: filePath
+                        start_date: start_date,
+                        start_time: start_time,
+                        end_date: end_date,
+                        file_paths: filePaths,
+                        file_path: filePaths.length > 0 ? filePaths[0] : ''
                     };
                     db.section_notices.push(finalNotice);
                 }
@@ -658,12 +793,280 @@ const server = http.createServer((req, res) => {
             return;
         }
 
+        if (action === 'save_tc') {
+            parseRequestBody(req, (fields, files) => {
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.transfer_certificates) db.transfer_certificates = [];
+
+                const name = fields.name || '';
+                const studentClass = fields.studentClass || '';
+                const dateRaw = fields.dateRaw || '';
+                const displayDate = fields.displayDate || '';
+
+                if (!name || !studentClass || !dateRaw) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Full Name, Class, and Date are required.' }));
+                    return;
+                }
+
+                let filePath = '';
+                const tcFile = files.pdf;
+                if (tcFile) {
+                    const destDir = path.join(__dirname, 'assets', 'TC', 'downloaded_pdfs');
+                    if (!fs.existsSync(destDir)) {
+                        fs.mkdirSync(destDir, { recursive: true });
+                    }
+                    const ext = path.extname(tcFile.filename).toLowerCase();
+                    const cleanName = name.replace(/[^a-zA-Z0-9_-]/g, '_');
+                    const safeName = 'tc_' + Date.now() + '_' + cleanName + ext;
+                    fs.writeFileSync(path.join(destDir, safeName), tcFile.data);
+                    filePath = 'assets/TC/downloaded_pdfs/' + safeName;
+                }
+
+                const newTc = {
+                    id: 'tc_' + Date.now(),
+                    name: name,
+                    class: studentClass,
+                    date_raw: dateRaw,
+                    date: displayDate,
+                    file_path: filePath,
+                    addedAt: new Date().toISOString()
+                };
+
+                db.transfer_certificates.unshift(newTc);
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'TC saved successfully.', data: newTc }));
+            });
+            return;
+        }
+
+        if (action === 'delete_tc') {
+            parseRequestBody(req, (fields) => {
+                const id = fields.id;
+                if (!id) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'TC ID is required.' }));
+                    return;
+                }
+
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (db.transfer_certificates) {
+                    const entry = db.transfer_certificates.find(e => String(e.id) === String(id));
+                    if (entry && entry.file_path) {
+                        const fullPath = path.join(__dirname, entry.file_path);
+                        if (fs.existsSync(fullPath)) {
+                            try {
+                                fs.unlinkSync(fullPath);
+                            } catch (e) {}
+                        }
+                    }
+                    db.transfer_certificates = db.transfer_certificates.filter(e => String(e.id) !== String(id));
+                }
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'TC entry deleted successfully.' }));
+            });
+            return;
+        }
+
+        if (action === 'save_feedback') {
+            parseRequestBody(req, (fields, files) => {
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (!db.feedbacks) db.feedbacks = [];
+
+                const id = fields.id || '';
+                const section = fields.section || 'junior';
+                const type = fields.type || 'text';
+                const title = fields.title || '';
+                const subtitle = fields.subtitle || '';
+                const content = fields.content || '';
+
+                if (!title) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Title/Name is required.' }));
+                    return;
+                }
+
+                let uploadedPaths = [];
+                const uploadedFiles = files['files[]'] || files['files'];
+                if (uploadedFiles) {
+                    const filesArray = Array.isArray(uploadedFiles) ? uploadedFiles : [uploadedFiles];
+                    const uploadsDir = path.join(__dirname, 'uploads');
+                    if (!fs.existsSync(uploadsDir)) {
+                        fs.mkdirSync(uploadsDir, { recursive: true });
+                    }
+
+                    filesArray.forEach((fileObj, index) => {
+                        if (fileObj && fileObj.filename && fileObj.data && fileObj.data.length > 0) {
+                            const ext = path.extname(fileObj.filename).toLowerCase();
+                            const safeName = 'feedback_' + Date.now() + '_' + index + ext;
+                            fs.writeFileSync(path.join(uploadsDir, safeName), fileObj.data);
+                            uploadedPaths.push('uploads/' + safeName);
+                        }
+                    });
+                }
+
+                let finalFb;
+                const foundIndex = db.feedbacks.findIndex(f => String(f.id) === String(id));
+
+                if (foundIndex !== -1) {
+                    db.feedbacks[foundIndex].section = section;
+                    db.feedbacks[foundIndex].type = type;
+                    db.feedbacks[foundIndex].title = title;
+                    db.feedbacks[foundIndex].subtitle = subtitle;
+                    db.feedbacks[foundIndex].content = content;
+                    db.feedbacks[foundIndex].status = fields.status || db.feedbacks[foundIndex].status || 'approved';
+
+                    if (type === 'images' && uploadedPaths.length > 0) {
+                        const oldPaths = db.feedbacks[foundIndex].file_paths || [];
+                        oldPaths.forEach(oldPath => {
+                            if (oldPath && oldPath.startsWith('uploads/')) {
+                                const fullPath = path.join(__dirname, oldPath);
+                                if (fs.existsSync(fullPath)) {
+                                    try {
+                                        fs.unlinkSync(fullPath);
+                                    } catch (e) {}
+                                }
+                            }
+                        });
+                        db.feedbacks[foundIndex].file_paths = uploadedPaths;
+                    }
+                    finalFb = db.feedbacks[foundIndex];
+                } else {
+                    finalFb = {
+                        id: 'fb_' + Date.now(),
+                        section: section,
+                        type: type,
+                        title: title,
+                        subtitle: subtitle,
+                        content: content,
+                        file_paths: type === 'images' ? uploadedPaths : [],
+                        status: fields.status || 'approved'
+                    };
+                    db.feedbacks.unshift(finalFb);
+                }
+
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Feedback saved successfully.', data: finalFb }));
+            });
+            return;
+        }
+
+
+        if (action === 'approve_feedback') {
+            parseRequestBody(req, (fields) => {
+                const id = fields.id;
+                if (!id) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Feedback ID is required.' }));
+                    return;
+                }
+
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (db.feedbacks) {
+                    const foundIndex = db.feedbacks.findIndex(f => String(f.id) === String(id));
+                    if (foundIndex !== -1) {
+                        db.feedbacks[foundIndex].status = 'approved';
+                    } else {
+                        res.writeHead(404, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Feedback not found.' }));
+                        return;
+                    }
+                }
+
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Feedback approved successfully.' }));
+            });
+            return;
+        }
+
+        if (action === 'reject_feedback') {
+            parseRequestBody(req, (fields) => {
+                const id = fields.id;
+                if (!id) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Feedback ID is required.' }));
+                    return;
+                }
+
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (db.feedbacks) {
+                    const foundIndex = db.feedbacks.findIndex(f => String(f.id) === String(id));
+                    if (foundIndex !== -1) {
+                        db.feedbacks[foundIndex].status = 'rejected';
+                    } else {
+                        res.writeHead(404, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ success: false, message: 'Feedback not found.' }));
+                        return;
+                    }
+                }
+
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Feedback rejected successfully.' }));
+            });
+            return;
+        }
+
+        if (action === 'delete_feedback') {
+            parseRequestBody(req, (fields) => {
+                const id = fields.id;
+                if (!id) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Feedback ID is required.' }));
+                    return;
+                }
+
+                const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+                if (db.feedbacks) {
+                    const foundIndex = db.feedbacks.findIndex(f => String(f.id) === String(id));
+                    if (foundIndex !== -1) {
+                        const filePaths = db.feedbacks[foundIndex].file_paths || [];
+                        filePaths.forEach(filePath => {
+                            if (filePath && filePath.startsWith('uploads/')) {
+                                const fullPath = path.join(__dirname, filePath);
+                                if (fs.existsSync(fullPath)) {
+                                    try {
+                                        fs.unlinkSync(fullPath);
+                                    } catch (e) {}
+                                }
+                            }
+                        });
+                        db.feedbacks.splice(foundIndex, 1);
+                    }
+                }
+
+                fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, message: 'Feedback deleted successfully.' }));
+            });
+            return;
+        }
+
         if (action === 'delete_notice') {
             parseRequestBody(req, (fields) => {
                 const noticeId = fields.notice_id;
                 const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
                 if (db.section_notices) {
-                    db.section_notices = db.section_notices.filter(n => n.id !== noticeId);
+                    const notice = db.section_notices.find(n => String(n.id) === String(noticeId));
+                    if (notice) {
+                        const oldPaths = notice.file_paths || (notice.file_path ? [notice.file_path] : []);
+                        oldPaths.forEach(oldPath => {
+                            if (oldPath && oldPath.startsWith('uploads/')) {
+                                const fullOldPath = path.join(__dirname, oldPath);
+                                if (fs.existsSync(fullOldPath)) {
+                                    try {
+                                        fs.unlinkSync(fullOldPath);
+                                    } catch (e) {}
+                                }
+                            }
+                        });
+                    }
+                    db.section_notices = db.section_notices.filter(n => String(n.id) !== String(noticeId));
                 }
                 fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), 'utf8');
                 res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -763,7 +1166,7 @@ const server = http.createServer((req, res) => {
     }
 
     // Serve static files
-    let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : pathname);
+    let filePath = path.join(__dirname, pathname === '/' ? 'index.html' : decodeURIComponent(pathname));
     
     if (!filePath.startsWith(__dirname)) {
         res.writeHead(403);

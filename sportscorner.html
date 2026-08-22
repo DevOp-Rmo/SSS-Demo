@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Shikshayatan School - Sports Corner</title>
+    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles-v5.css?v=40">
+    
+    <style>
+        .sports-page-wrapper {
+            background-color: var(--bg-light);
+            padding: 3rem 0 6rem 0;
+            min-height: 100vh;
+        }
+
+        .sports-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .sports-breadcrumb a {
+            color: var(--primary-blue);
+            transition: color 0.2s;
+        }
+        .sports-breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+        .sports-breadcrumb i {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .admission-header-card {
+            background: linear-gradient(135deg, #0d0d3a 0%, #1e1e62 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(13, 13, 58, 0.15);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+        .admission-header-card::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(245, 124, 0, 0.15);
+            filter: blur(50px);
+        }
+        .admission-header-title {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+        .admission-header-meta {
+            font-size: 0.9rem;
+            color: #b0b0d0;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .admission-header-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .admission-header-meta i {
+            color: var(--accent-orange);
+        }
+
+        /* Sports activities grid */
+        .section-title {
+            font-family: var(--font-serif);
+            color: var(--primary-blue);
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(26, 26, 74, 0.04);
+            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: var(--accent-orange);
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .sport-card {
+            background: white;
+            border: 1px solid rgba(26, 26, 74, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.01);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .sport-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(26, 26, 74, 0.07);
+            border-color: rgba(26, 26, 74, 0.1);
+        }
+        .sport-card-img-wrap {
+            height: 200px;
+            overflow: hidden;
+            background-color: #fafafa;
+            position: relative;
+        }
+        .sport-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .sport-card:hover .sport-card-img {
+            transform: scale(1.06);
+        }
+        .sport-card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+        .sport-card-body h3 {
+            font-family: var(--font-sans);
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 0;
+        }
+        .sport-card-body p {
+            font-family: var(--font-sans);
+            color: var(--text-light);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Gallery grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+        .gallery-item {
+            background: white;
+            border: 1px solid rgba(26, 26, 74, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.008);
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(26, 26, 74, 0.08);
+            border-color: rgba(26, 26, 74, 0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 74, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-overlay i {
+            color: white;
+            font-size: 2rem;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-item:hover .gallery-overlay i {
+            transform: scale(1);
+        }
+
+        /* Lightbox modal styles */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 13, 30, 0.95);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-content-wrapper {
+            position: relative;
+            max-width: 90%;
+            max-height: 85%;
+            text-align: center;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .sports-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .sports-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                padding: 0 1rem;
+            }
+            .sports-page-wrapper {
+                padding: 2rem 0 4rem 0;
+            }
+            .admission-header-card {
+                padding: 2rem 1.5rem;
+            }
+            .admission-header-title {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* 15-24 inch Screens (1400px - 2560px) Optimizations to cover page width */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+                padding: 0 3rem;
+            }
+            .admission-header-card {
+                padding: 3.5rem;
+            }
+        }
+        @media (min-width: 1900px) {
+            .container {
+                max-width: 1650px;
+                padding: 0 4rem;
+            }
+            .admission-header-card {
+                padding: 4.5rem;
+                border-radius: 28px;
+            }
+            .admission-header-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Left Sidebar -->
+    <aside class="sticky-sidebar">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
+            <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
+        </div>
+        <button class="vertical-btn" onclick="window.location.href='transfer-certificates.html'">
+            <i class="ph ph-file-text"></i>
+            <span>TRANSFER CERTIFICATE</span>
+        </button>
+    </aside>
+
+    <!-- Fixed Header Wrapper -->
+    <div class="fixed-header-wrapper">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-content container">
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <div class="dropdown top-dropdown" style="display: inline-block;">
+                    <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/ManageStudentLoginDetailsAction.do?method=initializeStudentLoginDetails" target="_blank">KNOW YOUR UIN</a></li>
+                        <li><a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank">LOGIN (SCHOOL ERP)</a></li>
+                    </ul>
+                </div>
+                <button class="search-btn"><i class="ph-bold ph-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!-- Header (Logo & Name) -->
+        <header class="main-header">
+            <div class="header-content container" onclick="window.location.href='index.html'" style="cursor: pointer;">
+                <div class="logo-area">
+                    <div class="logo-img">
+                        <img src="assets/sss_logo.png" alt="Shri Shikshayatan School Logo" />
+                    </div>
+                    <div class="school-title">
+                        <h1>SHRI SHIKSHAYATAN SCHOOL</h1>
+                        <p>AFFILIATED WITH CBSE (AFFILIATION NO - 2430151)</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Menu -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
+                    <li class="dropdown">
+                        <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">History</a></li>
+                            <li><a href="president-message.html">President's Message</a></li>
+                            <li><a href="secretary-message.html">Secretary General's Message</a></li>
+                            <li><a href="principal-message.html">Principal's Message</a></li>
+                            <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
+                            <li><a href="board-of-trustees.html">Board of Trustees</a></li>
+                            <li><a href="school-management.html">School Management Committee</a></li>
+                            <li><a href="media-coverage.html">Media Coverage</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#">FACILITIES <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="infrastructure.html">Infrastructure</a></li>
+                        <li class=""><a href="career-counselling.html">Career Counselling</a></li>
+                        <li><a href="index.html">Workshops</a></li>
+                        <li class=""><a href="transport.html">Transport</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                    <a href="#">ACTIVITIES &amp; EVENTS <i class="ph ph-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Intra School Activities</a></li>
+                        <li><a href="index.html">Inter School Activities</a></li>
+                        <li class=""><a href="social-responsibility.html">School Social Responsibility</a></li>
+                        <li class=""><a href="outreach-excursion.html">Outreach &amp; Excursion</a></li>
+                        <li class=""><a href="annual-function.html">Annual Function</a></li>
+                        <li class=""><a href="foundation-day.html">Foundation Day</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown">
+                        <a href="#">ACADEMICS <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="faculty.html">Faculty</a></li>
+                            <li><a href="four-pillars.html">The Four Pillars</a></li>
+                            <li><a href="school-timing.html">School Timing</a></li>
+                            <li><a href="school-calendar.html">School Calendar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">ADMISSION <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="procedure.html">Procedure</a></li>
+                            <li><a href="fee-structure.html">Fee Structure</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">NOTICES <i class="ph ph-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senior.html">Senior Section</a></li>
+                            <li><a href="junior.html">Junior Section</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                </ul>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="sports-page-wrapper">
+        <div class="container">
+            
+            <div class="sports-breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="ph ph-caret-right"></i>
+                <span>Sports Corner</span>
+            </div>
+
+            <!-- Header Card -->
+            <div class="admission-header-card">
+                <h2 class="admission-header-title">SPORTS CORNER &amp; WELLNESS</h2>
+                <p style="font-size: 1.2rem; font-weight: 600; color: #fffb21; margin: 0.5rem 0;">Empowering healthy minds and bodies through co-scholastic physical education</p>
+                <div class="admission-header-meta">
+                    <span><i class="ph-bold ph-trophy"></i> Sports &amp; Games</span>
+                    <span><i class="ph-bold ph-clock"></i> Session: 2026 - 2027</span>
+                </div>
+            </div>
+
+            <!-- Sporting Activities Section -->
+            <h2 class="section-title"><i class="ph-bold ph-sparkles"></i> Co-Scholastic Programs</h2>
+            <div class="sports-grid">
+                
+                <!-- Card 1: Yoga -->
+                <div class="sport-card">
+                    <div class="sport-card-img-wrap">
+                        <img src="assets/sports_corner_images/9Yoga-1.jpg" alt="Yoga Session" class="sport-card-img">
+                    </div>
+                    <div class="sport-card-body">
+                        <h3>Yoga &amp; Meditation</h3>
+                        <p>Fostering concentration, flexibility, and mental wellness through regular structured yoga lessons and training camps.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Karate -->
+                <div class="sport-card">
+                    <div class="sport-card-img-wrap">
+                        <img src="assets/sports_corner_images/3Karate.jpg" alt="Karate Session" class="sport-card-img">
+                    </div>
+                    <div class="sport-card-body">
+                        <h3>Karate &amp; Self Defence</h3>
+                        <p>Instilling discipline, confidence, and self-protection techniques through specialized martial arts instruction.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Aerobics -->
+                <div class="sport-card">
+                    <div class="sport-card-img-wrap">
+                        <img src="assets/sports_corner_images/1Aerobics.jpg" alt="Aerobics Program" class="sport-card-img">
+                    </div>
+                    <div class="sport-card-body">
+                        <h3>Aerobics &amp; Fitness</h3>
+                        <p>Enhancing cardiovascular health and coordination through energetic physical exercise routines set to rhythmic beats.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Table Tennis -->
+                <div class="sport-card">
+                    <div class="sport-card-img-wrap">
+                        <img src="assets/sports_corner_images/TABLE_TENNIS.jpg" alt="Table Tennis Play" class="sport-card-img">
+                    </div>
+                    <div class="sport-card-body">
+                        <h3>Table Tennis</h3>
+                        <p>Developing quick reflexes, focus, and hand-eye coordination with state-of-the-art indoor playing tables and regular matches.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Drill & Marchpast -->
+                <div class="sport-card">
+                    <div class="sport-card-img-wrap">
+                        <img src="assets/sports_corner_images/2Drill.jpg" alt="Marchpast and Drill" class="sport-card-img">
+                    </div>
+                    <div class="sport-card-body">
+                        <h3>Drill &amp; Marchpast</h3>
+                        <p>Fostering unity, precision, and physical coordination during annual sports events and parade exercises.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6: Throw Ball -->
+                <div class="sport-card">
+                    <div class="sport-card-img-wrap">
+                        <img src="assets/sports_corner_images/8Throw-Ball.jpg" alt="Throw Ball Team" class="sport-card-img">
+                    </div>
+                    <div class="sport-card-body">
+                        <h3>Throw Ball &amp; Team Sports</h3>
+                        <p>Nurturing sportsmanship, strategic thinking, and team dynamics through physical games and tournaments.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action Photo Gallery -->
+            <h2 class="section-title"><i class="ph-bold ph-image"></i> Action Gallery</h2>
+            
+            <!-- Gallery Filters -->
+            <div class="gallery-filters" style="display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 2.5rem; flex-wrap: wrap;">
+                <button class="filter-btn active" onclick="filterGallery('all')" style="padding: 0.6rem 1.5rem; border-radius: 30px; border: 1px solid var(--primary-blue); background: var(--primary-blue); color: white; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 10px rgba(13,13,58,0.1);">All Photos</button>
+                <button class="filter-btn" onclick="filterGallery('activities')" style="padding: 0.6rem 1.5rem; border-radius: 30px; border: 1px solid rgba(26, 26, 74, 0.1); background: white; color: var(--primary-blue); font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s;">Programs &amp; Training</button>
+                <button class="filter-btn" onclick="filterGallery('events')" style="padding: 0.6rem 1.5rem; border-radius: 30px; border: 1px solid rgba(26, 26, 74, 0.1); background: white; color: var(--primary-blue); font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s;">Sports Meets &amp; Events</button>
+                <button class="filter-btn" onclick="filterGallery('sessions')" style="padding: 0.6rem 1.5rem; border-radius: 30px; border: 1px solid rgba(26, 26, 74, 0.1); background: white; color: var(--primary-blue); font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s;">PE Sessions</button>
+            </div>
+
+            <div class="gallery-grid" id="sports-gallery-grid">
+                <!-- Group 1: Programs & Training -->
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/9Yoga-1.jpg')">
+                    <img src="assets/sports_corner_images/9Yoga-1.jpg" alt="Yoga Pose Session" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/10Yoga-2.jpg')">
+                    <img src="assets/sports_corner_images/10Yoga-2.jpg" alt="Yoga Group Drill" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/1Aerobics.jpg')">
+                    <img src="assets/sports_corner_images/1Aerobics.jpg" alt="Aerobics Session" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/2Drill.jpg')">
+                    <img src="assets/sports_corner_images/2Drill.jpg" alt="PE Drill Exercise" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/3Karate.jpg')">
+                    <img src="assets/sports_corner_images/3Karate.jpg" alt="Karate Martial Arts" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/4Marchpast.jpg')">
+                    <img src="assets/sports_corner_images/4Marchpast.jpg" alt="Marchpast Parade" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/7Table-Tennis.jpg')">
+                    <img src="assets/sports_corner_images/7Table-Tennis.jpg" alt="Table Tennis Session" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/8Throw-Ball.jpg')">
+                    <img src="assets/sports_corner_images/8Throw-Ball.jpg" alt="Throw Ball Match" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="activities" onclick="openLightbox('assets/sports_corner_images/Facilities_08-1.jpg')">
+                    <img src="assets/sports_corner_images/Facilities_08-1.jpg" alt="PE Facility" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+
+                <!-- Group 2: Sports Meets & Events -->
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/011Co-scholastic-physical-education.jpg')">
+                    <img src="assets/sports_corner_images/011Co-scholastic-physical-education.jpg" alt="Physical Education Event" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/012IMG_0058.jpg')">
+                    <img src="assets/sports_corner_images/012IMG_0058.jpg" alt="Sports Day Action" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/013IMG_0142.jpg')">
+                    <img src="assets/sports_corner_images/013IMG_0142.jpg" alt="Marchpast Display" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/014IMG_0152.jpg')">
+                    <img src="assets/sports_corner_images/014IMG_0152.jpg" alt="Field Sports Athletics" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/015IMG_4505.jpg')">
+                    <img src="assets/sports_corner_images/015IMG_4505.jpg" alt="Drill Display Ceremony" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/016IMG_4724.jpg')">
+                    <img src="assets/sports_corner_images/016IMG_4724.jpg" alt="Sports Day Drill" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/017IMG_4727.jpg')">
+                    <img src="assets/sports_corner_images/017IMG_4727.jpg" alt="Group Aerobics Presentation" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/018IMG_4734.jpg')">
+                    <img src="assets/sports_corner_images/018IMG_4734.jpg" alt="Trophy Awards Ceremony" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/019IMG_8752.jpg')">
+                    <img src="assets/sports_corner_images/019IMG_8752.jpg" alt="Sports Event Ceremony" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/020IMG_8802.jpg')">
+                    <img src="assets/sports_corner_images/020IMG_8802.jpg" alt="Aerobics Performance" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/021IMG_8870.jpg')">
+                    <img src="assets/sports_corner_images/021IMG_8870.jpg" alt="Karate Action Display" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/022IMG_9902.jpg')">
+                    <img src="assets/sports_corner_images/022IMG_9902.jpg" alt="Yoga Pose Demonstration" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/SPORTS_IMAGE_1.jpg')">
+                    <img src="assets/sports_corner_images/SPORTS_IMAGE_1.jpg" alt="Sports Day Drill" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/SPORTS_IMAGE_2.jpg')">
+                    <img src="assets/sports_corner_images/SPORTS_IMAGE_2.jpg" alt="Yoga Performance Group" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/TABLE_TENNIS.jpg')">
+                    <img src="assets/sports_corner_images/TABLE_TENNIS.jpg" alt="Table Tennis Play" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/sporting_activities_2.jpg')">
+                    <img src="assets/sports_corner_images/sporting_activities_2.jpg" alt="Outdoor Sporting Activities" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/sporting_activities_3.jpg')">
+                    <img src="assets/sports_corner_images/sporting_activities_3.jpg" alt="Drill Action Group" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="events" onclick="openLightbox('assets/sports_corner_images/slider.jpg')">
+                    <img src="assets/sports_corner_images/slider.jpg" alt="Annual Sports Event" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+
+                <!-- Group 3: PE Sessions (IMG-20210420-WA0005 to WA0020) -->
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0005.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0005.jpg" alt="PE Activity 05" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0007.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0007.jpg" alt="PE Activity 07" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0008.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0008.jpg" alt="PE Activity 08" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0010.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0010.jpg" alt="PE Activity 10" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0011.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0011.jpg" alt="PE Activity 11" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0012.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0012.jpg" alt="PE Activity 12" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0013.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0013.jpg" alt="PE Activity 13" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0014.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0014.jpg" alt="PE Activity 14" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0015.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0015.jpg" alt="PE Activity 15" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0016.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0016.jpg" alt="PE Activity 16" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0017.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0017.jpg" alt="PE Activity 17" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0018.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0018.jpg" alt="PE Activity 18" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0019.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0019.jpg" alt="PE Activity 19" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-category="sessions" onclick="openLightbox('assets/sports_corner_images/IMG-20210420-WA0020.jpg')">
+                    <img src="assets/sports_corner_images/IMG-20210420-WA0020.jpg" alt="PE Activity 20" loading="lazy">
+                    <div class="gallery-overlay"><i class="ph-bold ph-magnifying-glass-plus"></i></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox()">
+        <div class="lightbox-content-wrapper" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="closeLightbox()"><i class="ph-bold ph-x"></i></button>
+            <img src="" alt="Sports Corner Expanded" class="lightbox-img" id="lightbox-img">
+        </div>
+    </div>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container container">
+            <div class="footer-grid">
+                
+                <!-- Location Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">LOCATION</h4>
+                    <div class="footer-logo">
+                        <div class="logo-placeholder small">
+                            <i class="ph-fill ph-student"></i>
+                        </div>
+                        <div class="school-title">
+                            <h3>SHRI SHIKSHAYATAN<br>SCHOOL</h3>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- Admin Office Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">SCHOOL ADMIN OFFICE</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                        <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
+                        <li><i class="ph-fill ph-printer"></i> Fax : +91 33 22828350</li>
+                    </ul>
+                    <div class="footer-links">
+                        <a href="terms-and-conditions.html">Terms and Conditions</a>
+                        <a href="privacy-policy.html">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <!-- Dept Directories Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">DEPT DIRECTORIES</h4>
+                    
+                    <div class="dept-block">
+                        <h5>| SHRI SHIKSHAYATAN SCHOOL</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22828350</li>
+                            <li><i class="ph-fill ph-envelope"></i> principal@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="dept-block">
+                        <h5>| JUNIOR DEPT:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 33 22820348</li>
+                            <li><i class="ph-fill ph-envelope"></i> junior@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="dept-block">
+                        <h5>| PRE-PRIMARY SECTION:</h5>
+                        <ul>
+                            <li><i class="ph-fill ph-phone"></i> +91 8100978884, 8100978888</li>
+                            <li><i class="ph-fill ph-envelope"></i> preprimary@shrishikshayatanschool.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Quick Access Column -->
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK ACCESS</h4>
+                    <ul class="quick-links">
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                    </ul>
+                    
+                    <div class="visitor-counter">
+                        <p style="margin: 0 0 0.5rem 0; font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">VISITOR COUNTER</p>
+                        <div class="visitor-digits-box">
+                            <span class="visitor-digit">1</span><span class="visitor-digit">,</span><span class="visitor-digit">4</span><span class="visitor-digit">2</span><span class="visitor-digit">6</span><span class="visitor-digit">,</span><span class="visitor-digit">1</span><span class="visitor-digit">9</span><span class="visitor-digit">2</span>
+                        </div>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 1px; text-transform: uppercase;">Shri Shikshayatan School</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SHRI SHIKSHAYATAN SCHOOL | AFFILIATED TO CBSE | RECOGNIZED BY DEPARTMENT OF EDUCATION</p>
+                <p style="margin-top: 0.5rem;">Developed by <a href="https://hinnovation.in/" target="_blank" style="color: var(--primary-blue); font-weight: 700;">Hinnovation</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="script.js?v=41"></script>
+    <script>
+        // Lightbox Functions
+        const modal = document.getElementById('lightbox-modal');
+        const modalImg = document.getElementById('lightbox-img');
+
+        function openLightbox(imgSrc) {
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Unlock scrolling
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+
+        // Filter Gallery Items
+        function filterGallery(category) {
+            // Update active button styling
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.add('active');
+                    btn.style.background = 'var(--primary-blue)';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = 'var(--primary-blue)';
+                    btn.style.boxShadow = '0 4px 10px rgba(13,13,58,0.1)';
+                } else {
+                    btn.style.background = 'white';
+                    btn.style.color = 'var(--primary-blue)';
+                    btn.style.borderColor = 'rgba(26, 26, 74, 0.1)';
+                    btn.style.boxShadow = 'none';
+                }
+            });
+
+            // Filter items
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

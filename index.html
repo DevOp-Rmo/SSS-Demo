@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shri Shikshayatan School</title>
-    <link rel="icon" type="image/png" href="assets/sss_logo.png">
+    <link class="school-logo-link" rel="icon" type="image/png" href="assets/sss_logo.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,8 +15,9 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=37">
+    <!-- Notices Data & Styles -->
+    <script src="notices_data.js"></script>
+    <link rel="stylesheet" href="styles-v5.css?v=40">
 </head>
 <body>
 
@@ -69,7 +70,7 @@
     <nav class="main-nav">
         <div class="nav-container">
             <ul class="nav-links">
-                <li class="active"><a href="#">MANDATORY DISCLOSURE</a></li>
+                <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
                 <li class="dropdown">
                     <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                     <ul class="dropdown-menu">
@@ -148,9 +149,80 @@
             <h2 class="hero-title">EXCELLENCE IN EDUCATION</h2>
             
             <div class="hero-highlight-card">
-                <div class="highlight-inner">
-                    <i class="ph ph-image"></i>
-                    <span>SCHOOL HIGHLIGHTS PLACEHOLDER</span>
+                <div class="highlight-tabs">
+                    <button class="highlight-tab active" data-tab="admissions">
+                        <i class="ph ph-student"></i> Admissions 2027-28
+                    </button>
+                    <button class="highlight-tab" data-tab="links-results">
+                        <i class="ph ph-link-simple"></i> Registrations &amp; Results
+                    </button>
+                    <button class="highlight-tab" data-tab="fees">
+                        <i class="ph ph-coins"></i> Fee Queries
+                    </button>
+                </div>
+                
+                <div class="highlight-content">
+                    <!-- Admissions Tab -->
+                    <div class="highlight-pane active" id="tab-admissions">
+                        <div class="pane-grid">
+                            <div class="pane-item">
+                                <h4>Class XI Admissions</h4>
+                                <span class="pane-tag">Other than SSS Students (Non-SSY)</span>
+                                <p>Online Application Portal will remain active from <strong>25th July, 2026 to 11th Sep, 2026</strong>.</p>
+                                <div class="pane-action-btns" style="margin-top: auto; padding-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <a href="notice-class-xi-non-ssy.html" class="pane-btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">Admission Notice</a>
+                                </div>
+                            </div>
+                            <div class="pane-divider"></div>
+                            <div class="pane-item">
+                                <h4>Nursery - Class V Admissions</h4>
+                                <span class="pane-tag">Session 2027-2028</span>
+                                <p>Online Application Forms available. Junior Section office is available on active helpline numbers.</p>
+                                <div class="pane-action-btns" style="margin-top: auto; padding-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <a href="notice-nursery-to-v.html" class="pane-btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">Admission Notice</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Registrations & Results Tab -->
+                    <div class="highlight-pane" id="tab-links-results">
+                        <div class="pane-grid">
+                            <div class="pane-item">
+                                <h4>Registrations &amp; Surveys</h4>
+                                <div class="pane-links-list">
+                                    <a href="https://r.silverzone.org/188963" class="pane-action-link" target="_blank">
+                                        <span>Olympiad Registration (LKG - V)</span> <i class="ph ph-arrow-square-out"></i>
+                                    </a>
+                                    <a href="https://www.surveymonkey.com/r/GIRLS-DAY" class="pane-action-link" target="_blank">
+                                        <span>Education World Ranking Survey</span> <i class="ph ph-arrow-square-out"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pane-divider"></div>
+                            <div class="pane-item">
+                                <h4>Board Examination Results</h4>
+                                <p>Check the academic achievements of our students for Batch 2026.</p>
+                                <div class="results-btns">
+                                    <a href="notice-ssce-results.html" class="pane-btn-secondary">SSCE - Batch 2026</a>
+                                    <a href="notice-sse-results.html" class="pane-btn-secondary">SSE - Batch 2026</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fees Tab -->
+                    <div class="highlight-pane" id="tab-fees">
+                        <div class="pane-fees-content">
+                            <div class="fees-header-block">
+                                <p>For Fee related queries, contact <strong>Mr. Arnab</strong> at <strong>(033)2282-6350</strong></p>
+                            </div>
+                            <div class="fees-actions-block">
+                                <a href="fee-structure.html#junior" class="pane-btn">Junior Sec. Fees</a>
+                                <a href="fee-structure.html#senior" class="pane-btn">Senior Sec. Fees</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -164,6 +236,116 @@
             <!-- Ticker items will load dynamically here -->
         </div>
     </div>
+
+    <!-- Quick Actions Section -->
+    <section class="quick-actions-section">
+        <div class="quick-actions-grid">
+            <a href="books.html" class="action-card card-indigo">
+                <div class="action-icon-box">
+                    <i class="ph-bold ph-book-open"></i>
+                </div>
+                <span>Books</span>
+                <div class="action-arrow">
+                    <i class="ph-bold ph-arrow-right"></i>
+                </div>
+            </a>
+            <a href="sportscorner.html" class="action-card card-teal">
+                <div class="action-icon-box">
+                    <i class="ph-bold ph-soccer-ball"></i>
+                </div>
+                <span>Sports Corner</span>
+                <div class="action-arrow">
+                    <i class="ph-bold ph-arrow-right"></i>
+                </div>
+            </a>
+            <a href="assets/SSS-PROSPECTUS-web-rev2.pdf" target="_blank" class="action-card card-rose">
+                <div class="action-icon-box">
+                    <i class="ph-bold ph-file-pdf"></i>
+                </div>
+                <span>Prospectus</span>
+                <div class="action-arrow">
+                    <i class="ph-bold ph-arrow-right"></i>
+                </div>
+            </a>
+            <a href="assets/Elibrary.pdf" target="_blank" class="action-card card-violet">
+                <div class="action-icon-box">
+                    <i class="ph-bold ph-laptop"></i>
+                </div>
+                <span>E-library</span>
+                <div class="action-arrow">
+                    <i class="ph-bold ph-arrow-right"></i>
+                </div>
+            </a>
+            <a href="feedback.html" class="action-card card-sky">
+                <div class="action-icon-box">
+                    <i class="ph-bold ph-chat-centered-text"></i>
+                </div>
+                <span>Feedback</span>
+                <div class="action-arrow">
+                    <i class="ph-bold ph-arrow-right"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Dedicated Homepage Notice Board Section -->
+    <section class="notice-showcase-section container" id="notice-board-section">
+        <div class="notice-showcase-card">
+            
+            <!-- Left Info & Filter Sidebar -->
+            <div class="notice-showcase-sidebar">
+                <div>
+                    <div class="notice-sidebar-header">
+                        <div class="notice-sidebar-header-left">
+                            <div class="notice-icon-box">
+                                <i class="ph-bold ph-megaphone"></i>
+                            </div>
+                            <div>
+                                <h3 class="notice-showcase-title">NOTICE BOARD</h3>
+                                <p class="notice-showcase-subtitle">Official Announcements</p>
+                            </div>
+                        </div>
+                        <a href="notice_board.html" class="notice-mobile-view-all">
+                            View All <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+                    </div>
+                    
+                    <p class="notice-sidebar-desc">
+                        Stay up to date with the latest school circulars, exam schedules, admissions notices, and holiday updates.
+                    </p>
+                </div>
+
+                <div class="notice-sidebar-tabs">
+                    <button class="notice-tab active" data-filter="all">
+                        <i class="ph-bold ph-squares-four"></i> All Notices
+                    </button>
+                    <button class="notice-tab" data-filter="senior">
+                        <i class="ph-bold ph-student"></i> Senior Section (VI-XII)
+                    </button>
+                    <button class="notice-tab" data-filter="junior">
+                        <i class="ph-bold ph-baby"></i> Junior Section (I-V)
+                    </button>
+                </div>
+
+                <div class="notice-sidebar-footer">
+                    <a href="notice_board.html" class="btn-notice-board-full">
+                        <span>View All Notices</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Vertical Marquee Scroller Pane -->
+            <div class="notice-showcase-main">
+                <div class="notice-scroller-wrapper" id="notice-scroller-wrapper">
+                    <div class="index-notice-scroller-list" id="index-notice-list-container">
+                        <!-- Dynamic notices rendered by script.js -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <!-- Teal Background Section -->
     <div class="teal-bg-section">
@@ -201,7 +383,7 @@
                             <div class="hof-label">BOARD RESULTS</div>
                         </div>
                         <div class="hof-footer">
-                            <h4 id="hof-text-board_results">AISSE & AISSCE PERFORMANCE 2025</h4>
+                            <h4 id="hof-text-board_results">AISSE &amp; AISSCE PERFORMANCE 2025</h4>
                         </div>
                     </div>
                     <div class="hof-card">
@@ -210,7 +392,7 @@
                             <div class="hof-label accent">COMPETITIVE EXAM SUCCESS</div>
                         </div>
                         <div class="hof-footer">
-                            <h4 id="hof-text-competitive_exam">JEE, NEET & OLYMPIAD QUALIFIERS</h4>
+                            <h4 id="hof-text-competitive_exam">JEE, NEET &amp; OLYMPIAD QUALIFIERS</h4>
                         </div>
                     </div>
                 </div>
@@ -229,7 +411,7 @@
         </div>
     </section>
     </div>
-    
+
     <!-- Awards & Achievements -->
     <div class="awards-wrapper">
         <section class="awards section-padding container">
@@ -308,7 +490,7 @@
                     </div>
                     <div class="address-block">
                         <i class="ph-fill ph-map-pin"></i>
-                        <p>11, LORD SINHA ROAD,<br>& LORD SINHA ROAD,<br>KOLKATA 700 071</p>
+                        <p>11, LORD SINHA ROAD,<br>&amp; LORD SINHA ROAD,<br>KOLKATA 700 071</p>
                     </div>
                     <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -364,7 +546,7 @@
                     <ul class="quick-links">
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
                         <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
-                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS & ACHIEVEMENTS</a></li>
+                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
                     </ul>
                     
                     <div class="visitor-counter">
@@ -383,5 +565,20 @@
     </footer>
 
     <script src="script.js?v=7"></script>
+    <script>
+        // Hero highlight tabs controller
+        document.querySelectorAll('.highlight-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs & panes
+                document.querySelectorAll('.highlight-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.highlight-pane').forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding pane
+                tab.classList.add('active');
+                const targetPane = document.getElementById(`tab-${tab.dataset.tab}`);
+                if (targetPane) targetPane.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

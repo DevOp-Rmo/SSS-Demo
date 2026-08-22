@@ -507,7 +507,7 @@
         <nav class="main-nav">
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
                     <li class="dropdown">
                         <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
@@ -821,6 +821,12 @@
             "0065-CLASS-X-VAISHNAVI-OJHA.pdf",
             "0066-CLASS-X-SREYA-MUKHERJEE.pdf",
             "0067-CLASS-X-SRESTHIA-GHOSH.pdf",
+            "0068-CLASS-VIII-AANYA-INDU.pdf",
+            "0069-CLASS-X-SRINIKA-ROY.pdf",
+            "0070-CLASS-X-PRIYANSHI-SONTHALIA.pdf",
+            "0071-CLASS-X-AASHNA-MAITI.pdf",
+            "0072-CLASS-X-TANNISTHA-SAHA.pdf",
+            "0073-CLASS-X-SHIBANGI-GHOSH.pdf",
             "0126-CLASS-II-AZMA-JAVED.pdf",
             "0127CLASS-SKG-JIYASA-RAHA.pdf",
             "0128CLASS-IV-AARADHITA-MUNSHI.pdf",
@@ -974,6 +980,12 @@
             "0065": "July 4, 2026",
             "0066": "July 4, 2026",
             "0067": "July 4, 2026",
+            "0068": "July 4, 2026",
+            "0069": "July 4, 2026",
+            "0070": "July 4, 2026",
+            "0071": "July 4, 2026",
+            "0072": "July 4, 2026",
+            "0073": "July 4, 2026",
             "0126": "December 15, 2025",
             "0127": "December 19, 2025",
             "0128": "December 19, 2025",
@@ -1021,127 +1033,11 @@
             "0172": "April 25, 2026"
         };
 
-        const candidatesList = [];
-        const grouped = {};
-
-        // Parse local filenames into clean structured objects
-        rawFiles.forEach(file => {
-            const indexMatch = file.match(/^(\d+)/);
-            if (!indexMatch) return;
-            const index = indexMatch[1];
-            
-            let studentClass = "";
-            let name = "";
-            
-            const baseName = file.substring(0, file.length - 4);
-            
-            if (baseName.includes('_')) {
-                const parts = baseName.split('_');
-                name = parts[1].replace(/-/g, ' ').trim();
-            } else {
-                let remainder = baseName.replace(/^\d+[-_]*/, '');
-                
-                const classMatch = remainder.match(/CLASS[-_]([A-Z0-9\s]+?)(?=-[A-Z]|$)/i);
-                if (classMatch) {
-                    studentClass = "Class " + classMatch[1].replace(/[-_]/g, ' ').trim();
-                    remainder = remainder.replace(classMatch[0], '');
-                } else if (remainder.match(/CLASS/i)) {
-                    const classMatch2 = remainder.match(/CLASS[-_]*([A-Z0-9]+)/i);
-                    if (classMatch2) {
-                        studentClass = "Class " + classMatch2[1].trim();
-                        remainder = remainder.replace(/CLASS[-_]*[A-Z0-9]+/i, '');
-                    }
-                }
-                name = remainder.replace(/[-_]+/g, ' ').trim();
-            }
-            
-            // Clean up class/group prefixes that got left in student name
-            name = name.replace(/^(Group\s+[IVX\s]+|Class\s+[IVX\s]+)/i, '').trim();
-            name = name.replace(/^[-_]+/, '').trim();
-            
-            name = name.toLowerCase().split(' ').map(word => {
-                return word.charAt(0).toUpperCase() + word.slice(1);
-            }).join(' ');
-            
-            if (classOverrides[index]) {
-                studentClass = classOverrides[index];
-            }
-            if (!studentClass) {
-                studentClass = "N/A";
-            }
-            
-            // Special Override for Dayita Chakraborty
-            if (name.includes("Dayita Chakraborty")) {
-                name = "Dayita Chakraborty";
-                studentClass = "Class X";
-            }
-            
-            const date = tcDates[index] || "N/A";
-            
-            // Use index + clean name as the unique key to avoid collision of different students sharing the same index (e.g., #0061 Rameesha/Muskaan)
-            const groupingKey = index + "_" + name.toLowerCase().replace(/[^a-z]/g, '');
-            
-            if (!grouped[groupingKey]) {
-                grouped[groupingKey] = {
-                    index: index,
-                    name: name,
-                    class: studentClass,
-                    date: date,
-                    files: [file]
-                };
-            } else {
-                if (grouped[groupingKey].class === "N/A" && studentClass !== "N/A") {
-                    grouped[groupingKey].class = studentClass;
-                }
-                if (grouped[groupingKey].name.length < name.length || grouped[groupingKey].name === "Unknown") {
-                    grouped[groupingKey].name = name;
-                }
-                if (!grouped[groupingKey].files.includes(file)) {
-                    grouped[groupingKey].files.push(file);
-                }
-            }
-        });
-
-        // Convert grouped objects to array
-        const candidates = Object.values(grouped);
-        
-        // Sort candidates reverse-chronologically by TC Date (latest first)
-        candidates.sort((a, b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            if (dateA.getTime() !== dateB.getTime()) {
-                return dateB.getTime() - dateA.getTime();
-            }
-            return parseInt(b.index) - parseInt(a.index);
-        });
-
-        // Load admin-added TC entries from localStorage and PREPEND them (they are newest)
-        const adminTcEntries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
-        const adminCandidates = adminTcEntries.map(entry => ({
-            index: 'admin',
-            name: entry.name,
-            class: entry.studentClass,
-            date: entry.displayDate,
-            dateRaw: entry.dateRaw,
-            files: [],
-            fileDataUri: entry.fileDataUri || '',
-            isAdminEntry: true,
-            adminId: entry.id
-        }));
-
-        // Merge: admin entries first (newest), then existing file-based entries
-        const allCandidates = [...adminCandidates, ...candidates];
-
-        // Assign sequential serial numbers (#0001, #0002, etc.) based on sorted chronological order
-        allCandidates.forEach((student, i) => {
-            const srlNum = (i + 1).toString().padStart(4, '0');
-            student.displaySrl = `#${srlNum}`;
-        });
-
-        // Pagination and Filtering State
+        let dbTcEntries = [];
+        let allCandidates = [];
+        let filteredCandidates = [];
         let currentPage = 1;
         const recordsPerPage = 15;
-        let filteredCandidates = [...allCandidates];
 
         // DOM elements
         const tableBody = document.getElementById('table-body');
@@ -1156,6 +1052,143 @@
         const pdfModalTitle = document.getElementById('pdf-modal-title');
         const pdfFrame = document.getElementById('pdf-frame');
         const closePdfBtn = document.getElementById('close-pdf-btn');
+
+        function initDirectory() {
+            const grouped = {};
+
+            // Parse local filenames into clean structured objects
+            rawFiles.forEach(file => {
+                const indexMatch = file.match(/^(\d+)/);
+                if (!indexMatch) return;
+                const index = indexMatch[1];
+                
+                let studentClass = "";
+                let name = "";
+                
+                const baseName = file.substring(0, file.length - 4);
+                
+                if (baseName.includes('_')) {
+                    const parts = baseName.split('_');
+                    name = parts[1].replace(/-/g, ' ').trim();
+                } else {
+                    let remainder = baseName.replace(/^\d+[-_]*/, '');
+                    
+                    const classMatch = remainder.match(/CLASS[-_]([A-Z0-9\s]+?)(?=-[A-Z]|$)/i);
+                    if (classMatch) {
+                        studentClass = "Class " + classMatch[1].replace(/[-_]/g, ' ').trim();
+                        remainder = remainder.replace(classMatch[0], '');
+                    } else if (remainder.match(/CLASS/i)) {
+                        const classMatch2 = remainder.match(/CLASS[-_]*([A-Z0-9]+)/i);
+                        if (classMatch2) {
+                            studentClass = "Class " + classMatch2[1].trim();
+                            remainder = remainder.replace(/CLASS[-_]*[A-Z0-9]+/i, '');
+                        }
+                    }
+                    name = remainder.replace(/[-_]+/g, ' ').trim();
+                }
+                
+                // Clean up class/group prefixes that got left in student name
+                name = name.replace(/^(Group\s+[IVX\s]+|Class\s+[IVX\s]+)/i, '').trim();
+                name = name.replace(/^[-_]+/, '').trim();
+                
+                name = name.toLowerCase().split(' ').map(word => {
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+                
+                if (classOverrides[index]) {
+                    studentClass = classOverrides[index];
+                }
+                if (!studentClass) {
+                    studentClass = "N/A";
+                }
+                
+                // Special Override for Dayita Chakraborty
+                if (name.includes("Dayita Chakraborty")) {
+                    name = "Dayita Chakraborty";
+                    studentClass = "Class X";
+                }
+                
+                const date = tcDates[index] || "N/A";
+                
+                // Use index + clean name as the unique key to avoid collision of different students sharing the same index
+                const groupingKey = index + "_" + name.toLowerCase().replace(/[^a-z]/g, '');
+                
+                if (!grouped[groupingKey]) {
+                    grouped[groupingKey] = {
+                        index: index,
+                        name: name,
+                        class: studentClass,
+                        date: date,
+                        files: [file]
+                    };
+                } else {
+                    if (grouped[groupingKey].class === "N/A" && studentClass !== "N/A") {
+                        grouped[groupingKey].class = studentClass;
+                    }
+                    if (grouped[groupingKey].name.length < name.length || grouped[groupingKey].name === "Unknown") {
+                        grouped[groupingKey].name = name;
+                    }
+                    if (!grouped[groupingKey].files.includes(file)) {
+                        grouped[groupingKey].files.push(file);
+                    }
+                }
+            });
+
+            // Convert grouped objects to array
+            const candidates = Object.values(grouped);
+            
+            // Sort candidates reverse-chronologically by TC Date (latest first)
+            candidates.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                if (dateA.getTime() !== dateB.getTime()) {
+                    return dateB.getTime() - dateA.getTime();
+                }
+                return parseInt(b.index) - parseInt(a.index);
+            });
+
+            // Load admin-added TC entries from database or localStorage fallback
+            let adminCandidates = [];
+            if (dbTcEntries && dbTcEntries.length > 0) {
+                adminCandidates = dbTcEntries.map(entry => ({
+                    index: 'admin',
+                    name: entry.name,
+                    class: entry.class || entry.studentClass,
+                    date: entry.date || entry.displayDate,
+                    dateRaw: entry.date_raw || entry.dateRaw,
+                    files: [],
+                    fileDataUri: entry.file_path || entry.fileDataUri || '',
+                    isAdminEntry: true,
+                    adminId: entry.id
+                }));
+            } else {
+                const adminTcEntries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
+                adminCandidates = adminTcEntries.map(entry => ({
+                    index: 'admin',
+                    name: entry.name,
+                    class: entry.studentClass,
+                    date: entry.displayDate,
+                    dateRaw: entry.dateRaw,
+                    files: [],
+                    fileDataUri: entry.fileDataUri || '',
+                    isAdminEntry: true,
+                    adminId: entry.id
+                }));
+            }
+
+            // Merge: admin entries first (newest), then existing file-based entries
+            allCandidates = [...adminCandidates, ...candidates];
+
+            // Assign sequential serial numbers (#0001, #0002, etc.) based on sorted chronological order
+            allCandidates.forEach((student, i) => {
+                const srlNum = (i + 1).toString().padStart(4, '0');
+                student.displaySrl = `#${srlNum}`;
+            });
+
+            filteredCandidates = [...allCandidates];
+            currentPage = 1;
+            renderDirectory();
+        }
 
         // Apply filters & search query
         function applyFilters() {
@@ -1365,8 +1398,24 @@
             }
         });
 
-        // Initialize display
-        renderDirectory();
+        // Initialize display by fetching database or local fallback
+        const isLocal = window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('github.dev') || window.location.search.includes('demo=true');
+        if (isLocal) {
+            initDirectory();
+        } else {
+            fetch('api.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.transfer_certificates) {
+                        dbTcEntries = data.transfer_certificates;
+                    }
+                    initDirectory();
+                })
+                .catch(err => {
+                    console.error('Error fetching TC database:', err);
+                    initDirectory();
+                });
+        }
     </script>
     <script src="script.js?v=7"></script>
 </body>

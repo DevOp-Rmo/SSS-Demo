@@ -17,6 +17,7 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles-v5.css?v=37">
+    <script src="notices_data.js"></script>
 </head>
 <body>
 
@@ -69,7 +70,7 @@
         <nav class="main-nav">
             <div class="nav-container">
                 <ul class="nav-links">
-                    <li><a href="index.html">MANDATORY DISCLOSURE</a></li>
+                    <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
                     <li class="dropdown">
                         <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
@@ -276,6 +277,27 @@
             }
         });
 
+        function filterActiveNotices(notices) {
+            if (!notices) return [];
+            const now = new Date();
+            return notices.filter(notice => {
+                if (notice.start_date) {
+                    const timePart = notice.start_time || '00:00';
+                    const startDateTime = new Date(notice.start_date + 'T' + timePart + ':00');
+                    if (isNaN(startDateTime.getTime()) || now < startDateTime) {
+                        return false;
+                    }
+                }
+                if (notice.end_date) {
+                    const endDateTime = new Date(notice.end_date + 'T23:59:59');
+                    if (isNaN(endDateTime.getTime()) || now > endDateTime) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+
         function loadNotices() {
             const isLocal = window.location.protocol === 'file:' || window.location.hostname.includes('github.io') || window.location.hostname.includes('github.dev') || window.location.search.includes('demo=true');
             if (isLocal) {
@@ -285,36 +307,55 @@
                         const data = JSON.parse(stored);
                         if (data.section_notices) {
                             const defaults = getDefaultLocalNotices();
-                            const needsUpdate = !data.section_notices.some(n => n.id === 'wp_notice_27') || data.section_notices.length !== defaults.length;
+                            const needsUpdate = !data.section_notices.some(n => n.id === 'wp_notice_52') || data.section_notices.length !== defaults.length;
                             if (needsUpdate) {
                                 data.section_notices = defaults;
                                 localStorage.setItem('school_db_data', JSON.stringify(data));
                             }
-                            noticesData = data.section_notices;
+                            noticesData = filterActiveNotices(data.section_notices);
                             renderAccordion();
                             return;
                         }
                     } catch(e) {}
                 }
-                noticesData = getDefaultLocalNotices();
+                noticesData = filterActiveNotices(getDefaultLocalNotices());
                 renderAccordion();
             } else {
                 fetch('api.php')
                     .then(res => res.json())
                     .then(data => {
                         if (data && data.section_notices) {
-                            noticesData = data.section_notices;
+                            noticesData = filterActiveNotices(data.section_notices);
                         } else {
-                            noticesData = getDefaultLocalNotices();
+                            noticesData = filterActiveNotices(getDefaultLocalNotices());
                         }
                         renderAccordion();
                     })
                     .catch(err => {
                         console.error("Error loading notices:", err);
-                        noticesData = getDefaultLocalNotices();
+                        noticesData = filterActiveNotices(getDefaultLocalNotices());
                         renderAccordion();
                     });
             }
+        }
+
+        function matchClass(noticeClass, cls) {
+            if (!noticeClass) return false;
+            let targetClasses = [];
+            if (Array.isArray(noticeClass)) {
+                targetClasses = noticeClass;
+            } else if (typeof noticeClass === 'string') {
+                if (noticeClass.startsWith('[')) {
+                    try {
+                        targetClasses = JSON.parse(noticeClass);
+                    } catch(e) {
+                        targetClasses = [noticeClass];
+                    }
+                } else {
+                    targetClasses = [noticeClass];
+                }
+            }
+            return targetClasses.includes('All') || targetClasses.includes(cls);
         }
 
         function renderAccordion() {
@@ -343,34 +384,41 @@
                 const item = document.createElement('div');
                 item.className = 'accordion-item';
                 
-                // Check if there are any notices for this class within 7 days
-                const classNotices = noticesData.filter(n => (n.section === 'senior' || n.section === 'both') && (Array.isArray(n.class) ? n.class.includes(cls) : n.class === cls));
-                const hasNew = classNotices.some(n => {
-                    const noticeDate = new Date(n.date);
-                    const diffTime = Math.abs(new Date() - noticeDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    return diffDays <= 7;
-                });
-                const blinkBadge = hasNew ? ' <span class="new-blink" style="margin-left: 0.75rem; font-size: 0.7rem; padding: 0.15rem 0.45rem; border-radius: 4px;">NEW</span>' : '';
-                
-                // Header
-                const header = document.createElement('div');
-                header.className = 'accordion-header';
-                const iconClass = classIcons[cls] || 'ph-student';
-                header.innerHTML = `<div class="header-left"><i class="ph ${iconClass} class-card-icon"></i><span>${cls}${blinkBadge}</span></div><div class="icon-circle"><i class="ph ph-caret-down icon-state"></i></div>`;
-                
-                // Content
-                const content = document.createElement('div');
-                content.className = 'accordion-content';
-                
-                const subAccordionContainer = document.createElement('div');
-                subAccordionContainer.className = 'sub-accordion-container';
-                
-                categories.forEach(cat => {
-                    const subItem = document.createElement('div');
-                    subItem.className = 'sub-accordion-item';
-                    
-                    const notices = noticesData.filter(n => (n.section === 'senior' || n.section === 'both') && (Array.isArray(n.class) ? n.class.includes(cls) : n.class === cls) && n.category === cat.key);
+                 // Check if there are any notices for this class within 7 days
+                 const classNotices = noticesData.filter(n => 
+                     (n.section === 'senior' || n.section === 'all' || n.section === 'both') && 
+                     matchClass(n.class, cls)
+                 );
+                 const hasNew = classNotices.some(n => {
+                     const noticeDate = new Date(n.date);
+                     const diffTime = Math.abs(new Date() - noticeDate);
+                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                     return diffDays <= 7;
+                 });
+                 const blinkBadge = hasNew ? ' <span class="new-blink" style="margin-left: 0.75rem; font-size: 0.7rem; padding: 0.15rem 0.45rem; border-radius: 4px;">NEW</span>' : '';
+                 
+                 // Header
+                 const header = document.createElement('div');
+                 header.className = 'accordion-header';
+                 const iconClass = classIcons[cls] || 'ph-student';
+                 header.innerHTML = `<div class="header-left"><i class="ph ${iconClass} class-card-icon"></i><span>${cls}${blinkBadge}</span></div><div class="icon-circle"><i class="ph ph-caret-down icon-state"></i></div>`;
+                 
+                 // Content
+                 const content = document.createElement('div');
+                 content.className = 'accordion-content';
+                 
+                 const subAccordionContainer = document.createElement('div');
+                 subAccordionContainer.className = 'sub-accordion-container';
+                 
+                 categories.forEach(cat => {
+                     const subItem = document.createElement('div');
+                     subItem.className = 'sub-accordion-item';
+                     
+                     const notices = noticesData.filter(n => 
+                         (n.section === 'senior' || n.section === 'all' || n.section === 'both') && 
+                         matchClass(n.class, cls) && 
+                         n.category === cat.key
+                     );
                     
                     const hasSubNew = notices.some(n => {
                         const noticeDate = new Date(n.date);
@@ -549,310 +597,6 @@
                 "'": '&#039;'
             };
             return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-        }
-
-        function getDefaultLocalNotices() {
-            return [
-                {
-                    "id": "wp_notice_27",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "general",
-                    "date": "2026-07-16",
-                    "title": "Notice for the students of Class IX regarding mentoring session",
-                    "content": "<p>Please view the attached notice regarding the mentoring session for Class IX students.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-16 - Notice for the students of  Class IX regarding mentoring session/20260716-Notice-for-Classes-IX-Mentoring-Session_001.jpg"
-                },
-                {
-                    "id": "wp_notice_26",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "general",
-                    "date": "2026-07-15",
-                    "title": "NOTICE FOR CLASSES NURSERY TO V RE: Early Dispersal SESSION 2026 - 2027",
-                    "content": "<p>Please view the attached notice regarding early dispersal for Classes Nursery to V.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - NOTICE FOR CLASSES NURSERY TO V RE Early Dispersal SESSION 2026 – 2027/20260715-rath-yatra-2026-early_001.jpg"
-                },
-                {
-                    "id": "wp_notice_25",
-                    "section": "senior",
-                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-07-15",
-                    "title": "Notice for Students of Classes VI to XII Re: Early Dispersal",
-                    "content": "<p>Please view the attached notice regarding early dispersal for Classes VI to XII.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - Notice for Students of Classes VI to XII Re Early Dispersal/20260715-Early-Dispersal-on-16th-July-2026_001.jpg"
-                },
-                {
-                    "id": "wp_notice_24",
-                    "section": "senior",
-                    "class": ["Class VI", "Class VII", "Class VIII"],
-                    "category": "exam",
-                    "date": "2026-07-15",
-                    "title": "DATE SHEET FOR PRACTICE ASSESSMENT CLASSES VI, VII, VIII SESSION 2026-27",
-                    "content": "<p>Please view the attached practice assessment date sheet for Classes VI, VII, and VIII.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - DATE SHEET FOR PRACTICE ASSESSMENT CLASSES VI, VII, VIII SESSION 2026-27/20260715-PRACTICE-ASSESSMENT-CLASSES-VI-VII-VIII-26-27.jpg"
-                },
-                {
-                    "id": "wp_notice_23",
-                    "section": "senior",
-                    "class": "Class IX",
-                    "category": "exam",
-                    "date": "2026-07-15",
-                    "title": "DATE SHEET FOR PRACTICE TEST CLASS IX SESSION 2026-2027",
-                    "content": "<p>Please view the attached practice test date sheet for Class IX.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-15 - DATE SHEET FOR PRACTICE TEST CLASS IX SESSION 2026-2027/20260715PR-TEST-IX-26-27_001.jpg"
-                },
-                {
-                    "id": "wp_notice_22",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "admission",
-                    "date": "2026-07-14",
-                    "title": "INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V",
-                    "content": "<p>Please view the attached interview notices for Session 2027-2028 Classes Nursery to V.</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-07-14 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/x20260714-INTERVIEW-NOTICE-_001.jpg.pagespeed.ic.tc-OksGQ9f.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-14 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/x20260714-INTERVIEW-NOTICE-_002.jpg.pagespeed.ic.y5lMPUqUeb.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-14 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260714-INTERVIEW-NOTICE-_003.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_21",
-                    "section": "senior",
-                    "class": ["Class X", "Class XII"],
-                    "category": "general",
-                    "date": "2026-07-14",
-                    "title": "NOTICE FOR PARENTS AND STUDENTS OF CALSSES X AND XII - SESSION 2026-2027",
-                    "content": "<p>Please view the attached notice for Classes X and XII parents and students.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-14 - NOTICE FOR PARENTS AND STUDENTS OF CALSSES X AND XII – SESSION 2026–2027/20260714Notice-for-Classes-X-and-XII-2026-27_001.jpg"
-                },
-                {
-                    "id": "wp_notice_20",
-                    "section": "senior",
-                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-07-13",
-                    "title": "Notice for the students of Classes VI to XII regarding reporting time for Annual Day and Prize Distribution Ceremony",
-                    "content": "<p>Please view the attached notice regarding Annual Day reporting times.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-13 - Notice for the students of Classes VI to XII regarding reporting time for Annual Day an/20260713-Notice-for-students-of-Classes-VI-to-XII_001.jpg"
-                },
-                {
-                    "id": "wp_notice_19",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "admission",
-                    "date": "2026-07-11",
-                    "title": "ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028",
-                    "content": "<p>Please view the attached admission selection list and fee notice.</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_002.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_003.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST_004.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-fee-notice-for-admission-2027-28_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-11 - ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028/20260711-ADMISSION-SELECTION-LIST-8th-July_001.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_18",
-                    "section": "senior",
-                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-07-09",
-                    "title": "Notices for the students of Classes VI to XII regarding Annual Day and Prize Distribution Ceremony 2025-2026",
-                    "content": "<p>Please view the attached notice regarding the Annual Day and Prize Distribution Ceremony.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-09 - Notices for the students of Classes VI to XII regarding Annual Day and Prize Distributi/20260709Annual-Day-and-Prize-Distribution_001.jpg"
-                },
-                {
-                    "id": "wp_notice_17",
-                    "section": "senior",
-                    "class": ["Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-07-09",
-                    "title": "Notices for the students of Classes VI to XII regarding early dispersal",
-                    "content": "<p>Please view the attached notice regarding early dispersal.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-07-09 - Notices for the students of Classes VI to XII regarding early dispersal/20260709Early-Dispersal_001.jpg"
-                },
-                {
-                    "id": "wp_notice_16",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "admission",
-                    "date": "2026-07-04",
-                    "title": "INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V",
-                    "content": "<p>Please view the attached interview schedule notice for classes Nursery to V.</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_002.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_003.jpg",
-                        "assets/Post/wp_exports_2026/2026-07-04 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/202607004INTERVIEW-NOTICE-2027-28_004.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_15",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "admission",
-                    "date": "2026-06-29",
-                    "title": "INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V",
-                    "content": "<p>Please view the attached interview notice for details.</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-06-29 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260629INTERVIEW-NOTICE-LIST27-28_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-06-29 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260629INTERVIEW-NOTICE-LIST27-28_002.jpg",
-                        "assets/Post/wp_exports_2026/2026-06-29 - INTERVIEW NOTICE FOR SESSION 2027-2028 CLASS NURSERY TO V/20260629INTERVIEW-NOTICE-LIST27-28_003.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_14",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-06-22",
-                    "title": "Shri Shikshayatan School participated in the International Yoga Day at Red Road on 21st June, 2026",
-                    "content": "<p>Our students participated with great enthusiasm in the International Yoga Day celebrations at Red Road.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-06-22 - Shri Shikshayatan School participated in the International Yoga Day at Red Road on 21st/20260622International-Yoga-Day-at-Red-Road.jpeg"
-                },
-                {
-                    "id": "wp_notice_13",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-06-22",
-                    "title": "Shri Shikshayatan School receives National Award for Excellence in Student Well-being and Emotional Health",
-                    "content": "<p>We are proud to announce that our school has received the prestigious National Award for Excellence in Student Well-being and Emotional Health.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-06-22 - Shri Shikshayatan School receives National Award for Excellence in Student Well-being a/20260622Shri-Shikshayatan-School.jpeg"
-                },
-                {
-                    "id": "wp_notice_12",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-06-20",
-                    "title": "Notice for the students of Classes Nursery to XII regarding Metro Concession Form",
-                    "content": "<p>Please view the attached notice regarding distribution and submission of Metro Concession Forms.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-06-20 - Notice for the students of Classes Nursery to XII regarding Metro Concession Form/20260620_Notice-for-the-students-of-Classes-Nursery-to-XII_001.jpg"
-                },
-                {
-                    "id": "wp_notice_11",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-06-15",
-                    "title": "Notice of ‘School Bag Policy’",
-                    "content": "<p>Please view the attached notice regarding the official School Bag Weight Guidelines and Policy.</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-06-15 - Notice of ‘School Bag Policy’/20260615-Shri-Shikshayatan-School-School-Bag-Policy_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-06-15 - Notice of ‘School Bag Policy’/20260615-Shri-Shikshayatan-School-School-Bag-Policy_002.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_10",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "admission",
-                    "date": "2026-06-15",
-                    "title": "ADMISSION NOTICE FOR SESSION (2027 – 2028) FOR CLASSES NURSERY TO V",
-                    "content": "<p>Admission portal is open for classes Nursery to V for the academic session 2027-2028.</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-06-15 - ADMISSION NOTICE FOR SESSION (2027 – 2028) FOR CLASSES NURSERY TO V/20260615-Admission-Notice-Nursery-to-V_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-06-15 - ADMISSION NOTICE FOR SESSION (2027 – 2028) FOR CLASSES NURSERY TO V/20260615-Admission-Notice-Nursery-to-V_002.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_9",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-06-15",
-                    "title": "Congratulations",
-                    "content": "<p>Congratulations to all our students on their exceptional performance in board and session assessments.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-06-15 - Congratulations/15062026-Congratulations1.jpg"
-                },
-                {
-                    "id": "wp_notice_8",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-05-25",
-                    "title": "Congratulations",
-                    "content": "<p>Congratulations to our students for their outstanding accomplishments in co-curricular championships.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-05-25 - Congratulations/25052026-Congratulations-1.jpg"
-                },
-                {
-                    "id": "wp_notice_7",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "general",
-                    "date": "2026-05-14",
-                    "title": "Appreciation For Batch Senior School Certificate Examination (Main)-2026",
-                    "content": "<p>We appreciate the hard work and success of our Class XII batch in the CBSE Board Examinations.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-05-14 - Appreciation For Batch Senior School Certificate Examination (Main)-2026/16072026-Congratulations-Class-XII-2025-2026-final-web.jpg"
-                },
-                {
-                    "id": "wp_notice_6",
-                    "section": "senior",
-                    "class": "Class XII",
-                    "category": "general",
-                    "date": "2026-04-16",
-                    "title": "Note of Appreciation for Batch 2026 SSE",
-                    "content": "<p>Congratulations and best wishes to the SSE Batch of 2026 on their graduation and achievements.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-04-16 - Note of Appreciation for Batch 2026 SSE/16042026-Congratulations-Class-X-2025-2026D.jpg.pagespeed.ce.WI6SqZLR5k.jpg"
-                },
-                {
-                    "id": "wp_notice_5",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "general",
-                    "date": "2026-04-06",
-                    "title": "NOTICE FOR CLASSES NURSERY- V (JUNIOR SECTION) FOR THE SESSION 2026- 2027",
-                    "content": "<p>Please find attached the timetable and timing instructions for the new academic session 2026-2027.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-04-06 - NOTICE  FOR CLASSES NURSERY- V (JUNIOR SECTION) FOR THE SESSION 2026- 2027/20260406_SCHOOL-TIMING-NOTICE_001.jpg"
-                },
-                {
-                    "id": "wp_notice_4",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-04-06",
-                    "title": "Notice for Parents and Students regarding Launch of School Mobile Application",
-                    "content": "<p>We are delighted to announce the launch of our new official School Mobile Application for parents and students.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-04-06 - Notice for Parents and Students regarding Launch of School Mobile Application/20260406Notice-for-Parents-and-Students-regarding-Launch-of-School-Mobile-App_001.jpg"
-                },
-                {
-                    "id": "wp_notice_3",
-                    "section": "junior",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V"],
-                    "category": "general",
-                    "date": "2026-03-23",
-                    "title": "ACADEMIC SESSION 2026-2027 NOTICE FOR NEW ADMISSIONS CLASSES NURSERY TO V FULL SET OF BOOKS - EXERCISE BOOKS, STATIONERY & SCHOOL BAG WILL BE AVAILABLE",
-                    "content": "<p>Please view details regarding distribution of books, uniforms, and stationary for new admissions.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-03-23 - ACADEMIC SESSION 2026 – 2027 NOTICE FOR NEW ADMISSIONS CLASSES NURSERY TO V FULL SET OF/20260323Book-distribution-for-New-Admissions_001.jpg"
-                },
-                {
-                    "id": "wp_notice_2",
-                    "section": "senior",
-                    "class": "Class XI",
-                    "category": "general",
-                    "date": "2026-03-23",
-                    "title": "Notice for Students of Class XI Academic Session 2026-2027 For School Uniform, Books, Exercise Copies, Shoes and School Bag",
-                    "content": "<p>Distribution schedule of school uniforms, shoes, books, and bags for Class XI students (Session 2026-2027).</p>",
-                    "file_path": [
-                        "assets/Post/wp_exports_2026/2026-03-23 - Notice for Students of Class XI Academic Session 2026-2027 For School Uniform, Books, E/20260323Notice-for-the-students-of-Class-XI-session-2026-2027_001.jpg",
-                        "assets/Post/wp_exports_2026/2026-03-23 - Notice for Students of Class XI Academic Session 2026-2027 For School Uniform, Books, E/20260323Notice-for-Books_001.jpg"
-                    ]
-                },
-                {
-                    "id": "wp_notice_1",
-                    "section": "both",
-                    "class": ["Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII", "Class IX", "Class X", "Class XI", "Class XII"],
-                    "category": "general",
-                    "date": "2026-02-03",
-                    "title": "The 'Gratitude and Updates from an Alumna of Shri Shikshayatan School'",
-                    "content": "<p>A warm letter of appreciation and updates received from a distinguished alumna of our school.</p>",
-                    "file_path": "assets/Post/wp_exports_2026/2026-02-03 - The ‘Gratitude and Updates from an Alumna of Shri Shikshayatan School’/20260203Gratitude-an-Alumna-of-Shri-Shikshayatan-School_001.jpg"
-                }
-            ];
         }
     </script>
 </body>

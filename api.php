@@ -144,6 +144,16 @@ if (isset($_GET['blog_id'])) {
     exit;
 }
 
-// Default response: all data
-echo $db_content;
+// Default response: all data (filtered)
+$db_data = json_decode($db_content, true);
+if (isset($db_data['feedbacks']) && is_array($db_data['feedbacks'])) {
+    $filtered = [];
+    foreach ($db_data['feedbacks'] as $fb) {
+        if (!isset($fb['status']) || $fb['status'] === 'approved') {
+            $filtered[] = $fb;
+        }
+    }
+    $db_data['feedbacks'] = $filtered;
+}
+echo json_encode($db_data);
 ?>
