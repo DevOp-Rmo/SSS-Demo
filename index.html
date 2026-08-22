@@ -17,7 +17,7 @@
     
     <!-- Notices Data & Styles -->
     <script src="notices_data.js"></script>
-    <link rel="stylesheet" href="styles-v5.css?v=40">
+    <link rel="stylesheet" href="styles-v5.css?v=41">
 </head>
 <body>
 
@@ -317,13 +317,19 @@
 
                 <div class="notice-sidebar-tabs">
                     <button class="notice-tab active" data-filter="all">
-                        <i class="ph-bold ph-squares-four"></i> All Notices
+                        <i class="ph-bold ph-squares-four"></i>
+                        <span class="tab-desktop-text">All Notices</span>
+                        <span class="tab-mobile-text">All</span>
                     </button>
                     <button class="notice-tab" data-filter="senior">
-                        <i class="ph-bold ph-student"></i> Senior Section (VI-XII)
+                        <i class="ph-bold ph-student"></i>
+                        <span class="tab-desktop-text">Senior Section (VI-XII)</span>
+                        <span class="tab-mobile-text">Senior (VI-XII)</span>
                     </button>
                     <button class="notice-tab" data-filter="junior">
-                        <i class="ph-bold ph-baby"></i> Junior Section (I-V)
+                        <i class="ph-bold ph-baby"></i>
+                        <span class="tab-desktop-text">Junior Section (I-V)</span>
+                        <span class="tab-mobile-text">Junior (I-V)</span>
                     </button>
                 </div>
 
@@ -341,6 +347,14 @@
                     <div class="index-notice-scroller-list" id="index-notice-list-container">
                         <!-- Dynamic notices rendered by script.js -->
                     </div>
+                </div>
+
+                <!-- Mobile Bottom View All Button Bar -->
+                <div class="notice-mobile-bottom-bar">
+                    <a href="notice_board.html" class="btn-notice-mobile-full">
+                        <span>View All Notices</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </a>
                 </div>
             </div>
 
