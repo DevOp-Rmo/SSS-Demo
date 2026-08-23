@@ -35,13 +35,20 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+}
+
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-light);
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: visible;
+    overflow-x: hidden !important;
     position: relative;
+    width: 100%;
 }
 
 a {
@@ -560,11 +567,12 @@ h1, h2, h3, h4, h5, h6 {
    ========================================== */
 .hero-notices-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
     width: 100%;
     max-width: 1160px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 /* Base Glass Pill - Ultra-Transparent See-Through Crystal Glass with Live Blinking */
@@ -4293,13 +4301,11 @@ h1, h2, h3, h4, h5, h6 {
 /* ============================================================
    UTILITY: Prevent horizontal scroll on all screen sizes
    ============================================================ */
-html {
-    overflow-x: hidden;
-    max-width: 100vw;
-}
-body {
-    overflow-x: visible;
-    max-width: 100vw;
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    position: relative;
 }
 img, video, iframe {
     max-width: 100%;
@@ -4309,6 +4315,51 @@ img, video, iframe {
    MOBILE OVERRIDES (GAP REFINEMENTS & SIDEBAR ADJUSTMENT)
    ============================================================ */
 @media (max-width: 768px) {
+    /* Prevent any horizontal sliding */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+    }
+
+    /* Hero Section Mobile Layout - Clean clearance from sticky sidebar */
+    .hero-content {
+        padding-left: 54px !important; /* Clears sticky sidebar on the left */
+        padding-right: 14px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .hero-notices-grid {
+        grid-template-columns: 1fr !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 0.75rem !important;
+        box-sizing: border-box !important;
+    }
+
+    .hero-glass-pill {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        padding: 0.75rem 1rem !important;
+    }
+
+    .pill-title {
+        font-size: 0.88rem !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+    }
+
+    .pill-desc {
+        font-size: 0.72rem !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+    }
+
     /* Side Margins Symmetrical Alignment & Sidebar Clearance Channel */
     .container, .main-header .container {
         padding-left: 3.25rem !important;
@@ -4360,6 +4411,12 @@ img, video, iframe {
 }
 
 @media (max-width: 480px) {
+    /* Hero section padding on small mobile */
+    .hero-content {
+        padding-left: 48px !important;
+        padding-right: 10px !important;
+    }
+
     /* Reduce container padding on mobile portrait to fit titles without truncation */
     .container, .main-header .container {
         padding-left: 1.5rem !important;
