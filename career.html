@@ -3,317 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shri Shikshayatan School - Headmistress's Message</title>
+    <title>Shri Shikshayatan School - Careers</title>
+    <meta name="description" content="Explore career opportunities and teacher vacancies at Shri Shikshayatan School, Kolkata. Join our team of passionate educators shaping future leaders.">
     <link rel="icon" type="image/png" href="assets/sss_logo.png">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=37">
-    
+    <link rel="stylesheet" href="styles-v5.css?v=51">
+
     <style>
-        /* Scoped styles for Headmistress Message page */
-        .hm-page-wrapper {
+        /* ── Page Wrapper ── */
+        .career-pg-wrapper {
             background-color: var(--bg-light);
             padding: 3rem 0 6rem 0;
             min-height: 100vh;
         }
+        @media (min-width: 769px) {
+            .career-pg-wrapper .container {
+                max-width: 1300px !important;
+                width: 100% !important;
+                padding: 0 2rem !important;
+            }
+        }
 
-        /* Breadcrumb navigation */
-        .hm-breadcrumb {
+        /* ── Breadcrumb ── */
+        .career-pg-breadcrumb {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-family: var(--font-sans);
             font-size: 0.8rem;
             color: var(--text-light);
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .hm-breadcrumb a {
-            color: var(--primary-blue);
-            transition: color 0.2s;
-        }
-        .hm-breadcrumb a:hover {
-            color: var(--accent-orange);
-        }
-        .hm-breadcrumb i {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
+        .career-pg-breadcrumb a { color: var(--primary-blue); transition: color 0.2s; }
+        .career-pg-breadcrumb a:hover { color: var(--accent-orange); }
+        .career-pg-breadcrumb i { font-size: 0.75rem; }
 
-        /* Title block */
-        .hm-title-block {
-            margin-bottom: 3.5rem;
-            text-align: left;
-        }
-        .hm-page-title {
+        /* ── Title Block ── */
+        .career-pg-title-block { margin-bottom: 2.5rem; }
+        .career-pg-title {
             font-family: var(--font-serif);
-            font-size: 3rem;
+            font-size: 2.8rem;
             color: var(--primary-blue);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.4rem;
             position: relative;
             display: inline-block;
         }
-        .hm-page-title::after {
+        .career-pg-title::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 3px;
+            bottom: -6px; left: 0;
+            width: 55px; height: 3px;
             background-color: var(--accent-orange);
+            border-radius: 2px;
         }
-
-        /* 2-Column Split Layout */
-        .hm-content-grid {
-            display: grid;
-            grid-template-columns: 0.75fr 1.25fr;
-            gap: 4.5rem;
-            align-items: flex-start;
-            margin-bottom: 3rem;
-        }
-
-        /* Left Column: Portrait Card */
-        .hm-profile-card {
-            background-color: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(26, 26, 75, 0.05);
-            position: sticky;
-            top: calc(var(--fixed-header-total) + 30px);
-            transition: var(--transition);
-        }
-        .hm-profile-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 45px rgba(26, 26, 75, 0.08);
-            border-color: rgba(242, 156, 31, 0.2);
-        }
-        .hm-img-wrapper {
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            background-color: var(--bg-light);
-            position: relative;
-        }
-        .hm-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            transition: transform 0.5s ease;
-        }
-        .hm-profile-card:hover .hm-img {
-            transform: scale(1.03);
-        }
-        .hm-info-banner {
-            padding: 2rem 1.75rem;
-            text-align: center;
-            border-top: 1px solid rgba(26, 26, 75, 0.05);
-            background: linear-gradient(to bottom, var(--white) 0%, #fafcfa 100%);
-        }
-        .hm-name {
-            font-family: var(--font-serif);
-            font-size: 1.4rem;
-            color: var(--primary-blue);
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-        .hm-role {
+        .career-pg-subtitle {
             font-family: var(--font-sans);
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             color: var(--accent-orange);
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 1.5px;
-        }
-        .hm-org {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: 0.25rem;
-            font-weight: 500;
+            text-transform: uppercase;
+            margin-top: 0.75rem;
         }
 
-        /* Right Column: Message Text */
-        .hm-message-box {
-            background-color: var(--white);
+        /* ── Main Career Showcase Grid ── */
+        .career-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 2.5rem;
+            align-items: start;
+            margin-bottom: 3.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .career-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* ── Image Poster Card ── */
+        .career-poster-card {
+            background: #ffffff;
             border-radius: 20px;
-            padding: 4rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(26, 26, 75, 0.05);
+            padding: 1rem;
+            box-shadow: 0 15px 45px rgba(26, 26, 75, 0.08);
+            border: 1px solid rgba(26, 26, 75, 0.08);
+            text-align: center;
         }
-        .hm-message-box p {
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            line-height: 1.85;
-            margin-bottom: 2rem;
+
+        .career-poster-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
-        .hm-message-box p.lead {
-            font-size: 1.35rem;
-            font-weight: 600;
+
+        .career-poster-card:hover .career-poster-img {
+            transform: scale(1.01);
+        }
+
+        .poster-badge-row {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             color: var(--primary-blue);
-            line-height: 1.7;
-            position: relative;
-            margin-bottom: 2.25rem;
+            font-weight: 700;
+            font-size: 0.85rem;
         }
-        .hm-message-box p.lead::before {
-            content: '“';
-            position: absolute;
-            top: -20px;
-            left: -20px;
+
+        /* ── Vacancies & Description Content ── */
+        .career-content-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .career-intro-box {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 2rem;
+            border: 1px solid rgba(26, 26, 75, 0.06);
+            box-shadow: 0 10px 30px rgba(26, 26, 75, 0.04);
+        }
+
+        .career-intro-box h3 {
             font-family: var(--font-serif);
-            font-size: 5rem;
-            color: rgba(242, 156, 31, 0.15);
-            line-height: 1;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
         }
-        .hm-message-box p:last-of-type {
+
+        .career-intro-box p {
+            color: #4b5563;
+            font-size: 0.95rem;
+            line-height: 1.6;
             margin-bottom: 0;
         }
 
-        /* Signature block */
-        .signature-block {
-            margin-top: 3.5rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            padding-top: 2rem;
+        /* ── Vacancy Cards List ── */
+        .vacancy-list {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            gap: 1rem;
         }
-        .signature-handwritten {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            font-style: italic;
-            font-weight: 700;
+
+        .vacancy-item {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            border-left: 4px solid var(--primary-blue);
+            box-shadow: 0 4px 15px rgba(26, 26, 75, 0.04);
+            border-top: 1px solid rgba(26, 26, 75, 0.04);
+            border-right: 1px solid rgba(26, 26, 75, 0.04);
+            border-bottom: 1px solid rgba(26, 26, 75, 0.04);
+            transition: all 0.25s ease;
+        }
+
+        .vacancy-item:hover {
+            border-left-color: var(--accent-orange);
+            transform: translateX(4px);
+            box-shadow: 0 8px 25px rgba(26, 26, 75, 0.08);
+        }
+
+        .vacancy-item h4 {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            font-weight: 800;
             color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .signature-title {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 700;
+
+        .vacancy-item h4 i {
             color: var(--accent-orange);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        .signature-subtitle {
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 0.25rem;
+            font-size: 1.15rem;
         }
 
-        /* 15-24 inch Screens (1400px - 2560px) Optimizations */
-        @media (min-width: 1400px) {
-            .container {
-                max-width: 1400px;
-                padding: 0 3rem;
-            }
-            .hm-content-grid {
-                gap: 5.5rem;
-            }
-            .hm-img-wrapper {
-                height: 440px;
-            }
-        }
-        @media (min-width: 1900px) {
-            .container {
-                max-width: 1650px;
-                padding: 0 4rem;
-            }
-            .hm-page-title {
-                font-size: 3.8rem;
-            }
-            .hm-name {
-                font-size: 1.6rem;
-            }
-            .hm-role, .hm-org {
-                font-size: 0.9rem;
-            }
-            .hm-message-box {
-                padding: 5rem;
-                border-radius: 28px;
-            }
-            .hm-message-box p {
-                font-size: 1.25rem;
-                line-height: 1.95;
-            }
-            .hm-message-box p.lead {
-                font-size: 1.5rem;
-                line-height: 1.8;
-            }
-            .signature-handwritten {
-                font-size: 2.6rem;
-            }
-            .signature-title, .signature-subtitle {
-                font-size: 1rem;
-            }
-            .hm-img-wrapper {
-                height: 520px;
-            }
+        .vacancy-item p {
+            color: #374151;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
         }
 
-        /* Tablets & Small Laptops */
-        @media (max-width: 1024px) {
-            .hm-content-grid {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
-            .hm-profile-card {
-                max-width: 500px;
-                margin: 0 auto;
-                position: static;
-            }
-            .hm-message-box {
-                padding: 3rem;
-            }
+        .vacancy-tag {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.12);
+            color: #b45309;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 6px;
         }
 
-        /* Mobile Layouts */
-        @media (max-width: 768px) {
-            .hm-page-wrapper {
-                padding: 2rem 0 4rem 0;
-            }
-            .hm-page-title {
-                font-size: 2.25rem;
-            }
-            .hm-message-box {
-                padding: 2.25rem 1.5rem;
-                border-radius: 16px;
-            }
-            .hm-message-box p {
-                font-size: 1rem;
-                line-height: 1.75;
-                margin-bottom: 1.5rem;
-            }
-            .hm-message-box p.lead {
-                font-size: 1.15rem;
-                line-height: 1.65;
-                margin-bottom: 1.75rem;
-            }
-            .signature-handwritten {
-                font-size: 1.85rem;
-            }
+        /* ── Application Callout Box ── */
+        .career-apply-card {
+            background: linear-gradient(135deg, #002244 0%, #003366 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: #ffffff;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 51, 102, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .career-apply-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(245, 158, 11, 0.15);
+        }
+
+        .career-apply-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .career-apply-card p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            max-width: 650px;
+            margin: 0 auto 1.5rem auto;
+            line-height: 1.6;
+        }
+
+        .apply-email-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #f59e0b;
+            color: #001e3d;
+            font-size: 1.1rem;
+            font-weight: 900;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .apply-email-pill:hover {
+            background: #ffffff;
+            color: #003366;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .apply-note {
+            margin-top: 1.25rem;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
 <body>
 
-    <!-- Sticky Left Sidebar -->
+    <!-- Left Sidebar -->
     <aside class="sticky-sidebar">
         <div class="social-icons">
-            <a href="https://www.facebook.com/people/Shri-Shikshayatan-School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
+            <a href="https://www.facebook.com/people/Shri Shikshayatan School/61588345919138/" class="social-icon" target="_blank"><i class="ph ph-facebook-logo"></i></a>
             <a href="https://www.youtube.com/@shrishikshayatanschool2735" class="social-icon" target="_blank"><i class="ph ph-youtube-logo"></i></a>
             <a href="https://www.instagram.com/shrishikshayatan_school/" class="social-icon" target="_blank"><i class="ph ph-instagram-logo"></i></a>
         </div>
@@ -329,7 +307,7 @@
         <div class="top-bar">
             <div class="top-bar-content container">
                 <a href="career.html" class="top-link">CAREERS</a>
-            <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
+                <a href="alumni.html" class="top-link">ALUMNI PORTAL</a>
                 <div class="dropdown top-dropdown" style="display: inline-block;">
                     <a href="#" class="top-link">ONLINE PORTAL <i class="ph ph-caret-down"></i></a>
                     <ul class="dropdown-menu">
@@ -360,17 +338,18 @@
             <div class="nav-container">
                 <ul class="nav-links">
                     <li><a href="mandatory-disclosure.html">MANDATORY DISCLOSURE</a></li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#">ABOUT US <i class="ph ph-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="history.html">History</a></li>
                             <li><a href="president-message.html">President's Message</a></li>
                             <li><a href="secretary-message.html">Secretary General's Message</a></li>
                             <li><a href="principal-message.html">Principal's Message</a></li>
-                            <li class="active"><a href="headmistress-message.html">Head Mistress's Message</a></li>
+                            <li><a href="headmistress-message.html">Head Mistress's Message</a></li>
                             <li><a href="board-of-trustees.html">Board of Trustees</a></li>
                             <li><a href="school-management.html">School Management Committee</a></li>
                             <li><a href="media-coverage.html">Media Coverage</a></li>
+                            <li><a href="career.html">Careers</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -407,7 +386,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="procedure.html">Procedure</a></li>
                             <li><a href="fee-structure.html">Fee Structure</a></li>
-                            <li><a href="fee-policy.html">Fee Policy &amp; Schedule</a></li>
+                            <li><a href="fee-policy.html">Fee Policy & Schedule</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -417,7 +396,7 @@
                             <li><a href="junior.html">Junior Section</a></li>
                         </ul>
                     </li>
-                    <li><a href="index.html#contacts">CONTACTS</a></li>
+                    <li><a href="#contacts" class="scroll-link">CONTACTS</a></li>
                 </ul>
                 <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
                     <i class="ph ph-list"></i>
@@ -426,58 +405,98 @@
         </nav>
     </div>
 
-    <!-- Main Container -->
-    <div class="hm-page-wrapper">
+    <!-- Page Content -->
+    <div class="career-pg-wrapper">
         <div class="container">
             
-            <!-- Breadcrumbs -->
-            <div class="hm-breadcrumb">
+            <!-- Breadcrumb -->
+            <div class="career-pg-breadcrumb">
                 <a href="index.html">Home</a>
-                <i class="ph ph-caret-right"></i>
+                <i class="ph-bold ph-caret-right"></i>
                 <span>About Us</span>
-                <i class="ph ph-caret-right"></i>
-                <span>Head Mistress's Message</span>
+                <i class="ph-bold ph-caret-right"></i>
+                <span>Careers</span>
             </div>
 
-            <!-- Page Title Block -->
-            <div class="hm-title-block">
-                <h1 class="hm-page-title">Head Mistress's Message</h1>
+            <!-- Title Block -->
+            <div class="career-pg-title-block">
+                <h1 class="career-pg-title">CAREERS</h1>
+                <p class="career-pg-subtitle">JOIN OUR COMMUNITY OF PASSIONATE &amp; PROGRESSIVE EDUCATORS</p>
             </div>
 
-            <!-- Profile Grid -->
-            <div class="hm-content-grid">
+            <!-- 2-Column Career Grid -->
+            <div class="career-grid-layout">
                 
-                <!-- Left: Portrait Card -->
-                <div class="hm-profile-card-wrapper">
-                    <div class="hm-profile-card">
-                        <div class="hm-img-wrapper">
-                            <img src="assets/hm2005.jpg" alt="Mrs. Poushali Mukherjee" class="hm-img">
-                        </div>
-                        <div class="hm-info-banner">
-                            <h2 class="hm-name">Mrs. Poushali Mukherjee</h2>
-                            <p class="hm-role">Headmistress (Primary Section)</p>
-                            <p class="hm-org">Shri Shikshayatan School</p>
-                        </div>
+                <!-- Left: Official Recruitment Notice Poster -->
+                <div class="career-poster-card">
+                    <img src="assets/career_pg.jpg" alt="Shri Shikshayatan School Teacher Recruitment Notice" class="career-poster-img">
+                    <div class="poster-badge-row">
+                        <i class="ph-bold ph-newspaper"></i>
+                        <span>Official Recruitment Circular</span>
                     </div>
                 </div>
 
-                <!-- Right: Message Content -->
-                <div class="hm-message-box">
+                <!-- Right: Detailed Positions & Requirements -->
+                <div class="career-content-pane">
                     
-                    <p class="lead">“Lead me from darkness to light…”</p>
-                    
-                    <p>The eternal prayer is our motto. Saluting the idea of our founder members of breaking down the barriers to girls education – we in the primary section of Shri Shikshayatan School, design our curriculum to motivate every child to believe that no achievement is impossible.</p>
-                    
-                    <p>With a wide range of activities, we help them to dream of a better tomorrow by liberating their minds – as we believe that learning is always reciprocal. With a perfect blend of tech-aided learning through smart classrooms, language labs, tablet usage and value based education for character building, our extremely competent and educated staff – all together, enable the little girl to walk ahead confidently in her search for excellence.</p>
-                    
-                    <div class="signature-block">
-                        <span class="signature-handwritten">Poushali Mukherjee</span>
-                        <span class="signature-title">Mrs. Poushali Mukherjee</span>
-                        <span class="signature-subtitle">Headmistress, Primary Section</span>
+                    <div class="career-intro-box">
+                        <h3>Inviting Applications from Experienced Teachers</h3>
+                        <p>Shri Shikshayatan School is looking for passionate, dynamic, and techno-savvy educators committed to academic excellence and holistic student development under the CBSE curriculum.</p>
+                    </div>
+
+                    <div class="vacancy-list">
+                        <!-- Vacancy 1 -->
+                        <div class="vacancy-item">
+                            <h4><i class="ph-bold ph-atom"></i> Physics, Biology, Chemistry</h4>
+                            <p><strong>Qualification:</strong> M.Sc. with B.Ed.</p>
+                        </div>
+
+                        <!-- Vacancy 2 -->
+                        <div class="vacancy-item">
+                            <h4><i class="ph-bold ph-book-open-text"></i> English, Hindi</h4>
+                            <p><strong>Qualification:</strong> M.A. with B.Ed.</p>
+                        </div>
+
+                        <!-- Vacancy 3 -->
+                        <div class="vacancy-item">
+                            <h4><i class="ph-bold ph-chart-line-up"></i> Financial Markets Management</h4>
+                            <p><strong>Qualification:</strong> M.Com. / MBA / M.A. (Economics) with B.Ed.</p>
+                        </div>
+
+                        <!-- Vacancy 4 -->
+                        <div class="vacancy-item">
+                            <h4><i class="ph-bold ph-scissors"></i> Fashion Studies</h4>
+                            <p><strong>Qualification:</strong> Bachelor's Degree in Fashion Design / Apparel Construction or equivalent from Govt. recognized Institute / University with B.Ed.</p>
+                        </div>
+
+                        <!-- Vacancy 5 -->
+                        <div class="vacancy-item">
+                            <h4><i class="ph-bold ph-users-three"></i> Primary Teachers</h4>
+                            <p><strong>Qualification:</strong> Graduate / Post Graduate with D.El.Ed.</p>
+                        </div>
+
+                        <!-- Vacancy 6 -->
+                        <div class="vacancy-item">
+                            <h4><i class="ph-bold ph-music-notes"></i> Western Dance <span class="vacancy-tag">Part-Time</span></h4>
+                            <p><strong>Qualification:</strong> Diploma / Certificate in Western Dance from a recognized institution with 2&ndash;3 years of teaching experience in a school or dance academy.</p>
+                        </div>
                     </div>
 
                 </div>
 
+            </div>
+
+            <!-- How to Apply Card -->
+            <div class="career-apply-card">
+                <h3>How to Apply</h3>
+                <p>Candidates must possess the requisite subject qualifications and a recognized professional teaching degree. Interested educators are invited to email their updated CV along with recent photograph and credentials to:</p>
+                
+                <a href="mailto:careers@shrishikshayatanschool.com?subject=Application%20for%20Teaching%20Position%20-%20Shri%20Shikshayatan%20School" class="apply-email-pill">
+                    <i class="ph-bold ph-envelope-simple-open"></i>
+                    <span>careers@shrishikshayatanschool.com</span>
+                </a>
+
+                <p class="apply-note"><i class="ph-bold ph-info"></i> Please mention the post applied for in the subject line of your email.</p>
             </div>
 
         </div>
@@ -514,7 +533,7 @@
                     <ul class="contact-list">
                         <li><i class="ph-fill ph-phone"></i> +91 33 22821450, 22826350</li>
                         <li><i class="ph-fill ph-envelope"></i> info@shrishikshayatanschool.com</li>
-                                            </ul>
+                    </ul>
                     <div class="footer-links">
                         <a href="terms-and-conditions.html">Terms and Conditions</a>
                         <a href="privacy-policy.html">Privacy Policy</a>
@@ -554,13 +573,13 @@
                 <div class="footer-col">
                     <h4 class="footer-heading">QUICK ACCESS</h4>
                     <ul class="quick-links">
-                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
-                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
-                        <li><a href="#"><i class="ph-bold ph-caret-right"></i> AWARDS &amp; ACHIEVEMENTS</a></li>
+                        <li><a href="procedure.html"><i class="ph-bold ph-caret-right"></i> ADMISSION PORTAL</a></li>
+                        <li><a href="notice-sse-results.html"><i class="ph-bold ph-caret-right"></i> BOARD RESULTS</a></li>
+                        <li><a href="career.html"><i class="ph-bold ph-caret-right"></i> CAREERS</a></li>
                     </ul>
                     
                     <div class="visitor-counter">
-                        <p>VISITORS: 1,426,192</p>
+                        <p>VISITORS: 1,426,203</p>
                         <p>SHRI SHIKSHAYATAN SCHOOL</p>
                     </div>
                 </div>

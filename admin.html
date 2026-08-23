@@ -1227,6 +1227,128 @@
                 flex-grow: 1;
             }
         }
+    
+        /* Hero Notice Admin Styling */
+        .hero-notices-admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .admin-hn-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .admin-hn-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .admin-hn-card.inactive {
+            opacity: 0.6;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .admin-hn-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
+        }
+
+        .admin-hn-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hn-color-tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .hn-theme-cyan { background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
+        .hn-theme-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+        .hn-theme-teal { background: #ccfbf1; color: #0f766e; border: 1px solid #5eead4; }
+        .hn-theme-gold { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+        .hn-theme-lime { background: #ecfccb; color: #3f6212; border: 1px solid #bef264; }
+        .hn-theme-blue { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+        .hn-theme-orange { background: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }
+        .hn-theme-pink { background: #fce7f3; color: #be185d; border: 1px solid #f472b6; }
+
+        .admin-hn-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .admin-hn-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .admin-hn-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        /* Color Palette Chips in Modal */
+        .color-palette-picker {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .color-chip-label input[type="radio"] {
+            display: none;
+        }
+
+        .color-chip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .color-chip i { display: none; }
+        .color-chip-label input[type="radio"]:checked + .color-chip i { display: inline-block; }
+        .color-chip-label input[type="radio"]:checked + .color-chip {
+            box-shadow: 0 0 0 2px var(--text-main);
+        }
+
+        .chip-cyan { background: #e0f2fe; color: #0369a1; border-color: #38bdf8; }
+        .chip-purple { background: #f3e8ff; color: #7e22ce; border-color: #c084fc; }
+        .chip-teal { background: #ccfbf1; color: #0f766e; border-color: #2dd4bf; }
+        .chip-gold { background: #fef9c3; color: #854d0e; border-color: #facc15; }
+        .chip-lime { background: #ecfccb; color: #3f6212; border-color: #a3e635; }
+        .chip-blue { background: #dbeafe; color: #1d4ed8; border-color: #60a5fa; }
+        .chip-orange { background: #ffedd5; color: #c2410c; border-color: #fb923c; }
+        .chip-pink { background: #fce7f3; color: #be185d; border-color: #f472b6; }
+
     </style>
     <script>
         // Immediately set saved theme to prevent flashing
@@ -1315,6 +1437,7 @@
                     </div>
                 </div>
                 <button class="nav-item active" onclick="switchPanel('hero')"><i class="ph ph-image"></i> Hero Slider</button>
+                <button class="nav-item" onclick="switchPanel('hero-notices')"><i class="ph ph-sparkle"></i> Hero Floating Notices</button>
                 <button class="nav-item" onclick="switchPanel('ticker')"><i class="ph ph-arrows-left-right"></i> Movable Section</button>
                 <button class="nav-item" onclick="switchPanel('hall-of-fame')"><i class="ph ph-trophy"></i> Hall of Fame</button>
                 <button class="nav-item" onclick="switchPanel('awards')"><i class="ph ph-medal"></i> Awards</button>
@@ -1340,6 +1463,27 @@
                             <button onclick="openSlideModal(null)" class="btn btn-accent" style="width: auto; padding: 0.5rem 1rem;"><i class="ph ph-plus"></i> Add Slide</button>
                         </div>
                         <div id="slide-list-container" class="slide-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL: HERO FLOATING NOTICES -->
+                <div id="panel-hero-notices" class="content-panel">
+                    <div class="panel-header">
+                        <h2>Hero Floating Notices Manager</h2>
+                        <p>Add, edit, toggle visibility on/off, choose custom transparent color themes, and enable/disable blinking animations for floating notices on the homepage hero banner.</p>
+                    </div>
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h3>Active Hero Notices &amp; Links</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.25rem;">Items automatically float and arrange into compact, transparent glass capsules on the homepage banner.</p>
+                            </div>
+                            <button onclick="openHeroNoticeModal(null)" class="btn btn-accent" style="width: auto; padding: 0.6rem 1.25rem; display: inline-flex; align-items: center; gap: 8px;"><i class="ph ph-plus-bold"></i> Add New Notice</button>
+                        </div>
+                        
+                        <div id="hero-notices-admin-list" class="hero-notices-admin-list">
                             <!-- Populated dynamically -->
                         </div>
                     </div>
@@ -2037,7 +2181,74 @@
         let dbData = null;
 
         // Default local fallback data structure for offline previewing
+        const DEFAULT_HERO_NOTICES = [
+    {
+        "id": "hn_1",
+        "tag": "CLASS XI ADMISSION (2027-28)",
+        "title": "Online Application Portal for XI Admission (Non-SSY)",
+        "subtitle": "Active: 25th July, 2026 to 11th Sep, 2026",
+        "link_url": "notice-class-xi-non-ssy.html",
+        "link_target": "_self",
+        "color_theme": "cyan",
+        "is_blinking": true,
+        "is_active": true,
+        "order": 1
+    },
+    {
+        "id": "hn_2",
+        "tag": "NURSERY - CLASS V (2027-28)",
+        "title": "Online Application Forms for Nursery to Class V",
+        "subtitle": "Helpline: +91 8100975564, +91 8100975565",
+        "link_url": "notice-nursery-to-v.html",
+        "link_target": "_self",
+        "color_theme": "purple",
+        "is_blinking": true,
+        "is_active": true,
+        "order": 2
+    },
+    {
+        "id": "hn_3",
+        "tag": "OLYMPIAD",
+        "title": "Olympiad Registration Junior Section (LKG - V)",
+        "subtitle": "Silverzone Olympiad Registration Open",
+        "link_url": "https://r.silverzone.org/188963",
+        "link_target": "_blank",
+        "color_theme": "teal",
+        "is_blinking": false,
+        "is_active": true,
+        "order": 3
+    },
+    {
+        "id": "hn_4",
+        "tag": "LIVE SURVEY",
+        "title": "Survey Link for Education World School Ranking",
+        "subtitle": "Participate in School Ranking Survey",
+        "link_url": "https://www.surveymonkey.com/r/GIRLS-DAY",
+        "link_target": "_blank",
+        "color_theme": "gold",
+        "is_blinking": true,
+        "is_active": true,
+        "order": 4
+    },
+    {
+        "id": "hn_5",
+        "tag": "FEE HELPLINE",
+        "title": "Fee Related Queries Contact: Mr. Arnab — (033) 2282-6350",
+        "subtitle": "Junior & Senior Section Fee Schedules",
+        "link_url": "fee-structure.html",
+        "link_target": "_self",
+        "custom_actions": [
+            { "label": "Junior Sec. Fees", "url": "assets/FEESTRUCTURE-2026-2027-JUNIOR.pdf" },
+            { "label": "Senior Sec. Fees", "url": "assets/FEESTRUCTURE-2026-2027-SENIOR.pdf" }
+        ],
+        "color_theme": "lime",
+        "is_blinking": false,
+        "is_active": true,
+        "order": 5
+    }
+];
         const defaultLocalData = {
+            hero_notices: DEFAULT_HERO_NOTICES,
             "ticker": [
                 "ADMISSIONS OPEN FOR 2026-27 SESSION [LOCAL OFFLINE DEMO]",
                 "NEW MOBILE APP LAUNCHED FOR PARENTS",
@@ -2045,13 +2256,55 @@
                 "UPCOMING INTER-SCHOOL EVENTS"
             ],
             "hero_slider": [
-                {
-                    "id": "1",
-                    "type": "image",
-                    "media_path": "assets/SSS_Banner.webp",
-                    "duration_ms": 5000
-                }
-            ],
+    {
+        "id": "slide_history",
+        "type": "image",
+        "media_path": "assets/Banner/hitorybanner.webp",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_1",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_1.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_2",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_2.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_3",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_3.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_4",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_4.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_5",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_5.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_6",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_8.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_7",
+        "type": "image",
+        "media_path": "assets/Banner/slider.jpg",
+        "duration_ms": 5000
+    }
+],
             "hall_of_fame": {
                 "board_results": {
                     "image_path": "assets/20260622International-Yoga-Day-at-Red-Road.jpeg",
@@ -2078,6 +2331,57 @@
                 }
             ],
             "section_notices": [
+            {
+          "id": "wp_notice_54",
+          "section": "both",
+          "class": [
+                    "Class I",
+                    "Class II",
+                    "Class III",
+                    "Class IV",
+                    "Class V",
+                    "Class VI",
+                    "Class VII",
+                    "Class VIII",
+                    "Class IX",
+                    "Class X",
+                    "Class XI",
+                    "Class XII"
+          ],
+          "category": "general",
+          "date": "2026-08-22",
+          "title": "Congratulations – General Notice",
+          "content": "<p>Heartiest congratulations to our students for their remarkable achievements and performance.</p>",
+          "file_paths": [
+                    "assets/Post/Update_Notice/2026-08 22- Congratulations– General Notice/22082026-Congratulations.jpg"
+          ],
+          "file_path": "assets/Post/Update_Notice/2026-08 22- Congratulations– General Notice/22082026-Congratulations.jpg"
+},
+            {
+          "id": "wp_notice_53",
+          "section": "junior",
+          "class": [
+                    "Nursery",
+                    "LKG",
+                    "UKG",
+                    "Class I",
+                    "Class II",
+                    "Class III",
+                    "Class IV",
+                    "Class V"
+          ],
+          "category": "admission",
+          "date": "2026-08-22",
+          "title": "ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028)",
+          "content": "<p>Please view the attached notice regarding ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028).</p>",
+          "file_paths": [
+                    "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_001.jpg",
+                    "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_002.jpg",
+                    "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_003.jpg",
+                    "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_004.jpg"
+          ],
+          "file_path": "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_001.jpg"
+},
                 {
                     "id": "sn_1",
                     "section": "junior",
@@ -3318,6 +3622,9 @@
                     const needsUpdate = !parsed.section_notices || 
                                         parsed.section_notices.length < defaultLocalData.section_notices.length ||
                                         (defaultLocalData.section_notices[0] && defaultLocalData.section_notices[0].file_path && (!parsed.section_notices[0] || !parsed.section_notices[0].file_path));
+                    if (!parsed.hero_notices || parsed.hero_notices.length === 0) {
+                        parsed.hero_notices = defaultLocalData.hero_notices;
+                    }
                     if (needsUpdate) {
                         parsed.section_notices = defaultLocalData.section_notices;
                         localStorage.setItem('school_db_data', JSON.stringify(parsed));
@@ -3552,6 +3859,7 @@
                 renderChatbotLogs();
                 renderTcEntries();
                 renderFeedbackList();
+                renderAdminHeroNotices();
                 return;
             }
 
@@ -3569,6 +3877,7 @@
                 renderChatbotLogs();
                 renderTcEntries();
                 renderFeedbackList();
+                renderAdminHeroNotices();
             });
         }
 
@@ -3585,6 +3894,209 @@
         // Helper: Convert anything to string
         function strval(val) {
             return val ? String(val) : '';
+        }
+
+        // ── Hero Floating Notices Manager ──
+        function renderAdminHeroNotices() {
+            const listEl = document.getElementById('hero-notices-admin-list');
+            if (!listEl) return;
+            
+            listEl.innerHTML = '';
+            const notices = (dbData && Array.isArray(dbData.hero_notices)) ? dbData.hero_notices : [];
+
+            if (notices.length === 0) {
+                listEl.innerHTML = '<div style="padding: 2.5rem; text-align: center; color: var(--text-light);">No hero notices configured yet. Click <strong>Add New Notice</strong> to create one.</div>';
+                return;
+            }
+
+            notices.forEach(item => {
+                const theme = item.color_theme || 'cyan';
+                const isActive = item.is_active !== false;
+                const isBlink = item.is_blinking !== false;
+
+                const card = document.createElement('div');
+                card.className = 'admin-hn-card' + (isActive ? '' : ' inactive');
+                card.innerHTML = `
+                    <div class="admin-hn-info">
+                        <div class="admin-hn-top">
+                            <span class="hn-color-tag hn-theme-${theme}">${theme.toUpperCase()}</span>
+                            ${item.tag ? `<span style="font-size: 0.75rem; font-weight: 800; background: rgba(0,0,0,0.06); padding: 2px 8px; border-radius: 4px;">${escapeHtml(item.tag)}</span>` : ''}
+                            ${isBlink ? '<span style="font-size: 0.72rem; color: #ea580c; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="ph-fill ph-lightning"></i> Blinking</span>' : ''}
+                        </div>
+                        <div class="admin-hn-title">${escapeHtml(item.title)}</div>
+                        <div class="admin-hn-meta">
+                            ${item.subtitle ? `<span><i class="ph ph-info"></i> ${escapeHtml(item.subtitle)}</span>` : ''}
+                            ${item.link_url ? `<span><i class="ph ph-link"></i> <a href="${item.link_url}" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">${escapeHtml(item.link_url)}</a></span>` : ''}
+                        </div>
+                    </div>
+                    <div class="admin-hn-actions">
+                        <button type="button" onclick="toggleHeroNoticeActive('${item.id}')" class="btn ${isActive ? 'btn-success' : 'btn-secondary'}" style="padding: 0.4rem 0.85rem; font-size: 0.8rem;" title="${isActive ? 'Turn Off' : 'Turn On'}">
+                            <i class="ph ${isActive ? 'ph-eye' : 'ph-eye-slash'}"></i> ${isActive ? 'ON' : 'OFF'}
+                        </button>
+                        <button type="button" onclick="openHeroNoticeModal('${item.id}')" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" title="Edit Notice">
+                            <i class="ph ph-pencil"></i>
+                        </button>
+                        <button type="button" onclick="deleteHeroNoticeItem('${item.id}')" class="btn btn-danger" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" title="Delete Notice">
+                            <i class="ph ph-trash"></i>
+                        </button>
+                    </div>
+                `;
+                listEl.appendChild(card);
+            });
+        }
+
+        function openHeroNoticeModal(id) {
+            const titleEl = document.getElementById('hero-notice-modal-title');
+            const idInput = document.getElementById('hn-form-id');
+            const titleInput = document.getElementById('hn-form-title');
+            const tagInput = document.getElementById('hn-form-tag');
+            const subInput = document.getElementById('hn-form-subtitle');
+            const linkInput = document.getElementById('hn-form-link');
+            const blinkCheck = document.getElementById('hn-form-blink');
+            const blankCheck = document.getElementById('hn-form-target-blank');
+            const activeCheck = document.getElementById('hn-form-active');
+
+            if (id) {
+                const item = dbData.hero_notices.find(n => n.id === id);
+                if (!item) return;
+                titleEl.textContent = 'Edit Hero Notice';
+                idInput.value = item.id;
+                titleInput.value = item.title || '';
+                tagInput.value = item.tag || '';
+                subInput.value = item.subtitle || '';
+                linkInput.value = item.link_url || '';
+                blinkCheck.checked = item.is_blinking !== false;
+                blankCheck.checked = item.link_target === '_blank';
+                activeCheck.checked = item.is_active !== false;
+
+                const colorRadio = document.querySelector(`input[name="hn_color"][value="${item.color_theme || 'cyan'}"]`);
+                if (colorRadio) colorRadio.checked = true;
+            } else {
+                titleEl.textContent = 'Add New Hero Notice';
+                idInput.value = '';
+                titleInput.value = '';
+                tagInput.value = '';
+                subInput.value = '';
+                linkInput.value = '';
+                blinkCheck.checked = true;
+                blankCheck.checked = false;
+                activeCheck.checked = true;
+                const defaultRadio = document.querySelector('input[name="hn_color"][value="cyan"]');
+                if (defaultRadio) defaultRadio.checked = true;
+            }
+
+            openModal('hero-notice-modal');
+        }
+
+        function closeHeroNoticeModal() {
+            closeModal('hero-notice-modal');
+        }
+
+        async function saveHeroNoticeForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('hn-form-id').value;
+            const title = document.getElementById('hn-form-title').value.trim();
+            const tag = document.getElementById('hn-form-tag').value.trim();
+            const subtitle = document.getElementById('hn-form-subtitle').value.trim();
+            const link_url = document.getElementById('hn-form-link').value.trim();
+            const is_blinking = document.getElementById('hn-form-blink').checked;
+            const link_target = document.getElementById('hn-form-target-blank').checked ? '_blank' : '_self';
+            const is_active = document.getElementById('hn-form-active').checked;
+            
+            const selectedColor = document.querySelector('input[name="hn_color"]:checked');
+            const color_theme = selectedColor ? selectedColor.value : 'cyan';
+
+            if (!title) {
+                showToast('Please enter a notice title.', 'error');
+                return;
+            }
+
+            if (!dbData.hero_notices) dbData.hero_notices = [];
+
+            const noticeObj = {
+                id: id || ('hn_' + Date.now() + '_' + Math.floor(Math.random() * 1000)),
+                tag: tag,
+                title: title,
+                subtitle: subtitle,
+                link_url: link_url,
+                link_target: link_target,
+                color_theme: color_theme,
+                is_blinking: is_blinking,
+                is_active: is_active
+            };
+
+            if (id) {
+                const idx = dbData.hero_notices.findIndex(n => n.id === id);
+                if (idx !== -1) {
+                    dbData.hero_notices[idx] = { ...dbData.hero_notices[idx], ...noticeObj };
+                }
+            } else {
+                noticeObj.order = dbData.hero_notices.length + 1;
+                dbData.hero_notices.push(noticeObj);
+            }
+
+            saveLocalData(dbData);
+
+            try {
+                const formData = new FormData();
+                formData.append('action', 'save_hero_notice');
+                formData.append('id', noticeObj.id);
+                formData.append('tag', tag);
+                formData.append('title', title);
+                formData.append('subtitle', subtitle);
+                formData.append('link_url', link_url);
+                formData.append('link_target', link_target);
+                formData.append('color_theme', color_theme);
+                formData.append('is_blinking', is_blinking);
+                formData.append('is_active', is_active);
+
+                const res = await fetch('admin_api.php', { method: 'POST', body: formData });
+                const json = await res.json();
+                if (json.data) dbData.hero_notices = json.data;
+            } catch (err) {
+                console.log('Saved to local DB cache.');
+            }
+
+            closeHeroNoticeModal();
+            renderAdminHeroNotices();
+            showToast('Hero notice saved successfully!', 'success');
+        }
+
+        async function toggleHeroNoticeActive(id) {
+            if (!dbData || !Array.isArray(dbData.hero_notices)) return;
+            const item = dbData.hero_notices.find(n => n.id === id);
+            if (!item) return;
+
+            item.is_active = item.is_active !== false ? false : true;
+            saveLocalData(dbData);
+
+            try {
+                const formData = new FormData();
+                formData.append('action', 'toggle_hero_notice');
+                formData.append('id', id);
+                await fetch('admin_api.php', { method: 'POST', body: formData });
+            } catch (err) {}
+
+            renderAdminHeroNotices();
+            showToast(`Notice is now ${item.is_active ? 'VISIBLE (ON)' : 'HIDDEN (OFF)'}`, 'info');
+        }
+
+        async function deleteHeroNoticeItem(id) {
+            if (!confirm('Are you sure you want to delete this hero notice?')) return;
+
+            if (!dbData || !Array.isArray(dbData.hero_notices)) return;
+            dbData.hero_notices = dbData.hero_notices.filter(n => n.id !== id);
+            saveLocalData(dbData);
+
+            try {
+                const formData = new FormData();
+                formData.append('action', 'delete_hero_notice');
+                formData.append('id', id);
+                await fetch('admin_api.php', { method: 'POST', body: formData });
+            } catch (err) {}
+
+            renderAdminHeroNotices();
+            showToast('Hero notice deleted.', 'info');
         }
 
         // 1. Ticker Renderer
@@ -3819,8 +4331,14 @@
             }
         }
 
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.add('active');
+        }
+
         function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('active');
         }
 
         async function saveHeroSlide(event) {
@@ -4758,7 +5276,7 @@
                 {
                     query: "Contact & Location Info",
                     keywords: "contact number, phone number, email address, school address, map, fax, Lord Sinha Road, address",
-                    response: "Address: 11, Lord Sinha Road, Kolkata 700 071. Phone: +91 33 22821450 / 22828350. Email: info@shrishikshayatanschool.com. Junior Department: +91 33 22820348. Pre-Primary: +91 8100978884."
+                    response: "Address: 11, Lord Sinha Road, 8, Lord Sinha Road, Kolkata 700 071. Phone: +91 33 22827752 / +91 33 22821776. Email: info@shrishikshayatanschool.com. Junior Department: +91 8100975564 / +91 8100975565. Pre-Primary: +91 8100975564 / +91 8100975565."
                 },
                 {
                     query: "Vision and Mission",
@@ -6037,5 +6555,94 @@
         }
 
     </script>
+
+    <!-- Hero Notice Add/Edit Modal -->
+    <div id="hero-notice-modal" class="modal">
+        <div class="modal-card" style="max-width: 620px;">
+            <h3 id="hero-notice-modal-title">Add Hero Notice</h3>
+            <form id="hero-notice-form" onsubmit="saveHeroNoticeForm(event)">
+                <input type="hidden" id="hn-form-id" value="">
+                
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Notice Heading / Title <span style="color: #ef4444;">*</span></label>
+                    <input type="text" id="hn-form-title" class="form-input" placeholder="e.g. Online Application Portal for XI Admission (Non-SSY)" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Tag / Category Badge</label>
+                    <input type="text" id="hn-form-tag" class="form-input" placeholder="e.g. CLASS XI ADMISSION (2027-28)">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Subtitle / Helpline / Date Meta</label>
+                    <input type="text" id="hn-form-subtitle" class="form-input" placeholder="e.g. Active: 25th July, 2026 to 11th Sep, 2026">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Target Page Link / URL</label>
+                    <input type="text" id="hn-form-link" class="form-input" placeholder="e.g. notice-class-xi-non-ssy.html or https://...">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.25rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.85rem;">Color Theme (Selective Colors)</label>
+                    <div class="color-palette-picker">
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="cyan" checked>
+                            <span class="color-chip chip-cyan"><i class="ph-bold ph-check"></i> Cyan</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="purple">
+                            <span class="color-chip chip-purple"><i class="ph-bold ph-check"></i> Purple</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="teal">
+                            <span class="color-chip chip-teal"><i class="ph-bold ph-check"></i> Teal</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="gold">
+                            <span class="color-chip chip-gold"><i class="ph-bold ph-check"></i> Gold</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="lime">
+                            <span class="color-chip chip-lime"><i class="ph-bold ph-check"></i> Lime</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="blue">
+                            <span class="color-chip chip-blue"><i class="ph-bold ph-check"></i> Blue</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="orange">
+                            <span class="color-chip chip-orange"><i class="ph-bold ph-check"></i> Orange</span>
+                        </label>
+                        <label class="color-chip-label">
+                            <input type="radio" name="hn_color" value="pink">
+                            <span class="color-chip chip-pink"><i class="ph-bold ph-check"></i> Pink</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1.25rem; margin-bottom: 1.25rem; flex-wrap: wrap; background: rgba(0,0,0,0.03); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                    <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                        <input type="checkbox" id="hn-form-blink" checked>
+                        <span>Pulsating Glow / Blinking</span>
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                        <input type="checkbox" id="hn-form-target-blank">
+                        <span>Open in New Tab</span>
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">
+                        <input type="checkbox" id="hn-form-active" checked>
+                        <span>Active (Visible on Homepage)</span>
+                    </label>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" onclick="closeModal('hero-notice-modal')" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-accent">Save Notice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>

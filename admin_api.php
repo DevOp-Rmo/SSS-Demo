@@ -957,7 +957,98 @@ try {
         }
         exit;
     }
-    
+
+    if ($action === 'save_hero_notice') {
+        $id = isset($_POST['id']) ? trim($_POST['id']) : '';
+        $tag = isset($_POST['tag']) ? trim($_POST['tag']) : '';
+        $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+        $subtitle = isset($_POST['subtitle']) ? trim($_POST['subtitle']) : '';
+        $link_url = isset($_POST['link_url']) ? trim($_POST['link_url']) : '';
+        $link_target = isset($_POST['link_target']) ? trim($_POST['link_target']) : '_self';
+        $color_theme = isset($_POST['color_theme']) ? trim($_POST['color_theme']) : 'cyan';
+        $is_blinking = isset($_POST['is_blinking']) ? filter_var($_POST['is_blinking'], FILTER_VALIDATE_BOOLEAN) : true;
+        $is_active = isset($_POST['is_active']) ? filter_var($_POST['is_active'], FILTER_VALIDATE_BOOLEAN) : true;
+        
+        if (empty($title)) {
+            throw new Exception("Notice title is required.");
+        }
+        
+        if (!isset($db_data['hero_notices']) || !is_array($db_data['hero_notices'])) {
+            $db_data['hero_notices'] = [];
+        }
+        
+        $item = [
+            'id' => !empty($id) ? $id : 'hn_' . time() . '_' . rand(100, 999),
+            'tag' => $tag,
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'link_url' => $link_url,
+            'link_target' => $link_target,
+            'color_theme' => $color_theme,
+            'is_blinking' => $is_blinking,
+            'is_active' => $is_active
+        ];
+        
+        $found = false;
+        if (!empty($id)) {
+            foreach ($db_data['hero_notices'] as $idx => $n) {
+                if ($n['id'] === $id) {
+                    $db_data['hero_notices'][$idx] = array_merge($n, $item);
+                    $found = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!$found) {
+            $item['order'] = count($db_data['hero_notices']) + 1;
+            $db_data['hero_notices'][] = $item;
+        }
+        
+        write_db($db_data);
+        echo json_encode(['success' => true, 'message' => 'Hero notice saved successfully.', 'data' => $db_data['hero_notices']]);
+        exit;
+    }
+
+    if ($action === 'toggle_hero_notice') {
+        $id = isset($_POST['id']) ? trim($_POST['id']) : '';
+        if (empty($id)) throw new Exception("Notice ID required.");
+        
+        if (isset($db_data['hero_notices']) && is_array($db_data['hero_notices'])) {
+            foreach ($db_data['hero_notices'] as $idx => $n) {
+                if ($n['id'] === $id) {
+                    $db_data['hero_notices'][$idx]['is_active'] = !empty($n['is_active']) ? false : true;
+                    write_db($db_data);
+                    echo json_encode(['success' => true, 'message' => 'Notice visibility toggled.', 'data' => $db_data['hero_notices']]);
+                    exit;
+                }
+            }
+        }
+        throw new Exception("Notice not found.");
+    }
+
+    if ($action === 'delete_hero_notice') {
+        $id = isset($_POST['id']) ? trim($_POST['id']) : '';
+        if (empty($id)) throw new Exception("Notice ID required.");
+        
+        if (isset($db_data['hero_notices']) && is_array($db_data['hero_notices'])) {
+            $found_idx = -1;
+            foreach ($db_data['hero_notices'] as $idx => $n) {
+                if ($n['id'] === $id) {
+                    $found_idx = $idx;
+                    break;
+                }
+            }
+            if ($found_idx !== -1) {
+                array_splice($db_data['hero_notices'], $found_idx, 1);
+                write_db($db_data);
+                echo json_encode(['success' => true, 'message' => 'Notice deleted.', 'data' => $db_data['hero_notices']]);
+                exit;
+            }
+        }
+        throw new Exception("Notice not found.");
+    }
+
     throw new Exception("Unknown action.");
     
 } catch (Exception $e) {

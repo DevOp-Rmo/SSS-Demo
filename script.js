@@ -1,3 +1,176 @@
+const DEFAULT_HERO_SLIDER = [
+    {
+        "id": "slide_history",
+        "type": "image",
+        "media_path": "assets/Banner/hitorybanner.webp",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_1",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_1.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_2",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_2.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_3",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_3.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_4",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_4.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_5",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_5.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_6",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_8.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_7",
+        "type": "image",
+        "media_path": "assets/Banner/slider.jpg",
+        "duration_ms": 5000
+    }
+];
+// Render Hero Floating Notices (Transparent, Color-Coded, Pulsating / Blinking Glass Capsules)
+const DEFAULT_HERO_NOTICES = [
+    {
+        "id": "hn_1",
+        "tag": "CLASS XI ADMISSION (2027-28)",
+        "title": "Online Application Portal for XI Admission (Non-SSY)",
+        "subtitle": "Active: 25th July, 2026 to 11th Sep, 2026",
+        "link_url": "notice-class-xi-non-ssy.html",
+        "link_target": "_self",
+        "color_theme": "cyan",
+        "is_blinking": true,
+        "is_active": true,
+        "order": 1
+    },
+    {
+        "id": "hn_2",
+        "tag": "NURSERY - CLASS V (2027-28)",
+        "title": "Online Application Forms for Nursery to Class V",
+        "subtitle": "Helpline: +91 8100975564, +91 8100975565",
+        "link_url": "notice-nursery-to-v.html",
+        "link_target": "_self",
+        "color_theme": "purple",
+        "is_blinking": true,
+        "is_active": true,
+        "order": 2
+    },
+    {
+        "id": "hn_3",
+        "tag": "OLYMPIAD",
+        "title": "Olympiad Registration Junior Section (LKG - V)",
+        "subtitle": "Silverzone Olympiad Registration Open",
+        "link_url": "https://r.silverzone.org/188963",
+        "link_target": "_blank",
+        "color_theme": "teal",
+        "is_blinking": false,
+        "is_active": true,
+        "order": 3
+    },
+    {
+        "id": "hn_4",
+        "tag": "LIVE SURVEY",
+        "title": "Survey Link for Education World School Ranking",
+        "subtitle": "Participate in School Ranking Survey",
+        "link_url": "https://www.surveymonkey.com/r/GIRLS-DAY",
+        "link_target": "_blank",
+        "color_theme": "gold",
+        "is_blinking": true,
+        "is_active": true,
+        "order": 4
+    },
+    {
+        "id": "hn_5",
+        "tag": "FEE HELPLINE",
+        "title": "Fee Related Queries Contact: Mr. Arnab — (033) 2282-6350",
+        "subtitle": "Junior & Senior Section Fee Schedules",
+        "link_url": "fee-structure.html",
+        "link_target": "_self",
+        "custom_actions": [
+            {
+                "label": "Junior Sec. Fees",
+                "url": "assets/FEESTRUCTURE-2026-2027-JUNIOR.pdf"
+            },
+            {
+                "label": "Senior Sec. Fees",
+                "url": "assets/FEESTRUCTURE-2026-2027-SENIOR.pdf"
+            }
+        ],
+        "color_theme": "lime",
+        "is_blinking": false,
+        "is_active": true,
+        "order": 5
+    }
+];
+
+function renderHeroNotices(notices) {
+    const container = document.getElementById('hero-notices-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const list = Array.isArray(notices) && notices.length > 0 ? notices : DEFAULT_HERO_NOTICES;
+    const activeNotices = list.filter(n => n.is_active !== false);
+    if (activeNotices.length === 0) return;
+
+    // Sort by order if available
+    activeNotices.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    activeNotices.forEach(item => {
+        const theme = item.color_theme || 'cyan';
+        const isBlink = item.is_blinking !== false ? `pulse-${theme}` : '';
+        const target = item.link_target || '_self';
+        const isExt = target === '_blank' || (item.link_url && item.link_url.startsWith('http'));
+        const arrowIcon = isExt ? '<i class="ph-bold ph-arrow-square-out notice-arrow"></i>' : '<i class="ph-bold ph-arrow-up-right notice-arrow"></i>';
+        
+        const card = document.createElement('a');
+        card.href = item.link_url || '#';
+        card.target = target;
+        card.className = `hero-glass-pill pill-${theme} ${isBlink}`;
+        
+        let customActionsHtml = '';
+        if (Array.isArray(item.custom_actions) && item.custom_actions.length > 0) {
+            customActionsHtml = '<div class="fee-pill-btns">' + 
+                item.custom_actions.map(act => `<a href="${act.url}" target="_blank" class="fee-action-pill" onclick="event.stopPropagation();">${escapeHtml(act.label)}</a>`).join('') +
+                '</div>';
+        }
+
+        let tagHtml = item.tag ? `<span class="pill-badge badge-${theme}">${escapeHtml(item.tag)}</span>` : '';
+        let subtitleHtml = item.subtitle ? `<div class="pill-sub-text">${escapeHtml(item.subtitle)}</div>` : '';
+
+        card.innerHTML = `
+            <div class="pill-header-row">
+                ${tagHtml}
+                ${!customActionsHtml ? arrowIcon : ''}
+            </div>
+            <h4 class="pill-main-text">${escapeHtml(item.title)}</h4>
+            ${subtitleHtml}
+            ${customActionsHtml}
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // Visitor Counter implementation
     function initVisitorCounter() {
@@ -176,6 +349,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stored) {
             try {
                 data = JSON.parse(stored);
+                if (!data.hero_slider || data.hero_slider.length < 8 || !data.hero_slider[0].media_path.includes('hitorybanner') || !data.section_notices || !data.section_notices.some(n => n.id === 'wp_notice_54')) {
+                    data.hero_slider = DEFAULT_HERO_SLIDER;
+                    if (typeof getDefaultLocalNotices === 'function') {
+                        data.section_notices = getDefaultLocalNotices();
+                    }
+                    localStorage.setItem('school_db_data', JSON.stringify(data));
+                }
             } catch(e) {}
         }
         if (!data) {
@@ -188,13 +368,55 @@ document.addEventListener('DOMContentLoaded', () => {
                     "UPCOMING INTER-SCHOOL EVENTS"
                 ],
                 "hero_slider": [
-                    {
-                        "id": "1",
-                        "type": "image",
-                        "media_path": "assets/SSS_Banner.webp",
-                        "duration_ms": 5000
-                    }
-                ],
+    {
+        "id": "slide_history",
+        "type": "image",
+        "media_path": "assets/Banner/hitorybanner.webp",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_1",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_1.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_2",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_2.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_3",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_3.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_4",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_4.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_5",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_5.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_6",
+        "type": "image",
+        "media_path": "assets/Banner/BANNER_8.jpg",
+        "duration_ms": 5000
+    },
+    {
+        "id": "slide_7",
+        "type": "image",
+        "media_path": "assets/Banner/slider.jpg",
+        "duration_ms": 5000
+    }
+],
                 "hall_of_fame": {
                     "board_results": {
                         "image_path": "assets/20260622International-Yoga-Day-at-Red-Road.jpeg",
@@ -1451,6 +1673,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.awards) renderAwards(data.awards);
         if (data.bulletin) renderBulletin(data.bulletin);
         if (data.hero_slider) renderHeroSlider(data.hero_slider);
+        renderHeroNotices(data.hero_notices);
         return;
     }
 
@@ -1463,10 +1686,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.awards) renderAwards(data.awards);
                 if (data.bulletin) renderBulletin(data.bulletin);
                 if (data.hero_slider) renderHeroSlider(data.hero_slider);
+                renderHeroNotices(data.hero_notices);
             }
         })
         .catch(err => {
             console.error('Error fetching API data, using static fallbacks:', err);
+            renderHeroNotices(DEFAULT_HERO_NOTICES);
         });
 });
 
@@ -1511,10 +1736,10 @@ function renderHof(hofData) {
             if (hofData.board_results.image_path.startsWith('data:')) {
                 boardImg.src = hofData.board_results.image_path;
             } else {
-                boardImg.src = hofData.board_results.image_path + '?v=' + Date.now();
+                boardImg.src = 'assets/sse_batch.jpg';
             }
         }
-        boardText.textContent = hofData.board_results.subtitle;
+        boardText.textContent = (hofData.board_results.subtitle || 'AISSE & AISSCE PERFORMANCE 2025').replace(/\s*\[DEMO\]/gi, '');
     }
     
     if (examImg && hofData.competitive_exam) {
@@ -1522,10 +1747,10 @@ function renderHof(hofData) {
             if (hofData.competitive_exam.image_path.startsWith('data:')) {
                 examImg.src = hofData.competitive_exam.image_path;
             } else {
-                examImg.src = hofData.competitive_exam.image_path + '?v=' + Date.now();
+                examImg.src = 'assets/ssce_batch.jpg';
             }
         }
-        examText.textContent = hofData.competitive_exam.subtitle;
+        examText.textContent = (hofData.competitive_exam.subtitle || 'JEE, NEET & OLYMPIAD QUALIFIERS').replace(/\s*\[DEMO\]/gi, '');
     }
 }
 
@@ -1615,8 +1840,8 @@ function renderHeroSlider(sliderData) {
     if (!container) return;
     container.innerHTML = '';
     
-    slidesList = sliderData;
-    if (slidesList.length === 0) {
+    slidesList = (Array.isArray(sliderData) && sliderData.length > 0) ? sliderData : DEFAULT_HERO_SLIDER;
+    if (!slidesList || slidesList.length === 0) {
         // Fallback default background slide
         container.innerHTML = `
             <div class="hero-slide active">
@@ -3182,7 +3407,7 @@ function getChatbotData(callback) {
         {
             query: "Contact & Location Info",
             keywords: "contact number, phone number, email address, school address, map, fax, Lord Sinha Road, address",
-            response: "Address: 11, Lord Sinha Road, Kolkata 700 071. Phone: +91 33 22821450 / 22828350. Email: info@shrishikshayatanschool.com. Junior Department: +91 33 22820348. Pre-Primary: +91 8100978884."
+            response: "Address: 11, Lord Sinha Road, 8, Lord Sinha Road, Kolkata 700 071. Phone: +91 33 22827752 / +91 33 22821776. Email: info@shrishikshayatanschool.com. Junior Department: +91 8100975564 / +91 8100975565. Pre-Primary: +91 8100975564 / +91 8100975565."
         },
         {
             query: "Vision and Mission",
@@ -3385,6 +3610,10 @@ function initIndexNoticeBoard() {
                 try {
                     const data = JSON.parse(stored);
                     if (data && data.section_notices && Array.isArray(data.section_notices)) {
+                        if (typeof getDefaultLocalNotices === 'function' && !data.section_notices.some(n => n.id === 'wp_notice_54')) {
+                            data.section_notices = getDefaultLocalNotices();
+                            localStorage.setItem('school_db_data', JSON.stringify(data));
+                        }
                         noticesData = filterActiveNotices(data.section_notices);
                         renderList(activeFilter);
                         return;
@@ -3587,4 +3816,5 @@ function initIndexNoticeBoard() {
 
     loadAndRender();
 }
+
 
