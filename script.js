@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stored) {
             try {
                 data = JSON.parse(stored);
-                if (!data.hero_slider || data.hero_slider.length < 8 || !data.hero_slider[0].media_path.includes('hitorybanner') || !data.section_notices || !data.section_notices.some(n => n.id === 'wp_notice_54')) {
+                if (!data.hero_slider || data.hero_slider.length < 8 || !data.hero_slider[0].media_path.includes('hitorybanner') || !data.section_notices || data.section_notices[0]?.id !== 'wp_notice_53' || data.section_notices[1]?.title !== 'Congratulations') {
                     data.hero_slider = DEFAULT_HERO_SLIDER;
                     if (typeof getDefaultLocalNotices === 'function') {
                         data.section_notices = getDefaultLocalNotices();
@@ -3610,7 +3610,7 @@ function initIndexNoticeBoard() {
                 try {
                     const data = JSON.parse(stored);
                     if (data && data.section_notices && Array.isArray(data.section_notices)) {
-                        if (typeof getDefaultLocalNotices === 'function' && !data.section_notices.some(n => n.id === 'wp_notice_54')) {
+                        if (typeof getDefaultLocalNotices === 'function' && (data.section_notices[0]?.id !== 'wp_notice_53' || data.section_notices[1]?.title !== 'Congratulations')) {
                             data.section_notices = getDefaultLocalNotices();
                             localStorage.setItem('school_db_data', JSON.stringify(data));
                         }

@@ -1,56 +1,56 @@
 function getDefaultLocalNotices() {
     return [
     {
-        "id": "wp_notice_54",
-        "section": "both",
-        "class": [
-                "Class I",
-                "Class II",
-                "Class III",
-                "Class IV",
-                "Class V",
-                "Class VI",
-                "Class VII",
-                "Class VIII",
-                "Class IX",
-                "Class X",
-                "Class XI",
-                "Class XII"
-        ],
-        "category": "general",
-        "date": "2026-08-22",
-        "title": "Congratulations – General Notice",
-        "content": "<p>Heartiest congratulations to our students for their remarkable achievements and performance.</p>",
-        "file_paths": [
-                "assets/Post/Update_Notice/2026-08 22- Congratulations– General Notice/22082026-Congratulations.jpg"
-        ],
-        "file_path": "assets/Post/Update_Notice/2026-08 22- Congratulations– General Notice/22082026-Congratulations.jpg"
-},
-    {
         "id": "wp_notice_53",
         "section": "junior",
         "class": [
-                "Nursery",
-                "LKG",
-                "UKG",
-                "Class I",
-                "Class II",
-                "Class III",
-                "Class IV",
-                "Class V"
+            "Nursery",
+            "LKG",
+            "UKG",
+            "Class I",
+            "Class II",
+            "Class III",
+            "Class IV",
+            "Class V"
         ],
         "category": "admission",
         "date": "2026-08-22",
         "title": "ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028)",
         "content": "<p>Please view the attached notice regarding ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028).</p>",
         "file_paths": [
-                "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_001.jpg",
-                "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_002.jpg",
-                "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_003.jpg",
-                "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_004.jpg"
+            "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_001.jpg",
+            "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_002.jpg",
+            "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_003.jpg",
+            "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_004.jpg"
         ],
         "file_path": "assets/Post/Update_Notice/2026-08 22- ADMISSION SELECTION NOTICE FOR CLASS NURSERY-V (SESSION 2027-2028) – Admission Notice/20260822-ADMISSION-SELECTION-LIST_001.jpg"
-},
+    },
+    {
+        "id": "wp_notice_54",
+        "section": "both",
+        "class": [
+            "Class I",
+            "Class II",
+            "Class III",
+            "Class IV",
+            "Class V",
+            "Class VI",
+            "Class VII",
+            "Class VIII",
+            "Class IX",
+            "Class X",
+            "Class XI",
+            "Class XII"
+        ],
+        "category": "general",
+        "date": "2026-08-22",
+        "title": "Congratulations",
+        "content": "<p>Heartiest congratulations to our students for their remarkable achievements and performance.</p>",
+        "file_paths": [
+            "assets/Post/Update_Notice/2026-08 22- Congratulations– General Notice/22082026-Congratulations.jpg"
+        ],
+        "file_path": "assets/Post/Update_Notice/2026-08 22- Congratulations– General Notice/22082026-Congratulations.jpg"
+    },
     {
         "id": "wp_notice_51",
         "section": "junior",
@@ -1075,4 +1075,8 @@ function getDefaultLocalNotices() {
         "file_path": "assets/Post/Update_Notice/2016-01-04- Procedure for Online Fees payment – Shri Shikshayatan School/ProcedureforOnlineFeespaymentIRP.jpg"
     }
 ];
+}
+
+if (typeof window !== 'undefined') {
+    window.SCHOOL_NOTICES = getDefaultLocalNotices();
 }

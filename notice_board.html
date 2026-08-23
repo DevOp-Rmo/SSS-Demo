@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles-v5.css?v=37">
-    <script src="notices_data.js"></script>
+    <link rel="stylesheet" href="styles-v5.css?v=80">
+    <script src="notices_data.js?v=80"></script>
 </head>
 <body>
 
@@ -335,7 +335,7 @@
                         const data = JSON.parse(stored);
                         if (data.section_notices) {
                             const defaults = getDefaultLocalNotices();
-                            const needsUpdate = !data.section_notices.some(n => n.id === 'wp_notice_52') || data.section_notices.length !== defaults.length;
+                            const needsUpdate = data.section_notices[0]?.id !== 'wp_notice_53' || data.section_notices[1]?.title !== 'Congratulations' || data.section_notices.length !== defaults.length;
                             if (needsUpdate) {
                                 data.section_notices = defaults;
                                 localStorage.setItem('school_db_data', JSON.stringify(data));
