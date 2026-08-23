@@ -289,20 +289,20 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary-blue);
 }
 
-/* Circular logo layout matching Image 1 */
+/* Clean Transparent Logo (No circular frame, enlarged) */
 .logo-img {
-    width: 95px;
-    height: 95px;
-    border-radius: 50%;
-    border: 2px solid #16164A;
-    background-color: var(--bg-light);
-    overflow: hidden;
+    width: 120px;
+    height: 120px;
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px;
+    padding: 0;
     flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(22, 22, 74, 0.08);
+    box-shadow: none;
 }
 
 .logo-img img {
@@ -314,9 +314,9 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 900px) {
     .logo-img {
-        width: 64px;
-        height: 64px;
-        padding: 4px;
+        width: 95px;
+        height: 95px;
+        padding: 0;
     }
 }
 
@@ -2433,17 +2433,18 @@ h1, h2, h3, h4, h5, h6 {
         gap: 1rem !important;
     }
     .logo-img {
-        width: 54px !important;
-        height: 54px !important;
-        border-radius: 50% !important;
-        border: 1px solid #16164A !important;
-        background-color: var(--bg-light) !important;
-        overflow: hidden !important;
+        width: 85px !important;
+        height: 85px !important;
+        border-radius: 0 !important;
+        border: none !important;
+        background-color: transparent !important;
+        overflow: visible !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        padding: 3px !important;
+        padding: 0 !important;
         flex-shrink: 0 !important;
+        box-shadow: none !important;
     }
     .logo-img img {
         width: 100% !important;
@@ -3945,7 +3946,7 @@ h1, h2, h3, h4, h5, h6 {
     /* Header */
     .school-title h1 { font-size: 1.85rem; }
     .school-title p { font-size: 11.5px; }
-    .logo-img { width: 80px; height: 80px; padding: 5px; }
+    .logo-img { width: 105px; height: 105px; padding: 0; border: none; background: transparent; box-shadow: none; border-radius: 0; }
     .main-header { padding: 1.15rem 0; }
 
     /* Hero */
@@ -3981,7 +3982,7 @@ h1, h2, h3, h4, h5, h6 {
     .main-header { padding: 1rem 0; }
     .school-title h1 { font-size: 1.55rem; line-height: 1.15; }
     .school-title p { font-size: 10.5px; }
-    .logo-img { width: 72px; height: 72px; padding: 4px; }
+    .logo-img { width: 90px; height: 90px; padding: 0; border: none; background: transparent; box-shadow: none; border-radius: 0; }
     .logo-area { gap: 1rem; }
 
     /* Hero */
@@ -4026,9 +4027,13 @@ h1, h2, h3, h4, h5, h6 {
     }
     .school-title p { display: block !important; font-size: 10px !important; }
     .logo-img {
-        width: 70px !important;
-        height: 70px !important;
-        padding: 3.5px !important;
+        width: 82px !important;
+        height: 82px !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
     }
     .logo-area { gap: 0.85rem !important; }
     .main-header .container { padding: 0 2rem !important; }
@@ -4181,7 +4186,7 @@ h1, h2, h3, h4, h5, h6 {
     .nav-container { padding: 0.5rem 1.5rem !important; }
     .top-bar-content { padding: 0 1.5rem !important; }
     .section-title { font-size: 1.3rem; }
-    .logo-img { width: 50px !important; height: 50px !important; }
+    .logo-img { width: 75px !important; height: 75px !important; padding: 0 !important; border: none !important; background: transparent !important; box-shadow: none !important; border-radius: 0 !important; }
 }
 
 /* ============================================================
@@ -4383,8 +4388,10 @@ img, video, iframe {
    PREMIUM DUAL-PANE NOTICE BOARD SHOWCASE
    ========================================== */
 .notice-showcase-section {
-    margin-top: 3.5rem !important;
-    margin-bottom: 3.5rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .notice-showcase-card {
@@ -4517,7 +4524,7 @@ img, video, iframe {
 }
 
 .notice-scroller-wrapper {
-    height: 330px;
+    height: 480px;
     overflow-y: hidden;
     position: relative;
     padding: 0.5rem 0.25rem;
@@ -4770,8 +4777,10 @@ img, video, iframe {
     }
 
     .notice-showcase-section {
-        margin-top: 2.5rem !important;
-        margin-bottom: 2.5rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
         padding-left: 20px !important; /* Slight overlap of sticky sidebar over left edge of card */
         padding-right: 4px !important;
         margin-left: 0 !important;
@@ -4858,7 +4867,7 @@ img, video, iframe {
     }
 
     .notice-scroller-wrapper {
-        height: 300px;
+        height: 400px;
     }
 
     .notice-mobile-bottom-bar {
