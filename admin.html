@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="notices_data.js?v=80"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSS Website - Admin Panel</title>
@@ -1360,6 +1361,7 @@
             });
         }
     </script>
+    <script src="mandatory_disclosure_data.js?v=5"></script>
 </head>
 <body>
 
@@ -1441,10 +1443,11 @@
                 <button class="nav-item" onclick="switchPanel('ticker')"><i class="ph ph-arrows-left-right"></i> Movable Section</button>
                 <button class="nav-item" onclick="switchPanel('hall-of-fame')"><i class="ph ph-trophy"></i> Hall of Fame</button>
                 <button class="nav-item" onclick="switchPanel('awards')"><i class="ph ph-medal"></i> Awards</button>
-                <button class="nav-item" onclick="switchPanel('bulletin')"><i class="ph ph-calendar-blank"></i> Bulletin Board</button>
+                <button class="nav-item" onclick="switchPanel('bulletin')" style="display: none !important;"><i class="ph ph-calendar-blank"></i> Bulletin Board</button>
                 <button class="nav-item" onclick="switchPanel('notices')"><i class="ph ph-bell"></i> Class Notices</button>
-                <button class="nav-item" onclick="switchPanel('chatbot')"><i class="ph ph-chat-circle"></i> Train Chatbot</button>
+                <button class="nav-item" onclick="switchPanel('chatbot')" style="display: none !important;"><i class="ph ph-chat-circle"></i> Train Chatbot</button>
                 <button class="nav-item" onclick="switchPanel('tc')"><i class="ph ph-file-text"></i> Transfer Certificates</button>
+                <button class="nav-item" onclick="switchPanel('disclosure')"><i class="ph ph-file-doc"></i> Mandatory Disclosure</button>
                 <button class="nav-item" onclick="switchPanel('feedback')"><i class="ph ph-chat-centered-text"></i> Feedback Manager</button>
             </aside>
 
@@ -1937,8 +1940,12 @@
 
                     <!-- TC Entries List -->
                     <div class="card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                             <h3>Saved TC Entries <span id="tc-count-badge" style="font-size: 0.75rem; background: var(--accent); color: #fff; border-radius: 999px; padding: 0.2rem 0.6rem; margin-left: 0.5rem; vertical-align: middle;">0</span></h3>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <input type="text" id="tc-search-input" class="form-input" placeholder="Search by name, class, or #srl..." style="width: 260px; padding: 0.45rem 0.75rem; font-size: 0.85rem;" oninput="filterAdminTcEntries()">
+                                <button class="btn btn-secondary" onclick="filterAdminTcEntries()" style="width: auto; padding: 0.45rem 0.85rem; font-size: 0.85rem;"><i class="ph ph-magnifying-glass"></i> Search</button>
+                            </div>
                         </div>
                         <div id="tc-entries-list">
                             <p style="color: var(--text-light); font-size: 0.9rem;">No TC entries added yet. Use the form above to add entries.</p>
@@ -1947,6 +1954,161 @@
                 </div>
 
                 <!-- PANEL: FEEDBACKS -->
+                
+                <!-- PANEL: MANDATORY DISCLOSURE -->
+                <div id="panel-disclosure" class="content-panel">
+                    <div class="panel-header">
+                        <h2>CBSE Mandatory Public Disclosure</h2>
+                        <p>Manage all official data, certificates, academic results, teaching staff data, infrastructure metrics, and MCM reports.</p>
+                    </div>
+
+                    <!-- Sub-tabs bar -->
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; flex-wrap: wrap;">
+                        <button class="btn btn-accent" id="md-subtab-btn-gen" onclick="switchDisclosureSubTab('gen')" style="width: auto; padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-info"></i> A: General Info</button>
+                        <button class="btn btn-secondary" id="md-subtab-btn-docs" onclick="switchDisclosureSubTab('docs')" style="width: auto; padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-files"></i> B: Documents & Info</button>
+                        <button class="btn btn-secondary" id="md-subtab-btn-results" onclick="switchDisclosureSubTab('results')" style="width: auto; padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-graduation-cap"></i> C: Results & Academics</button>
+                        <button class="btn btn-secondary" id="md-subtab-btn-staff" onclick="switchDisclosureSubTab('staff')" style="width: auto; padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-users"></i> D: Staff (Teaching)</button>
+                        <button class="btn btn-secondary" id="md-subtab-btn-infra" onclick="switchDisclosureSubTab('infra')" style="width: auto; padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-buildings"></i> E: Infrastructure</button>
+                        <button class="btn btn-secondary" id="md-subtab-btn-reports" onclick="switchDisclosureSubTab('reports')" style="width: auto; padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-file-text"></i> Reports & MCM</button>
+                    </div>
+
+                    <!-- SUB-PANEL 1: GENERAL INFO -->
+                    <div id="md-subpanel-gen" class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3>A: General Information</h3>
+                            <button onclick="saveMdGeneralInfo()" class="btn btn-accent" style="width: auto; padding: 0.45rem 1rem;"><i class="ph ph-floppy-disk"></i> Save General Info</button>
+                        </div>
+                        <div id="md-gen-form-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Loaded dynamically -->
+                        </div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="saveMdGeneralInfo()" class="btn btn-accent" style="width: auto; padding: 0.5rem 1.5rem;"><i class="ph ph-floppy-disk"></i> Save General Info</button>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PANEL 2: DOCUMENTS & INFO -->
+                    <div id="md-subpanel-docs" class="card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3>B: Documents & Information</h3>
+                            <button onclick="saveMdDocsInfo()" class="btn btn-accent" style="width: auto; padding: 0.45rem 1rem;"><i class="ph ph-floppy-disk"></i> Save Documents</button>
+                        </div>
+                        <div id="md-docs-form-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Loaded dynamically -->
+                        </div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="saveMdDocsInfo()" class="btn btn-accent" style="width: auto; padding: 0.5rem 1.5rem;"><i class="ph ph-floppy-disk"></i> Save Documents</button>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PANEL 3: RESULTS & ACADEMICS -->
+                    <div id="md-subpanel-results" class="card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3>C: Results & Academics</h3>
+                            <button onclick="saveMdResultsAcademics()" class="btn btn-accent" style="width: auto; padding: 0.45rem 1rem;"><i class="ph ph-floppy-disk"></i> Save Results</button>
+                        </div>
+                        
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">1. Academic Documents</h4>
+                        <div id="md-res-docs-container" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;"></div>
+
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">2. Class X Board Examination Results</h4>
+                        <div class="table-responsive" style="margin-bottom: 2rem;">
+                            <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid var(--border); color: var(--text-light); font-size: 0.85rem;">
+                                        <th style="padding: 0.5rem;">Year</th>
+                                        <th style="padding: 0.5rem;">Registered</th>
+                                        <th style="padding: 0.5rem;">Passed</th>
+                                        <th style="padding: 0.5rem;">Pass %</th>
+                                        <th style="padding: 0.5rem;">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="md-class-x-tbody"></tbody>
+                            </table>
+                        </div>
+
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">3. Class XII Board Examination Results</h4>
+                        <div class="table-responsive" style="margin-bottom: 1.5rem;">
+                            <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid var(--border); color: var(--text-light); font-size: 0.85rem;">
+                                        <th style="padding: 0.5rem;">Year</th>
+                                        <th style="padding: 0.5rem;">Registered</th>
+                                        <th style="padding: 0.5rem;">Passed</th>
+                                        <th style="padding: 0.5rem;">Pass %</th>
+                                        <th style="padding: 0.5rem;">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="md-class-xii-tbody"></tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="saveMdResultsAcademics()" class="btn btn-accent" style="width: auto; padding: 0.5rem 1.5rem;"><i class="ph ph-floppy-disk"></i> Save Results</button>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PANEL 4: STAFF (TEACHING) -->
+                    <div id="md-subpanel-staff" class="card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3>D: Staff (Teaching)</h3>
+                            <button onclick="saveMdStaffTeaching()" class="btn btn-accent" style="width: auto; padding: 0.45rem 1rem;"><i class="ph ph-floppy-disk"></i> Save Staff Data</button>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label style="font-weight: 600; font-size: 0.85rem;">Details of Teachers (PDF Document)</label>
+                                <input type="file" id="md-staff-teacher-file" class="form-input" accept=".pdf,application/pdf">
+                                <div id="md-staff-teacher-preview" style="font-size: 0.8rem; color: var(--text-light); margin-top: 0.25rem;"></div>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label style="font-weight: 600; font-size: 0.85rem;">Details of Teachers Training (PDF Document)</label>
+                                <input type="file" id="md-staff-training-file" class="form-input" accept=".pdf,application/pdf">
+                                <div id="md-staff-training-preview" style="font-size: 0.8rem; color: var(--text-light); margin-top: 0.25rem;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">Staff Strength & Qualifications Table</h4>
+                        <div id="md-staff-table-container" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="saveMdStaffTeaching()" class="btn btn-accent" style="width: auto; padding: 0.5rem 1.5rem;"><i class="ph ph-floppy-disk"></i> Save Staff Data</button>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PANEL 5: INFRASTRUCTURE -->
+                    <div id="md-subpanel-infra" class="card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3>E: School Infrastructure</h3>
+                            <button onclick="saveMdInfrastructure()" class="btn btn-accent" style="width: auto; padding: 0.45rem 1rem;"><i class="ph ph-floppy-disk"></i> Save Infrastructure</button>
+                        </div>
+                        <div id="md-infra-form-container" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="saveMdInfrastructure()" class="btn btn-accent" style="width: auto; padding: 0.5rem 1.5rem;"><i class="ph ph-floppy-disk"></i> Save Infrastructure</button>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PANEL 6: REPORTS & MCM -->
+                    <div id="md-subpanel-reports" class="card" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                            <h3>Core Documents, Annual Reports & MCM Minutes</h3>
+                            <button onclick="saveMdReportsMcm()" class="btn btn-accent" style="width: auto; padding: 0.45rem 1rem;"><i class="ph ph-floppy-disk"></i> Save Reports & MCM</button>
+                        </div>
+
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">1. Core Operational Documents</h4>
+                        <div id="md-core-docs-container" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;"></div>
+
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">2. Annual Reports of the School</h4>
+                        <div id="md-annual-reports-container" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;"></div>
+
+                        <h4 style="color: var(--text-main); margin-bottom: 0.75rem;">3. Principal’s Report & Minutes of MCM</h4>
+                        <div id="md-mcm-reports-container" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+
+                        <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end;">
+                            <button onclick="saveMdReportsMcm()" class="btn btn-accent" style="width: auto; padding: 0.5rem 1.5rem;"><i class="ph ph-floppy-disk"></i> Save Reports & MCM</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="panel-feedback" class="content-panel">
                     <div class="panel-header">
                         <h2>Feedback Manager</h2>
@@ -3614,24 +3776,28 @@
             }
         }
 
-        function getLocalData() {
+                function getLocalData() {
             const stored = localStorage.getItem('school_db_data');
+            const defaultNotices = (typeof getDefaultLocalNotices === 'function') ? getDefaultLocalNotices() : defaultLocalData.section_notices;
+            const defaultDisclosure = (typeof getDefaultMandatoryDisclosureData === 'function') ? getDefaultMandatoryDisclosureData() : defaultLocalData.mandatory_disclosure;
             if (stored) {
                 try {
                     const parsed = JSON.parse(stored);
                     const needsUpdate = !parsed.section_notices || 
-                                        parsed.section_notices.length < defaultLocalData.section_notices.length ||
-                                        (defaultLocalData.section_notices[0] && defaultLocalData.section_notices[0].file_path && (!parsed.section_notices[0] || !parsed.section_notices[0].file_path));
+                                        parsed.section_notices.length < defaultNotices.length ||
+                                        (parsed.section_notices[0]?.id !== defaultNotices[0]?.id);
                     if (!parsed.hero_notices || parsed.hero_notices.length === 0) {
                         parsed.hero_notices = defaultLocalData.hero_notices;
                     }
-                    if (needsUpdate) {
-                        parsed.section_notices = defaultLocalData.section_notices;
+                    if (needsUpdate || !parsed.mandatory_disclosure || parsed.mandatory_disclosure.staff_teaching?.staff_table?.[5]?.strength !== "48") {
+                        parsed.section_notices = defaultNotices;
+                        parsed.mandatory_disclosure = defaultDisclosure;
                         localStorage.setItem('school_db_data', JSON.stringify(parsed));
                     }
                     return parsed;
                 } catch(e) {}
             }
+            defaultLocalData.section_notices = defaultNotices;
             return defaultLocalData;
         }
 
@@ -3846,6 +4012,496 @@
             if (targetPanel) targetPanel.classList.add('active');
         }
 
+        
+        // ==========================================
+        // MANDATORY PUBLIC DISCLOSURE MANAGER
+        // ==========================================
+
+        function getAdminDisclosureData() {
+            if (!dbData.mandatory_disclosure) {
+                if (typeof getDefaultMandatoryDisclosureData === 'function') {
+                    dbData.mandatory_disclosure = getDefaultMandatoryDisclosureData();
+                } else {
+                    dbData.mandatory_disclosure = {};
+                }
+            }
+            return dbData.mandatory_disclosure;
+        }
+
+        function switchDisclosureSubTab(tabKey) {
+            const tabs = ['gen', 'docs', 'results', 'staff', 'infra', 'reports'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('md-subtab-btn-' + t);
+                const pane = document.getElementById('md-subpanel-' + t);
+                if (t === tabKey) {
+                    if (btn) { btn.className = 'btn btn-accent'; }
+                    if (pane) { pane.style.display = 'block'; }
+                } else {
+                    if (btn) { btn.className = 'btn btn-secondary'; }
+                    if (pane) { pane.style.display = 'none'; }
+                }
+            });
+        }
+
+        function renderAdminDisclosure() {
+            const data = getAdminDisclosureData();
+            if (!data) return;
+            renderAdminMdGeneral(data);
+            renderAdminMdDocs(data);
+            renderAdminMdResults(data);
+            renderAdminMdStaff(data);
+            renderAdminMdInfra(data);
+            renderAdminMdReports(data);
+        }
+
+        // Subtab 1: General Info
+        function renderAdminMdGeneral(data) {
+            const container = document.getElementById('md-gen-form-container');
+            if (!container || !data.general_info) return;
+            container.innerHTML = '';
+            data.general_info.forEach((item, idx) => {
+                const row = document.createElement('div');
+                row.className = 'form-group';
+                row.style.cssText = 'display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; align-items: center; margin-bottom: 0; padding: 0.75rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border);';
+                row.innerHTML = `
+                    <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">${item.sl}. ${escapeHtml(item.info)}</div>
+                    <input type="text" id="md-gen-val-${idx}" class="form-input" value="${escapeHtml(item.details || '')}" style="margin-bottom: 0;">
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function saveMdGeneralInfo() {
+            const data = getAdminDisclosureData();
+            if (!data.general_info) return;
+            data.general_info.forEach((item, idx) => {
+                const el = document.getElementById('md-gen-val-' + idx);
+                if (el) item.details = el.value.trim();
+            });
+            saveAdminDisclosureData('General Information updated successfully!');
+        }
+
+        // Subtab 2: Documents & Info
+        function renderAdminMdDocs(data) {
+            const container = document.getElementById('md-docs-form-container');
+            if (!container || !data.documents_info) return;
+            container.innerHTML = '';
+            data.documents_info.forEach((item, idx) => {
+                const row = document.createElement('div');
+                row.className = 'form-group';
+                row.style.cssText = 'padding: 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border); margin-bottom: 0;';
+                const fileUrl = item.file_path || item.fileDataUri || '';
+                row.innerHTML = `
+                    <div style="font-weight: 700; font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.5rem;">${item.sl}. ${escapeHtml(item.info)}</div>
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                        <input type="file" id="md-doc-file-${idx}" class="form-input" accept=".pdf,application/pdf" style="flex-grow: 1; min-width: 250px; margin-bottom: 0;">
+                        ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.85rem; font-size: 0.8rem; white-space: nowrap;"><i class="ph ph-file-pdf"></i> View Current PDF</a>` : '<span style="font-size: 0.8rem; color: var(--text-light);">No PDF uploaded</span>'}
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        async function saveMdDocsInfo() {
+            const data = getAdminDisclosureData();
+            if (!data.documents_info) return;
+            for (let idx = 0; idx < data.documents_info.length; idx++) {
+                const fileInput = document.getElementById('md-doc-file-' + idx);
+                if (fileInput && fileInput.files.length > 0) {
+                    try {
+                        const base64 = await getBase64(fileInput.files[0]);
+                        data.documents_info[idx].fileDataUri = base64;
+                        data.documents_info[idx].file_path = base64;
+                    } catch(e) {}
+                }
+            }
+            saveAdminDisclosureData('Documents & Info updated successfully!');
+            renderAdminMdDocs(data);
+        }
+
+        // Subtab 3: Results & Academics
+        function renderAdminMdResults(data) {
+            const docsContainer = document.getElementById('md-res-docs-container');
+            const xTbody = document.getElementById('md-class-x-tbody');
+            const xiiTbody = document.getElementById('md-class-xii-tbody');
+            if (!data.results_academics) return;
+
+            // 1. Documents
+            if (docsContainer && data.results_academics.documents) {
+                docsContainer.innerHTML = '';
+                data.results_academics.documents.forEach((doc, idx) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = 'padding: 0.85rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border);';
+                    const fileUrl = doc.file_path || doc.fileDataUri || '';
+                    let fileControls = '';
+                    if (doc.type === 'page' || doc.type === 'page_links') {
+                        fileControls = `<span style="font-size: 0.8rem; color: var(--text-light); font-style: italic;">Linked to portal page</span>`;
+                    } else {
+                        fileControls = `
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.35rem;">
+                                <input type="file" id="md-res-doc-file-${idx}" class="form-input" accept=".pdf,application/pdf" style="flex-grow: 1; margin-bottom: 0;">
+                                ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8rem;"><i class="ph ph-file-pdf"></i> View Current PDF</a>` : ''}
+                            </div>
+                        `;
+                    }
+                    row.innerHTML = `
+                        <div style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">${doc.sl}. ${escapeHtml(doc.info)}</div>
+                        ${fileControls}
+                    `;
+                    docsContainer.appendChild(row);
+                });
+            }
+
+            // 2. Class X Table
+            if (xTbody && data.results_academics.class_x) {
+                xTbody.innerHTML = '';
+                data.results_academics.class_x.forEach((row, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = '1px solid var(--border)';
+                    tr.innerHTML = `
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cx-yr-${idx}" class="form-input" value="${escapeHtml(row.year)}" style="width: 100px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cx-reg-${idx}" class="form-input" value="${escapeHtml(row.registered)}" style="width: 80px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cx-pas-${idx}" class="form-input" value="${escapeHtml(row.passed)}" style="width: 80px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cx-pct-${idx}" class="form-input" value="${escapeHtml(row.percentage)}" style="width: 80px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><textarea id="md-cx-rem-${idx}" class="form-input" rows="2" style="margin: 0; padding: 0.35rem; font-size: 0.8rem;">${escapeHtml(row.remarks || '')}</textarea></td>
+                    `;
+                    xTbody.appendChild(tr);
+                });
+            }
+
+            // 3. Class XII Table
+            if (xiiTbody && data.results_academics.class_xii) {
+                xiiTbody.innerHTML = '';
+                data.results_academics.class_xii.forEach((row, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = '1px solid var(--border)';
+                    tr.innerHTML = `
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cxii-yr-${idx}" class="form-input" value="${escapeHtml(row.year)}" style="width: 100px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cxii-reg-${idx}" class="form-input" value="${escapeHtml(row.registered)}" style="width: 80px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cxii-pas-${idx}" class="form-input" value="${escapeHtml(row.passed)}" style="width: 80px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><input type="text" id="md-cxii-pct-${idx}" class="form-input" value="${escapeHtml(row.percentage)}" style="width: 80px; margin: 0; padding: 0.35rem;"></td>
+                        <td style="padding: 0.5rem;"><textarea id="md-cxii-rem-${idx}" class="form-input" rows="2" style="margin: 0; padding: 0.35rem; font-size: 0.8rem;">${escapeHtml(row.remarks || '')}</textarea></td>
+                    `;
+                    xiiTbody.appendChild(tr);
+                });
+            }
+        }
+
+        async function saveMdResultsAcademics() {
+            const data = getAdminDisclosureData();
+            if (!data.results_academics) return;
+
+            // Save document file uploads
+            if (data.results_academics.documents) {
+                for (let idx = 0; idx < data.results_academics.documents.length; idx++) {
+                    const fileInput = document.getElementById('md-res-doc-file-' + idx);
+                    if (fileInput && fileInput.files.length > 0) {
+                        try {
+                            const base64 = await getBase64(fileInput.files[0]);
+                            data.results_academics.documents[idx].fileDataUri = base64;
+                            data.results_academics.documents[idx].file_path = base64;
+                        } catch(e) {}
+                    }
+                }
+            }
+
+            // Save Class X
+            if (data.results_academics.class_x) {
+                data.results_academics.class_x.forEach((row, idx) => {
+                    const yr = document.getElementById('md-cx-yr-' + idx);
+                    const reg = document.getElementById('md-cx-reg-' + idx);
+                    const pas = document.getElementById('md-cx-pas-' + idx);
+                    const pct = document.getElementById('md-cx-pct-' + idx);
+                    const rem = document.getElementById('md-cx-rem-' + idx);
+                    if (yr) row.year = yr.value.trim();
+                    if (reg) row.registered = reg.value.trim();
+                    if (pas) row.passed = pas.value.trim();
+                    if (pct) row.percentage = pct.value.trim();
+                    if (rem) row.remarks = rem.value.trim();
+                });
+            }
+
+            // Save Class XII
+            if (data.results_academics.class_xii) {
+                data.results_academics.class_xii.forEach((row, idx) => {
+                    const yr = document.getElementById('md-cxii-yr-' + idx);
+                    const reg = document.getElementById('md-cxii-reg-' + idx);
+                    const pas = document.getElementById('md-cxii-pas-' + idx);
+                    const pct = document.getElementById('md-cxii-pct-' + idx);
+                    const rem = document.getElementById('md-cxii-rem-' + idx);
+                    if (yr) row.year = yr.value.trim();
+                    if (reg) row.registered = reg.value.trim();
+                    if (pas) row.passed = pas.value.trim();
+                    if (pct) row.percentage = pct.value.trim();
+                    if (rem) row.remarks = rem.value.trim();
+                });
+            }
+
+            saveAdminDisclosureData('Results & Academics updated successfully!');
+            renderAdminMdResults(data);
+        }
+
+        // Subtab 4: Staff (Teaching)
+        function renderAdminMdStaff(data) {
+            const tPrev = document.getElementById('md-staff-teacher-preview');
+            const trPrev = document.getElementById('md-staff-training-preview');
+            const tableContainer = document.getElementById('md-staff-table-container');
+            if (!data.staff_teaching) return;
+
+            if (tPrev) {
+                const url = data.staff_teaching.teacher_data_pdf || '';
+                tPrev.innerHTML = url ? `<a href="${url}" target="_blank" style="color: var(--accent-blue); text-decoration: underline;"><i class="ph ph-file-pdf"></i> View Current Details of Teachers</a>` : 'No file uploaded';
+            }
+            if (trPrev) {
+                const url = data.staff_training_pdf || data.staff_teaching.teacher_training_pdf || '';
+                trPrev.innerHTML = url ? `<a href="${url}" target="_blank" style="color: var(--accent-blue); text-decoration: underline;"><i class="ph ph-file-pdf"></i> View Current Teachers Training</a>` : 'No file uploaded';
+            }
+
+            if (tableContainer && data.staff_teaching.staff_table) {
+                tableContainer.innerHTML = '';
+                data.staff_teaching.staff_table.forEach((item, idx) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = 'padding: 0.75rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border); display: grid; grid-template-columns: 240px 100px 1fr; gap: 1rem; align-items: center;';
+                    const fileUrl = item.file_path || item.fileDataUri || '';
+                    row.innerHTML = `
+                        <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">${item.sl ? item.sl + '. ' : '&nbsp;&nbsp;'} ${escapeHtml(item.info)}</div>
+                        <input type="text" id="md-staff-str-${idx}" class="form-input" value="${escapeHtml(item.strength || '')}" placeholder="Strength" style="margin-bottom: 0; padding: 0.35rem 0.5rem; font-size: 0.85rem;">
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="text" id="md-staff-det-${idx}" class="form-input" value="${escapeHtml(item.details || '')}" placeholder="Qualifications / Name / Remarks" style="margin-bottom: 0; padding: 0.35rem 0.5rem; font-size: 0.85rem; flex-grow: 1;">
+                            <input type="file" id="md-staff-file-${idx}" class="form-input" accept=".pdf,application/pdf" style="width: 180px; margin-bottom: 0; padding: 0.25rem; font-size: 0.75rem;" title="Upload PDF">
+                            ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-secondary" style="width: auto; padding: 0.35rem 0.6rem; font-size: 0.75rem;" title="View PDF"><i class="ph ph-file-pdf"></i></a>` : ''}
+                        </div>
+                    `;
+                    tableContainer.appendChild(row);
+                });
+            }
+        }
+
+        async function saveMdStaffTeaching() {
+            const data = getAdminDisclosureData();
+            if (!data.staff_teaching) return;
+
+            // Check main 2 buttons PDF uploads
+            const tFile = document.getElementById('md-staff-teacher-file');
+            if (tFile && tFile.files.length > 0) {
+                try {
+                    const base64 = await getBase64(tFile.files[0]);
+                    data.staff_teaching.teacher_data_pdf = base64;
+                } catch(e) {}
+            }
+            const trFile = document.getElementById('md-staff-training-file');
+            if (trFile && trFile.files.length > 0) {
+                try {
+                    const base64 = await getBase64(trFile.files[0]);
+                    data.staff_teaching.teacher_training_pdf = base64;
+                } catch(e) {}
+            }
+
+            // Save table rows
+            if (data.staff_teaching.staff_table) {
+                for (let idx = 0; idx < data.staff_teaching.staff_table.length; idx++) {
+                    const str = document.getElementById('md-staff-str-' + idx);
+                    const det = document.getElementById('md-staff-det-' + idx);
+                    const fileInput = document.getElementById('md-staff-file-' + idx);
+                    if (str) data.staff_teaching.staff_table[idx].strength = str.value.trim();
+                    if (det) data.staff_teaching.staff_table[idx].details = det.value.trim();
+                    if (fileInput && fileInput.files.length > 0) {
+                        try {
+                            const base64 = await getBase64(fileInput.files[0]);
+                            data.staff_teaching.staff_table[idx].fileDataUri = base64;
+                            data.staff_teaching.staff_table[idx].file_path = base64;
+                        } catch(e) {}
+                    }
+                }
+            }
+
+            saveAdminDisclosureData('Staff data updated successfully!');
+            renderAdminMdStaff(data);
+        }
+
+        // Subtab 5: Infrastructure
+        function renderAdminMdInfra(data) {
+            const container = document.getElementById('md-infra-form-container');
+            if (!container || !data.infrastructure) return;
+            container.innerHTML = '';
+            data.infrastructure.forEach((item, idx) => {
+                const row = document.createElement('div');
+                row.className = 'form-group';
+                row.style.cssText = 'padding: 0.75rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border); margin-bottom: 0; display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; align-items: center;';
+                
+                let inputField = '';
+                if (item.video_url !== undefined) {
+                    inputField = `<input type="text" id="md-infra-vid-${idx}" class="form-input" value="${escapeHtml(item.video_url || '')}" placeholder="YouTube Video URL" style="margin-bottom: 0;">`;
+                } else {
+                    inputField = `<input type="text" id="md-infra-det-${idx}" class="form-input" value="${escapeHtml(item.details || '')}" style="margin-bottom: 0;">`;
+                }
+
+                row.innerHTML = `
+                    <div style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">${item.sl}. ${escapeHtml(item.info)}</div>
+                    ${inputField}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function saveMdInfrastructure() {
+            const data = getAdminDisclosureData();
+            if (!data.infrastructure) return;
+            data.infrastructure.forEach((item, idx) => {
+                const det = document.getElementById('md-infra-det-' + idx);
+                const vid = document.getElementById('md-infra-vid-' + idx);
+                if (det) item.details = det.value.trim();
+                if (vid) item.video_url = vid.value.trim();
+            });
+            saveAdminDisclosureData('Infrastructure metrics updated successfully!');
+        }
+
+        // Subtab 6: Reports & MCM
+        function renderAdminMdReports(data) {
+            const coreContainer = document.getElementById('md-core-docs-container');
+            const annualContainer = document.getElementById('md-annual-reports-container');
+            const mcmContainer = document.getElementById('md-mcm-reports-container');
+            if (!data.reports_mcm) return;
+
+            // 1. Core documents
+            if (coreContainer && data.reports_mcm.core_docs) {
+                coreContainer.innerHTML = '';
+                data.reports_mcm.core_docs.forEach((doc, idx) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = 'padding: 0.85rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border);';
+                    const fileUrl = doc.file_path || doc.fileDataUri || '';
+                    row.innerHTML = `
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem;">
+                            <input type="text" id="md-core-title-${idx}" class="form-input" value="${escapeHtml(doc.title)}" placeholder="Document Title" style="margin-bottom: 0; font-weight: 700;">
+                            <input type="text" id="md-core-desc-${idx}" class="form-input" value="${escapeHtml(doc.desc)}" placeholder="Description" style="margin-bottom: 0;">
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <input type="file" id="md-core-file-${idx}" class="form-input" style="flex-grow: 1; margin-bottom: 0;">
+                            ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.85rem; font-size: 0.8rem;"><i class="ph ph-download"></i> View File</a>` : ''}
+                        </div>
+                    `;
+                    coreContainer.appendChild(row);
+                });
+            }
+
+            // 2. Annual Reports
+            if (annualContainer && data.reports_mcm.annual_reports) {
+                annualContainer.innerHTML = '';
+                data.reports_mcm.annual_reports.forEach((rep, idx) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = 'padding: 0.65rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: center;';
+                    const fileUrl = rep.file_path || rep.fileDataUri || '';
+                    row.innerHTML = `
+                        <input type="text" id="md-annual-title-${idx}" class="form-input" value="${escapeHtml(rep.title)}" style="margin-bottom: 0; font-weight: 600;">
+                        <input type="file" id="md-annual-file-${idx}" class="form-input" accept=".pdf,application/pdf" style="margin-bottom: 0; padding: 0.25rem;">
+                        ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-secondary" style="width: auto; padding: 0.35rem 0.65rem; font-size: 0.8rem;"><i class="ph ph-file-pdf"></i> View</a>` : '<span></span>'}
+                    `;
+                    annualContainer.appendChild(row);
+                });
+            }
+
+            // 3. MCM Reports
+            if (mcmContainer && data.reports_mcm.mcm_reports) {
+                mcmContainer.innerHTML = '';
+                data.reports_mcm.mcm_reports.forEach((rep, idx) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = 'padding: 0.65rem 1rem; border-radius: var(--radius-sm); background: rgba(0,0,0,0.02); border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: center;';
+                    const fileUrl = rep.file_path || rep.fileDataUri || '';
+                    row.innerHTML = `
+                        <input type="text" id="md-mcm-title-${idx}" class="form-input" value="${escapeHtml(rep.title)}" style="margin-bottom: 0; font-weight: 600;">
+                        <input type="file" id="md-mcm-file-${idx}" class="form-input" accept=".pdf,application/pdf" style="margin-bottom: 0; padding: 0.25rem;">
+                        ${fileUrl ? `<a href="${fileUrl}" target="_blank" class="btn btn-secondary" style="width: auto; padding: 0.35rem 0.65rem; font-size: 0.8rem;"><i class="ph ph-file-pdf"></i> View</a>` : '<span></span>'}
+                    `;
+                    mcmContainer.appendChild(row);
+                });
+            }
+        }
+
+        async function saveMdReportsMcm() {
+            const data = getAdminDisclosureData();
+            if (!data.reports_mcm) return;
+
+            // 1. Core docs
+            if (data.reports_mcm.core_docs) {
+                for (let idx = 0; idx < data.reports_mcm.core_docs.length; idx++) {
+                    const title = document.getElementById('md-core-title-' + idx);
+                    const desc = document.getElementById('md-core-desc-' + idx);
+                    const fileInput = document.getElementById('md-core-file-' + idx);
+                    if (title) data.reports_mcm.core_docs[idx].title = title.value.trim();
+                    if (desc) data.reports_mcm.core_docs[idx].desc = desc.value.trim();
+                    if (fileInput && fileInput.files.length > 0) {
+                        try {
+                            const base64 = await getBase64(fileInput.files[0]);
+                            data.reports_mcm.core_docs[idx].fileDataUri = base64;
+                            data.reports_mcm.core_docs[idx].file_path = base64;
+                        } catch(e) {}
+                    }
+                }
+            }
+
+            // 2. Annual reports
+            if (data.reports_mcm.annual_reports) {
+                for (let idx = 0; idx < data.reports_mcm.annual_reports.length; idx++) {
+                    const title = document.getElementById('md-annual-title-' + idx);
+                    const fileInput = document.getElementById('md-annual-file-' + idx);
+                    if (title) data.reports_mcm.annual_reports[idx].title = title.value.trim();
+                    if (fileInput && fileInput.files.length > 0) {
+                        try {
+                            const base64 = await getBase64(fileInput.files[0]);
+                            data.reports_mcm.annual_reports[idx].fileDataUri = base64;
+                            data.reports_mcm.annual_reports[idx].file_path = base64;
+                        } catch(e) {}
+                    }
+                }
+            }
+
+            // 3. MCM reports
+            if (data.reports_mcm.mcm_reports) {
+                for (let idx = 0; idx < data.reports_mcm.mcm_reports.length; idx++) {
+                    const title = document.getElementById('md-mcm-title-' + idx);
+                    const fileInput = document.getElementById('md-mcm-file-' + idx);
+                    if (title) data.reports_mcm.mcm_reports[idx].title = title.value.trim();
+                    if (fileInput && fileInput.files.length > 0) {
+                        try {
+                            const base64 = await getBase64(fileInput.files[0]);
+                            data.reports_mcm.mcm_reports[idx].fileDataUri = base64;
+                            data.reports_mcm.mcm_reports[idx].file_path = base64;
+                        } catch(e) {}
+                    }
+                }
+            }
+
+            saveAdminDisclosureData('Reports & MCM updated successfully!');
+            renderAdminMdReports(data);
+        }
+
+        function saveAdminDisclosureData(successMsg) {
+            if (isLocalFile) {
+                localStorage.setItem('school_db_data', JSON.stringify(dbData));
+                showToast(successMsg, 'success');
+            } else {
+                fetch('admin_api.php?action=save_disclosure', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mandatory_disclosure: dbData.mandatory_disclosure })
+                })
+                .then(res => res.json())
+                .then(resData => {
+                    if (resData.success) {
+                        showToast(successMsg, 'success');
+                    } else {
+                        showToast(resData.message || 'Failed to save', 'error');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    localStorage.setItem('school_db_data', JSON.stringify(dbData));
+                    showToast(successMsg + ' (Saved locally)', 'info');
+                });
+            }
+        }
+
+
         function loadDashboardData() {
             if (isLocalFile) {
                 dbData = getLocalData();
@@ -3860,6 +4516,7 @@
                 renderTcEntries();
                 renderFeedbackList();
                 renderAdminHeroNotices();
+                renderAdminDisclosure();
                 return;
             }
 
@@ -3897,6 +4554,9 @@
         }
 
         // ── Hero Floating Notices Manager ──
+        
+        let draggedHeroNoticeId = null;
+
         function renderAdminHeroNotices() {
             const listEl = document.getElementById('hero-notices-admin-list');
             if (!listEl) return;
@@ -3909,27 +4569,38 @@
                 return;
             }
 
-            notices.forEach(item => {
+            notices.forEach((item, index) => {
                 const theme = item.color_theme || 'cyan';
                 const isActive = item.is_active !== false;
                 const isBlink = item.is_blinking !== false;
 
                 const card = document.createElement('div');
                 card.className = 'admin-hn-card' + (isActive ? '' : ' inactive');
+                card.setAttribute('draggable', 'true');
+                card.dataset.id = item.id;
+                card.dataset.index = index;
+                card.style.cursor = 'grab';
+
                 card.innerHTML = `
-                    <div class="admin-hn-info">
-                        <div class="admin-hn-top">
-                            <span class="hn-color-tag hn-theme-${theme}">${theme.toUpperCase()}</span>
-                            ${item.tag ? `<span style="font-size: 0.75rem; font-weight: 800; background: rgba(0,0,0,0.06); padding: 2px 8px; border-radius: 4px;">${escapeHtml(item.tag)}</span>` : ''}
-                            ${isBlink ? '<span style="font-size: 0.72rem; color: #ea580c; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="ph-fill ph-lightning"></i> Blinking</span>' : ''}
+                    <div style="display: flex; align-items: center; gap: 0.75rem; flex-grow: 1; min-width: 0;">
+                        <div class="drag-handle" style="display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 1.35rem; cursor: grab; padding: 4px; border-radius: 4px; background: rgba(0,0,0,0.03);" title="Click & drag to reorder">
+                            <i class="ph ph-dots-six-vertical"></i>
                         </div>
-                        <div class="admin-hn-title">${escapeHtml(item.title)}</div>
-                        <div class="admin-hn-meta">
-                            ${item.subtitle ? `<span><i class="ph ph-info"></i> ${escapeHtml(item.subtitle)}</span>` : ''}
-                            ${item.link_url ? `<span><i class="ph ph-link"></i> <a href="${item.link_url}" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">${escapeHtml(item.link_url)}</a></span>` : ''}
+                        <div class="admin-hn-info" style="flex-grow: 1; min-width: 0;">
+                            <div class="admin-hn-top">
+                                <span class="hn-color-tag hn-theme-${theme}">${theme.toUpperCase()}</span>
+                                <span style="font-size: 0.75rem; font-weight: 800; background: var(--bg-hover); color: var(--text-dark); padding: 2px 8px; border-radius: 4px;">#${index + 1}</span>
+                                ${item.tag ? `<span style="font-size: 0.75rem; font-weight: 800; background: rgba(0,0,0,0.06); padding: 2px 8px; border-radius: 4px;">${escapeHtml(item.tag)}</span>` : ''}
+                                ${isBlink ? '<span style="font-size: 0.72rem; color: #ea580c; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><i class="ph-fill ph-lightning"></i> Blinking</span>' : ''}
+                            </div>
+                            <div class="admin-hn-title" style="margin-top: 0.35rem;">${escapeHtml(item.title)}</div>
+                            <div class="admin-hn-meta" style="margin-top: 0.25rem;">
+                                ${item.subtitle ? `<span><i class="ph ph-info"></i> ${escapeHtml(item.subtitle)}</span>` : ''}
+                                ${item.link_url ? `<span><i class="ph ph-link"></i> <a href="${item.link_url}" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">${escapeHtml(item.link_url)}</a></span>` : ''}
+                            </div>
                         </div>
                     </div>
-                    <div class="admin-hn-actions">
+                    <div class="admin-hn-actions" style="margin-left: 1rem;">
                         <button type="button" onclick="toggleHeroNoticeActive('${item.id}')" class="btn ${isActive ? 'btn-success' : 'btn-secondary'}" style="padding: 0.4rem 0.85rem; font-size: 0.8rem;" title="${isActive ? 'Turn Off' : 'Turn On'}">
                             <i class="ph ${isActive ? 'ph-eye' : 'ph-eye-slash'}"></i> ${isActive ? 'ON' : 'OFF'}
                         </button>
@@ -3941,9 +4612,91 @@
                         </button>
                     </div>
                 `;
+
+                // Drag & drop event listeners
+                card.addEventListener('dragstart', (e) => {
+                    draggedHeroNoticeId = item.id;
+                    card.style.opacity = '0.4';
+                    card.style.border = '2px dashed var(--accent-blue)';
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', item.id);
+                });
+
+                card.addEventListener('dragend', () => {
+                    card.style.opacity = '1';
+                    card.style.border = '';
+                    document.querySelectorAll('.admin-hn-card').forEach(c => {
+                        c.style.borderTop = '';
+                        c.style.borderBottom = '';
+                    });
+                });
+
+                card.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    card.style.borderTop = '3px solid var(--accent-blue)';
+                });
+
+                card.addEventListener('dragleave', () => {
+                    card.style.borderTop = '';
+                    card.style.borderBottom = '';
+                });
+
+                card.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    card.style.borderTop = '';
+                    card.style.borderBottom = '';
+                    const targetId = item.id;
+                    if (!draggedHeroNoticeId || draggedHeroNoticeId === targetId) return;
+
+                    const fromIdx = dbData.hero_notices.findIndex(n => n.id === draggedHeroNoticeId);
+                    const toIdx = dbData.hero_notices.findIndex(n => n.id === targetId);
+
+                    if (fromIdx !== -1 && toIdx !== -1) {
+                        const [moved] = dbData.hero_notices.splice(fromIdx, 1);
+                        dbData.hero_notices.splice(toIdx, 0, moved);
+
+                        // Reassign orders
+                        dbData.hero_notices.forEach((n, idx) => {
+                            n.order = idx + 1;
+                        });
+
+                        saveHeroNoticesReorder();
+                    }
+                });
+
                 listEl.appendChild(card);
             });
         }
+
+        function saveHeroNoticesReorder() {
+            if (isLocalFile) {
+                localStorage.setItem('school_db_data', JSON.stringify(dbData));
+                renderAdminHeroNotices();
+                showToast('Hero Notices reordered successfully & updated on front end!', 'success');
+            } else {
+                fetch('admin_api.php?action=save_hero_notices', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hero_notices: dbData.hero_notices })
+                })
+                .then(res => res.json())
+                .then(resData => {
+                    if (resData.success) {
+                        renderAdminHeroNotices();
+                        showToast('Hero Notices reordered successfully & updated on front end!', 'success');
+                    } else {
+                        showToast(resData.message || 'Failed to save order', 'error');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    renderAdminHeroNotices();
+                    showToast('Hero Notices order updated.', 'info');
+                });
+            }
+        }
+
 
         function openHeroNoticeModal(id) {
             const titleEl = document.getElementById('hero-notice-modal-title');
@@ -4783,8 +5536,11 @@
                     item.className = 'blog-item';
                     
                     let attachHtml = '<i class="ph ph-file-text" style="font-size: 1.8rem; color: var(--text-light)"></i>';
-                    const fileToUse = notice.file_paths && notice.file_paths.length > 0 ? notice.file_paths[0] : notice.file_path;
-                    if (fileToUse) {
+                    let fileToUse = notice.file_paths && notice.file_paths.length > 0 ? notice.file_paths[0] : notice.file_path;
+                    if (fileToUse && typeof fileToUse === 'object' && fileToUse.file_path) {
+                        fileToUse = fileToUse.file_path;
+                    }
+                    if (typeof fileToUse === 'string' && fileToUse.trim()) {
                         const isPdf = fileToUse.toLowerCase().endsWith('.pdf') || fileToUse.startsWith('data:application/pdf');
                         if (isPdf) {
                             attachHtml = '<i class="ph ph-file-pdf" style="font-size: 1.8rem; color: #ef4444"></i>';
@@ -6008,77 +6764,596 @@
             }
         }
 
+        
+                // ==========================================
+        // TRANSFER CERTIFICATES MANAGER (EXACT FRONT-END SYNC)
+        // ==========================================
+        const rawTcFiles = [
+            "0002-CLASS-VI-ZAINAB-JAWED.pdf",
+            "0002_Zainab-Jawed_20200298.pdf",
+            "0003_Divi-Mehta_20180247.pdf",
+            "0004_ARSHPREET-KAUR_20180051.pdf",
+            "0005-CLASS-IX-RENAISSANCE-CHAKRABORTY.pdf",
+            "0006-CLASS-IX-ANUSHKA-MONDA.pdf",
+            "0007_ARADHYA-GUPTA_20200320.pdf",
+            "0008-CLASS-VIII-SANSKRITI-GUPTA.pdf",
+            "0009-CLASS-IX-SRIJA-MONDAl.pdf",
+            "0010-CLASS-X-AASHRITA-SINGH.pdf",
+            "0011-CLASS-X-TANISHA-GHOSH.pdf",
+            "0012-CLASS-X-OMESHAA-CHAKRABORTI.pdf",
+            "0013-CLASS-X-ZINIA-SAHA.pdf",
+            "0014-CLASS-X-STUTI-KARMAKAR.pdf",
+            "0015_-CLASS-X-DAYITA-CHAKRABORTY.pdf",
+            "0016-CLASS-X-PRAGYA-BASU.pdf",
+            "0017-CLASS-X-SHRI-SHAW.pdf",
+            "0018-CLASS-V-SHIVANGI-SHAW.pdf",
+            "0019-CLASS-X-SAMRIDDHI-SINHA-RAY.pdf",
+            "0020-CLASS-X-DIPIKA-DAS.pdf",
+            "0021-CLASS-X-RITTIKA-KHAN.pdf",
+            "0022-CLASS-X-ZAINA-ERUM-RAHMAN.pdf",
+            "0023-CLASS-X-SURENA-HALDAR.pdf",
+            "0024-CLASS-X-NAMRATA-SAHA.pdf",
+            "0025-CLASS-X-ROSHNI-BHUIYA.pdf",
+            "0026-CLASS-X-VANSHIKA-SANJAY.pdf",
+            "0027-CLASS-X-ABHIPSHA-BANERJEE.pdf",
+            "0028-CLASS-X-ARUSHI-BANERJEE.pdf",
+            "0029-CLASS-X-SAMPOORNA-SARKAR.pdf",
+            "0030-CLASS-SKG-AARIA-DASGUPTA.pdf",
+            "0031-CLASS-X-HARSHIKA-JAISWAL.pdf",
+            "0032-CLASS-X-ANUSHKA-MOHANTA.pdf",
+            "0033-CLASS-X-RAJLAKSHMI-BISWAS.pdf",
+            "0034-CLASS-X-SADIAH-HANAN.pdf",
+            "0040-CLASS-X-BIPASHA-PANJA.pdf",
+            "0041-CLASS-X-MALAK-PAREKH.pdf",
+            "0042-CLASS-X-KAVYA-SHYAM-KAMAL.pdf",
+            "0043-CLASS-VII-SHRIYADITA-DAS.pdf",
+            "0044-CLASS-X-MOUPIYA-GHATAK.pdf",
+            "0045-CLASS-II-ANWESHA-ROY.pdf",
+            "0046-CLASS-X-SAMAIRA-NAYAB.pdf",
+            "0047-CLASS-XI-GROUP-III-GARIMA-CHOWDHURY.pdf",
+            "0048-CLASS-X-SREEJITA-DAS.pdf",
+            "0049-CLASS-VI-DEBATRI-SARKAR.pdf",
+            "0050-CLASS-X-ABDHIJA-BHATTACHARYYA.pdf",
+            "0051-CLASS-II-AUREL-ROY.pdf",
+            "0054-CLASS-UKG-UPADHRITI-DAS.pdf",
+            "0055-CLASS-X-KANAK-VERMA.pdf",
+            "0056-CLASS-III-YOSHITA-DAS.pdf",
+            "0057-CLASS-X-UPASANA-HALDAR.pdf",
+            "0059-CLASS-IV-ADVIKA-PANDA.pdf",
+            "0060-CLASS-X-MRIGAKSHEE-CHATTERJEE.pdf",
+            "0061-CLASS-LKG-RAMEESHA-RAWEEL.pdf",
+            "0061-CLASS-X-MUSKAAN-MUNDHRA.pdf",
+            "0062-CLASS-X-SAYANTANI-MISHRA.pdf",
+            "0063-CLASS-X-ARATRIKA-HAZRA.pdf",
+            "0064-CLASS-X-TANNISHTHA-KOLEY.pdf",
+            "0065-CLASS-X-VAISHNAVI-OJHA.pdf",
+            "0066-CLASS-X-SREYA-MUKHERJEE.pdf",
+            "0067-CLASS-X-SRESTHIA-GHOSH.pdf",
+            "0068-CLASS-VIII-AANYA-INDU.pdf",
+            "0069-CLASS-X-SRINIKA-ROY.pdf",
+            "0070-CLASS-X-PRIYANSHI-SONTHALIA.pdf",
+            "0071-CLASS-X-AASHNA-MAITI.pdf",
+            "0072-CLASS-X-TANNISTHA-SAHA.pdf",
+            "0073-CLASS-X-SHIBANGI-GHOSH.pdf",
+            "0085 CLASS X KANYAKA SANYAL.pdf",
+            "0084 CLASS VIII AKSHARA AGARWAL.pdf",
+            "0083 CLASS XI GROUP II ARYA GUPTA.pdf",
+            "0082 CLASS X RIDDHITA SAHA.pdf",
+            "0081 CLASS X SOHINI GHOSH.pdf",
+            "0080 CLASS XI GROUP-I AISHANI MANDAL.pdf",
+            "0079 CLASS X USHASHI MOITRA.pdf",
+            "0078 CLASS X KASTURI BANERJEE.pdf",
+            "0077 CLASS X RASHI SHAH.pdf",
+            "0076 CLASS X UPASANA MUKHERJEE.pdf",
+            "0075 CLASS X SOURASHNI DAS.pdf",
+            "0074 CLASS VI SAMPURNA GHOSH.pdf",
+            "0126-CLASS-II-AZMA-JAVED.pdf",
+            "0127CLASS-SKG-JIYASA-RAHA.pdf",
+            "0128CLASS-IV-AARADHITA-MUNSHI.pdf",
+            "0129-CLASS-X-FARAZIA-NAUSHAD.pdf",
+            "0130_Adrisha-Dev-Mondal_20230289.pdf",
+            "0131_Aliza-Mirza_20200006.pdf",
+            "0132_Sangvi-Saha_20200085.pdf",
+            "0133_Mohor-Debnath_20240227.pdf",
+            "0135_Paloma-Mondal_20240084.pdf",
+            "0136_Ezzah-Mohammad-Khan_20240060.pdf",
+            "0137_Toushini-Chatterjee_20240184.pdf",
+            "0138_Anishaa-Das_20200015.pdf",
+            "0139_Supreetha-Chakraborty_20240152.pdf",
+            "0140_Oishani-Sengupta_20230185.pdf",
+            "0141_Shivakshi-Chatterjee_20250038.pdf",
+            "0142_Rayanna-Nag_20220101.pdf",
+            "0144_Adrita-Kundu_20250234.pdf",
+            "0145_Kavya-Gupta_20200095.pdf",
+            "0146_Angelisa-Mitra_20250176.pdf",
+            "0147_Inaaya-Ali_20210053.pdf",
+            "0148_Debanshi-Adhikari_20240158.pdf",
+            "0149_Suhana-Gond_20145734.pdf",
+            "0150_Rahemeen-Rashid_20145427.pdf",
+            "0151-CLASS-VII-ADITI-SHARMA.pdf",
+            "0152_SRIJA-GANGULY_20200058.pdf",
+            "0153_Navya-Bansal_20200168.pdf",
+            "0154_Neerja-Bhattacharya_20145708.pdf",
+            "0155_Subhashita-Chaudhuri_20180049.pdf",
+            "0156_Arjehi-Guha-Thakurata_20230200.pdf",
+            "0157_Jaisvi-Sharma_20190051.pdf",
+            "0158_Riyansika-Ghosh_20180145.pdf",
+            "0159_Srestha-Das_20150131.pdf",
+            "0160_Debpriya-Hait_20180207.pdf",
+            "0161_Shiza-Mirza_20180162.pdf",
+            "0162_Debadrita-Dev-Barman_20144225.pdf",
+            "0163_Divyanka-Shaw_20144229.pdf",
+            "0164_Avni-Jhunjhunwala_20230195.pdf",
+            "0165_Rithika-Mallik_20210336.pdf",
+            "0166_Debangana-Chatterjee_20250343.pdf",
+            "0167_Aarohi-Jain_20220216.pdf",
+            "0168_Saanvi-Saraogi_20190179.pdf",
+            "0169_Yashvi-Jaiswal_20220150.pdf",
+            "0170_Niharika-Das_20240010.pdf",
+            "0171_Kritika-Saw_20190100.pdf",
+            "0172-CLASS-LKG-AADVIKA-SINGH.pdf"
+        ];
+        const defaultClassOverrides = {
+            "0003": "Class VI",
+            "0004": "Class VII",
+            "0007": "Class VII",
+                        "0074": "Class VI",
+            "0075": "Class X",
+            "0076": "Class X",
+            "0077": "Class X",
+            "0078": "Class X",
+            "0079": "Class X",
+            "0080": "Class XI",
+            "0081": "Class X",
+            "0082": "Class X",
+            "0083": "Class XI",
+            "0084": "Class VIII",
+            "0085": "Class X",
+            "0130": "Class I",
+            "0131": "Class IV",
+            "0132": "Class IV",
+            "0133": "Class III",
+            "0135": "Class UKG",
+            "0136": "Class UKG",
+            "0137": "Class UKG",
+            "0138": "Class IV",
+            "0139": "Class V",
+            "0140": "Class I",
+            "0141": "Class LKG",
+            "0142": "Class III",
+            "0144": "Class LKG",
+            "0145": "Class IV",
+            "0146": "Class LKG",
+            "0147": "Class III",
+            "0148": "Class SKG",
+            "0149": "Class IX",
+            "0150": "Class X",
+            "0152": "Class IV",
+            "0153": "Class V",
+            "0154": "Class IX",
+            "0155": "Class VII",
+            "0156": "Class SKG",
+            "0157": "Class VI",
+            "0158": "Class VI",
+            "0159": "Class VIII",
+            "0160": "Class VI",
+            "0161": "Class VI",
+            "0162": "Class XI",
+            "0163": "Class XI",
+            "0164": "Class VII",
+            "0165": "Class VII",
+            "0166": "Class XI",
+            "0167": "Class III",
+            "0168": "Class V",
+            "0169": "Class I",
+            "0170": "Class UKG",
+            "0171": "Class V"
+        };
+        const defaultTcDates = {
+            "0002": "April 8, 2026",
+            "0003": "April 8, 2026",
+            "0004": "April 20, 2026",
+            "0005": "April 21, 2026",
+            "0006": "April 20, 2026",
+            "0007": "April 20, 2026",
+            "0008": "April 25, 2026",
+            "0009": "April 24, 2026",
+            "0010": "May 5, 2026",
+            "0011": "May 5, 2026",
+            "0012": "May 5, 2026",
+            "0013": "May 5, 2026",
+            "0014": "May 5, 2026",
+            "0015": "May 5, 2026",
+            "0016": "May 5, 2026",
+            "0017": "May 5, 2026",
+            "0018": "May 5, 2026",
+            "0019": "May 5, 2026",
+            "0020": "May 8, 2026",
+            "0021": "May 8, 2026",
+            "0022": "May 8, 2026",
+            "0023": "May 8, 2026",
+            "0024": "May 8, 2026",
+            "0025": "May 9, 2026",
+            "0026": "May 9, 2026",
+            "0027": "May 9, 2026",
+            "0028": "May 9, 2026",
+            "0029": "May 9, 2026",
+            "0030": "May 9, 2026",
+            "0031": "May 12, 2026",
+            "0032": "May 13, 2026",
+            "0033": "May 13, 2026",
+            "0034": "May 13, 2026",
+            "0040": "June 3, 2026",
+            "0041": "June 3, 2026",
+            "0042": "June 3, 2026",
+            "0043": "June 19, 2026",
+            "0044": "June 19, 2026",
+            "0045": "June 19, 2026",
+            "0046": "June 19, 2026",
+            "0047": "June 19, 2026",
+            "0048": "June 19, 2026",
+            "0049": "June 19, 2026",
+            "0050": "June 19, 2026",
+            "0051": "June 19, 2026",
+            "0054": "June 29, 2026",
+            "0055": "July 1, 2026",
+            "0056": "July 4, 2026",
+            "0057": "July 4, 2026",
+            "0059": "July 4, 2026",
+            "0060": "July 4, 2026",
+            "0061": "July 4, 2026",
+            "0062": "July 4, 2026",
+            "0063": "July 4, 2026",
+            "0064": "July 4, 2026",
+            "0065": "July 4, 2026",
+            "0066": "July 4, 2026",
+            "0067": "July 4, 2026",
+            "0068": "July 4, 2026",
+            "0069": "July 4, 2026",
+            "0070": "July 4, 2026",
+            "0071": "July 4, 2026",
+            "0072": "July 4, 2026",
+                        "0073": "July 4, 2026",
+            "0074": "August 20, 2026",
+            "0075": "August 20, 2026",
+            "0076": "August 20, 2026",
+            "0077": "August 20, 2026",
+            "0078": "August 20, 2026",
+            "0079": "August 20, 2026",
+            "0080": "August 20, 2026",
+            "0081": "August 20, 2026",
+            "0082": "August 20, 2026",
+            "0083": "August 20, 2026",
+            "0084": "August 20, 2026",
+            "0085": "August 20, 2026",
+            "0126": "December 15, 2025",
+            "0127": "December 19, 2025",
+            "0128": "December 19, 2025",
+            "0129": "January 9, 2026",
+            "0130": "March 23, 2026",
+            "0131": "March 24, 2026",
+            "0132": "March 24, 2026",
+            "0133": "March 24, 2026",
+            "0135": "March 24, 2026",
+            "0136": "March 24, 2026",
+            "0137": "March 24, 2026",
+            "0138": "March 24, 2026",
+            "0139": "March 24, 2026",
+            "0140": "March 24, 2026",
+            "0141": "March 24, 2026",
+            "0142": "March 24, 2026",
+            "0144": "March 24, 2026",
+            "0145": "March 24, 2026",
+            "0146": "March 24, 2026",
+            "0147": "March 24, 2026",
+            "0148": "March 24, 2026",
+            "0149": "March 25, 2026",
+            "0150": "March 25, 2026",
+            "0151": "March 28, 2026",
+            "0152": "March 28, 2026",
+            "0153": "April 1, 2026",
+            "0154": "April 4, 2026",
+            "0155": "April 1, 2026",
+            "0156": "April 1, 2026",
+            "0157": "April 1, 2026",
+            "0158": "April 4, 2026",
+            "0159": "April 1, 2026",
+            "0160": "April 1, 2026",
+            "0161": "April 1, 2026",
+            "0162": "April 1, 2026",
+            "0163": "April 8, 2026",
+            "0164": "April 8, 2026",
+            "0165": "April 8, 2026",
+            "0166": "April 8, 2026",
+            "0167": "April 8, 2026",
+            "0168": "April 8, 2026",
+            "0169": "April 8, 2026",
+            "0170": "April 8, 2026",
+            "0171": "April 8, 2026",
+            "0172": "April 25, 2026"
+        };
+
+        function formatTcTitleWithRoman(str) {
+            if (!str) return '';
+            return str.split(/[\s-]+/).map(word => {
+                const upper = word.toUpperCase();
+                if (/^(I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII)$/.test(upper)) {
+                    return upper;
+                }
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }).join(' ');
+        }
+
+        function parseDefaultTcDirectory() {
+            const grouped = {};
+
+            rawTcFiles.forEach(file => {
+                const indexMatch = file.match(/^(\d+)/);
+                if (!indexMatch) return;
+                const index = indexMatch[1];
+                
+                let studentClass = "";
+                let name = "";
+                const baseName = file.substring(0, file.length - 4);
+                
+                if (baseName.includes('_')) {
+                    const parts = baseName.split('_');
+                    name = parts[1].replace(/-/g, ' ').trim();
+                } else {
+                    let remainder = baseName.replace(/^\d+[\s-_]*/, '');
+                    const classMatch = remainder.match(/CLASS[\s-_]+(NURSERY|LKG|UKG|SKG|[IVX]+|\d+)/i);
+                    if (classMatch) {
+                        studentClass = "Class " + classMatch[1].toUpperCase();
+                        remainder = remainder.replace(classMatch[0], '').trim();
+                    }
+                    name = remainder.replace(/[-_]+/g, ' ').trim();
+                }
+                
+                name = formatTcTitleWithRoman(name);
+                
+                if (index === "0083" || name.toLowerCase().includes("arya gupta")) {
+                    name = "Group II Arya Gupta";
+                    studentClass = "Class XI";
+                } else if (index === "0080" || name.toLowerCase().includes("aishani mandal")) {
+                    name = "Group I Aishani Mandal";
+                    studentClass = "Class XI";
+                } else if (index === "0047" || name.toLowerCase().includes("garima chowdhury")) {
+                    name = "Group III Garima Chowdhury";
+                    studentClass = "Class XI";
+                } else {
+                    name = name.replace(/^(Class\s+[IVX0-9]+|Group\s+[IVX0-9]+)\s+/i, '').trim();
+                }
+                
+                if (defaultClassOverrides[index]) studentClass = defaultClassOverrides[index];
+                if (!studentClass || studentClass === "Class ") studentClass = "N/A";
+                
+                if (name.includes("Dayita Chakraborty")) {
+                    name = "Dayita Chakraborty";
+                    studentClass = "Class X";
+                }
+                
+                const date = defaultTcDates[index] || "N/A";
+                const groupingKey = index + "_" + name.toLowerCase().replace(/[^a-z]/g, '');
+                
+                if (!grouped[groupingKey]) {
+                    grouped[groupingKey] = {
+                        id: 'tc_' + index + '_' + name.toLowerCase().replace(/[^a-z0-9]/g, ''),
+                        index: index,
+                        name: name,
+                        class: studentClass,
+                        studentClass: studentClass,
+                        date: date,
+                        displayDate: date,
+                        files: [file],
+                        file_path: "assets/TC/downloaded_pdfs/" + file
+                    };
+                } else {
+                    if (grouped[groupingKey].class === "N/A" && studentClass !== "N/A") {
+                        grouped[groupingKey].class = studentClass;
+                        grouped[groupingKey].studentClass = studentClass;
+                    }
+                    if (!grouped[groupingKey].files.includes(file)) {
+                        grouped[groupingKey].files.push(file);
+                    }
+                }
+            });
+
+            const candidates = Object.values(grouped);
+            // Reverse chronological sort (latest first) matching front end
+            candidates.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                if (dateA.getTime() !== dateB.getTime()) {
+                    return dateB.getTime() - dateA.getTime();
+                }
+                return parseInt(b.index) - parseInt(a.index);
+            });
+
+            return candidates;
+        }
+
+        function getFullAdminTcEntries() {
+            let defaultList = parseDefaultTcDirectory();
+            let customEntries = [];
+            let editedOverrides = {};
+
+            try {
+                customEntries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
+                editedOverrides = JSON.parse(localStorage.getItem('admin_tc_overrides') || '{}');
+            } catch(e) {}
+
+            // Apply overrides to default list
+            defaultList = defaultList.map(item => {
+                if (editedOverrides[item.id]) {
+                    return { ...item, ...editedOverrides[item.id] };
+                }
+                return item;
+            });
+
+            // Filter out deleted items
+            let deletedIds = [];
+            try {
+                deletedIds = JSON.parse(localStorage.getItem('admin_tc_deleted_ids') || '[]');
+            } catch(e) {}
+            defaultList = defaultList.filter(item => !deletedIds.includes(item.id));
+
+            const combined = [...customEntries, ...defaultList];
+
+            // Assign sequential #0001, #0002 serial numbers matching front end
+            combined.forEach((entry, i) => {
+                const srlNum = (i + 1).toString().padStart(4, '0');
+                entry.displaySrl = `#${srlNum}`;
+            });
+
+            return combined;
+        }
+
+        let adminTcSearchQuery = '';
+
+        function filterAdminTcEntries() {
+            const input = document.getElementById('tc-search-input');
+            adminTcSearchQuery = input ? input.value.trim().toLowerCase() : '';
+            renderTcEntries();
+        }
+
         function renderTcEntries() {
-            let entries = [];
-            if (isLocalFile) {
-                entries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
-            } else {
-                entries = (dbData && dbData.transfer_certificates) ? dbData.transfer_certificates : [];
-            }
             const container = document.getElementById('tc-entries-list');
             const badge = document.getElementById('tc-count-badge');
             if (!container) return;
 
-            badge.textContent = entries.length;
+            const allEntries = getFullAdminTcEntries();
+            badge.textContent = allEntries.length;
 
-            if (entries.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-light); font-size: 0.9rem;">No TC entries added yet. Use the form above to add entries.</p>';
+            let filtered = allEntries;
+            if (adminTcSearchQuery) {
+                filtered = allEntries.filter(entry => {
+                    const nameMatch = (entry.name || '').toLowerCase().includes(adminTcSearchQuery);
+                    const classMatch = (entry.studentClass || entry.class || '').toLowerCase().includes(adminTcSearchQuery);
+                    const srlMatch = (entry.displaySrl || '').toString().toLowerCase().includes(adminTcSearchQuery);
+                    const dateMatch = (entry.displayDate || entry.date || '').toLowerCase().includes(adminTcSearchQuery);
+                    return nameMatch || classMatch || srlMatch || dateMatch;
+                });
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-light); font-size: 0.9rem; padding: 1.5rem; text-align: center;">No TC entries matching "' + escapeHtml(adminTcSearchQuery) + '".</p>';
                 return;
             }
 
             container.innerHTML = '';
-            entries.forEach((entry, idx) => {
-                const srl = String(idx + 1).padStart(4, '0');
+            filtered.forEach((entry) => {
+                const srl = entry.displaySrl;
                 const row = document.createElement('div');
                 row.className = 'blog-item';
-                row.style.cssText = 'align-items: center; gap: 1rem;';
+                row.style.cssText = 'align-items: center; gap: 1rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border);';
                 
                 const fileUrl = entry.file_path || entry.fileDataUri || '';
                 
                 row.innerHTML = `
-                    <div style="width: 48px; height: 48px; border-radius: var(--radius-sm); background: rgba(245,124,0,0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0;">
+                    <div style="width: 44px; height: 44px; border-radius: var(--radius-sm); background: rgba(245,124,0,0.12); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0;">
                         <i class="ph ph-file-pdf"></i>
                     </div>
                     <div style="flex-grow: 1; min-width: 0;">
-                        <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">#${srl} — ${entry.name}</div>
-                        <div style="font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem;">${entry.studentClass || entry.class} &nbsp;|&nbsp; ${entry.displayDate || entry.date}</div>
+                        <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">${srl} — ${escapeHtml(entry.name)}</div>
+                        <div style="font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem;">${escapeHtml(entry.studentClass || entry.class || '')} &nbsp;|&nbsp; ${escapeHtml(entry.displayDate || entry.date || '')}</div>
                     </div>
-                    <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
-                        ${fileUrl ? `<a href="${fileUrl}" download="${entry.name.replace(/ /g,'-')}-TC.pdf" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8rem;"><i class="ph ph-download-simple"></i></a>` : `<span style="font-size: 0.8rem; color: var(--text-light);">No file</span>`}
-                        <button onclick="deleteTcEntry('${entry.id}')" class="btn btn-danger" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8rem;"><i class="ph ph-trash"></i></button>
+                    <div style="display: flex; gap: 0.5rem; flex-shrink: 0; align-items: center;">
+                        ${fileUrl ? `<a href="${fileUrl}" download="${(entry.name||'TC').replace(/ /g,'-')}-TC.pdf" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8rem;" title="Download PDF"><i class="ph ph-download-simple"></i></a>` : `<span style="font-size: 0.8rem; color: var(--text-light);">No file</span>`}
+                        <button onclick="openEditTcModal('${entry.id}')" class="btn btn-secondary" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8rem;" title="Edit TC"><i class="ph ph-pencil"></i></button>
+                        <button onclick="deleteTcEntry('${entry.id}')" class="btn btn-danger" style="width: auto; padding: 0.4rem 0.75rem; font-size: 0.8rem;" title="Delete TC"><i class="ph ph-trash"></i></button>
                     </div>
                 `;
                 container.appendChild(row);
             });
         }
 
+        function openEditTcModal(id) {
+            const allEntries = getFullAdminTcEntries();
+            const entry = allEntries.find(e => String(e.id) === String(id));
+            if (!entry) return;
+
+            document.getElementById('edit-tc-id').value = entry.id;
+            document.getElementById('edit-tc-name').value = entry.name || '';
+            document.getElementById('edit-tc-class').value = entry.studentClass || entry.class || 'Class I';
+            document.getElementById('edit-tc-date').value = entry.displayDate || entry.date || '';
+            document.getElementById('edit-tc-file').value = '';
+
+            openModal('modal-edit-tc');
+        }
+
+        async function saveEditedTcEntry(e) {
+            e.preventDefault();
+            const id = document.getElementById('edit-tc-id').value;
+            const name = document.getElementById('edit-tc-name').value.trim();
+            const studentClass = document.getElementById('edit-tc-class').value;
+            const date = document.getElementById('edit-tc-date').value.trim();
+            const fileInput = document.getElementById('edit-tc-file');
+
+            let newFileUri = null;
+            if (fileInput.files.length > 0) {
+                try {
+                    newFileUri = await getBase64(fileInput.files[0]);
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+
+            let customEntries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
+            const customIdx = customEntries.findIndex(e => String(e.id) === String(id));
+
+            if (customIdx !== -1) {
+                customEntries[customIdx].name = name;
+                customEntries[customIdx].class = studentClass;
+                customEntries[customIdx].studentClass = studentClass;
+                customEntries[customIdx].date = date;
+                customEntries[customIdx].displayDate = date;
+                if (newFileUri) {
+                    customEntries[customIdx].fileDataUri = newFileUri;
+                    customEntries[customIdx].file_path = newFileUri;
+                }
+                localStorage.setItem('admin_tc_entries', JSON.stringify(customEntries));
+            } else {
+                let overrides = JSON.parse(localStorage.getItem('admin_tc_overrides') || '{}');
+                overrides[id] = {
+                    ...(overrides[id] || {}),
+                    name: name,
+                    class: studentClass,
+                    studentClass: studentClass,
+                    date: date,
+                    displayDate: date
+                };
+                if (newFileUri) {
+                    overrides[id].fileDataUri = newFileUri;
+                    overrides[id].file_path = newFileUri;
+                }
+                localStorage.setItem('admin_tc_overrides', JSON.stringify(overrides));
+            }
+
+            closeModal('modal-edit-tc');
+            renderTcEntries();
+            showToast('Transfer Certificate entry updated successfully!', 'success');
+        }
+
         function deleteTcEntry(id) {
             if (!confirm('Are you sure you want to delete this TC entry?')) return;
-            if (isLocalFile) {
-                let entries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
-                entries = entries.filter(e => e.id !== id);
-                localStorage.setItem('admin_tc_entries', JSON.stringify(entries));
-                renderTcEntries();
+            
+            let customEntries = JSON.parse(localStorage.getItem('admin_tc_entries') || '[]');
+            if (customEntries.some(e => String(e.id) === String(id))) {
+                customEntries = customEntries.filter(e => String(e.id) !== String(id));
+                localStorage.setItem('admin_tc_entries', JSON.stringify(customEntries));
             } else {
-                fetch('admin_api.php?action=delete_tc', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ id })
-                })
-                .then(res => res.json())
-                .then(resData => {
-                    if (resData.success) {
-                        loadDashboardData();
-                    } else {
-                        alert('Error: ' + resData.message);
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Failed to delete TC entry.');
-                });
+                let deletedIds = JSON.parse(localStorage.getItem('admin_tc_deleted_ids') || '[]');
+                if (!deletedIds.includes(id)) {
+                    deletedIds.push(id);
+                    localStorage.setItem('admin_tc_deleted_ids', JSON.stringify(deletedIds));
+                }
             }
+
+            renderTcEntries();
+            showToast('TC entry deleted.', 'info');
         }
+
+
 
         // ==========================================
         // FEEDBACK MANAGER FUNCTIONS
@@ -6639,6 +7914,60 @@
                 <div class="modal-footer">
                     <button type="button" onclick="closeModal('hero-notice-modal')" class="btn btn-secondary">Cancel</button>
                     <button type="submit" class="btn btn-accent">Save Notice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Edit TC Modal -->
+    <div id="modal-edit-tc" class="modal">
+        <div class="modal-card" style="max-width: 550px;">
+            <h3 id="edit-tc-modal-title">Edit Transfer Certificate</h3>
+            <form id="edit-tc-form" onsubmit="saveEditedTcEntry(event)">
+                <input type="hidden" id="edit-tc-id" value="">
+                
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Student Full Name <span style="color: #ef4444;">*</span></label>
+                    <input type="text" id="edit-tc-name" class="form-input" placeholder="e.g. Sampurna Ghosh" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Class <span style="color: #ef4444;">*</span></label>
+                    <select id="edit-tc-class" class="form-input" required>
+                        <option value="Class Nursery">Class Nursery</option>
+                        <option value="Class LKG">Class LKG</option>
+                        <option value="Class UKG">Class UKG</option>
+                        <option value="Class SKG">Class SKG</option>
+                        <option value="Class I">Class I</option>
+                        <option value="Class II">Class II</option>
+                        <option value="Class III">Class III</option>
+                        <option value="Class IV">Class IV</option>
+                        <option value="Class V">Class V</option>
+                        <option value="Class VI">Class VI</option>
+                        <option value="Class VII">Class VII</option>
+                        <option value="Class VIII">Class VIII</option>
+                        <option value="Class IX">Class IX</option>
+                        <option value="Class X">Class X</option>
+                        <option value="Class XI">Class XI</option>
+                        <option value="Class XII">Class XII</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">TC Issue Date <span style="color: #ef4444;">*</span></label>
+                    <input type="text" id="edit-tc-date" class="form-input" placeholder="e.g. August 20, 2026 or 2026-08-20" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.25rem;">
+                    <label style="display: block; margin-bottom: 0.35rem; font-weight: 600; font-size: 0.85rem;">Replace TC PDF Document (Optional)</label>
+                    <input type="file" id="edit-tc-file" class="form-input" accept=".pdf,application/pdf">
+                    <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.35rem;">Leave empty to keep existing PDF document.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" onclick="closeModal('modal-edit-tc')" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-accent"><i class="ph ph-floppy-disk"></i> Update TC Entry</button>
                 </div>
             </form>
         </div>

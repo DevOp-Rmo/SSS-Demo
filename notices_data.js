@@ -1,6 +1,32 @@
 function getDefaultLocalNotices() {
     return [
     {
+        "id": "wp_notice_56",
+        "section": "senior",
+        "class": "Class X",
+        "category": "general",
+        "date": "2026-08-25",
+        "title": "Notice regarding distribution of Class X mark sheet, Session 2025 – 2026",
+        "content": "<p>Please view the attached notice regarding distribution of Class X mark sheet, Session 2025 – 2026.</p>",
+        "file_paths": [
+            "assets/Post/Update_Notice/2026-08 25- Notice regarding distribution of Class X mark sheet, Session 2025 – 2026 – General Notice/20260825-Class-Xth-Marksheets-distribution-2026_001.jpg"
+        ],
+        "file_path": "assets/Post/Update_Notice/2026-08 25- Notice regarding distribution of Class X mark sheet, Session 2025 – 2026 – General Notice/20260825-Class-Xth-Marksheets-distribution-2026_001.jpg"
+    },
+    {
+        "id": "wp_notice_55",
+        "section": "senior",
+        "class": "Class XI",
+        "category": "exam",
+        "date": "2026-08-24",
+        "title": "Notice cum datesheet of Mid Term Examination of Class XI",
+        "content": "<p>Please view the attached notice regarding Notice cum datesheet of Mid Term Examination of Class XI.</p>",
+        "file_paths": [
+            "assets/Post/Update_Notice/2026-08 24- Notice cum datesheet of Mid Term Examination of Class XI – General Notice/20260824_MID-TERM-EXAMINATION-XI-2026-27_001.jpg"
+        ],
+        "file_path": "assets/Post/Update_Notice/2026-08 24- Notice cum datesheet of Mid Term Examination of Class XI – General Notice/20260824_MID-TERM-EXAMINATION-XI-2026-27_001.jpg"
+    },
+    {
         "id": "wp_notice_53",
         "section": "junior",
         "class": [

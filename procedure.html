@@ -331,6 +331,78 @@
             box-shadow: 0 15px 30px rgba(242, 156, 31, 0.4);
         }
 
+        .proc-action-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .proc-portal-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .proc-portal-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+        }
+        .proc-portal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            margin-bottom: 0.85rem;
+            align-self: flex-start;
+        }
+        .proc-portal-badge.badge-orange {
+            background: rgba(242, 156, 31, 0.3);
+            color: #ffbe59;
+            border: 1px solid rgba(242, 156, 31, 0.4);
+        }
+        .proc-portal-heading {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+        .proc-portal-desc {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .proc-portal-card .proc-apply-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 0.85rem 1.25rem;
+            font-size: 0.85rem;
+        }
+        .proc-portal-card .proc-apply-btn.btn-orange {
+            background-color: var(--accent-orange);
+            color: var(--white);
+        }
+        .proc-portal-card .proc-apply-btn.btn-orange:hover {
+            background-color: #ffffff;
+            color: var(--primary-blue);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -738,11 +810,29 @@
             <div class="proc-action-box">
                 <h2 class="proc-action-title">Ready to Apply for Admission?</h2>
                 <p class="proc-action-text">
-                    Applications for the Academic Session 2026-2027 are processed exclusively through our online ERP portal. Get started today!
+                    Applications for Academic Session 2026-2027 are processed online. Please select the appropriate portal below to proceed:
                 </p>
-                <a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank" class="proc-apply-btn">
-                    Access ERP Admission Portal <i class="ph ph-arrow-square-out"></i>
-                </a>
+                <div class="proc-action-cards-grid">
+                    <!-- 1. Insider Students -->
+                    <div class="proc-portal-card">
+                        <div class="proc-portal-badge"><i class="ph-bold ph-student"></i> INSIDER STUDENTS</div>
+                        <h4 class="proc-portal-heading">Existing SSY Students</h4>
+                        <p class="proc-portal-desc">For current Shri Shikshayatan students progressing or applying internally via School ERP portal.</p>
+                        <a href="https://erp.shrishikshayatanschool.com:8443/hrclIRP/startup.do" target="_blank" class="proc-apply-btn">
+                            Access ERP Admission Portal <i class="ph ph-arrow-square-out"></i>
+                        </a>
+                    </div>
+
+                    <!-- 2. Outsider Students -->
+                    <div class="proc-portal-card">
+                        <div class="proc-portal-badge badge-orange"><i class="ph-bold ph-buildings"></i> OUTSIDER STUDENTS</div>
+                        <h4 class="proc-portal-heading">New External Applicants</h4>
+                        <p class="proc-portal-desc">For candidates seeking new admission from other schools via AdmissionTree application portal.</p>
+                        <a href="https://www.admissiontree.in/schools/shri-shikshayatan-school" target="_blank" class="proc-apply-btn btn-orange">
+                            Access AdmissionTree Portal <i class="ph ph-arrow-square-out"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -766,7 +856,7 @@
                     </div>
                     <div class="address-block">
                         <i class="ph-fill ph-map-pin"></i>
-                        <p>11, Lord Sinha Road,<br>8, Lord Sinha Road,<br>Kolkata 700 071</p>
+                        <p>11, Lord Sinha Road,<br>Kolkata 700 071</p>
                     </div>
                     <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.811559403816!2d88.3475731760416!3d22.54801127950836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02771346af1929%3A0xc3c9a5bb78601d32!2sShri%20Shikshayatan%20School!5e0!3m2!1sen!2sin!4v1714457493521!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
